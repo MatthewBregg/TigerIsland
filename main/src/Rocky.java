@@ -1,10 +1,10 @@
 
-public class Rocky {
+public class Rocky extends Terrain{
 	private static Rocky instance;
 	
 	private Rocky(){}
 	
-	public static Rocky instance(){
+	public static Rocky getInstance(){
 		if(instance == null)
 		{
 			instance=new Rocky();
