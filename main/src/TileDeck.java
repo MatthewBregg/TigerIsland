@@ -8,9 +8,11 @@ public class TileDeck {
     }
 
     private void initialize(){
+        // TODO: May be unnecessary
     }
 
     private void shuffleDeck(int seed){
+        // TODO: Is this necessary?
     }
 
     private void addTile(Tile tile){
