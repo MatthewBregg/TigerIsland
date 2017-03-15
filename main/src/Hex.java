@@ -12,7 +12,7 @@ public class Hex {
         // we decide on id format
         tileID = (int)(Math.random() * 100);
         settlementID = (int)(Math.random() * 100);
-        terrain = new Terrain();
+        terrain = Rocky.getInstance();
         level = 1;
     }
 

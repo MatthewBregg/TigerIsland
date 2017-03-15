@@ -32,10 +32,10 @@ public class Tile {
     private Terrain rightTerrain;
 
    public Tile(){
-       id = (int)(Math.random() * 100);
+       id = 5;
        orientation = "left";
-       leftTerrain = new Terrain();
-       rightTerrain = new Terrain();
+       leftTerrain = Rocky.getInstance();
+       rightTerrain = Grassland.getInstance();
    }
 
    public Tile(int id, String orientation, Terrain leftTerrain, Terrain rightTerrain){
