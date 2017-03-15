@@ -7,20 +7,24 @@ public class TileDeck {
         tiles = new Vector<Tile>();
     }
 
-    public Tile getTile(){
-        return null;
-    }
-
-    public int getCount(){
-        return tiles.size();
+    private void initialize(){
     }
 
     private void shuffleDeck(int seed){
-        
     }
 
     private void addTile(Tile tile){
         tiles.add(tile);
+    }
+
+    public Tile getTile(){
+        if(isEmpty())
+            return null;
+        return tiles.remove(0);
+    }
+
+    public int getCount(){
+        return tiles.size();
     }
 
     public boolean isEmpty(){
