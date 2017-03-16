@@ -1,3 +1,4 @@
+package Terrain;
 
 public class Jungle extends Terrain{
 	private static Jungle instance;

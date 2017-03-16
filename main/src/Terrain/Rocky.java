@@ -1,3 +1,4 @@
+package Terrain;
 
 public class Rocky extends Terrain{
 	private static Rocky instance;

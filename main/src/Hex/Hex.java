@@ -1,3 +1,9 @@
+package Hex;
+
+import Terrain.Terrain;
+import Terrain.Rocky;
+
+
 /**
  * Created by christinemoore on 3/13/17.
  */

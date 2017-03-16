@@ -1,12 +1,18 @@
+package Tile;
+
+import Terrain.Terrain;
+import Terrain.Grassland;
+import Terrain.Rocky;
+
 /**
  * Created by christinemoore on 3/2/17.
- * Hex tiles can have 16 different representations
+ * Hex.Hex tiles can have 16 different representations
  * of the 3 terrain types
  *
- * Jungle = J
- * Lake = L
+ * Terrain.Jungle = J
+ * Terrain.Lake = L
  * Grass = G
- * Rocky = R
+ * Terrain.Rocky = R
  *
  *      J    L   G   R
  *

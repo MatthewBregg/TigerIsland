@@ -1,3 +1,4 @@
+package Terrain;
 
 public class Grassland extends Terrain{
 	private static Grassland instance;

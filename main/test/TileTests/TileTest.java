@@ -1,7 +1,11 @@
-/**
+package TileTests; /**
  * Created by christinemoore on 3/14/17.
  */
 
+import Terrain.Grassland;
+import Terrain.Terrain;
+import Terrain.Rocky;
+import Tile.Tile;
 import org.junit.*;
 
 

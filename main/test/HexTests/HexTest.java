@@ -1,7 +1,10 @@
-/**
+package HexTests; /**
  * Created by christinemoore on 3/14/17.
  */
 
+import Hex.Hex;
+import Terrain.Terrain;
+import Terrain.Rocky;
 import org.junit.*;
 
 

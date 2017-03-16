@@ -9,7 +9,7 @@ import cucumber.api.java.en.Then;
  * Created by mbregg on 3/16/17.
  */
 
-public class MyStepdefs {
+public class ZExampleCucumberSteps {
     String cucumberTaste = "";
     @Given("^I have a cucumber$")
     public void iHaveACucumber() throws Throwable {
