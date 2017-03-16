@@ -41,7 +41,7 @@ public class HexBoardTest {
         // Arrange
         Location location = new Location(0, 0, 0);
 
-        Location unPlacedLocation = new Location(1, 1, 1);
+        Location unPlacedLocation = new Location(1, -1, 0);
 
         Hex hex = new Hex();
 
@@ -63,7 +63,7 @@ public class HexBoardTest {
 
         // Act
         for (int i = 0; i < 3; ++i)
-            locationList.add(new Location(i, i, i));
+            locationList.add(new Location(i, -i, 0));
 
         for (Location location : locationList) {
             Hex newHex = new Hex();
@@ -90,7 +90,8 @@ public class HexBoardTest {
 
         // Act
         for (int i = 0; i < 3; ++i)
-            locationList.add(new Location(i, i, i));
+            locationList.add(new Location(i, -i, 0));
+
 
         for (Location location : locationList) {
             Hex newHex = new Hex();
@@ -98,9 +99,17 @@ public class HexBoardTest {
             hexList.add(newHex);
         }
 
+        List<Location> boardLocations = hexBoard.getUsedBoardLocations();
+
         // Assert
 
-        Assert.assertEquals(locationList, hexBoard.getUsedBoardLocations());
+        //HashMap returns the correct coordinates but in a different order therefore:
+
+        //check that all coordinates are being returned
+        Assert.assertTrue(boardLocations.containsAll(locationList));
+
+        //check that no extra coordinates are being returned
+        Assert.assertTrue(boardLocations.size()==locationList.size());
     }
 
 }
