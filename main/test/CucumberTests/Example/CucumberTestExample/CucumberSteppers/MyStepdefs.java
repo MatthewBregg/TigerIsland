@@ -1,4 +1,4 @@
-package CucumberTestExample.CucumberSteppers;
+package CucumberTests.Example.CucumberTestExample.CucumberSteppers;
 
 import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
