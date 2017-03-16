@@ -1,4 +1,4 @@
-package Piece;
+package piece;
 
 /**
  * Created by mbregg on 3/15/17.
