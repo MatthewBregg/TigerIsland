@@ -3,35 +3,35 @@ import java.util.Random;
 
 public class TileDeck {
     private Vector<Tile> tiles;
+    private int tileTypes;
+    private int countPerTileType;
 
     public TileDeck(long seed){
         tiles = new Vector<Tile>();
+        tileTypes = 16;
+        countPerTileType = 3;
+
+        initialize(seed);
     }
 
     private void initialize(long seed){
-        /*
-        // randomization of numbers 1-48 (0-47)
-        // mod(random#, 16) chooses tile type
-        // new tile added to tileDeck
-        // should this always set the deck to 48 cards?
-        */
-        int initialDeckSize = 48;
+        tiles.clear();
+        int initialDeckSize = getMaxDeckSize();
 
-        // generate numbers to represent each of 48 cards
-        Vector<Integer> cardInts = new Vector<Integer>();
+        // generate numbers to represent each of cards
+        Vector<Integer> cardInts = new Vector<Integer>(initialDeckSize);
         for(int i = 0; i < initialDeckSize; ++i)
-            cardInts.add(i);
+            cardInts.add(i, i);
 
         // create random generator
         Random randomGenerator = new Random(seed);
 
 
         // generate cards based on generator
-        int cardTypeCount = 16;
         int cardID = 0;
         for(int i = initialDeckSize; i > 0; i--){
             int randInt = randomGenerator.nextInt(i);
-            int cardInt = Math.floorMod(randInt, cardTypeCount);
+            int cardInt = Math.floorMod(randInt, tileTypes);
 
             Tile tempTile = generateTile(cardInt, cardID);
             tiles.add(tempTile);
@@ -40,17 +40,17 @@ public class TileDeck {
         }
     }
 
+    private int getMaxDeckSize(){
+        return (tileTypes * countPerTileType);
+    }
+
     private Tile generateTile(int cardInt, int cardID) {
-        // Need to determine terrains
+        // TODO: Need to determine terrains
         Terrain leftTerrain = new Terrain();
         Terrain rightTerrain = new Terrain();
 
         Tile newTile = new Tile(cardID, /* Orientation placeholder */ "left", leftTerrain, rightTerrain);
         return newTile;
-    }
-
-    private void shuffleDeck(int seed){
-        // TODO: Is this necessary?
     }
 
     private void addTile(Tile tile){

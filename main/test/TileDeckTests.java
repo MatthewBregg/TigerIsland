@@ -1,27 +1,24 @@
 import org.junit.Assert;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class TileDeckTests {
     @Test
-    public void createTileDeckTest(){
+    public void constructorTileDeckTest(){
         TileDeck tileDeck = new TileDeck(0);
         assertNotEquals(tileDeck, null);
     }
 
     @Test
-    public void newTileDeckZeroCountTest(){
-        TileDeck tileDeck = new TileDeck(0);
-        assertEquals(tileDeck.getCount(), 0);
-        assertTrue(tileDeck.isEmpty());
+    public void initializeTileDeckTest(){
+        TileDeck tileDeck = new TileDeck(3);
+        assertEquals(tileDeck.getCount(), 48);
     }
 
     @Test
-    public void newEmptyTileDeck(){
+    public void emptyTileDeckTest(){
         TileDeck tileDeck = new TileDeck(0);
-        assertTrue(tileDeck.isEmpty());
+        assertFalse(tileDeck.isEmpty());
     }
 }
