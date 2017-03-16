@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.instanceOf;
-import static org.junit.Assert.*;
 
 /**
  * Created by josh on 3/15/17.
@@ -14,7 +13,6 @@ import static org.junit.Assert.*;
 public class HexBoardTest {
 
     private HexBoard hexBoard;
-
 
     @Before
     public void setUp() {
@@ -32,16 +30,16 @@ public class HexBoardTest {
         hexBoard.placeHex(location, hex);
 
         // Assert
-
         Assert.assertEquals(hexBoard.getHex(location), hex);
     }
 
     @Test
     public void test_ShouldReturnNullHexWhenLocationIsNotUsed() {
+
         // Arrange
         Location location = new Location(0, 0, 0);
 
-        Location unPlacedLocation = new Location(1, 1, 1);
+        Location unPlacedLocation = new Location(1, -1, 0);
 
         Hex hex = new Hex();
 
@@ -49,48 +47,39 @@ public class HexBoardTest {
         hexBoard.placeHex(location, hex);
 
         // Assert
-
         Assert.assertThat(hexBoard.getHex(unPlacedLocation), instanceOf(NullHex.class));
 
     }
 
     @Test
-    public void test_ShouldDemonstrateDifferentLocationsShouldHaveDifferentHexes() {
-        // Arrange
+    public void test_ShouldDemonstrateDifferentLocationsShouldHaveDifferentHexes(){
 
-        List<Location> locationList = new ArrayList<Location>();
-        List<Hex> hexList = new ArrayList<Hex>();
+        //Arrange
+        Location location = new Location(0,1,-1);
+        Location location1 = new Location(0, 2, -2);
 
-        // Act
-        for (int i = 0; i < 3; ++i)
-            locationList.add(new Location(i, i, i));
+        Hex hex = new Hex();
+        Hex hex1 = new Hex();
 
-        for (Location location : locationList) {
-            Hex newHex = new Hex();
-            hexBoard.placeHex(location, newHex);
-            hexList.add(newHex);
-        }
+        //Act
+        hexBoard.placeHex(location, hex);
+        hexBoard.placeHex(location1, hex1);
 
-        // Assert
-
-        List<Hex> returnedHexes = new ArrayList<Hex>();
-        Hex returnedHex;
-        for (Location location : locationList) {
-            returnedHex = hexBoard.getHex(location);
-            Assert.assertFalse(returnedHexes.contains(returnedHex));
-            returnedHexes.add(returnedHex);
-        }
+        //Assert
+        Assert.assertNotEquals(hexBoard.getHex(location), hexBoard.getHex(location1));
     }
+
     @Test
     public void test_ShouldReturnUsedBoardLocations(){
 
-
+        //Arrange
         List<Location> locationList = new ArrayList<Location>();
         List<Hex> hexList = new ArrayList<Hex>();
 
         // Act
-        for (int i = 0; i < 3; ++i)
-            locationList.add(new Location(i, i, i));
+        for (int i = 0; i < 3; ++i) {
+            locationList.add(new Location(i, -i, 0));
+        }
 
         for (Location location : locationList) {
             Hex newHex = new Hex();
@@ -98,9 +87,11 @@ public class HexBoardTest {
             hexList.add(newHex);
         }
 
-        // Assert
+        List<Location> boardLocations = hexBoard.getUsedBoardLocations();
 
-        Assert.assertEquals(locationList, hexBoard.getUsedBoardLocations());
+        // Assert
+        Assert.assertTrue(boardLocations.containsAll(locationList));
+        Assert.assertEquals(boardLocations.size(), hexBoard.getSize());
     }
 
 }

@@ -6,8 +6,6 @@ import java.util.List;
  * Created by josh and on 3/15/17.
  */
 
-
-
 public class HexBoard implements Board{
     private HashMap<Location, Hex> board;
 
@@ -31,5 +29,10 @@ public class HexBoard implements Board{
             return board.get(location);
         else
             return new NullHex();
+    }
+
+    @Override
+    public int getSize() {
+        return this.board.size();
     }
 }
