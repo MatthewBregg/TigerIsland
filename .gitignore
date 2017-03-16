@@ -3,7 +3,12 @@
 // IntelliJ
 *.idea
 *.iml
+.idea/
 
+// Libraries
+lib/
+// Binaries
+main/bin/
 // Output file
 *out/
 
