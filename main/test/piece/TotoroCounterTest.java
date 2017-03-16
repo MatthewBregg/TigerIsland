@@ -1,8 +1,6 @@
-package Piece;
+package piece;
 
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by mbregg on 3/15/17.

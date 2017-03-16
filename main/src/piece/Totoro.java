@@ -1,10 +1,10 @@
-package Piece;
+package piece;
 
 /**
  * Created by mbregg on 3/15/17.
  */
-public class Villager implements Piece {
+public class Totoro implements Piece {
     public void accept(PieceVisitor visitor) {
-        visitor.visitVillager(this);
+        visitor.visitTotoro(this);
     }
 }
