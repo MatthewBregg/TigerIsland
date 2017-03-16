@@ -4,7 +4,7 @@ public class Volcano extends Terrain {
 	
 	private Volcano(){}
 	
-	public static Volcano instance(){
+	public static Volcano getInstance(){
 		if(instance == null)
 		{
 			instance=new Volcano();
