@@ -1,6 +1,7 @@
 /**
  * Created by christinemoore on 3/13/17.
  */
+
 public class Hex {
     private int tileID;
     private int settlementID;
@@ -8,8 +9,6 @@ public class Hex {
     private int level;
 
     public Hex(){
-        // literally just made up a placeholder IDs until
-        // we decide on id format
         tileID = (int)(Math.random() * 100);
         settlementID = (int)(Math.random() * 100);
         terrain = Rocky.getInstance();
