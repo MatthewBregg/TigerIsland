@@ -1,4 +1,4 @@
-package piece;
+package tigerisland.piece;
 
 /**
  * Created by mbregg on 3/15/17.

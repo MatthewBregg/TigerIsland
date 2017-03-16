@@ -1,8 +1,11 @@
-/**
+package tigerisland; /**
  * Created by christinemoore on 3/14/17.
  */
 
 import org.junit.*;
+import tigerisland.Hex;
+import tigerisland.Rocky;
+import tigerisland.Terrain;
 
 
 public class HexTest {

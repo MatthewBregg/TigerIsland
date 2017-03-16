@@ -1,6 +1,12 @@
+package tigerisland;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import tigerisland.Hex;
+import tigerisland.HexBoard;
+import tigerisland.Location;
+import tigerisland.NullHex;
 
 import java.util.ArrayList;
 import java.util.List;

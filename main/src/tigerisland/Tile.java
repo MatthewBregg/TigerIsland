@@ -1,12 +1,14 @@
+package tigerisland;
+
 /**
  * Created by christinemoore on 3/2/17.
- * Hex tiles can have 16 different representations
+ * tigerisland.Hex tiles can have 16 different representations
  * of the 3 terrain types
  *
- * Jungle = J
- * Lake = L
+ * tigerisland.Jungle = J
+ * tigerisland.Lake = L
  * Grass = G
- * Rocky = R
+ * tigerisland.Rocky = R
  *
  *      J    L   G   R
  *

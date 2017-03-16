@@ -1,3 +1,4 @@
+package tigerisland;
 
 public class Player {
 	private PlayerID id;

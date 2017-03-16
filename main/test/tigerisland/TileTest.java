@@ -1,8 +1,12 @@
-/**
+package tigerisland; /**
  * Created by christinemoore on 3/14/17.
  */
 
 import org.junit.*;
+import tigerisland.Grassland;
+import tigerisland.Rocky;
+import tigerisland.Terrain;
+import tigerisland.Tile;
 
 
 public class TileTest {

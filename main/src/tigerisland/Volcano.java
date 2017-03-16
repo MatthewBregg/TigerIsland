@@ -1,3 +1,4 @@
+package tigerisland;
 
 public class Volcano extends Terrain {
 	private static Volcano instance;
