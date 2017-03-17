@@ -192,6 +192,6 @@ public class Orientation
 			return "Southeast";
 		}
 		
-		return "Unknown Direction";
+		return "Unknown Direction"; //Unreachable but required for compilation
 	}
 }

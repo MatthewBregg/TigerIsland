@@ -28,7 +28,7 @@ public class LocationTest
         Location loc = new Location(5, 5);
         assertTrue(this.loc.equals(loc));
     }
-    
+
     @Test
     public void getAdjacent_East_ValidEast()
     {
