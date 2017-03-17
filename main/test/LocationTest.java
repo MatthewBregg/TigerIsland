@@ -1,6 +1,7 @@
 import org.junit.Before;
 import org.junit.Test;
 
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 
 import static org.junit.Assert.*;
@@ -15,15 +16,19 @@ public class LocationTest
         loc = new Location(5, 5, -10);
     }
 
-    @Test
+    @Test(expected = InvalidParameterException.class)
     public void Constructor_InvalidLocation_ThrowsException()
     {
-        Orientation orient = Orientation.getEast();
-        Location newLoc = loc.getAdjacent(orient);
-
-        assertEquals(new Location(6, 4, -10), newLoc);
+        Location loc = new Location(6, 4, -1);
     }
 
+    @Test
+    public void Constructor_DifferentConstructors_SameResult()
+    {
+        Location loc = new Location(5, 5);
+        assertTrue(this.loc.equals(loc));
+    }
+    
     @Test
     public void getAdjacent_East_ValidEast()
     {
