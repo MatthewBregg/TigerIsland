@@ -45,7 +45,7 @@ public class TileDeck {
     }
 
     private Tile generateTile(int cardInt, int cardID) {
-        // TODO: Need to determine terrains
+        // TODO: Need to determine terrains and add orientation
         Terrain leftTerrain = new Terrain();
         Terrain rightTerrain = new Terrain();
 
