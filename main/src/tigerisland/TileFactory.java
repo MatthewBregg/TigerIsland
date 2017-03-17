@@ -17,6 +17,7 @@ public class TileFactory {
                 }
             }
         }
+        return null;
     }
 
     public static Tile getTile(int i) {
