@@ -1,3 +1,5 @@
+package tigerisland;
+
 import java.util.Vector;
 import java.util.Random;
 
@@ -33,7 +35,7 @@ public class TileDeck {
             int randInt = randomGenerator.nextInt(i);
             int cardInt = Math.floorMod(randInt, tileTypes);
 
-            Tile tempTile = generateTile(cardInt, cardID);
+            Tile tempTile = getTile(cardInt, cardID);
             tiles.add(tempTile);
 
             cardID++;
@@ -44,12 +46,14 @@ public class TileDeck {
         return (tileTypes * countPerTileType);
     }
 
-    private Tile generateTile(int cardInt, int cardID) {
+    private Tile getTile(int cardInt, int cardID) {
         // TODO: Need to determine terrains and add orientation
-        Terrain leftTerrain = new Terrain();
-        Terrain rightTerrain = new Terrain();
+        Terrain leftTerrain;
+        Terrain rightTerrain;
 
-        Tile newTile = new Tile(cardID, /* Orientation placeholder */ "left", leftTerrain, rightTerrain);
+        Tile newTile = new Tile();
+        /* Need to ID tile? */
+        // Tile newTile = new Tile(cardID, /* Orientation placeholder */ "left", leftTerrain, rightTerrain);
         return newTile;
     }
 
