@@ -1,3 +1,4 @@
+package tigerisland;
 
 public class Lake extends Terrain {
 	private static Lake instance;
