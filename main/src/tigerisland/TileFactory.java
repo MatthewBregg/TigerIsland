@@ -11,10 +11,10 @@ public class TileFactory {
         int id = 0;
         for (Terrain i : terrainTypes) {
             for (Terrain j : terrainTypes) {
-                ++id;
                 if (id == desired_id) {
                     return (new Tile(id, "", i, j));
                 }
+                ++id;
             }
         }
         return null;
