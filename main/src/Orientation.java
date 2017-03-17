@@ -21,11 +21,11 @@ public class Orientation
 		this.dy = dy;
 		this.dz = dz;
 		
-		if(-(dx+dy)!=dz){
+		if(dx + dy + dz != 0){
 			throw new InvalidParameterException("dx + dy + dz must equal zero");
 		}
 		
-		calculateAngle(dx,dy);
+		calculateAngle();
 	}
 	
 	public Orientation(int dx, int dy)
@@ -34,36 +34,76 @@ public class Orientation
 		this.dy = dy;
 		this.dz = -(dx+dy);
 		
-		calculateAngle(dx,dy);
+		calculateAngle();
 	}
 
 	public Orientation(int angle)
 	{
-		this.dx = dx;
-		this.dy = dy;
-		this.dz = -(dx+dy);
-		
-		calculateAngle(dx,dy);
+		this.angle=angle;
+
+		calculateOffset();
 	}
-	
-	private void calculateAngle(int dx2, int dy2) {
-		if(dx==0 && dy ==-1){
+
+
+	private void calculateAngle() {
+		if(dx == 0 && dy == -1 && dz == 1){
 			angle = SOUTHEAST;
 		}
-		if(dx==1 && dy ==-1){
+		else if(dx == 1 && dy == -1 && dz == 0){
 			angle = EAST;
 		}
-		if(dx==-1 && dy ==0){
+		else if(dx == -1 && dy == 0 && dz == 1){
 			angle = SOUTHWEST;
 		}
-		if(dx==0 && dy ==1){
+		else if(dx == 0 && dy == 1 && dz == -1){
 			angle = NORTHWEST;
 		}
-		if(dx==1 && dy ==0){
+		else if(dx == 1 && dy == 0 && dz == -1){
 			angle = NORTHEAST;
 		}
-		if(dx==-1 && dy ==1){
+		else if(dx == -1 && dy == 1 && dz == 0){
 			angle = WEST;
+		}
+		else {
+            throw new InvalidParameterException("(" + dx + ", " + dy + ", " + dz + ") is not a valid orientation");
+        }
+	}
+
+	private void calculateOffset() {
+		switch(angle)
+		{
+			case EAST:
+				dx=1;
+				dy=-1;
+				dz=0;
+				break;
+			case NORTHEAST:
+				dx=1;
+				dy=0;
+				dz=-1;
+				break;
+			case NORTHWEST:
+				dx=0;
+				dy=1;
+				dz=-1;
+				break;
+			case WEST:
+				dx=-1;
+				dy=1;
+				dz=0;
+				break;
+			case SOUTHWEST:
+				dx=-1;
+				dy=0;
+				dz=1;
+				break;
+			case SOUTHEAST:
+				dx=0;
+				dy=-1;
+				dz=1;
+				break;
+            default:
+                throw new InvalidParameterException(angle + " is not a valid angle for orientation");
 		}
 	}
 
