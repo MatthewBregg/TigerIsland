@@ -1,5 +1,8 @@
+package tigerisland;
+
 import org.junit.BeforeClass;
 import org.junit.Test;
+import tigerisland.Orientation;
 
 import java.security.InvalidParameterException;
 

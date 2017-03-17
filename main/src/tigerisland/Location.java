@@ -16,7 +16,7 @@ public class Location
 		this.y = y;
 		this.z = z;
 
-		if(x+y+z!=0)
+		if(x + y + z != 0)
 		{
 			throw new InvalidParameterException("x+y+z must equal zero");
 		}
@@ -52,16 +52,13 @@ public class Location
 	public ArrayList<Location> getSurroundingLocations()
 	{
 		ArrayList<Location> locs=new ArrayList<Location>();
-		Orientation[] mds = {Orientation.getSouthEast(), Orientation.getEast(), 
-				Orientation.getSouthWest(), Orientation.getNorthWest(), 
-				Orientation.getWest(), Orientation.getNorthEast()};
+		Orientation[] orients = {Orientation.getEast(), Orientation.getNorthEast(), Orientation.getNorthWest(),
+				Orientation.getWest(), Orientation.getSouthWest(), Orientation.getSouthEast()};
 
-		Location loc=this;
-
-		for(int i=0; i<mds.length; i++)
+		for(int i=0; i<orients.length; i++)
 		{
+			Location loc = getAdjacent(orients[i]);
 			locs.add(loc);
-			loc = loc.getAdjacent(mds[i]);
 		}
 
 		return locs;
