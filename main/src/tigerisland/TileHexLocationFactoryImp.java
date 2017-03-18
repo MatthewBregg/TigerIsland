@@ -15,7 +15,7 @@ public class TileHexLocationFactoryImp implements TileHexLocationFactory {
 //  SOUTHEAST=300;
 
 
-    public HashMap<NonVolcanoTile, Location> getNonVolcanoHexLocations(Location volcanoHexLocation, Orientation tileOrientation){
+    public HashMap<NonVolcanoTile, Location> getNonVolcanoHexLocations(Location volcanoHexLocation, Orientation tileOrientation) throws Exception {
 
         HashMap<NonVolcanoTile, Location> nonVolcanoHexes = new HashMap<>();
 
@@ -40,11 +40,11 @@ public class TileHexLocationFactoryImp implements TileHexLocationFactory {
                 nonVolcanoHexes.put(NonVolcanoTile.LEFT, volcanoHexLocation.getAdjacent(Orientation.getEast()));
                 nonVolcanoHexes.put(NonVolcanoTile.RIGHT, volcanoHexLocation.getAdjacent(Orientation.getNorthEast()));
                 return nonVolcanoHexes;
-            default:
+            case Orientation.SOUTHEAST:
                 nonVolcanoHexes.put(NonVolcanoTile.LEFT, volcanoHexLocation.getAdjacent(Orientation.getEast()));
                 nonVolcanoHexes.put(NonVolcanoTile.RIGHT, volcanoHexLocation.getAdjacent(Orientation.getNorthEast()));
-                return nonVolcanoHexes;
-
+            default:
+                throw new Exception("Unknown Orientation Detected");
         }
     }
 }

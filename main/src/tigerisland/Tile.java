@@ -48,6 +48,14 @@ public class Tile {
        this.rightTerrain = rightTerrain;
    }
 
+   public Tile(int id, Orientation orientation){
+       this.id = id;
+       this.orientation = orientation;
+   }
+
+
+
+
    public int getID(){
        return id;
    }
