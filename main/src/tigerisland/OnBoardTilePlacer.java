@@ -6,7 +6,7 @@ public class OnBoardTilePlacer extends TilePlacer {
 
     public static void test() {
         //check that volcano hex is being placed on volcano hex
-        System.out.println("OnBoardTile PLacer works");
+        System.out.println("OnBoardTile PLacer works"+num);
 
         // check if all hexes below are same level
 

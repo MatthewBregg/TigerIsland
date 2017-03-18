@@ -38,7 +38,7 @@ public class AdjacentToBoardTilePlacerTest {
     }
     @Test
     public void test_ShouldNotPlaceTileOnExistingHex(){
-        tilePlacer = new AdjacentToBoardTilePlacer();
+        tilePlacer = new TilePlacer();
         Tile tile = new Tile(1, Orientation.getEast());
         Location location = new Location(0,0,0);
 

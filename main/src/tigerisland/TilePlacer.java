@@ -11,29 +11,30 @@ import java.util.List;
 
 public class TilePlacer {
 
-    private List<Class<?>> tilePlacers = new ArrayList();
-    private Iterator placersIter;
-    private TilePlacer currentPlacer;
+    private static  List<TilePlacer> tilePlacers = new ArrayList();
+    private static Iterator placersIter;
+    private static TilePlacer currentPlacer;
 
-    protected Tile tile;
-    protected Location volcanoLoc;
-    protected HexBoard board;
-
-
-    protected TileHexLocationFactory nonVolcanoHexFinder = new TileHexLocationFactoryImp();
-    protected HashMap<TileHexLocationFactory.NonVolcanoTile, Location> otherHexLocations = new HashMap<>();
-
-    protected List<Location> usedLocations;
-
-    protected Location left;
-    protected Location right;
+    protected static int num;
+    private static Tile tile;
+    protected static  Location volcanoLoc;
+    private static HexBoard board;
 
 
-    public TilePlacer(){
-        tilePlacers.add(AdjacentToBoardTilePlacer.class);
-       tilePlacers.add(OnBoardTilePlacer.class);
+    private static TileHexLocationFactory nonVolcanoHexFinder = new TileHexLocationFactoryImp();
+    private static HashMap<TileHexLocationFactory.NonVolcanoTile, Location> otherHexLocations = new HashMap<>();
+
+    protected static  List<Location> usedLocations;
+
+    protected static Location left;
+    protected static Location right;
+
+    private void initialize(){
+        tilePlacers.add(new AdjacentToBoardTilePlacer());
+        tilePlacers.add(new OnBoardTilePlacer());
         //tilePlacers.add()
         placersIter = tilePlacers.iterator();
+        currentPlacer = tilePlacers.get(0);
     }
 
     public void placeTile(Tile tile, Location loc, HexBoard board){
@@ -46,21 +47,17 @@ public class TilePlacer {
         otherHexLocations = nonVolcanoHexFinder.getNonVolcanoHexLocations(volcanoLoc, tile.getOrientation());
         left = otherHexLocations.get(TileHexLocationFactory.NonVolcanoTile.LEFT);
         right = otherHexLocations.get(TileHexLocationFactory.NonVolcanoTile.RIGHT);
-        this.tryPlaceTile();
-    }
-
-    protected void tryPlaceTile (){
+        this.initialize();
         currentPlacer.tryPlaceTile();
     }
+    protected void tryPlaceTile(){}
 
     protected void tryNextPlacer(){
-//        try{
-//
-//        }
-//        if (!placersIter.hasNext())
+        if (!placersIter.hasNext())
+            System.exit(0);
 //            throw new Exception("No more placers; your location or orientation are incorrect");
         currentPlacer = (TilePlacer) placersIter.next();
-        this.tryPlaceTile();
+        currentPlacer.tryPlaceTile();
     }
 }
 
