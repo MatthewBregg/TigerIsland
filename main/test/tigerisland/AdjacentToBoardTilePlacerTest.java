@@ -22,7 +22,7 @@ public class AdjacentToBoardTilePlacerTest {
 //    }
 
     @Test
-    public void test_AdjacentToBoardTilePlacerShouldPlaceTileOnBoard() {
+    public void test_ShouldPlaceTileOnEmptyBoard() {
         //Arrange
         tilePlacer = new AdjacentToBoardTilePlacer();
 
@@ -36,5 +36,19 @@ public class AdjacentToBoardTilePlacerTest {
         }
 
     }
+    @Test
+    public void test_ShouldNotPlaceTileOnExistingHex(){
+        tilePlacer = new AdjacentToBoardTilePlacer();
+        Tile tile = new Tile(1, Orientation.getEast());
+        Location location = new Location(0,0,0);
+
+        board.placeHex(location, new Hex());
+
+        tilePlacer.placeTile(tile,location,board);
+
+
+    }
+
+
 
 }

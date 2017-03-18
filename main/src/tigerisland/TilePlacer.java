@@ -1,6 +1,7 @@
 package tigerisland;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -8,10 +9,9 @@ import java.util.List;
  * Created by josh on 3/16/17.
  */
 
-
 public class TilePlacer {
 
-    private List<Class<?>> tilePlacers;
+    private List<Class<?>> tilePlacers = new ArrayList();
     private Iterator placersIter;
     private TilePlacer currentPlacer;
 
@@ -20,19 +20,32 @@ public class TilePlacer {
     protected HexBoard board;
 
 
+    protected TileHexLocationFactory nonVolcanoHexFinder = new TileHexLocationFactoryImp();
+    protected HashMap<TileHexLocationFactory.NonVolcanoTile, Location> otherHexLocations = new HashMap<>();
+
+    protected List<Location> usedLocations;
+
+    protected Location left;
+    protected Location right;
+
+
     public TilePlacer(){
-       tilePlacers = new ArrayList();
-       tilePlacers.add(AdjacentToBoardTilePlacer.class);
+        tilePlacers.add(AdjacentToBoardTilePlacer.class);
        tilePlacers.add(OnBoardTilePlacer.class);
         //tilePlacers.add()
         placersIter = tilePlacers.iterator();
     }
 
-
     public void placeTile(Tile tile, Location loc, HexBoard board){
         this.tile = tile;
         this.volcanoLoc = loc;
         this.board = board;
+
+        usedLocations = this.board.getUsedBoardLocations();
+
+        otherHexLocations = nonVolcanoHexFinder.getNonVolcanoHexLocations(volcanoLoc, tile.getOrientation());
+        left = otherHexLocations.get(TileHexLocationFactory.NonVolcanoTile.LEFT);
+        right = otherHexLocations.get(TileHexLocationFactory.NonVolcanoTile.RIGHT);
         this.tryPlaceTile();
     }
 
@@ -44,10 +57,6 @@ public class TilePlacer {
 //        try{
 //
 //        }
-//
-//
-//
-//
 //        if (!placersIter.hasNext())
 //            throw new Exception("No more placers; your location or orientation are incorrect");
         currentPlacer = (TilePlacer) placersIter.next();
@@ -58,24 +67,3 @@ public class TilePlacer {
 
 
 
-//public OnTopOfTiles implements tigerisland.TilePlacer{
-//
-//    }
-//
-//
-//
-//
-//    //case B all of the tiles cover existing hexes
-//
-//
-//    //all covered hexes must be part of 2 or 3 diff tiles
-//
-//    //none of hexes contain size of 1 stee
-//
-//}
-//
-//
-//public InvalidPlacementHandler implements tigerisland.TilePlacer{
-//
-//
-//        }
