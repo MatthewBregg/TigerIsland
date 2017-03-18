@@ -12,7 +12,7 @@ public class TileFactory {
         for (Terrain i : terrainTypes) {
             for (Terrain j : terrainTypes) {
                 if (id == desired_id) {
-                    return (new Tile(id, "", i, j));
+                    return (new Tile(id, null, i, j));
                 }
                 ++id;
             }
