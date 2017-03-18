@@ -15,7 +15,7 @@ public class TileTest {
     @BeforeClass
     public static void makeCustomTile(){
         int id = 2;
-        String orientation = "30";
+        Orientation orientation = Orientation.getNorthEast();
         Terrain leftTerrain = Rocky.getInstance();
         Terrain rightTerrain = Grassland.getInstance();
 
@@ -38,9 +38,9 @@ public class TileTest {
 
     @Test
     public void orientationSetCorrectly(){
-        String orientation = customTile.getOrientation();
+        Orientation orientation = customTile.getOrientation();
 
-        Assert.assertTrue(orientation == "30");
+        Assert.assertTrue(orientation.getAngle() == Orientation.NORTHEAST);
     }
 
     @Test

@@ -7,12 +7,12 @@ import java.util.List;
 public class TileHexLocationFactoryImp implements TileHexLocationFactory {
 
 
-//    public final static int EAST=0;
-//    public final static int NORTHEAST=60;
-//    public final static int NORTHWEST=120;
-//    public final static int WEST=180;
-//    public final static int SOUTHWEST=240;
-//    public final static int SOUTHEAST=300;
+// From Orientation.java EAST=0;
+//  NORTHEAST=60;
+//  NORTHWEST=120;
+//  WEST=180;
+//  SOUTHWEST=240;
+//  SOUTHEAST=300;
 
 
     public HashMap<NonVolcanoTile, Location> getNonVolcanoHexLocations(Location volcanoHexLocation, Orientation tileOrientation){
@@ -25,20 +25,26 @@ public class TileHexLocationFactoryImp implements TileHexLocationFactory {
                 nonVolcanoHexes.put(NonVolcanoTile.RIGHT, volcanoHexLocation.getAdjacent(Orientation.getSouthEast()));
                 return nonVolcanoHexes;
             case Orientation.NORTHEAST:
+                nonVolcanoHexes.put(NonVolcanoTile.LEFT, volcanoHexLocation.getAdjacent(Orientation.getWest()));
+                nonVolcanoHexes.put(NonVolcanoTile.RIGHT, volcanoHexLocation.getAdjacent(Orientation.getSouthWest()));
+                return nonVolcanoHexes;
+            case Orientation.NORTHWEST:
+                nonVolcanoHexes.put(NonVolcanoTile.LEFT, volcanoHexLocation.getAdjacent(Orientation.getNorthWest()));
+                nonVolcanoHexes.put(NonVolcanoTile.RIGHT, volcanoHexLocation.getAdjacent(Orientation.getWest()));
+                return nonVolcanoHexes;
+            case Orientation.WEST:
+                nonVolcanoHexes.put(NonVolcanoTile.LEFT, volcanoHexLocation.getAdjacent(Orientation.getNorthEast()));
+                nonVolcanoHexes.put(NonVolcanoTile.RIGHT, volcanoHexLocation.getAdjacent(Orientation.getNorthWest()));
+                return nonVolcanoHexes;
+            case Orientation.SOUTHWEST:
                 nonVolcanoHexes.put(NonVolcanoTile.LEFT, volcanoHexLocation.getAdjacent(Orientation.getEast()));
-                nonVolcanoHexes.put(NonVolcanoTile.RIGHT, volcanoHexLocation.getAdjacent(Orientation.getSouthEast()));
+                nonVolcanoHexes.put(NonVolcanoTile.RIGHT, volcanoHexLocation.getAdjacent(Orientation.getNorthEast()));
                 return nonVolcanoHexes;
             default:
+                nonVolcanoHexes.put(NonVolcanoTile.LEFT, volcanoHexLocation.getAdjacent(Orientation.getEast()));
+                nonVolcanoHexes.put(NonVolcanoTile.RIGHT, volcanoHexLocation.getAdjacent(Orientation.getNorthEast()));
                 return nonVolcanoHexes;
 
         }
-
-
-
-
-
     }
-
-
-
 }

@@ -28,22 +28,22 @@ public class Tile {
     private int id;
     // TODO
     // needs to be defined by a type
-    // left as string for now:: Done by Josh B to fix my dependencies. Hope the new name tileOrientation etc works
-    private Orientation tileOrientation;
+    // left as string for now:: Done by Josh B to fix my dependencies.
+    private Orientation orientation;
     private Terrain leftTerrain;
     private Terrain rightTerrain;
 
    public Tile(){
 
        id = 5;
-       tileOrientation = Orientation.getEast();
+       orientation = Orientation.getEast();
        leftTerrain = Rocky.getInstance();
        rightTerrain = Grassland.getInstance();
    }
 
-   public Tile(int id, Orientation newOrientation, Terrain leftTerrain, Terrain rightTerrain){
+   public Tile(int id, Orientation orientation, Terrain leftTerrain, Terrain rightTerrain){
        this.id = id;
-       this.tileOrientation = newOrientation;
+       this.orientation = orientation;
        this.leftTerrain = leftTerrain;
        this.rightTerrain = rightTerrain;
    }
@@ -53,7 +53,7 @@ public class Tile {
    }
 
    public Orientation getOrientation(){
-       return tileOrientation;
+       return orientation;
    }
 
    public Terrain getLeftTerrain(){
