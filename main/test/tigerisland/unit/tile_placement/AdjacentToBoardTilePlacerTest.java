@@ -21,13 +21,13 @@ public class AdjacentToBoardTilePlacerTest {
 
     TilePlacement tilePlacementManager;
 
-    TileHexLocationFactoryImp tileHexLocationFactory;
+    TileHexFinder tileHexLocationFactory;
 
     @Before
     public void setup() {
 
         board = new HexBoard();
-        tileHexLocationFactory = new TileHexLocationFactoryImp();
+        tileHexLocationFactory = new TileHexFinder();
 
         invalidTilePlacer = mock(InvalidTilePlacer.class);
 
