@@ -17,7 +17,7 @@ public class AdjacentToBoardTilePlacer implements TilePlacement, TilePlacementCh
     }
 
     @Override
-    public void placeTile(Tile tile, Location volcanoHexLocation) {
+    public void placeTile(Tile tile, Location volcanoHexLocation) throws Throwable {
 
         HashMap<TileHexLocationFactory.NonVolcanoTile, Location> locations =
                 tileHexLocationFactory.getNonVolcanoHexLocations(volcanoHexLocation, tile.getOrientation());
@@ -62,7 +62,7 @@ public class AdjacentToBoardTilePlacer implements TilePlacement, TilePlacementCh
     }
 
     @Override
-    public void nextTilePlacement(Tile tile, Location location) {
+    public void nextTilePlacement(Tile tile, Location location) throws Throwable {
         if (tilePlacement != null)
             tilePlacement.placeTile(tile, location);
     }

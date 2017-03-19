@@ -13,7 +13,11 @@ public class TilePlacementManager implements TilePlacement {
 
     @Override
     public void placeTile(Tile tile, Location location) {
-       tilePlacement.placeTile(tile, location);
+        try {
+            tilePlacement.placeTile(tile, location);
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }
     }
 
 }
