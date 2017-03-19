@@ -22,6 +22,7 @@ public class TilePlacer {
 
 
     private static TileHexLocationFactory nonVolcanoHexFinder = new TileHexLocationFactoryImp();
+
     private static HashMap<TileHexLocationFactory.NonVolcanoTile, Location> otherHexLocations = new HashMap<>();
 
     protected static  List<Location> usedLocations;
@@ -38,6 +39,7 @@ public class TilePlacer {
     }
 
     public void placeTile(Tile tile, Location loc, HexBoard board){
+
         this.tile = tile;
         this.volcanoLoc = loc;
         this.board = board;
@@ -50,6 +52,7 @@ public class TilePlacer {
         this.initialize();
         currentPlacer.tryPlaceTile();
     }
+
     protected void tryPlaceTile(){}
 
     protected void tryNextPlacer(){
