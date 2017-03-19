@@ -39,8 +39,8 @@ public class TileHexFinder {
                 return nonVolcanoHexes;
             // Orientation.SOUTHEAST
             default:
-                nonVolcanoHexes.put(NonVolcanoHex.LEFT, volcanoHexLocation.getAdjacent(Orientation.getEast()));
-                nonVolcanoHexes.put(NonVolcanoHex.RIGHT, volcanoHexLocation.getAdjacent(Orientation.getNorthEast()));
+                nonVolcanoHexes.put(NonVolcanoHex.LEFT, volcanoHexLocation.getAdjacent(Orientation.getSouthEast()));
+                nonVolcanoHexes.put(NonVolcanoHex.RIGHT, volcanoHexLocation.getAdjacent(Orientation.getEast()));
                 return nonVolcanoHexes;
         }
     }
