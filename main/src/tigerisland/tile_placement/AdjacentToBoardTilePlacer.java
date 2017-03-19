@@ -9,9 +9,9 @@ public class AdjacentToBoardTilePlacer implements TilePlacement, TilePlacementCh
 
     Board board;
     TilePlacement tilePlacement;
-    TileHexLocationFactoryImp tileHexLocationFactory;
+    TileHexFinder tileHexLocationFactory;
 
-    public AdjacentToBoardTilePlacer(Board board, TileHexLocationFactoryImp tileHexLocationFactory) {
+    public AdjacentToBoardTilePlacer(Board board, TileHexFinder tileHexLocationFactory) {
         this.board = board;
         this.tileHexLocationFactory = tileHexLocationFactory;
     }
@@ -19,11 +19,11 @@ public class AdjacentToBoardTilePlacer implements TilePlacement, TilePlacementCh
     @Override
     public void placeTile(Tile tile, Location volcanoHexLocation) throws Throwable {
 
-        HashMap<TileHexLocationFactory.NonVolcanoTile, Location> locations =
+        HashMap<NonVolcanoHex, Location> locations =
                 tileHexLocationFactory.getNonVolcanoHexLocations(volcanoHexLocation, tile.getOrientation());
 
-        Location leftLocation = locations.get(TileHexLocationFactory.NonVolcanoTile.LEFT);
-        Location rightLocation = locations.get(TileHexLocationFactory.NonVolcanoTile.RIGHT);
+        Location leftLocation = locations.get(NonVolcanoHex.LEFT);
+        Location rightLocation = locations.get(NonVolcanoHex.RIGHT);
 
         List<Location> usedLocations = board.getUsedBoardLocations();
         for( Location usedLocation : usedLocations) {
