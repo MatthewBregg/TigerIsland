@@ -39,7 +39,7 @@ public class AdjacentToBoardTilePlacerTest {
 
 
     @Test
-    public void test_ShouldAdd3HexesWhenBoardIsEmpty() {
+    public void test_ShouldAdd3HexesWhenBoardIsEmpty() throws Throwable {
 
         // Arrange
         Tile tile = new Tile();
@@ -55,7 +55,7 @@ public class AdjacentToBoardTilePlacerTest {
     }
 
     @Test
-    public void test_ShouldCallNextTilePlacerWhenIHexLocationIsUsed() {
+    public void test_ShouldCallNextTilePlacerWhenIHexLocationIsUsed() throws Throwable {
 
         // Arrange
         Tile tile = new Tile();

@@ -7,7 +7,8 @@ import java.util.List;
 public class TileHexLocationFactoryImp implements TileHexLocationFactory {
 
 
-// From Orientation.java EAST=0;
+// From Orientation.java
+//  EAST=0;
 //  NORTHEAST=60;
 //  NORTHWEST=120;
 //  WEST=180;
