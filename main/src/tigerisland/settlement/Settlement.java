@@ -18,7 +18,7 @@ public class Settlement {
         return piecesInSettlement.size();
     }
 
-    public Set<Location> getConnectedLocations(Settlement settlement) {
+    public Set<Location> getConnectedLocations() {
         return piecesInSettlement.keySet();
     }
 
@@ -27,6 +27,6 @@ public class Settlement {
     }
 
     public boolean LocationOccupiedp(Location location) {
-        return true;
+        return piecesInSettlement.containsKey(location);
     }
 }
