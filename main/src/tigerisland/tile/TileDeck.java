@@ -12,7 +12,6 @@ public class TileDeck {
 
     public TileDeck(long seed){
         tiles = new Vector<Tile>();
-        tileTypes = 16;
         countPerTileType = 3;
 
         initialize(seed);

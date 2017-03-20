@@ -19,7 +19,7 @@ public class CucumberTileStepper {
     public void weCanExamineATile() throws Throwable {
        Terrain lTerrain = Rocky.getInstance();
        Terrain rTerrain = Jungle.getInstance();
-       tile = new Tile(0, Orientation.getEast(),lTerrain, rTerrain);
+       tile = new Tile(0, Orientation.getEast());
     }
 
     @When("^We examine the left and right portions of said tile$")
@@ -29,7 +29,7 @@ public class CucumberTileStepper {
 
     @Then("^We find two non volcano terrain types$")
     public void weFindTwoNonVolcanoTerrainTypes() throws Throwable {
-       assert(tile.getLeftTerrain() != Volcano.getInstance());
-       assert(tile.getRightTerrain() != Volcano.getInstance());
+       assert(tile.getLeftHex().getTerrain() != Volcano.getInstance());
+       assert(tile.getRightHex().getTerrain() != Volcano.getInstance());
     }
 }
