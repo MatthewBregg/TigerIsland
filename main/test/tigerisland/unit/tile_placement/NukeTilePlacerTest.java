@@ -4,6 +4,8 @@ import org.junit.Test;
 import tigerisland.board.Board;
 import tigerisland.board.HexBoard;
 import tigerisland.tile_placement.*;
+import tigerisland.tile_placement.rules.NukeCoverHexesLevelRule;
+import tigerisland.tile_placement.rules.NukeHexesMustBeOfDifferentTilesRule;
 
 public class NukeTilePlacerTest {
 

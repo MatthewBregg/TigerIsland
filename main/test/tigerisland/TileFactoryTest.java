@@ -36,6 +36,12 @@ public class TileFactoryTest {
     }
 
     @Test
+    public void Indicates16TileTypes(){
+        int tileTypes = TileFactory.getTileCombinations();
+        assertEquals(tileTypes, 16);
+    }
+
+    @Test
     public void When16DrawnThenAllAreUnique() throws Exception {
         ArrayList<Tile> tiles = new ArrayList<Tile>();
         for ( int i = 0; i != 16; ++ i) {
@@ -49,10 +55,7 @@ public class TileFactoryTest {
     }
 
     boolean tilesEqual(Tile a, Tile b) {
-        return ( a.getLeftTerrain() == b.getLeftTerrain() &&
-                a.getRightTerrain() == a.getRightTerrain() &&
-                a.getID() == b.getID() &&
-                a.getOrientation() == b.getOrientation() );
+        return ( a.equals(b) );
     }
 
 }

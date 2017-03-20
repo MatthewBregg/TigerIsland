@@ -1,66 +1,50 @@
 package tigerisland.tile_placement;
 
 import tigerisland.board.Board;
-import tigerisland.hex.Hex;
 import tigerisland.board.Location;
-import tigerisland.hex.NonVolcanoHex;
-import tigerisland.terrains.Terrain;
-import tigerisland.terrains.Volcano;
+import tigerisland.hex.Hex;
 import tigerisland.tile.Tile;
-import tigerisland.tile.TileHexFinder;
+import tigerisland.tile.TileUnpacker;
 
-import java.util.HashMap;
-import java.util.List;
+import java.util.Map;
+
 
 public class AdjacentToBoardTilePlacer implements TilePlacement, TilePlacementChain{
 
     Board board;
     TilePlacement tilePlacement;
-    TileHexFinder tileHexLocationFactory;
 
-    public AdjacentToBoardTilePlacer(Board board, TileHexFinder tileHexLocationFactory) {
+    public AdjacentToBoardTilePlacer(Board board) {
         this.board = board;
-        this.tileHexLocationFactory = tileHexLocationFactory;
     }
 
     @Override
-    public void placeTile(Tile tile, Location volcanoHexLocation) throws Throwable {
+    public void placeTile(Tile tile, Location referenceLocation) throws Throwable {
 
-        HashMap<NonVolcanoHex, Location> locations =
-                tileHexLocationFactory.getNonVolcanoHexLocations(volcanoHexLocation, tile.getOrientation());
+        Map<Location, Hex> hexes = TileUnpacker.getTileHexes(tile, referenceLocation);
 
-        Location leftLocation = locations.get(NonVolcanoHex.LEFT);
-        Location rightLocation = locations.get(NonVolcanoHex.RIGHT);
+        if ( aLocationIsAlreadyUsed(hexes)) {
+            nextTilePlacement(tile, referenceLocation);
+        }
+        else {
+            placeHexesOnBoard(hexes);
+        }
+    }
 
-        List<Location> usedLocations = board.getUsedBoardLocations();
-        for( Location usedLocation : usedLocations) {
+    private boolean aLocationIsAlreadyUsed(Map<Location, Hex> hexes) {
+        for(Location location : hexes.keySet()) {
 
-            if (usedLocation.equals(volcanoHexLocation)) {
-                nextTilePlacement(tile, volcanoHexLocation);
-                return;
-            }
-            else if(usedLocation.equals(leftLocation)) {
-                nextTilePlacement(tile, volcanoHexLocation);
-                return;
-            }
-            else if(usedLocation.equals(rightLocation)){
-               nextTilePlacement(tile, volcanoHexLocation);
-               return;
+            if (this.board.isLocationUsed(location)) {
+               return true;
             }
         }
+        return false;
+    }
 
-        Hex volcanoHex = new Hex(tile.getID(), 1, Volcano.getInstance(), 1);
-
-        Terrain leftTerrain = tile.getLeftTerrain();
-        Hex leftHex = new Hex(tile.getID(), 1, leftTerrain, 1);
-
-        Terrain rightTerrain = tile.getRightTerrain();
-        Hex rightHex = new Hex(tile.getID(), 1, rightTerrain, 1);
-
-        board.placeHex(volcanoHexLocation, volcanoHex);
-        board.placeHex(rightLocation, rightHex);
-        board.placeHex(leftLocation, leftHex);
-
+    private void placeHexesOnBoard(Map<Location, Hex> hexes) {
+        hexes.forEach((location, hex) -> {
+            this.board.placeHex(location, hex);
+        });
     }
 
     @Override
@@ -73,5 +57,4 @@ public class AdjacentToBoardTilePlacer implements TilePlacement, TilePlacementCh
         if (tilePlacement != null)
             tilePlacement.placeTile(tile, location);
     }
-
 }

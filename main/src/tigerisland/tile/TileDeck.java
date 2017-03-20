@@ -12,7 +12,7 @@ public class TileDeck {
 
     public TileDeck(long seed){
         tiles = new Vector<Tile>();
-        tileTypes = 16;
+        tileTypes = TileFactory.getTileCombinations();
         countPerTileType = 3;
 
         initialize(seed);

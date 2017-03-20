@@ -40,4 +40,9 @@ public class HexBoard implements Board{
     public int getSize() {
         return this.board.size();
     }
+
+    @Override
+    public boolean isLocationUsed(Location location) {
+        return this.board.get(location) != null;
+    }
 }

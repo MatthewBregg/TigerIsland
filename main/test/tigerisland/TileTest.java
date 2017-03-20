@@ -3,6 +3,7 @@ package tigerisland; /**
  */
 
 import org.junit.*;
+import tigerisland.hex.Hex;
 import tigerisland.terrains.Grassland;
 import tigerisland.terrains.Rocky;
 import tigerisland.terrains.Terrain;
@@ -16,11 +17,10 @@ public class TileTest {
     @BeforeClass
     public static void makeCustomTile(){
         int id = 2;
-        Orientation orientation = Orientation.getNorthEast();
-        Terrain leftTerrain = Rocky.getInstance();
-        Terrain rightTerrain = Grassland.getInstance();
+        Hex leftHex = new Hex();
+        Hex rightHex = new Hex();
 
-        customTile = new Tile(id, orientation, leftTerrain, rightTerrain);
+        customTile = new Tile(id, leftHex, rightHex);
     }
 
     @Test
@@ -41,20 +41,20 @@ public class TileTest {
     public void orientationSetCorrectly(){
         Orientation orientation = customTile.getOrientation();
 
-        Assert.assertTrue(orientation.getAngle() == Orientation.NORTHEAST);
+        Assert.assertTrue(orientation.getAngle() == Orientation.EAST);
     }
 
     @Test
     public void leftTerrainSetCorrectly(){
-        Terrain leftTerrain = customTile.getLeftTerrain();
+        Terrain leftTerrain = customTile.getLeftHex().getTerrain();
 
         Assert.assertTrue(leftTerrain instanceof Rocky);
     }
 
     @Test
     public void rightTerrainSetCorrectly(){
-        Terrain rightTerrain = customTile.getRightTerrain();
+        Terrain rightTerrain = customTile.getRightHex().getTerrain();
 
-        Assert.assertTrue(rightTerrain instanceof Grassland);
+        Assert.assertTrue(rightTerrain instanceof Rocky);
     }
 }

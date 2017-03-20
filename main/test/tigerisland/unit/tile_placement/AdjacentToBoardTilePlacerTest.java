@@ -7,7 +7,7 @@ import tigerisland.board.Board;
 import tigerisland.board.HexBoard;
 import tigerisland.board.Location;
 import tigerisland.tile.Tile;
-import tigerisland.tile.TileHexFinder;
+import tigerisland.tile.TileUnpacker;
 import tigerisland.tile_placement.*;
 
 public class AdjacentToBoardTilePlacerTest {
@@ -18,17 +18,16 @@ public class AdjacentToBoardTilePlacerTest {
 
     tigerisland.tile_placement.AdjacentToBoardTilePlacer adjacentToBoardTilePlacer;
 
-    TileHexFinder tileHexLocationFactory;
+    TileUnpacker tileHexLocationFactory;
 
     @Before
     public void setup() {
 
         board = new HexBoard();
-        tileHexLocationFactory = new TileHexFinder();
 
         invalidTilePlacer = new InvalidTilePlacer();
 
-        adjacentToBoardTilePlacer = new tigerisland.tile_placement.AdjacentToBoardTilePlacer(board, tileHexLocationFactory);
+        adjacentToBoardTilePlacer = new tigerisland.tile_placement.AdjacentToBoardTilePlacer(board);
         adjacentToBoardTilePlacer.setNextTilePlacement(invalidTilePlacer);
     }
 

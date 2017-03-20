@@ -1,5 +1,6 @@
 package tigerisland.tile;
 
+import tigerisland.hex.Hex;
 import tigerisland.terrains.*;
 
 public class TileFactory {
@@ -12,7 +13,7 @@ public class TileFactory {
         for (Terrain i : terrainTypes) {
             for (Terrain j : terrainTypes) {
                 if (id == desired_id) {
-                    return (new Tile(id, null, i, j));
+                    return (new Tile(id, new Hex(i), new Hex(j)));
                 }
                 ++id;
             }
@@ -21,9 +22,14 @@ public class TileFactory {
     }
 
     public static Tile getTile(int i) {
-        if ( i < 0 || i > 15) {
+        if ( i < 0 || i > (getTileCombinations() - 1)) {
             throw new IndexOutOfBoundsException("Can only generate 0-15 unique tiles, rotate for more");
         }
        return generateTile(i);
+    }
+
+    public static int getTileCombinations() {
+        int tileTypesCount = (terrainTypes.length * terrainTypes.length);
+        return tileTypesCount;
     }
 }

@@ -20,6 +20,13 @@ public class Hex {
         level = 1;
     }
 
+    public Hex(Terrain terrain){
+        tileID = (int)(Math.random() * 100);
+        settlementID = (int)(Math.random() * 100);
+        this.terrain = terrain;
+        level = 1; // Level should not be set at constructor or will have to be set again when placed on board
+    }
+
     public Hex(int tileID, int settlementID, Terrain terrain, int level){
         this.tileID = tileID;
         this.settlementID = settlementID;
