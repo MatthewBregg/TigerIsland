@@ -1,6 +1,6 @@
-package tigerisland;
+package tigerisland.terrains;
 
-public class Jungle extends Terrain{
+public class Jungle extends Terrain {
 	private static Jungle instance;
 
 	private Jungle(){}

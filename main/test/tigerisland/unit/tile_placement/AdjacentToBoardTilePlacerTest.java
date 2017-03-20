@@ -3,7 +3,11 @@ package tigerisland.unit.tile_placement;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import tigerisland.*;
+import tigerisland.board.Board;
+import tigerisland.board.HexBoard;
+import tigerisland.board.Location;
+import tigerisland.tile.Tile;
+import tigerisland.tile.TileHexFinder;
 import tigerisland.tile_placement.*;
 
 public class AdjacentToBoardTilePlacerTest {

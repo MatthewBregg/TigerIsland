@@ -3,7 +3,12 @@ package tigerisland.cucumbertest.tile;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import tigerisland.*;
+import tigerisland.terrains.Jungle;
+import tigerisland.terrains.Rocky;
+import tigerisland.terrains.Terrain;
+import tigerisland.terrains.Volcano;
+import tigerisland.tile.Orientation;
+import tigerisland.tile.Tile;
 
 /**
  * Created by mbregg on 3/16/17.

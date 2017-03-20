@@ -1,4 +1,7 @@
-package tigerisland;
+package tigerisland.hex;
+
+import tigerisland.terrains.Rocky;
+import tigerisland.terrains.Terrain;
 
 /**
  * Created by christinemoore on 3/13/17.

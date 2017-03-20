@@ -1,4 +1,6 @@
-package tigerisland;
+package tigerisland.board;
+
+import tigerisland.hex.Hex;
 
 import java.util.List;
 

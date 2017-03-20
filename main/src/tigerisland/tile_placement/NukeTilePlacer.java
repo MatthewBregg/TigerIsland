@@ -1,8 +1,8 @@
 package tigerisland.tile_placement;
 
-import tigerisland.Board;
-import tigerisland.Location;
-import tigerisland.Tile;
+import tigerisland.board.Board;
+import tigerisland.board.Location;
+import tigerisland.tile.Tile;
 
 import java.util.ArrayList;
 import java.util.List;

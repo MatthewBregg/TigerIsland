@@ -3,9 +3,9 @@ package tigerisland; /**
  */
 
 import org.junit.*;
-import tigerisland.Hex;
-import tigerisland.Rocky;
-import tigerisland.Terrain;
+import tigerisland.hex.Hex;
+import tigerisland.terrains.Rocky;
+import tigerisland.terrains.Terrain;
 
 
 public class HexTest {

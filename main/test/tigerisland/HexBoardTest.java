@@ -3,10 +3,10 @@ package tigerisland;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import tigerisland.Hex;
-import tigerisland.HexBoard;
-import tigerisland.Location;
-import tigerisland.NullHex;
+import tigerisland.hex.Hex;
+import tigerisland.board.HexBoard;
+import tigerisland.board.Location;
+import tigerisland.hex.NullHex;
 
 import java.util.ArrayList;
 import java.util.List;

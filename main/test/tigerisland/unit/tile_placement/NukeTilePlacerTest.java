@@ -1,8 +1,8 @@
 package tigerisland.unit.tile_placement;
 
 import org.junit.Test;
-import tigerisland.Board;
-import tigerisland.HexBoard;
+import tigerisland.board.Board;
+import tigerisland.board.HexBoard;
 import tigerisland.tile_placement.*;
 
 public class NukeTilePlacerTest {

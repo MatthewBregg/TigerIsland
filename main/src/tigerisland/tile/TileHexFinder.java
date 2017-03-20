@@ -1,5 +1,8 @@
-package tigerisland;
+package tigerisland.tile;
 
+
+import tigerisland.board.Location;
+import tigerisland.hex.NonVolcanoHex;
 
 import java.util.HashMap;
 

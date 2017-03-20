@@ -1,14 +1,18 @@
-package tigerisland;
+package tigerisland.tile;
+
+import tigerisland.terrains.Grassland;
+import tigerisland.terrains.Rocky;
+import tigerisland.terrains.Terrain;
 
 /**
  * Created by christinemoore on 3/2/17.
- * tigerisland.Hex tiles can have 16 different representations
+ * tigerisland.hex.Hex tiles can have 16 different representations
  * of the 3 terrain types
  *
- * tigerisland.Jungle = J
- * tigerisland.Lake = L
+ * tigerisland.terrains.Jungle = J
+ * tigerisland.terrains.Lake = L
  * Grass = G
- * tigerisland.Rocky = R
+ * tigerisland.terrains.Rocky = R
  *
  *      J    L   G   R
  *

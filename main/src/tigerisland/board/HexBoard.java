@@ -1,4 +1,7 @@
-package tigerisland;
+package tigerisland.board;
+
+import tigerisland.hex.NullHex;
+import tigerisland.hex.Hex;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -1,6 +1,6 @@
-package tigerisland;
+package tigerisland.tile;
 
-import java.util.ArrayList;
+import tigerisland.terrains.*;
 
 public class TileFactory {
     final static Terrain[] terrainTypes = new Terrain[]{ Rocky.getInstance(), Grassland.getInstance(), Lake.getInstance(), Jungle.getInstance() };

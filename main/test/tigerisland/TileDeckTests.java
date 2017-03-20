@@ -2,6 +2,7 @@ package tigerisland;
 
 import org.junit.Assert;
 import org.junit.Test;
+import tigerisland.tile.TileDeck;
 
 import static org.junit.Assert.*;
 

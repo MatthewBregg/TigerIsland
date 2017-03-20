@@ -1,6 +1,8 @@
 package tigerisland;
 
 import org.junit.Test;
+import tigerisland.tile.Tile;
+import tigerisland.tile.TileFactory;
 
 import java.util.ArrayList;
 

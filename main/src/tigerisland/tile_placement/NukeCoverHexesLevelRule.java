@@ -1,8 +1,8 @@
 package tigerisland.tile_placement;
 
 
-import tigerisland.Location;
-import tigerisland.Tile;
+import tigerisland.board.Location;
+import tigerisland.tile.Tile;
 
 public class NukeCoverHexesLevelRule implements TilePlacement{
 

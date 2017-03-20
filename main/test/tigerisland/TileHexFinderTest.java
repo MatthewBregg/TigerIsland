@@ -4,10 +4,12 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import tigerisland.board.Location;
+import tigerisland.hex.NonVolcanoHex;
+import tigerisland.tile.Orientation;
+import tigerisland.tile.TileHexFinder;
 
 import java.util.HashMap;
-
-import static org.junit.Assert.*;
 
 public class TileHexFinderTest {
 
@@ -91,7 +93,7 @@ public class TileHexFinderTest {
         tileOrientation= Orientation.getSouthWest();
         nonVolcanoHexes= hexFind.getNonVolcanoHexLocations(volcanoHexLocation, tileOrientation);
         leftHexShouldBe= new Location(1,-1,0);
-        rightHexShouldBe = new Location (1,0,-1);
+        rightHexShouldBe = new Location(1,0,-1);
 
         Assert.assertEquals(nonVolcanoHexes.get(left), leftHexShouldBe);
         Assert.assertEquals(nonVolcanoHexes.get(right), rightHexShouldBe );

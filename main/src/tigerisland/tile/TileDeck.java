@@ -1,4 +1,6 @@
-package tigerisland;
+package tigerisland.tile;
+
+import tigerisland.terrains.Terrain;
 
 import java.util.Vector;
 import java.util.Random;

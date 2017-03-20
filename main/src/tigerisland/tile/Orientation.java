@@ -1,4 +1,4 @@
-package tigerisland;
+package tigerisland.tile;
 
 import java.security.InvalidParameterException;
 import java.util.Objects;

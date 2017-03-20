@@ -1,4 +1,4 @@
-package tigerisland;
+package tigerisland.player;
 
 public class Player
 {

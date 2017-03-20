@@ -1,6 +1,6 @@
-package tigerisland;
+package tigerisland.terrains;
 
-public class Grassland extends Terrain{
+public class Grassland extends Terrain {
 	private static Grassland instance;
 	
 	private Grassland(){}

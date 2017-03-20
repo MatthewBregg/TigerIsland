@@ -1,6 +1,13 @@
 package tigerisland.tile_placement;
 
-import tigerisland.*;
+import tigerisland.board.Board;
+import tigerisland.hex.Hex;
+import tigerisland.board.Location;
+import tigerisland.hex.NonVolcanoHex;
+import tigerisland.terrains.Terrain;
+import tigerisland.terrains.Volcano;
+import tigerisland.tile.Tile;
+import tigerisland.tile.TileHexFinder;
 
 import java.util.HashMap;
 import java.util.List;

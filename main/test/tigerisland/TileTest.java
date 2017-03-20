@@ -3,10 +3,11 @@ package tigerisland; /**
  */
 
 import org.junit.*;
-import tigerisland.Grassland;
-import tigerisland.Rocky;
-import tigerisland.Terrain;
-import tigerisland.Tile;
+import tigerisland.terrains.Grassland;
+import tigerisland.terrains.Rocky;
+import tigerisland.terrains.Terrain;
+import tigerisland.tile.Orientation;
+import tigerisland.tile.Tile;
 
 
 public class TileTest {

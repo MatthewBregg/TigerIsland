@@ -1,4 +1,6 @@
-package tigerisland;
+package tigerisland.board;
+
+import tigerisland.tile.Orientation;
 
 import java.security.InvalidParameterException;
 import java.util.ArrayList;

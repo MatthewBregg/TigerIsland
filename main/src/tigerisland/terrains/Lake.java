@@ -1,4 +1,4 @@
-package tigerisland;
+package tigerisland.terrains;
 
 public class Lake extends Terrain {
 	private static Lake instance;

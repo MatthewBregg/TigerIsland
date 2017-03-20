@@ -2,8 +2,8 @@ package tigerisland;
 
 import org.junit.Before;
 import org.junit.Test;
-import tigerisland.Location;
-import tigerisland.Orientation;
+import tigerisland.board.Location;
+import tigerisland.tile.Orientation;
 
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
