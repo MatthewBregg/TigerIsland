@@ -3,13 +3,8 @@ package tigerisland.unit.tile_placement;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
 import tigerisland.*;
 import tigerisland.tile_placement.*;
-
-import static org.mockito.Mockito.atMost;
-import static org.mockito.Mockito.mock;
-
 
 public class AdjacentToBoardTilePlacerTest {
 
@@ -19,8 +14,6 @@ public class AdjacentToBoardTilePlacerTest {
 
     tigerisland.tile_placement.AdjacentToBoardTilePlacer adjacentToBoardTilePlacer;
 
-    TilePlacement tilePlacementManager;
-
     TileHexFinder tileHexLocationFactory;
 
     @Before
@@ -29,12 +22,10 @@ public class AdjacentToBoardTilePlacerTest {
         board = new HexBoard();
         tileHexLocationFactory = new TileHexFinder();
 
-        invalidTilePlacer = mock(InvalidTilePlacer.class);
+        invalidTilePlacer = new InvalidTilePlacer();
 
         adjacentToBoardTilePlacer = new tigerisland.tile_placement.AdjacentToBoardTilePlacer(board, tileHexLocationFactory);
         adjacentToBoardTilePlacer.setNextTilePlacement(invalidTilePlacer);
-
-        tilePlacementManager = new TilePlacementManager(adjacentToBoardTilePlacer);
     }
 
 
@@ -46,7 +37,7 @@ public class AdjacentToBoardTilePlacerTest {
         Location location = new Location(0, 0, 0);
 
         // Act
-        tilePlacementManager.placeTile(tile, location);
+        adjacentToBoardTilePlacer.placeTile(tile, location);
 
         // Assert
         int expectedHexesOnBoard = 3;
@@ -54,25 +45,23 @@ public class AdjacentToBoardTilePlacerTest {
 
     }
 
-    @Test
-    public void test_ShouldCallNextTilePlacerWhenIHexLocationIsUsed() throws Throwable {
+    @Test (expected = InvalidTilePlacementException.class)
+    public void test_ShouldThrowExceptionWhenNextTilePlacerIsCalled() throws Throwable {
 
         // Arrange
         Tile tile = new Tile();
         Location location = new Location(0, 0, 0);
-        tilePlacementManager.placeTile(tile, location);
+        adjacentToBoardTilePlacer.placeTile(tile, location);
 
         Tile tile2 = new Tile();
         Location location2 = new Location(0, 0, 0);
 
         // Act
-        tilePlacementManager.placeTile(tile2, location2);
+        adjacentToBoardTilePlacer.placeTile(tile2, location2);
 
         // Assert
         int expectedHexesOnBoard = 3;
-
         Assert.assertEquals(expectedHexesOnBoard, board.getSize());
-        Mockito.verify(invalidTilePlacer, atMost(1) ).placeTile(tile2, location2);
     }
 
 }
