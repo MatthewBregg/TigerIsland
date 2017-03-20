@@ -26,4 +26,9 @@ public class TileFactory {
         }
        return generateTile(i);
     }
+
+    public static int getTileCombinations() {
+        int tileTypesCount = terrainTypes.length ^ 2;
+        return tileTypesCount;
+    }
 }

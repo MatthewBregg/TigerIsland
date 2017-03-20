@@ -1,8 +1,6 @@
 package tigerisland.tile;
 
-import tigerisland.terrains.Grassland;
-import tigerisland.terrains.Rocky;
-import tigerisland.terrains.Terrain;
+import tigerisland.hex.Hex;
 
 /**
  * Created by christinemoore on 3/2/17.
@@ -34,22 +32,25 @@ public class Tile {
     // needs to be defined by a type
     // left as string for now:: Done by Josh B to fix my dependencies.
     private Orientation orientation;
-    private Terrain leftTerrain;
-    private Terrain rightTerrain;
+    private Hex referenceHex;
+    private Hex leftHex;
+    private Hex rightHex;
 
    public Tile(){
 
        id = 5;
        orientation = Orientation.getEast();
-       leftTerrain = Rocky.getInstance();
-       rightTerrain = Grassland.getInstance();
+       referenceHex = new Hex();
+       leftHex = new Hex();
+       rightHex = new Hex();
    }
 
-   public Tile(int id, Orientation orientation, Terrain leftTerrain, Terrain rightTerrain){
+   public Tile(int id, Orientation orientation, Hex referenceHex, Hex leftHex, Hex rightHex){
        this.id = id;
        this.orientation = orientation;
-       this.leftTerrain = leftTerrain;
-       this.rightTerrain = rightTerrain;
+       this.referenceHex = referenceHex;
+       this.leftHex = leftHex;
+       this.rightHex = rightHex;
    }
 
    public Tile(int id, Orientation orientation){
@@ -57,7 +58,9 @@ public class Tile {
        this.orientation = orientation;
    }
 
-
+   public void rotate(){
+       // TODO: implement tile rotation
+   }
 
 
    public int getID(){
@@ -68,12 +71,14 @@ public class Tile {
        return orientation;
    }
 
-   public Terrain getLeftTerrain(){
-       return leftTerrain;
+   public Hex getReferenceHex() { return referenceHex; }
+
+   public Hex getLeftHex(){
+       return leftHex;
    }
 
-   public Terrain getRightTerrain(){
-       return rightTerrain;
+   public Hex getRightHex(){
+       return rightHex;
    }
 
    //public
