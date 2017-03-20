@@ -45,9 +45,9 @@ public class Tile {
        rightHex = new Hex();
    }
 
-   public Tile(int id, Orientation orientation, Hex referenceHex, Hex leftHex, Hex rightHex){
+   public Tile(int id, Hex referenceHex, Hex leftHex, Hex rightHex){
        this.id = id;
-       this.orientation = orientation;
+       this.orientation = new Orientation(0);
        this.referenceHex = referenceHex;
        this.leftHex = leftHex;
        this.rightHex = rightHex;
@@ -55,7 +55,7 @@ public class Tile {
 
    public Tile(int id, Orientation orientation){
        this.id = id;
-       this.orientation = orientation;
+       this.orientation = new Orientation(0);
    }
 
    public void rotate(){
