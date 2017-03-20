@@ -1,5 +1,6 @@
 package tigerisland.tile;
 
+import tigerisland.hex.Hex;
 import tigerisland.terrains.*;
 
 public class TileFactory {
@@ -12,7 +13,7 @@ public class TileFactory {
         for (Terrain i : terrainTypes) {
             for (Terrain j : terrainTypes) {
                 if (id == desired_id) {
-                    return (new Tile(id, null, i, j));
+                    return (new Tile(id, new Hex(), new Hex(), new Hex()));
                 }
                 ++id;
             }

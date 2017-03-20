@@ -49,10 +49,7 @@ public class TileFactoryTest {
     }
 
     boolean tilesEqual(Tile a, Tile b) {
-        return ( a.getLeftTerrain() == b.getLeftTerrain() &&
-                a.getRightTerrain() == a.getRightTerrain() &&
-                a.getID() == b.getID() &&
-                a.getOrientation() == b.getOrientation() );
+        return ( a.equals(b) );
     }
 
 }

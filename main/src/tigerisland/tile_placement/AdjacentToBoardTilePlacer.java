@@ -49,13 +49,11 @@ public class AdjacentToBoardTilePlacer implements TilePlacement, TilePlacementCh
             }
         }
 
-        Hex volcanoHex = new Hex(tile.getID(), 1, Volcano.getInstance(), 1);
+        Hex volcanoHex = tile.getReferenceHex();
 
-        Terrain leftTerrain = tile.getLeftTerrain();
-        Hex leftHex = new Hex(tile.getID(), 1, leftTerrain, 1);
+        Hex leftHex = tile.getLeftHex();
 
-        Terrain rightTerrain = tile.getRightTerrain();
-        Hex rightHex = new Hex(tile.getID(), 1, rightTerrain, 1);
+        Hex rightHex = tile.getRightHex();
 
         board.placeHex(volcanoHexLocation, volcanoHex);
         board.placeHex(rightLocation, rightHex);

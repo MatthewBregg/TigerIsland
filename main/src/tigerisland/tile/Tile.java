@@ -45,6 +45,10 @@ public class Tile {
        rightHex = new Hex();
    }
 
+   public Tile(int id, Hex leftHex, Hex rightHex){
+       new Tile(id, new Hex(), leftHex, rightHex);
+   }
+
    public Tile(int id, Hex referenceHex, Hex leftHex, Hex rightHex){
        this.id = id;
        this.orientation = new Orientation(0);
@@ -61,6 +65,13 @@ public class Tile {
    public void rotate(){
        // TODO: implement tile rotation
 
+   }
+
+   public boolean equals(Tile tile){
+       return (this.leftHex == tile.leftHex
+               && this.rightHex == tile.rightHex
+               && this.orientation == tile.orientation
+               && this.id == tile.id);
    }
 
 
