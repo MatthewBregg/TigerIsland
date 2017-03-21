@@ -12,7 +12,7 @@ public class TileFactoryTest {
     private boolean throws_exception(int i) {
         boolean exception_happened = false;
         try {
-            TileFactory.getTile(i);
+            TileFactory.getTile(i, 0);
         } catch (Exception e) {
             exception_happened = true;
         }
@@ -45,7 +45,7 @@ public class TileFactoryTest {
     public void When16DrawnThenAllAreUnique() throws Exception {
         ArrayList<Tile> tiles = new ArrayList<Tile>();
         for ( int i = 0; i != 16; ++ i) {
-            Tile tile = TileFactory.getTile(i);
+            Tile tile = TileFactory.getTile(i, 0);
             for ( Tile existing_tile : tiles ) {
                 assertFalse(tilesEqual(existing_tile,tile));
             }

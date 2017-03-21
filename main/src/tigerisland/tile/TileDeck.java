@@ -15,55 +15,50 @@ public class TileDeck {
         tileTypes = TileFactory.getTileCombinations();
         countPerTileType = 3;
 
-        initialize(seed);
+        Vector<Integer> tileIntegerList = getRandomIntOrder(getMaxDeckSize(), seed);
+        initialize(tileIntegerList);
     }
 
-    private void initialize(long seed){
-        tiles.clear();
-        int initialDeckSize = getMaxDeckSize();
-
+    private Vector<Integer> getRandomIntOrder(int size, long seed){
         // generate numbers to represent each of cards
-        Vector<Integer> cardInts = new Vector<Integer>(initialDeckSize);
-        for(int i = 0; i < initialDeckSize; ++i)
-            cardInts.add(i, i);
+        Vector<Integer> tempIntegerList = new Vector<Integer>();
+        for(int i = 0; i < size; ++i)
+            tempIntegerList.add(i, i);
 
         // create random generator
         Random randomGenerator = new Random(seed);
 
-
-        // generate cards based on generator
-        int cardID = 0;
-        for(int i = initialDeckSize; i > 0; i--){
+        // randomize integer order
+        Vector<Integer> integerList = new Vector<Integer>();
+        for(int i = size; i > 0; i--){
             int randInt = randomGenerator.nextInt(i);
-            int cardInt = Math.floorMod(randInt, tileTypes);
-
-            Tile tempTile = getTile(cardInt, cardID);
-            tiles.add(tempTile);
-
-            cardID++;
+            integerList.add(tempIntegerList.remove(randInt));
         }
+
+        return integerList;
     }
 
     private int getMaxDeckSize(){
         return (tileTypes * countPerTileType);
     }
 
-    private Tile getTile(int cardInt, int cardID) {
-        // TODO: Need to determine terrains and add orientation
-        Terrain leftTerrain;
-        Terrain rightTerrain;
+    private void initialize(Vector<Integer> tileIntegerList){
+        // get tiles from tile factory
+        int cardID = 0;
+        for(int i = 0; i < tileIntegerList.size(); ++i){
+            int cardInt = tileIntegerList.elementAt(i);
+            int cardType = Math.floorMod(cardInt, tileTypes);
 
-        Tile newTile = new Tile();
-        /* Need to ID tile? */
-        // Tile newTile = new Tile(cardID, /* Orientation placeholder */ "left", leftTerrain, rightTerrain);
-        return newTile;
+            addTile(TileFactory.getTile(cardType, cardID));
+            cardID++;
+        }
     }
 
     private void addTile(Tile tile){
         tiles.add(tile);
     }
 
-    public Tile getTile(){
+    public Tile drawTile(){
         if(isEmpty())
             return null;
         return tiles.remove(0);

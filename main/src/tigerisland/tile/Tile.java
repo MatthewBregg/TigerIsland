@@ -1,6 +1,7 @@
 package tigerisland.tile;
 
 import tigerisland.hex.Hex;
+import tigerisland.terrains.Volcano;
 
 /**
  * Created by christinemoore on 3/2/17.
@@ -27,22 +28,15 @@ import tigerisland.hex.Hex;
  */
 
 public class Tile {
+
     private int id;
-    // TODO
-    // needs to be defined by a type
-    // left as string for now:: Done by Josh B to fix my dependencies.
     private Orientation orientation;
     private Hex referenceHex;
     private Hex leftHex;
     private Hex rightHex;
 
    public Tile(){
-
-       id = 5;
-       orientation = Orientation.getEast();
-       referenceHex = new Hex();
-       leftHex = new Hex();
-       rightHex = new Hex();
+       this(5, new Hex(), new Hex());
    }
 
    public Tile(int id, Hex leftHex, Hex rightHex){
@@ -63,12 +57,7 @@ public class Tile {
    }
 
    public void rotate(){
-       // TODO: implement tile rotation
-
-   }
-
-   public void setOrientation(Orientation orientation) {
-      this.orientation = orientation;
+       orientation.rotate(60);
    }
 
    public boolean equals(Tile tile){
@@ -77,7 +66,6 @@ public class Tile {
                && this.orientation == tile.orientation
                && this.id == tile.id);
    }
-
 
    public int getID(){
        return id;
@@ -98,8 +86,5 @@ public class Tile {
    public Hex getRightHex(){
        return rightHex;
    }
-
-
-
 
 }

@@ -46,6 +46,41 @@ public class Orientation
 		calculateOffset();
 	}
 
+	public static Orientation getEast()
+	{
+		return new Orientation(EAST);
+	}
+
+	public static Orientation getWest()
+	{
+		return new Orientation(WEST);
+	}
+
+	public static Orientation getNorthEast()
+	{
+		return new Orientation(NORTHEAST);
+	}
+
+	public static Orientation getSouthEast()
+	{
+		return new Orientation(SOUTHEAST);
+	}
+
+	public static Orientation getNorthWest()
+	{
+		return new Orientation(NORTHWEST);
+	}
+
+	public static Orientation getSouthWest()
+	{
+		return new Orientation(SOUTHWEST);
+	}
+	
+	public void rotate(int angle){
+		this.angle += angle;
+		this.angle = Math.floorMod(angle, 360);
+		calculateOffset();
+	}
 
 	private void calculateAngle() {
 		if(dx == 0 && dy == -1 && dz == 1){
@@ -109,54 +144,24 @@ public class Orientation
 		}
 	}
 
-	public int getDx() 
+	public int getDx()
 	{
 		return dx;
 	}
 
-	public int getDy() 
+	public int getDy()
 	{
 		return dy;
 	}
 
-	public int getDz() 
+	public int getDz()
 	{
 		return dz;
 	}
-	
+
 	public int getAngle()
 	{
 		return angle;
-	}
-
-	public static Orientation getEast()
-	{
-		return new Orientation(EAST);
-	}
-
-	public static Orientation getWest()
-	{
-		return new Orientation(WEST);
-	}
-
-	public static Orientation getNorthEast()
-	{
-		return new Orientation(NORTHEAST);
-	}
-
-	public static Orientation getSouthEast()
-	{
-		return new Orientation(SOUTHEAST);
-	}
-
-	public static Orientation getNorthWest()
-	{
-		return new Orientation(NORTHWEST);
-	}
-
-	public static Orientation getSouthWest()
-	{
-		return new Orientation(SOUTHWEST);
 	}
 	
 	public int hashCode()
