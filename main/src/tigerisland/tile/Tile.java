@@ -61,10 +61,8 @@ public class Tile {
    }
 
    public boolean equals(Tile tile){
-       return (this.leftHex == tile.leftHex
-               && this.rightHex == tile.rightHex
-               && this.orientation == tile.orientation
-               && this.id == tile.id);
+       return (this.leftHex.getTerrain() == tile.leftHex.getTerrain()
+               && this.rightHex.getTerrain() == tile.rightHex.getTerrain());
    }
 
    public int getID(){

@@ -49,4 +49,38 @@ public class TileDeckTests {
         assertEquals(drawnTiles.size(), 48);
         assertEquals(drawnTileIndex + 1, 48);
     }
+
+    @Test
+    public void correctNumberOfTileTypesTest(){
+        TileDeck tileDeck = new TileDeck(756);
+        int initialDeckSize = tileDeck.getCount();
+        Vector<Tile> allTiles = new Vector<Tile>();
+
+        for(int i = 0; i < initialDeckSize; ++i)
+            allTiles.add(tileDeck.drawTile());
+
+        Vector<Vector<Tile>> tileArray = new Vector<Vector<Tile>>();
+
+        for(Tile t : allTiles){
+            if(!tileArray.isEmpty()) {
+                for(Vector<Tile> array : tileArray){
+                    if(array.elementAt(0).equals(t)){
+                        array.add(t);
+                        t = null;
+                        break;
+                    }
+                }
+            }
+            if(t != null) {
+                Vector<Tile> tempArray = new Vector<Tile>();
+                tempArray.add(t);
+                tileArray.add(tempArray);
+            }
+        }
+
+        assertFalse(tileArray.isEmpty());
+        assertEquals(tileArray.elementAt(0).size(), 3);
+        assertEquals(tileArray.size(), 16);
+        assertEquals(tileArray.lastElement().size(), 3);
+    }
 }
