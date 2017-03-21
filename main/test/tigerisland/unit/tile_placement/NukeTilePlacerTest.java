@@ -11,13 +11,14 @@ import tigerisland.tile.Tile;
 import tigerisland.tile_placement.*;
 import tigerisland.tile_placement.exceptions.InvalidTilePlacementException;
 import tigerisland.tile_placement.rules.NukeCoverHexesLevelRule;
+import tigerisland.tile_placement.rules.NukePlacementRule;
 
 public class NukeTilePlacerTest {
 
     Board board;
 
     TilePlacement invalidTilePlacement;
-    TilePlacement nukeCoverHexesLevelRule;
+    NukePlacementRule nukeCoverHexesLevelRule;
     NukeTilePlacer nukeTilePlacer;
     AdjacentToBoardTilePlacer adjacentToBoardTilePlacer;
 

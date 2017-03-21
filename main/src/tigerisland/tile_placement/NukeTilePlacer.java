@@ -5,6 +5,7 @@ import tigerisland.board.Location;
 import tigerisland.hex.Hex;
 import tigerisland.tile.Tile;
 import tigerisland.tile.TileUnpacker;
+import tigerisland.tile_placement.rules.NukePlacementRule;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,14 +14,14 @@ import java.util.Map;
 public class NukeTilePlacer  implements  TilePlacement, TilePlacementChain{
 
     TilePlacement nextTilePlacement;
-    List<TilePlacement> nukeTilePlacementRules;
+    List<NukePlacementRule> nukeTilePlacementRules;
     Board board;
 
-    public NukeTilePlacer(Board board, TilePlacement... rules) {
+    public NukeTilePlacer(Board board, NukePlacementRule... rules) {
 
         this.board = board;
         nukeTilePlacementRules = new ArrayList<>();
-        for(TilePlacement rule : rules) {
+        for(NukePlacementRule rule : rules) {
             nukeTilePlacementRules.add(rule);
         }
     }
@@ -35,15 +36,15 @@ public class NukeTilePlacer  implements  TilePlacement, TilePlacementChain{
         }
         else {
 
-            applyNukeRules(tile, location);
+            applyNukeRules(hexes);
 
             placeHexesOnBoard(hexes);
         }
     }
 
-    private void applyNukeRules(Tile tile, Location location) throws Throwable {
-        for(TilePlacement rule : nukeTilePlacementRules) {
-                rule.placeTile(tile, location);
+    private void applyNukeRules(Map<Location, Hex> hexes) throws Throwable {
+        for(NukePlacementRule rule : nukeTilePlacementRules) {
+                rule.applyRule(hexes);
         }
     }
 
