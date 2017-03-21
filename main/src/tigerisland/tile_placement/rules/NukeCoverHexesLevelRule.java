@@ -4,7 +4,7 @@ package tigerisland.tile_placement.rules;
 import tigerisland.board.Board;
 import tigerisland.board.Location;
 import tigerisland.hex.Hex;
-import tigerisland.tile_placement.exceptions.NukeCoverHexesLevelException;
+import tigerisland.tile_placement.exceptions.NukeCoverHexesLevelRuleException;
 
 import java.util.Map;
 
@@ -28,7 +28,7 @@ public class NukeCoverHexesLevelRule implements NukePlacementRule{
                expectedLevel = hexLevel;
             }
             else if (hexLevel != expectedLevel) {
-               throw new NukeCoverHexesLevelException();
+               throw new NukeCoverHexesLevelRuleException();
             }
         }
     }

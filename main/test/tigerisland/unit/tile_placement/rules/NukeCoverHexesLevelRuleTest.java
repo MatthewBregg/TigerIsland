@@ -9,7 +9,7 @@ import tigerisland.board.Location;
 import tigerisland.hex.Hex;
 import tigerisland.tile.Tile;
 import tigerisland.tile.TileUnpacker;
-import tigerisland.tile_placement.exceptions.NukeCoverHexesLevelException;
+import tigerisland.tile_placement.exceptions.NukeCoverHexesLevelRuleException;
 import tigerisland.tile_placement.rules.NukeCoverHexesLevelRule;
 import tigerisland.tile_placement.rules.NukePlacementRule;
 
@@ -28,7 +28,7 @@ public class NukeCoverHexesLevelRuleTest {
         hexesLevelRule = new NukeCoverHexesLevelRule(board);
     }
 
-    @Test (expected = NukeCoverHexesLevelException.class)
+    @Test (expected = NukeCoverHexesLevelRuleException.class)
     public void test_ShouldThrowExceptionWhenABoardHexHasDifferentLevel() throws Throwable {
 
        // Arrange

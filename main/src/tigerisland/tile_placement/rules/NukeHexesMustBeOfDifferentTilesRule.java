@@ -4,7 +4,7 @@ package tigerisland.tile_placement.rules;
 import tigerisland.board.Board;
 import tigerisland.board.Location;
 import tigerisland.hex.Hex;
-import tigerisland.tile_placement.exceptions.NukeHexesMustBeOfDifferentTilesException;
+import tigerisland.tile_placement.exceptions.NukeHexesOfDifferentTilesRuleException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,7 +21,7 @@ public class NukeHexesMustBeOfDifferentTilesRule implements NukePlacementRule {
     public void applyRule(Map<Location, Hex> hexes) throws Throwable {
 
         if ( !hexesBelongToTwoOrMoreTiles(hexes) ) {
-           throw new NukeHexesMustBeOfDifferentTilesException();
+           throw new NukeHexesOfDifferentTilesRuleException();
         }
     }
 
