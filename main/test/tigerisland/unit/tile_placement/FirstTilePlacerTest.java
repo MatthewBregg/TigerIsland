@@ -8,17 +8,16 @@ import tigerisland.board.HexBoard;
 import tigerisland.board.Location;
 import tigerisland.hex.Hex;
 import tigerisland.tile.Tile;
-import tigerisland.tile_placement.*;
+import tigerisland.tile_placement.FirstTilePlacer;
+import tigerisland.tile_placement.InvalidTilePlacer;
+import tigerisland.tile_placement.TilePlacement;
 import tigerisland.tile_placement.exceptions.InvalidTilePlacementException;
 
-public class AdjacentToBoardTilePlacerTest {
+public class FirstTilePlacerTest {
 
-    Board board;
-
+    FirstTilePlacer firstTilePlacer;
     TilePlacement invalidTilePlacer;
-
-    tigerisland.tile_placement.AdjacentToBoardTilePlacer adjacentToBoardTilePlacer;
-
+    Board board;
 
     @Before
     public void setup() {
@@ -26,11 +25,9 @@ public class AdjacentToBoardTilePlacerTest {
         board = new HexBoard();
 
         invalidTilePlacer = new InvalidTilePlacer();
-
-        adjacentToBoardTilePlacer = new tigerisland.tile_placement.AdjacentToBoardTilePlacer(board);
-        adjacentToBoardTilePlacer.setNextTilePlacement(invalidTilePlacer);
+        firstTilePlacer = new FirstTilePlacer(board);
+        firstTilePlacer.setNextTilePlacement(invalidTilePlacer);
     }
-
 
     @Test
     public void test_ShouldAdd3HexesWhenBoardIsEmpty() throws Throwable {
@@ -40,7 +37,7 @@ public class AdjacentToBoardTilePlacerTest {
         Location location = new Location(0, 0, 0);
 
         // Act
-        adjacentToBoardTilePlacer.placeTile(tile, location);
+        firstTilePlacer.placeTile(tile, location);
 
         // Assert
         int expectedHexesOnBoard = 3;
@@ -48,37 +45,52 @@ public class AdjacentToBoardTilePlacerTest {
     }
 
     @Test
-    public void test_ShouldAdd3HexesWithLevel1() throws Throwable {
+    public void test_ShouldAddHexesWithLevel1() throws Throwable {
 
         // Arrange
         Tile tile = new Tile();
         Location location = new Location(0, 0, 0);
 
         // Act
-        adjacentToBoardTilePlacer.placeTile(tile, location);
+        firstTilePlacer.placeTile(tile, location);
 
         // Assert
         int expectedHexLevel = 1;
         Hex mapHex = board.getHex(location);
+
         Assert.assertEquals(expectedHexLevel, mapHex.getLevel());
     }
 
     @Test (expected = InvalidTilePlacementException.class)
-    public void test_ShouldThrowExceptionWhenNextTilePlacerIsCalled() throws Throwable {
+    public void test_ShouldCallNextPlacerWhenBoardIsNotEmpty() throws Throwable {
 
         // Arrange
         Tile tile = new Tile();
         Location location = new Location(0, 0, 0);
-        adjacentToBoardTilePlacer.placeTile(tile, location);
+        firstTilePlacer.placeTile(tile, location);
 
         Tile tile2 = new Tile();
-        Location location2 = new Location(0, 0, 0);
+        Location location2 = new Location(2,-1,-1);
 
         // Act
-        adjacentToBoardTilePlacer.placeTile(tile2, location2);
+        firstTilePlacer.placeTile(tile2, location2);
 
         // Assert
-        // Throws exception
+        // Throws Exception
+    }
+
+    @Test (expected = InvalidTilePlacementException.class)
+    public void test_ShouldCallNextPlacerWhenLocationIsNotZero() throws Throwable {
+
+        // Arrange
+        Tile tile = new Tile();
+        Location location = new Location(0, -1, 1);
+
+        // Act
+        firstTilePlacer.placeTile(tile, location);
+
+        // Assert
+        // Throws Exception
     }
 
 }

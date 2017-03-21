@@ -3,7 +3,7 @@ package tigerisland.unit.tile_placement;
 import org.junit.Test;
 import tigerisland.board.Location;
 import tigerisland.tile.Tile;
-import tigerisland.tile_placement.InvalidTilePlacementException;
+import tigerisland.tile_placement.exceptions.InvalidTilePlacementException;
 import tigerisland.tile_placement.InvalidTilePlacer;
 import tigerisland.tile_placement.TilePlacement;
 
