@@ -13,12 +13,12 @@ import tigerisland.terrains.Volcano;
 import tigerisland.tile.Tile;
 import tigerisland.tile.TileUnpacker;
 import tigerisland.tile_placement.exceptions.NukeHexesOfDifferentTilesRuleException;
-import tigerisland.tile_placement.rules.NukeHexesMustBeOfDifferentTilesRule;
+import tigerisland.tile_placement.rules.NukeHexesOfDifferentTilesRule;
 import tigerisland.tile_placement.rules.NukePlacementRule;
 
 import java.util.Map;
 
-public class NukeHexesMustBeOfDifferentTilesTest {
+public class NukeHexesOfDifferentTilesRuleTest {
 
     Map<Location, Hex> hexes;
     Board board;
@@ -28,7 +28,7 @@ public class NukeHexesMustBeOfDifferentTilesTest {
     public void setup() {
 
         board = new HexBoard();
-        differentTilesRule = new NukeHexesMustBeOfDifferentTilesRule(board);
+        differentTilesRule = new NukeHexesOfDifferentTilesRule(board);
     }
 
     @Test (expected = NukeHexesOfDifferentTilesRuleException.class)

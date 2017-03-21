@@ -41,16 +41,16 @@ public class NukeVolcanoOnVolcanoRuleTest {
        int settlementId = -1;
        int hexLevel = 1;
 
-       Hex hexA = new Hex(tileId, settlementId, Volcano.getInstance(), hexLevel);
-       Hex hexB = new Hex(tileId, settlementId, Rocky.getInstance(), hexLevel);
-       Hex hexC = new Hex(tileId, settlementId, Grassland.getInstance(), hexLevel);
+       Hex volcanoHex = new Hex(tileId, settlementId, Volcano.getInstance(), hexLevel);
+       Hex rockyHex = new Hex(tileId, settlementId, Rocky.getInstance(), hexLevel);
+       Hex grasslandHex = new Hex(tileId, settlementId, Grassland.getInstance(), hexLevel);
 
-       Tile tile  = new Tile(tileId, hexA, hexB, hexC);
+       Tile tile  = new Tile(tileId, volcanoHex, rockyHex, grasslandHex);
        Location location = new Location(0, 0, 0);
 
        addTileHexesToBoard(tile, location);
 
-       Tile tile2 = new Tile(tileId, hexB, hexA, hexC);
+       Tile tile2 = new Tile(tileId, rockyHex, volcanoHex, grasslandHex);
        hexes = TileUnpacker.getTileHexes(tile2, location);
 
        // Act
@@ -65,16 +65,16 @@ public class NukeVolcanoOnVolcanoRuleTest {
        int settlementId = -1;
        int hexLevel = 1;
 
-       Hex hexA = new Hex(tileId, settlementId, Rocky.getInstance(), hexLevel);
-       Hex hexB = new Hex(tileId, settlementId, Rocky.getInstance(), hexLevel);
-       Hex hexC = new Hex(tileId, settlementId, Grassland.getInstance(), hexLevel);
+       Hex rockyHex = new Hex(tileId, settlementId, Rocky.getInstance(), hexLevel);
+       Hex rockyHex2 = new Hex(tileId, settlementId, Rocky.getInstance(), hexLevel);
+       Hex grasslandHex = new Hex(tileId, settlementId, Grassland.getInstance(), hexLevel);
 
-       Tile tile  = new Tile(tileId, hexA, hexB, hexC);
+       Tile tile  = new Tile(tileId, rockyHex, rockyHex2, grasslandHex);
        Location location = new Location(0, 0, 0);
 
        addTileHexesToBoard(tile, location);
 
-       Tile tile2 = new Tile(tileId, hexB, hexA, hexC);
+       Tile tile2 = new Tile(tileId, rockyHex2, rockyHex, grasslandHex);
        hexes = TileUnpacker.getTileHexes(tile2, location);
 
        // Act
@@ -89,17 +89,17 @@ public class NukeVolcanoOnVolcanoRuleTest {
        int settlementId = -1;
        int hexLevel = 1;
 
-       Hex hexA = new Hex(tileId, settlementId, Volcano.getInstance(), hexLevel);
-       Hex hexB = new Hex(tileId, settlementId, Rocky.getInstance(), hexLevel);
-       Hex hexC = new Hex(tileId, settlementId, Grassland.getInstance(), hexLevel);
+       Hex volcanoHex = new Hex(tileId, settlementId, Volcano.getInstance(), hexLevel);
+       Hex rockyHex = new Hex(tileId, settlementId, Rocky.getInstance(), hexLevel);
+       Hex grasslandHex = new Hex(tileId, settlementId, Grassland.getInstance(), hexLevel);
 
-       Tile tile  = new Tile(tileId, hexA, hexB, hexC);
+       Tile tile  = new Tile(tileId, volcanoHex, rockyHex, grasslandHex);
        Location location = new Location(0, 0, 0);
 
        addTileHexesToBoard(tile, location);
 
 
-       Tile tile2  = new Tile(tileId, hexA, hexB, hexC);
+       Tile tile2  = new Tile(tileId, volcanoHex, rockyHex, grasslandHex);
        hexes = TileUnpacker.getTileHexes(tile2, location);
 
        try {

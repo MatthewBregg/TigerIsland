@@ -18,7 +18,7 @@ import tigerisland.tile_placement.rules.NukeVolcanoHexRule;
 
 import java.util.Map;
 
-public class NukeVolcanoHexTest {
+public class NukeVolcanoHexRuleTest {
 
     Map<Location, Hex> hexes;
     Board board;

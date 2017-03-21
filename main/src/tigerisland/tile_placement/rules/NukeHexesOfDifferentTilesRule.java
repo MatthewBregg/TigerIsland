@@ -9,11 +9,11 @@ import tigerisland.tile_placement.exceptions.NukeHexesOfDifferentTilesRuleExcept
 import java.util.HashMap;
 import java.util.Map;
 
-public class NukeHexesMustBeOfDifferentTilesRule implements NukePlacementRule {
+public class NukeHexesOfDifferentTilesRule implements NukePlacementRule {
 
     Board board;
 
-    public NukeHexesMustBeOfDifferentTilesRule(Board board) {
+    public NukeHexesOfDifferentTilesRule(Board board) {
         this.board = board;
     }
 
