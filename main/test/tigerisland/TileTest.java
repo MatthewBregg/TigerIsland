@@ -36,6 +36,22 @@ public class TileTest {
 
         Assert.assertTrue(tileID == 2);
     }
+    @Test
+    public void tileShouldRotateCorrectly(){
+        Assert.assertEquals(Orientation.getEast(), customTile.getOrientation() );
+        customTile.rotate();
+        Assert.assertEquals(Orientation.getNorthEast(), customTile.getOrientation());
+        customTile.rotate();
+        Assert.assertEquals(Orientation.getNorthWest(), customTile.getOrientation());
+        customTile.rotate();
+        Assert.assertEquals(Orientation.getWest(), customTile.getOrientation());
+        customTile.rotate();
+        Assert.assertEquals(Orientation.getSouthWest(), customTile.getOrientation());
+        customTile.rotate();
+        Assert.assertEquals(Orientation.getSouthEast(), customTile.getOrientation());
+        customTile.rotate();
+        Assert.assertEquals(Orientation.getEast(), customTile.getOrientation());
+    }
 
     @Test
     public void orientationSetCorrectly(){

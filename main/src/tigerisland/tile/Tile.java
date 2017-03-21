@@ -67,10 +67,10 @@ public class Tile {
        //Quick implementation to enable acceptance test. We can fix later if unsatisfactory
 
 
-       //everything but SW orientation
+       //everything but SE orientation
        if(this.orientation.getAngle()<300)
            setOrientation(new Orientation(this.orientation.getAngle()+60));
-       // SW orientation
+       // SE orientation
        else
            setOrientation(new Orientation(0));
    }

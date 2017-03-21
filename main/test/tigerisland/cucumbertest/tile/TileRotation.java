@@ -26,7 +26,7 @@ public class TileRotation {
     }
 
     @Then("^The tile's orientation changes$")
-    public void weFindTwoNonVolcanoTerrainTypes() throws Throwable {
+    public void weFindThatOrientationChange() throws Throwable {
         assert(tileWithEastOrientation != tileWithNWOrientation);
         assert(tileWithEastOrientation.getOrientation()==Orientation.getNorthEast());
 
