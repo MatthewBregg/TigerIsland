@@ -90,7 +90,6 @@ public class Tile {
 
    public void setOrientation(Orientation orientation) {
       this.orientation = orientation;
-       orientation.rotate(60);
    }
 
    public Hex getReferenceHex() {
