@@ -45,4 +45,25 @@ public class LazySettlementBoard implements SettlementBoard {
     public boolean LocationOccupiedp(Location loc) {
         return ( pieceBoard.LocationOccupiedp(loc));
     }
+
+    /**
+     *
+     * @param loc The location to check
+     * @param playerID The player id to look for
+     * @return Boolean to indicate if there is a settlement by player, playerID, in location, loc.
+     */
+    @Override
+    public boolean LocationOccupiedp(Location loc, PlayerID playerID) {
+        return (pieceBoard.LocationOccupiedp(loc)) && playerID.equals(pieceBoard.getPlayer(loc));
+    }
+
+    @Override
+    public Settlement getSettlement(Location location, PlayerID playerID) {
+        Settlement s = getSettlement(location);
+        if ( playerID.equals(s.getPlayerID())) {
+            return s;
+        } else {
+            throw new IllegalArgumentException("No settlement of this player here!");
+        }
+    }
 }

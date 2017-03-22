@@ -7,7 +7,6 @@ import tigerisland.piece.*;
 import tigerisland.player.PlayerID;
 import tigerisland.tile.Orientation;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,7 +16,7 @@ import static org.junit.Assert.*;
 
 
 public class LazySettlementBoardTest {
-    class TestPieceBoard implements PieceBoard {
+    class TestPieceBoardNoPlayers implements PieceBoard {
         @Override
         public PlayerID getPlayer(Location location) {
             return CreatePlayerID.createPlayerID();
@@ -41,17 +40,40 @@ public class LazySettlementBoardTest {
 
 
     }
-    SettlementBoard settlementBoard = null;
-    TestPieceBoard pieceBoard = null;
 
-    @Before
-    public void setUp() throws Exception {
-        pieceBoard = new TestPieceBoard();
+    Location p1Loc = null;
+    Location p2Loc = null;
+    SettlementBoard settlementBoard = null;
+    TestPieceBoardNoPlayers pieceBoard = null;
+
+    private void setUpTwoPlayerBoard() {
+        p1Loc = new Location(0,0,0);
+        p2Loc = p1Loc.getAdjacent(Orientation.getEast());
+        pieceBoard = new TestPieceBoardNoPlayers() {
+            @Override
+            public PlayerID getPlayer(Location location) {
+                if (p1Loc.equals(location)) {
+                    return CreatePlayerID.getP1();
+                } else if (p2Loc.equals(location)) {
+                    return CreatePlayerID.getP2();
+                } else {
+                    return null;
+
+                }
+            }
+        };
+        settlementBoard = new LazySettlementBoard(pieceBoard);
+    }
+
+
+    public void setUpNoPlayerBoard() throws Exception {
+        pieceBoard = new TestPieceBoardNoPlayers();
         settlementBoard = new LazySettlementBoard(pieceBoard);
 
     }
     @Test
     public void GivenUnoccupiedLocationThenAttemptingtoGetSettlementThenException() throws Exception {
+        setUpNoPlayerBoard();
         Location location = new Location(0,0,0);
         boolean thrown = false;
         try {
@@ -64,12 +86,14 @@ public class LazySettlementBoardTest {
 
     @Test
     public void GivenUnoccupiedLocationThenQueryingIfOccupiedThenFalse() throws Exception {
+        setUpNoPlayerBoard();
         Location location = new Location(0,0,0);
         assertFalse(settlementBoard.LocationOccupiedp(location));
     }
 
     @Test
     public void GivenOccupiedLocationThenAttemptingtoGetSettlementThenGetSettlement() throws Exception {
+        setUpNoPlayerBoard();
         Location location = new Location(0,0,0);
         addAnythingToPieceBoard(location);
         Settlement s = settlementBoard.getSettlement(location);
@@ -79,6 +103,7 @@ public class LazySettlementBoardTest {
 
     @Test
     public void GivenOccupiedLocationThenQueryingIfOccupiedThenTrue() throws Exception {
+        setUpNoPlayerBoard();
         Location location = new Location(0,0,0);
         addAnythingToPieceBoard(location);
         assertTrue(settlementBoard.LocationOccupiedp(location));
@@ -88,6 +113,7 @@ public class LazySettlementBoardTest {
 
     @Test
     public void GivenLargerSettlementThenQuerySizeThenCorrectSize() throws Exception {
+        setUpNoPlayerBoard();
         Location locations[] = getSquareOfLocations();
         for ( Location loc : locations ) {
             addAnythingToPieceBoard(loc);
@@ -100,6 +126,7 @@ public class LazySettlementBoardTest {
 
     @Test
     public void GivenLargerSettlementThenQuerySizeThenCorrectPieces() throws Exception {
+        setUpNoPlayerBoard();
         Location locations[] = getSquareOfLocations();
         boolean step = false;
         for ( Location loc : locations ) {
@@ -153,29 +180,17 @@ public class LazySettlementBoardTest {
 
     @Test
     public void TestDifferentPlayersStaySeparate() throws Exception {
-        // Code smell, but undo the set up method.
-        pieceBoard = new TestPieceBoard() {
-            @Override
-            public PlayerID getPlayer(Location location) {
-                if ( new Location(0,0,0) == location ) {
-                    return CreatePlayerID.getP1();
-                }
-                else {
-                    return CreatePlayerID.getP2();
-
-                }
-            }
-        };
-        settlementBoard = new LazySettlementBoard(pieceBoard);
-        addAnythingToPieceBoard(new Location(0,0,0));
-        addAnythingToPieceBoard(new Location(1,1));
-        Settlement p1 = settlementBoard.getSettlement(new Location(0,0,0));
-        Settlement p2 = settlementBoard.getSettlement(new Location(1,1));
-        assert(p1.settlementSize() == 1);
-        assert(p2.settlementSize() ==  1);
-        assert(p1.LocationOccupiedp(new Location(0,0,0)));
-        assert(p2.LocationOccupiedp(new Location(1,1)));
+        setUpTwoPlayerBoard();
+        addAnythingToPieceBoard(p1Loc);
+        addAnythingToPieceBoard(p2Loc);
+        Settlement p1 = settlementBoard.getSettlement(p1Loc);
+        Settlement p2 = settlementBoard.getSettlement(p2Loc);
+        assertEquals(1,p1.settlementSize());
+        assertEquals(1,p2.settlementSize());
+        assert(p1.LocationOccupiedp(p1Loc));
+        assert(p2.LocationOccupiedp(p2Loc));
     }
+
 
     private void addAnythingToPieceBoard(Location l) {
         addPieceToPieceBoard(l, new Villager());
