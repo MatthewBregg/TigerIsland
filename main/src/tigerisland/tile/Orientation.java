@@ -78,7 +78,7 @@ public class Orientation
 	
 	public void rotate(int angle){
 		this.angle += angle;
-		this.angle = (Math.floorMod(angle, 360) + 360) % 360;
+		this.angle = (Math.floorMod(this.angle, 360) + 360) % 360;
 		calculateOffset();
 	}
 

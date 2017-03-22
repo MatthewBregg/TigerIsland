@@ -212,4 +212,22 @@ public class OrientationTest
         Orientation o = new Orientation(300);
         assertEquals("Southeast", o.toString());
     }
+
+    @Test
+    public void rotationTest()
+    {
+        Orientation rotation = new Orientation(0);
+        rotation.rotate(60);
+        assertEquals(60, rotation.getAngle());
+        rotation.rotate(60);
+        assertEquals(120, rotation.getAngle());
+        rotation.rotate(60);
+        assertEquals(180, rotation.getAngle());
+        rotation.rotate(60);
+        assertEquals(240, rotation.getAngle());
+        rotation.rotate(60);
+        assertEquals(300, rotation.getAngle());
+        rotation.rotate(60);
+        assertEquals(0, rotation.getAngle());
+    }
 }

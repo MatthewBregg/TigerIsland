@@ -57,6 +57,10 @@ public class Tile {
    }
 
    public void rotate(){
+       orientation.rotate(60);
+
+/*
+
        // TODO: implement tile rotation
        //Quick implementation to enable acceptance test. We can fix later if unsatisfactory
 
@@ -67,11 +71,8 @@ public class Tile {
        // SE orientation
        else
            setOrientation(new Orientation(0));
-   }
 
-   public void setOrientation(Orientation orientation) {
-      this.orientation = orientation;
-       orientation.rotate(60);
+*/
    }
 
    public boolean equals(Tile tile){
@@ -85,6 +86,11 @@ public class Tile {
 
    public Orientation getOrientation(){
        return orientation;
+   }
+
+   public void setOrientation(Orientation orientation) {
+      this.orientation = orientation;
+       orientation.rotate(60);
    }
 
    public Hex getReferenceHex() {
