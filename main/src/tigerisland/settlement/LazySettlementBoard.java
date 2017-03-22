@@ -18,9 +18,10 @@ public class LazySettlementBoard implements SettlementBoard {
         this.pieceBoard = peiceBoard;
     }
 
-    private Settlement getSettlementPlayerAgnostic(Location location) {
+    @Override
+    public Settlement getSettlement(Location location) {
         if (!this.LocationOccupiedp(location)) {
-            return null;
+            return CreateEmptySettlement(null);
         } else {
             Map<Location, Piece> pieceMap = new HashMap<Location,Piece>();
             PlayerID playerID = pieceBoard.getPlayer(location);
@@ -41,8 +42,8 @@ public class LazySettlementBoard implements SettlementBoard {
         }
     }
 
-
-    private boolean LocationOccupiedp(Location loc) {
+    @Override
+    public boolean LocationOccupiedp(Location loc) {
         return ( pieceBoard.LocationOccupiedp(loc));
     }
 
@@ -59,12 +60,14 @@ public class LazySettlementBoard implements SettlementBoard {
 
     @Override
     public Settlement getSettlement(Location location, PlayerID playerID) {
-        Settlement s = this.getSettlementPlayerAgnostic(location);
-        if ( s == null || !playerID.equals(s.getPlayerID())) {
-            return this.CreateEmptySettlement(playerID);
+        Settlement s = this.getSettlement(location);
+        if ( playerID.equals(s.getPlayerID())) {
+            return s;
 
+        } else {
+            return this.CreateEmptySettlement(playerID);
         }
-        return s;
+
     }
 
     private Settlement CreateEmptySettlement(PlayerID pID) {

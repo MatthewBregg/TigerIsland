@@ -7,6 +7,9 @@ import java.util.List;
 
 public interface SettlementBoard {
 
+    boolean LocationOccupiedp(Location loc);
+    Settlement getSettlement(Location location);
+
     boolean LocationOccupiedp(Location loc, PlayerID playerID);
     Settlement getSettlement(Location location, PlayerID playerID);
 

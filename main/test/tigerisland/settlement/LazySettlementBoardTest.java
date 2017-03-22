@@ -71,19 +71,19 @@ public class LazySettlementBoardTest {
 
     }
     @Test
-    public void GivenUnoccupiedLocationThenAttemptingtoGetSettlementThenException() throws Exception {
+    public void GivenUnoccupiedLocationThenAttemptingtoGetSettlementThenEmptySettlement() throws Exception {
         setUpNoPlayerBoard();
         Location location = new Location(0,0,0);
         boolean thrown = false;
-        Settlement settlement = settlementBoard.getSettlement(location,CreatePlayerID.getPlayerID());
-        AssertEmptySettlement(settlement,CreatePlayerID.getPlayerID());
+        Settlement settlement = settlementBoard.getSettlement(location);
+        AssertEmptySettlement(settlement,null);
 
     }
 
     private void AssertEmptySettlement(Settlement s, PlayerID pID) {
         assertEquals(0,s.settlementSize());
         assertEquals(0,s.getConnectedLocations().size());
-        assertTrue(s.getPlayerID().equals(pID));
+        assertTrue((pID == null && s.getPlayerID() == null) || pID.equals(s.getPlayerID()));
 
         // Checking that no locations return a Piece would be nice, but impossible with infinite locations
         // Plus implementation is just a map, and we already check map is size 0
@@ -102,7 +102,7 @@ public class LazySettlementBoardTest {
         setUpNoPlayerBoard();
         Location location = new Location(0,0,0);
         addAnythingToPieceBoard(location);
-        Settlement s = settlementBoard.getSettlement(location,CreatePlayerID.getPlayerID());
+        Settlement s = settlementBoard.getSettlement(location);
         assertNotNull(s);
         assertEquals(s.settlementSize(),1);
     }
@@ -125,7 +125,7 @@ public class LazySettlementBoardTest {
             addAnythingToPieceBoard(loc);
         }
         for ( Location loc : locations ) {
-            assertEquals(settlementBoard.getSettlement(loc,CreatePlayerID.getPlayerID()).settlementSize(),locations.length);
+            assertEquals(settlementBoard.getSettlement(loc).settlementSize(),locations.length);
         }
     }
 
@@ -144,7 +144,7 @@ public class LazySettlementBoardTest {
         }
         step = false;
         for ( Location base_loc : locations ) {
-            Settlement settlement = settlementBoard.getSettlement(base_loc,CreatePlayerID.getPlayerID());
+            Settlement settlement = settlementBoard.getSettlement(base_loc);
             for (Location loc : locations) {
                 Piece p = settlement.getPieceAt(loc);
                 if (step) {
@@ -189,8 +189,8 @@ public class LazySettlementBoardTest {
         setUpTwoPlayerBoard();
         addAnythingToPieceBoard(p1Loc);
         addAnythingToPieceBoard(p2Loc);
-        Settlement p1 = settlementBoard.getSettlement(p1Loc,CreatePlayerID.getP1());
-        Settlement p2 = settlementBoard.getSettlement(p2Loc,CreatePlayerID.getP2());
+        Settlement p1 = settlementBoard.getSettlement(p1Loc);
+        Settlement p2 = settlementBoard.getSettlement(p2Loc);
         assertEquals(1,p1.settlementSize());
         assertEquals(1,p2.settlementSize());
         assert(p1.LocationOccupiedp(p1Loc));
@@ -199,7 +199,7 @@ public class LazySettlementBoardTest {
 
 
     @Test
-    public void test_whenGettingSettlmentByPlayerGetExceptionIfWrongPlayer() throws Exception {
+    public void test_whenGettingSettlmentByPlayerGetEmptySettlementIfWrongPlayer() throws Exception {
         setUpTwoPlayerBoard();
         addAnythingToPieceBoard(p1Loc);
         addAnythingToPieceBoard(p2Loc);
