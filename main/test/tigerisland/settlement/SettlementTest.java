@@ -1,6 +1,5 @@
 package tigerisland.settlement;
 
-import com.intellij.vcs.log.Hash;
 import org.junit.Test;
 import tigerisland.board.Location;
 import tigerisland.piece.Piece;
@@ -20,7 +19,7 @@ public class SettlementTest {
         for ( Location loc : locations ) {
             pieceMap.put(loc,null);
         }
-        settlement = new Settlement(pieceMap, CreatePlayerID.createPlayerID());
+        settlement = new Settlement(pieceMap, CreatePlayerID.getPlayerID());
     }
     @Test
     public void GivenEmptySettlementWhenQuerySizeThenGet0() throws Exception {
@@ -54,7 +53,7 @@ public class SettlementTest {
         Villager v = new Villager();
         pieceMap.put(new Location(0,0),t);
         pieceMap.put(new Location(0,1),v);
-        settlement = new Settlement(pieceMap,CreatePlayerID.createPlayerID());
+        settlement = new Settlement(pieceMap,CreatePlayerID.getPlayerID());
         assertEquals(settlement.getPieceAt(new Location(0,0)),t);
         assertEquals(settlement.getPieceAt(new Location(0,1)),v);
     }

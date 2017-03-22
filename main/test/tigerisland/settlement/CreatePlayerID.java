@@ -7,7 +7,7 @@ public class CreatePlayerID {
     private static PlayerID pID1 = null;
     private static PlayerID pID2 = null;
 
-    public static PlayerID createPlayerID() {
+    public static PlayerID getPlayerID() {
         if ( pID == null ) {
             pID = new PlayerID();
         }
