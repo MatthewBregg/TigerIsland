@@ -3,6 +3,7 @@ package tigerisland.settlement;
 import tigerisland.board.Location;
 import tigerisland.piece.Piece;
 import tigerisland.piece.PieceBoard;
+import tigerisland.player.PlayerID;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,17 +23,20 @@ public class LazySettlementBoard implements SettlementBoard {
             throw new IllegalArgumentException("No settlement at this location!");
         } else {
             Map<Location, Piece> pieceMap = new HashMap<Location,Piece>();
-            generatePieceMapAtLocation(location,pieceMap);
-            return new Settlement((pieceMap));
+            PlayerID playerID = pieceBoard.getPlayer(location);
+            generatePieceMapAtLocation(location,pieceMap,playerID);
+            return new Settlement(pieceMap,playerID);
         }
     }
 
-    private void generatePieceMapAtLocation(Location location, Map<Location,Piece> pieceMap) {
+    private void generatePieceMapAtLocation(Location location, Map<Location,Piece> pieceMap, PlayerID playerID) {
         if ( pieceMap.containsKey(location)) { return; }
-        pieceMap.put(location,pieceBoard.getPiece(location));
+        assert( playerID.equals(pieceBoard.getPlayer(location)));
+        pieceMap.put(location, pieceBoard.getPiece(location));
+
         for ( Location adjLoc : location.getSurroundingLocations()) {
-            if (pieceBoard.LocationOccupiedp(adjLoc)) {
-                generatePieceMapAtLocation(adjLoc, pieceMap);
+            if (pieceBoard.LocationOccupiedp(adjLoc) && playerID.equals(pieceBoard.getPlayer(adjLoc))) {
+                generatePieceMapAtLocation(adjLoc, pieceMap,playerID);
             }
         }
     }

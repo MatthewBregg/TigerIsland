@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import tigerisland.board.Location;
 import tigerisland.piece.*;
+import tigerisland.player.PlayerID;
 import tigerisland.tile.Orientation;
 
 import java.util.HashMap;
@@ -15,6 +16,11 @@ import static org.junit.Assert.*;
 
 public class LazySettlementBoardTest {
     class TestPieceBoard implements PieceBoard {
+        @Override
+        public PlayerID getPlayer(Location location) {
+            return CreatePlayerID.createPlayerID();
+        }
+
         Map<Location, Piece> pieceMap = new HashMap<Location,Piece>();
         @Override
         public Piece getPiece(Location location) {
@@ -30,6 +36,8 @@ public class LazySettlementBoardTest {
             pieceMap.put(location, piece);
 
         }
+
+
     }
     SettlementBoard settlementBoard = null;
     TestPieceBoard pieceBoard = null;
