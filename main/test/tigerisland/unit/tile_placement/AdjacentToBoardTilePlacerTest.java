@@ -9,8 +9,13 @@ import tigerisland.board.Location;
 import tigerisland.hex.Hex;
 import tigerisland.tile.Orientation;
 import tigerisland.tile.Tile;
+import tigerisland.tile.TileUnpacker;
 import tigerisland.tile_placement.*;
 import tigerisland.tile_placement.exceptions.InvalidTilePlacementException;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class AdjacentToBoardTilePlacerTest {
 
@@ -80,7 +85,7 @@ public class AdjacentToBoardTilePlacerTest {
     }
 
     @Test (expected = InvalidTilePlacementException.class)
-    public void test_ShouldThrowExceptionWhenNextTilePlacerIsCalled() throws Throwable {
+    public void test_ShouldThrowExceptionWhenEmptyBoard() throws Throwable {
 
         // Arrange
         Tile tile = new Tile();
@@ -96,5 +101,39 @@ public class AdjacentToBoardTilePlacerTest {
         // Assert
         // Throws exception
     }
+
+    @Test
+    public void test_AllowsPlacementForAllAdjacent() throws Throwable {
+        Tile tile = new Tile();
+        Location location = new Location(0, 0, 0);
+        firstTilePlacer.placeTile(tile, location);
+        List<Location> adjLocations = new ArrayList<Location>();
+        Map<Location,Hex> placedLocations = TileUnpacker.getTileHexes(tile,location);
+        for (Location placedLoc : placedLocations.keySet()) {
+            adjLocations.addAll(placedLoc.getSurroundingLocations());
+        }
+        adjLocations.removeAll(placedLocations.keySet());
+        // Now need to figure out a way to make a tile that covers each of these, but doesn't overlap an existing tile.
+        assert(false);
+
+    }
+
+    @Test (expected = InvalidTilePlacementException.class)
+    public void test_DisallowsPlacementIfNoAdjacent() throws Throwable {
+        // Arrange
+        Tile tile = new Tile();
+        Location location = new Location(0, 0, 0);
+        firstTilePlacer.placeTile(tile, location);
+
+        Tile tile2 = new Tile();
+        Location location2 = new Location(42, 42, -42*2);
+
+        // Act
+        adjacentToBoardTilePlacer.placeTile(tile2, location2);
+
+        // Assert
+        // Throws exception
+    }
+
 
 }
