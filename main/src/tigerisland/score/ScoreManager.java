@@ -4,6 +4,10 @@ package tigerisland.score;
  * Created by christinemoore on 3/21/17.
  */
 
+import tigerisland.player.Player;
+import tigerisland.player.PlayerID;
+import tigerisland.hex.Hex;
+
 public class ScoreManager{
     private Score p1Score;
     private Score p2Score;
@@ -16,14 +20,14 @@ public class ScoreManager{
     public Score getPlayerScore(PlayerID pID){
         Score playerScoreToReturn;
 
-        if (pID == p1Score.getPlayer().getID()){
+        if (pID == p1Score.getPlayer().getId()){
             playerScoreToReturn = p1Score;
         }
-        else if (pID == p2Score.getPlayer().getID()){
+        else if (pID == p2Score.getPlayer().getId()){
            playerScoreToReturn = p2Score;
         }
         else{
-            throw new RuntimeError("invalid playerID");
+            throw new RuntimeException("invalid playerID");
         }
         return playerScoreToReturn;
     }
@@ -56,15 +60,20 @@ public class ScoreManager{
     }
 
     // we would use this method if we were passed a hex each time
-    public addMeeplePlacementScoreDueToExpansion(PlayerID pID, Hex currentHex){
+    public void addMeeplePlacementScoreDueToExpansion(PlayerID pID, Hex currentHex){
         Score score = getPlayerScore(pID);
-        score.addPointsToScore(currentHex.level);
+        score.addPointsToScore(currentHex.getLevel());
     }
 
 
     public void addTotoroScore(PlayerID pID){
         Score score = getPlayerScore(pID);
         score.addPointsToScore(200);
+    }
+
+    public void addTigerScore(PlayerID pID){
+        Score score = getPlayerScore(pID);
+        score.addPointsToScore(75);
     }
 
 
