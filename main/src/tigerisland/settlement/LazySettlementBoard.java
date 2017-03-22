@@ -8,7 +8,7 @@ import tigerisland.player.PlayerID;
 import java.util.HashMap;
 import java.util.Map;
 
-/*
+/**
     Dynimically find out about settlements using the piece board.
     To get settlements per player, will need one board per player.
  */
@@ -17,10 +17,10 @@ public class LazySettlementBoard implements SettlementBoard {
     public LazySettlementBoard(PieceBoard peiceBoard) {
         this.pieceBoard = peiceBoard;
     }
-    @Override
-    public Settlement getSettlement(Location location) {
+
+    private Settlement getSettlementPlayerAgnostic(Location location) {
         if (!this.LocationOccupiedp(location)) {
-            throw new IllegalArgumentException("No settlement at this location!");
+            return null;
         } else {
             Map<Location, Piece> pieceMap = new HashMap<Location,Piece>();
             PlayerID playerID = pieceBoard.getPlayer(location);
@@ -41,8 +41,8 @@ public class LazySettlementBoard implements SettlementBoard {
         }
     }
 
-    @Override
-    public boolean LocationOccupiedp(Location loc) {
+
+    private boolean LocationOccupiedp(Location loc) {
         return ( pieceBoard.LocationOccupiedp(loc));
     }
 
@@ -59,11 +59,15 @@ public class LazySettlementBoard implements SettlementBoard {
 
     @Override
     public Settlement getSettlement(Location location, PlayerID playerID) {
-        Settlement s = getSettlement(location);
-        if ( playerID.equals(s.getPlayerID())) {
-            return s;
-        } else {
-            throw new IllegalArgumentException("No settlement of this player here!");
+        Settlement s = this.getSettlementPlayerAgnostic(location);
+        if ( s == null || !playerID.equals(s.getPlayerID())) {
+            return this.CreateEmptySettlement(playerID);
+
         }
+        return s;
+    }
+
+    private Settlement CreateEmptySettlement(PlayerID pID) {
+        return new Settlement(new HashMap<>(), pID);
     }
 }
