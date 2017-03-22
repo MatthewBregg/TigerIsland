@@ -192,6 +192,27 @@ public class LazySettlementBoardTest {
     }
 
 
+    @Test(expected = IllegalArgumentException.class)
+    public void test_whenGettingSettlmentByPlayerGetExceptionIfWrongPlayer() throws Exception {
+        setUpTwoPlayerBoard();
+        addAnythingToPieceBoard(p1Loc);
+        addAnythingToPieceBoard(p2Loc);
+        assertFalse(settlementBoard.LocationOccupiedp(p1Loc,CreatePlayerID.getP2()));
+        Settlement p1 = settlementBoard.getSettlement(p1Loc, CreatePlayerID.getP2());
+    }
+
+    @Test
+    public void test_whenGettingSettlmentByPlayerGetSettlmentIfCorrectPlayer() throws Exception {
+        setUpTwoPlayerBoard();
+        addAnythingToPieceBoard(p1Loc);
+        addAnythingToPieceBoard(p2Loc);
+        assertTrue(settlementBoard.LocationOccupiedp(p1Loc,CreatePlayerID.getP1()));
+        Settlement p1 = settlementBoard.getSettlement(p1Loc, CreatePlayerID.getP1());
+        assertEquals(1,p1.settlementSize());
+        assert(p1.LocationOccupiedp(p1Loc));
+    }
+
+
     private void addAnythingToPieceBoard(Location l) {
         addPieceToPieceBoard(l, new Villager());
     }
