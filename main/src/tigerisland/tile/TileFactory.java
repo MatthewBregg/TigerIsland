@@ -8,12 +8,12 @@ public class TileFactory {
 
     private TileFactory() {};
 
-    private static Tile generateTile(int desired_id) {
+    private static Tile generateTile(int desiredTileType, int newTileID) {
         int id = 0;
         for (Terrain i : terrainTypes) {
             for (Terrain j : terrainTypes) {
-                if (id == desired_id) {
-                    return (new Tile(id, new Hex(i), new Hex(j)));
+                if (id == desiredTileType) {
+                    return (new Tile(newTileID, new Hex(i), new Hex(j)));
                 }
                 ++id;
             }
@@ -21,11 +21,11 @@ public class TileFactory {
         return null;
     }
 
-    public static Tile getTile(int i) {
-        if ( i < 0 || i > (getTileCombinations() - 1)) {
+    public static Tile getTile(int tileType, int newTileID) {
+        if ( tileType < 0 || tileType > (getTileCombinations() - 1)) {
             throw new IndexOutOfBoundsException("Can only generate 0-15 unique tiles, rotate for more");
         }
-       return generateTile(i);
+       return generateTile(tileType, newTileID);
     }
 
     public static int getTileCombinations() {

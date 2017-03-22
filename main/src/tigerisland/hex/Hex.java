@@ -14,24 +14,22 @@ public class Hex {
     private int level;
 
     public Hex(){
-        tileID = (int)(Math.random() * 100);
-        settlementID = (int)(Math.random() * 100);
-        terrain = Rocky.getInstance();
-        level = 1;
+        this((int)(Math.random() * 100), (int)(Math.random() * 100), Rocky.getInstance(), 1);
     }
 
     public Hex(Terrain terrain){
-        tileID = (int)(Math.random() * 100);
-        settlementID = (int)(Math.random() * 100);
-        this.terrain = terrain;
-        level = 1; // Level should not be set at constructor or will have to be set again when placed on board
+        this((int)(Math.random() * 100), (int)(Math.random() * 100), terrain, 1);
+    }
+
+    public Hex(int id, Terrain terrain){
+        this(id, (int)(Math.random() * 100), terrain, 1);
     }
 
     public Hex(int tileID, int settlementID, Terrain terrain, int level){
         this.tileID = tileID;
         this.settlementID = settlementID;
         this.terrain = terrain;
-        this.level = level;
+        this.level = level; // Level should not be set at constructor or will have to be set again when placed on board
     }
 
     public int getTileID(){
@@ -49,5 +47,6 @@ public class Hex {
     public int getLevel(){
         return level;
     }
+
 
 }
