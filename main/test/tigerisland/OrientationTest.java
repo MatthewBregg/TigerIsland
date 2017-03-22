@@ -214,20 +214,36 @@ public class OrientationTest
     }
 
     @Test
-    public void rotationTest()
+    public void rotate_rotate60SixTimes_RotatesProperly()
     {
-        Orientation rotation = new Orientation(0);
-        rotation.rotate(60);
-        assertEquals(60, rotation.getAngle());
-        rotation.rotate(60);
-        assertEquals(120, rotation.getAngle());
-        rotation.rotate(60);
-        assertEquals(180, rotation.getAngle());
-        rotation.rotate(60);
-        assertEquals(240, rotation.getAngle());
-        rotation.rotate(60);
-        assertEquals(300, rotation.getAngle());
-        rotation.rotate(60);
-        assertEquals(0, rotation.getAngle());
+        o = o.rotate(60);
+        assertEquals(60, o.getAngle());
+        o = o.rotate(60);
+        assertEquals(120, o.getAngle());
+        o = o.rotate(60);
+        assertEquals(180, o.getAngle());
+        o = o.rotate(60);
+        assertEquals(240, o.getAngle());
+        o = o.rotate(60);
+        assertEquals(300, o.getAngle());
+        o = o.rotate(60);
+        assertEquals(0, o.getAngle());
+    }
+
+    @Test
+    public void rotate_rotate120ThreeTimes_RotatesProperly()
+    {
+        o = o.rotate(120);
+        assertEquals(120, o.getAngle());
+        o = o.rotate(120);
+        assertEquals(240, o.getAngle());
+        o = o.rotate(120);
+    }
+
+    @Test
+    public void rotate_negative60_Rotates300()
+    {
+        o = o.rotate(-60);
+        assertEquals(300, o.getAngle());
     }
 }

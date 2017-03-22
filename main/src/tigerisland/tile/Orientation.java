@@ -76,10 +76,10 @@ public class Orientation
 		return new Orientation(SOUTHWEST);
 	}
 	
-	public void rotate(int angle){
-		this.angle += angle;
-		this.angle = (Math.floorMod(this.angle, 360) + 360) % 360;
-		calculateOffset();
+	public Orientation rotate(int angle){
+		angle += this.angle;
+		angle = (Math.floorMod(angle, 360) + 360) % 360;
+		return new Orientation(angle);
 	}
 
 	private void calculateAngle() {

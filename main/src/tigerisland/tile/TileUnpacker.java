@@ -29,25 +29,25 @@ public class TileUnpacker {
                 nonVolcanoHexes.put(referenceHexLocation.getAdjacent(Orientation.getSouthEast()), tile.getRightHex());
                 return nonVolcanoHexes;
             case Orientation.NORTHEAST:
-                nonVolcanoHexes.put(referenceHexLocation.getAdjacent(Orientation.getWest()), tile.getLeftHex());
-                nonVolcanoHexes.put(referenceHexLocation.getAdjacent(Orientation.getSouthWest()), tile.getRightHex());
+                nonVolcanoHexes.put(referenceHexLocation.getAdjacent(Orientation.getSouthEast()), tile.getLeftHex());
+                nonVolcanoHexes.put(referenceHexLocation.getAdjacent(Orientation.getEast()), tile.getRightHex());
                 return nonVolcanoHexes;
             case Orientation.NORTHWEST:
-                nonVolcanoHexes.put(referenceHexLocation.getAdjacent(Orientation.getNorthWest()), tile.getLeftHex());
-                nonVolcanoHexes.put(referenceHexLocation.getAdjacent(Orientation.getWest()), tile.getRightHex());
+                nonVolcanoHexes.put(referenceHexLocation.getAdjacent(Orientation.getEast()), tile.getLeftHex());
+                nonVolcanoHexes.put(referenceHexLocation.getAdjacent(Orientation.getNorthEast()), tile.getRightHex());
                 return nonVolcanoHexes;
             case Orientation.WEST:
                 nonVolcanoHexes.put(referenceHexLocation.getAdjacent(Orientation.getNorthEast()), tile.getLeftHex());
                 nonVolcanoHexes.put(referenceHexLocation.getAdjacent(Orientation.getNorthWest()), tile.getRightHex());
                 return nonVolcanoHexes;
             case Orientation.SOUTHWEST:
-                nonVolcanoHexes.put(referenceHexLocation.getAdjacent(Orientation.getEast()), tile.getLeftHex());
-                nonVolcanoHexes.put(referenceHexLocation.getAdjacent(Orientation.getNorthEast()), tile.getRightHex());
+                nonVolcanoHexes.put(referenceHexLocation.getAdjacent(Orientation.getNorthWest()), tile.getLeftHex());
+                nonVolcanoHexes.put(referenceHexLocation.getAdjacent(Orientation.getWest()), tile.getRightHex());
                 return nonVolcanoHexes;
             // Orientation.SOUTHEAST
             default:
-                nonVolcanoHexes.put(referenceHexLocation.getAdjacent(Orientation.getSouthEast()), tile.getLeftHex());
-                nonVolcanoHexes.put(referenceHexLocation.getAdjacent(Orientation.getEast()), tile.getRightHex());
+                nonVolcanoHexes.put(referenceHexLocation.getAdjacent(Orientation.getWest()), tile.getLeftHex());
+                nonVolcanoHexes.put(referenceHexLocation.getAdjacent(Orientation.getSouthWest()), tile.getRightHex());
                 return nonVolcanoHexes;
         }
     }

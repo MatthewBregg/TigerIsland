@@ -58,8 +58,8 @@ public class TileUnpackerTest {
 
         // Act
         hexes = TileUnpacker.getTileHexes(tile, volcanoHexLocation);
-        leftHexShouldBe = new Location(-1,1,0);
-        rightHexShouldBe = new Location (-1,0,1);
+        leftHexShouldBe = new Location(0,-1,1);
+        rightHexShouldBe = new Location (1,-1,0);
 
         // Assert
         Assert.assertNotNull(hexes.get(leftHexShouldBe));
@@ -76,8 +76,8 @@ public class TileUnpackerTest {
 
         // Act
         hexes = TileUnpacker.getTileHexes(tile, volcanoHexLocation);
-        leftHexShouldBe = new Location(0,1,-1);
-        rightHexShouldBe = new Location (-1,1,0);
+        leftHexShouldBe = new Location(1,-1,0);
+        rightHexShouldBe = new Location (1,0,-1);
 
         // Assert
         Assert.assertNotNull(hexes.get(leftHexShouldBe));
@@ -110,8 +110,8 @@ public class TileUnpackerTest {
 
         // Act
         hexes = TileUnpacker.getTileHexes(tile, volcanoHexLocation);
-        leftHexShouldBe= new Location(1,-1,0);
-        rightHexShouldBe = new Location(1,0,-1);
+        leftHexShouldBe= new Location(0,1,-1);
+        rightHexShouldBe = new Location(-1,1,0);
 
         // Assert
         Assert.assertNotNull(hexes.get(leftHexShouldBe));
@@ -127,8 +127,8 @@ public class TileUnpackerTest {
 
         // Act
         hexes = TileUnpacker.getTileHexes(tile, volcanoHexLocation);
-        leftHexShouldBe= new Location(0,-1,1);
-        rightHexShouldBe = new Location (1,-1,0);
+        leftHexShouldBe= new Location(-1,1,0);
+        rightHexShouldBe = new Location (-1,0,1);
 
         // Assert
         Assert.assertNotNull(hexes.get(leftHexShouldBe));
