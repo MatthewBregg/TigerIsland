@@ -20,7 +20,7 @@ public class SettlementTest {
         for ( Location loc : locations ) {
             pieceMap.put(loc,null);
         }
-        settlement = new Settlement(pieceMap);
+        settlement = new Settlement(pieceMap, CreatePlayerID.createPlayerID());
     }
     @Test
     public void GivenEmptySettlementWhenQuerySizeThenGet0() throws Exception {
@@ -54,7 +54,7 @@ public class SettlementTest {
         Villager v = new Villager();
         pieceMap.put(new Location(0,0),t);
         pieceMap.put(new Location(0,1),v);
-        settlement = new Settlement(pieceMap);
+        settlement = new Settlement(pieceMap,CreatePlayerID.createPlayerID());
         assertEquals(settlement.getPieceAt(new Location(0,0)),t);
         assertEquals(settlement.getPieceAt(new Location(0,1)),v);
     }

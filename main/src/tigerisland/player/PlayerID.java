@@ -1,3 +1,5 @@
 package tigerisland.player;
 
-public class PlayerID {}
+public class PlayerID {
+
+}
