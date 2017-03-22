@@ -3,11 +3,11 @@ package tigerisland.tile_placement;
 import tigerisland.board.Location;
 import tigerisland.tile.Tile;
 
-public class TilePlacementManager implements TilePlacement {
+public class TilePlacementHandler implements TilePlacement {
 
     TilePlacement tilePlacement;
 
-    public TilePlacementManager(TilePlacement tilePlacement) {
+    public TilePlacementHandler(TilePlacement tilePlacement) {
         this.tilePlacement = tilePlacement;
     }
 

@@ -20,7 +20,8 @@ public class NukeTilePlacerTest {
     TilePlacement invalidTilePlacement;
     NukePlacementRule nukeCoverHexesLevelRule;
     NukeTilePlacer nukeTilePlacer;
-    AdjacentToBoardTilePlacer adjacentToBoardTilePlacer;
+    FirstTilePlacer firstTilePlacer;
+
 
     @Before
     public void setup() {
@@ -35,8 +36,8 @@ public class NukeTilePlacerTest {
 
         nukeTilePlacer.setNextTilePlacement(invalidTilePlacement);
 
-        adjacentToBoardTilePlacer = new AdjacentToBoardTilePlacer(board);
-        adjacentToBoardTilePlacer.setNextTilePlacement(nukeTilePlacer);
+        firstTilePlacer = new FirstTilePlacer(board);
+        firstTilePlacer.setNextTilePlacement(nukeTilePlacer);
 
     }
 
@@ -66,7 +67,7 @@ public class NukeTilePlacerTest {
         Tile tile = new Tile(tileId, hexA, hexB, hexC);
         Location location = new Location(0, 0, 0);
 
-        adjacentToBoardTilePlacer.placeTile(tile, location);
+        firstTilePlacer.placeTile(tile, location);
 
         // Act
         nukeTilePlacer.placeTile(tile, location);

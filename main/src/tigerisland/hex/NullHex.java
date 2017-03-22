@@ -8,5 +8,7 @@ import tigerisland.hex.Hex;
 
 
 public class NullHex extends Hex {
-
+    public NullHex() {
+        super(-1,-1,null, -1);
+    }
 }

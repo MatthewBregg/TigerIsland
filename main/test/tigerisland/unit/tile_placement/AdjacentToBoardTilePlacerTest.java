@@ -7,6 +7,7 @@ import tigerisland.board.Board;
 import tigerisland.board.HexBoard;
 import tigerisland.board.Location;
 import tigerisland.hex.Hex;
+import tigerisland.tile.Orientation;
 import tigerisland.tile.Tile;
 import tigerisland.tile_placement.*;
 import tigerisland.tile_placement.exceptions.InvalidTilePlacementException;
@@ -17,7 +18,9 @@ public class AdjacentToBoardTilePlacerTest {
 
     TilePlacement invalidTilePlacer;
 
-    tigerisland.tile_placement.AdjacentToBoardTilePlacer adjacentToBoardTilePlacer;
+    AdjacentToBoardTilePlacer adjacentToBoardTilePlacer;
+
+    FirstTilePlacer firstTilePlacer;
 
 
     @Before
@@ -29,21 +32,29 @@ public class AdjacentToBoardTilePlacerTest {
 
         adjacentToBoardTilePlacer = new tigerisland.tile_placement.AdjacentToBoardTilePlacer(board);
         adjacentToBoardTilePlacer.setNextTilePlacement(invalidTilePlacer);
+
+        firstTilePlacer = new FirstTilePlacer(board);
+        firstTilePlacer.setNextTilePlacement(adjacentToBoardTilePlacer);
     }
 
 
     @Test
-    public void test_ShouldAdd3HexesWhenBoardIsEmpty() throws Throwable {
+    public void test_ShouldAdd3HexesWhenBoardIsHasSome() throws Throwable {
+
 
         // Arrange
         Tile tile = new Tile();
-        Location location = new Location(0, 0, 0);
+        Location startLocation = new Location(0, 0,0);
+        Location location = startLocation.getAdjacent(Orientation.getWest());
+        location = location.getAdjacent(Orientation.getWest());
 
+        // Prime the board with a tile
+        firstTilePlacer.placeTile(new Tile(), startLocation);
         // Act
         adjacentToBoardTilePlacer.placeTile(tile, location);
 
         // Assert
-        int expectedHexesOnBoard = 3;
+        int expectedHexesOnBoard = 6;
         Assert.assertEquals(expectedHexesOnBoard, board.getSize());
     }
 
@@ -52,10 +63,15 @@ public class AdjacentToBoardTilePlacerTest {
 
         // Arrange
         Tile tile = new Tile();
-        Location location = new Location(0, 0, 0);
+        Location startLocation = new Location(0, 0,0);
+        Location location = startLocation.getAdjacent(Orientation.getWest());
+        location = location.getAdjacent(Orientation.getWest());
 
+        // Prime the board with a tile
+        firstTilePlacer.placeTile(new Tile(), startLocation);
         // Act
         adjacentToBoardTilePlacer.placeTile(tile, location);
+
 
         // Assert
         int expectedHexLevel = 1;

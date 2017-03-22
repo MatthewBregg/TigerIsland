@@ -6,6 +6,7 @@ import tigerisland.hex.Hex;
 import tigerisland.tile.Tile;
 import tigerisland.tile.TileUnpacker;
 
+import java.util.List;
 import java.util.Map;
 
 
@@ -23,12 +24,31 @@ public class AdjacentToBoardTilePlacer implements TilePlacement, TilePlacementCh
 
         Map<Location, Hex> hexes = TileUnpacker.getTileHexes(tile, referenceLocation);
 
-        if ( aLocationIsAlreadyUsed(hexes)) {
+        if ( aLocationIsAlreadyUsed(hexes) || !checkForAdjacentHexes(hexes)) {
             nextTilePlacement(tile, referenceLocation);
         }
         else {
             placeHexesOnBoard(hexes);
         }
+    }
+
+    private boolean checkForAdjacentHexes(Map<Location, Hex> hexes) {
+        for ( Location location : hexes.keySet()) {
+            if ( aHexIsAdjacentToThisLocation(location)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean aHexIsAdjacentToThisLocation(Location location) {
+        List<Location> surroundingLocations = location.getSurroundingLocations();
+        for ( Location adjLoc : surroundingLocations ) {
+            if ( this.board.isLocationUsed(adjLoc)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private boolean aLocationIsAlreadyUsed(Map<Location, Hex> hexes) {
