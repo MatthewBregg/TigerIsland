@@ -85,4 +85,8 @@ public class Tile {
        return rightHex;
    }
 
+    public void setOrientation(Orientation orientation)
+    {
+        this.orientation=orientation;
+    }
 }

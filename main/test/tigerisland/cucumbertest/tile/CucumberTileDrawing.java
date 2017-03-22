@@ -27,8 +27,8 @@ public class CucumberTileDrawing {
 
     @When("^A tile is drawn.$")
     public void weDrawATile() throws Throwable {
-        nonEmptyDeck.getTile();
-        drawnTile = nonEmptyDeck.getTile();
+        nonEmptyDeck.drawTile();
+        drawnTile = nonEmptyDeck.drawTile();
         drawnSize = nonEmptyDeck.getCount();
     }
 
