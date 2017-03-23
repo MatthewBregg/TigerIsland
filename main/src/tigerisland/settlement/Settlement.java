@@ -1,6 +1,7 @@
 package tigerisland.settlement;
 
 import tigerisland.board.Location;
+import tigerisland.piece.NullPiece;
 import tigerisland.piece.Piece;
 import tigerisland.player.PlayerID;
 
@@ -26,7 +27,9 @@ public class Settlement {
     }
 
     public Piece getPieceAt(Location location) {
-        return piecesInSettlement.get(location);
+        Piece p = piecesInSettlement.get(location);
+        p = (p != null) ? p : new NullPiece();
+        return p;
     }
 
     public boolean LocationOccupiedp(Location location) {
