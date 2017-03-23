@@ -5,7 +5,7 @@ package tigerisland.score;
  */
 
 import tigerisland.player.Player;
-
+import tigerisland.player.PlayerID;
 
 public class Score{
     private int playerScore;
@@ -14,6 +14,10 @@ public class Score{
     public Score(Player player){
         this.player = player;
         playerScore = 0;
+    }
+
+    public PlayerID getPlayerId(){
+        return player.getId();
     }
 
     public void setScore(int newScore){
