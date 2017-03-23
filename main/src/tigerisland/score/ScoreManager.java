@@ -32,6 +32,27 @@ public class ScoreManager{
         return playerScoreToReturn;
     }
 
+    public PlayerID getPlayer1ID(){
+        return p1Score.getPlayerId();
+    }
+
+    public PlayerID getPlayer2ID(){
+        return p2Score.getPlayerId();
+    }
+
+    public int getPlayer1Score(){
+        return p1Score.getScore();
+    }
+
+    public int getPlayer2Score(){
+        return p2Score.getScore();
+    }
+
+    public void resetPlayerScores(){
+        p1Score.setScore(0);
+        p2Score.setScore(0);
+    }
+
     public void addBuildNewSettlementScore(PlayerID pID){
         Score score = getPlayerScore(pID);
         score.addPointsToScore(1);
@@ -62,9 +83,11 @@ public class ScoreManager{
     // we would use this method if we were passed a hex each time
     public void addMeeplePlacementScoreDueToExpansion(PlayerID pID, Hex currentHex){
         Score score = getPlayerScore(pID);
-        score.addPointsToScore(currentHex.getLevel());
-    }
+        int level = currentHex.getLevel();
 
+        score.addPointsToScore(level*level);
+        System.out.println(score.getScore());
+    }
 
     public void addTotoroScore(PlayerID pID){
         Score score = getPlayerScore(pID);
