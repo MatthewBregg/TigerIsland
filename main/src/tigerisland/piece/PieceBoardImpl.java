@@ -54,6 +54,6 @@ public class PieceBoardImpl implements PieceBoard {
     }
 
     public void clearLocation(Location loc) {
-        pieceMap.put(loc, null);
+        pieceMap.remove(loc);
     }
 }
