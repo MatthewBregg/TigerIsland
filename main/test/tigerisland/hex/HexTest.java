@@ -1,4 +1,4 @@
-package tigerisland; /**
+package tigerisland.hex; /**
  * Created by christinemoore on 3/14/17.
  */
 

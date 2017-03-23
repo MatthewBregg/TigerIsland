@@ -3,10 +3,15 @@ package tigerisland; /**
  */
 
 import org.junit.*;
-import tigerisland.Grassland;
-import tigerisland.Rocky;
-import tigerisland.Terrain;
-import tigerisland.Tile;
+import tigerisland.hex.Hex;
+import tigerisland.terrains.Grassland;
+import tigerisland.terrains.Rocky;
+import tigerisland.terrains.Terrain;
+import tigerisland.tile.Orientation;
+import tigerisland.tile.Tile;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 
 public class TileTest {
@@ -15,45 +20,70 @@ public class TileTest {
     @BeforeClass
     public static void makeCustomTile(){
         int id = 2;
-        String orientation = "30";
-        Terrain leftTerrain = Rocky.getInstance();
-        Terrain rightTerrain = Grassland.getInstance();
+        Hex leftHex = new Hex();
+        Hex rightHex = new Hex();
 
-        customTile = new Tile(id, orientation, leftTerrain, rightTerrain);
+        customTile = new Tile(id, leftHex, rightHex);
     }
 
     @Test
     public void makeDefaultTile(){
         Tile defaultTile = new Tile();
 
-        Assert.assertTrue(defaultTile instanceof Tile);
+        assertTrue(defaultTile instanceof Tile);
     }
 
     @Test
     public void tileIDSetCorrectly(){
         int tileID = customTile.getID();
 
-        Assert.assertTrue(tileID == 2);
+        assertTrue(tileID == 2);
+    }
+    @Test
+    public void tileShouldRotateCorrectly(){
+        Assert.assertEquals(Orientation.getEast(), customTile.getOrientation() );
+        customTile.rotate();
+        Assert.assertEquals(Orientation.getNorthEast(), customTile.getOrientation());
+        customTile.rotate();
+        Assert.assertEquals(Orientation.getNorthWest(), customTile.getOrientation());
+        customTile.rotate();
+        Assert.assertEquals(Orientation.getWest(), customTile.getOrientation());
+        customTile.rotate();
+        Assert.assertEquals(Orientation.getSouthWest(), customTile.getOrientation());
+        customTile.rotate();
+        Assert.assertEquals(Orientation.getSouthEast(), customTile.getOrientation());
+        customTile.rotate();
+        Assert.assertEquals(Orientation.getEast(), customTile.getOrientation());
     }
 
     @Test
     public void orientationSetCorrectly(){
-        String orientation = customTile.getOrientation();
+        Orientation orientation = customTile.getOrientation();
 
-        Assert.assertTrue(orientation == "30");
+        assertTrue(orientation.getAngle() == Orientation.EAST);
     }
 
     @Test
     public void leftTerrainSetCorrectly(){
-        Terrain leftTerrain = customTile.getLeftTerrain();
+        Terrain leftTerrain = customTile.getLeftHex().getTerrain();
 
-        Assert.assertTrue(leftTerrain instanceof Rocky);
+        assertTrue(leftTerrain instanceof Rocky);
     }
 
     @Test
     public void rightTerrainSetCorrectly(){
-        Terrain rightTerrain = customTile.getRightTerrain();
+        Terrain rightTerrain = customTile.getRightHex().getTerrain();
 
-        Assert.assertTrue(rightTerrain instanceof Grassland);
+        assertTrue(rightTerrain instanceof Rocky);
+    }
+
+    @Test
+    public void equalTilesTest(){
+        Tile tile1 = new Tile(0, new Hex(), new Hex());
+        Tile tile2 = new Tile(0, new Hex(), new Hex());
+        Tile tile3 = new Tile(1, new Hex(), new Hex());
+
+        assertTrue(tile1.equals(tile2));
+        assertTrue(tile1.equals(tile3));
     }
 }

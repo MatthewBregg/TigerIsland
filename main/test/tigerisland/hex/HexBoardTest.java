@@ -1,4 +1,4 @@
-package tigerisland;
+package tigerisland.hex;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -37,17 +37,6 @@ public class HexBoardTest {
 
         // Assert
         Assert.assertEquals(hexBoard.getHex(location), hex);
-    }
-
-    @Test
-    public void test_QueryingEmptyMapHasNothing() {
-        Location location = new Location(0,0,0);
-        Hex nullHex = hexBoard.getHex(location);
-        Assert.assertNotNull(nullHex); // Ensure we get a null hex object
-        Assert.assertTrue(nullHex.getLevel() < 0);
-        Assert.assertTrue(nullHex.getSettlementID() < 0);
-        Assert.assertTrue(nullHex.getTileID() < 0);
-        Assert.assertTrue(nullHex.getTerrain() == null);
     }
 
     @Test
