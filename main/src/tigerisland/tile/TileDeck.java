@@ -38,9 +38,10 @@ public class TileDeck {
         return integerList;
     }
 
-    private int getMaxDeckSize(){
+    public int getMaxDeckSize(){
         return (tileTypes * countPerTileType);
     }
+
 
     private void initialize(Vector<Integer> tileIntegerList){
         // get tiles from tile factory

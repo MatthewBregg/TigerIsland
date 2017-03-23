@@ -1,4 +1,4 @@
-package tigerisland.cucumbertest.tile;
+package tigerisland.cucumbertest.deck;
 
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -21,7 +21,7 @@ public class CucumberTileDrawing {
         nonEmptyDeck = new TileDeck(1234098);
         assert(nonEmptyDeck.getCount()>0);
         //TODO add the getMaxSize here
-        assert(nonEmptyDeck.getCount()==48);
+        assert(nonEmptyDeck.getCount()==nonEmptyDeck.getMaxDeckSize());
         initialSize = nonEmptyDeck.getCount();
     }
 
@@ -36,6 +36,7 @@ public class CucumberTileDrawing {
     public void weFindThatTileIsRemoved() throws Throwable {
       //TODO method should check that the original tile is not in the deck
         assert(drawnSize!=initialSize);
+
 
     }
 }
