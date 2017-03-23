@@ -9,11 +9,17 @@ package tigerislandserver.server;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.io.*;
+import java.io.IOException;
+import java.net.SocketException;
+
 
 public class ServerConnection {
 
     private static ServerSocket serverSocket;
     private static Socket clientSocket;
+    BufferedReader inputReader;
+    PrintWriter outputWriter;
+    int connectionPortNumber;
 
     // there can be 4 different ways we'll need to make a connection
     // 1st way: given both the serverSocket and clientSocket
@@ -52,6 +58,10 @@ public class ServerConnection {
         return serverSocket;
     }
 
+    public int getConnectionPortNumber(){
+        return connectionPortNumber;
+    }
+
     public void acceptClientSocket() {
         try{
             clientSocket = serverSocket.accept();
@@ -59,6 +69,37 @@ public class ServerConnection {
         catch(IOException e){
             System.err.println("Failed to accept Client.");
             System.exit(1);
+        }
+    }
+
+    public void initializeInputChannel(){
+        try {
+            inputReader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void initializeOutputChannel(){
+        try {
+            outputWriter = new PrintWriter(clientSocket.getOutputStream());
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void sendMessageThroughOutputChannel(String message){
+        outputWriter.println(message);
+    }
+
+    public String recieveMessageFromInputChannel() throws IOException{
+        try{
+            String messageFromPlayer = inputReader.readLine();
+
+            return messageFromPlayer;
+
+        } catch (SocketException e){
+            return "There was an issue receiving message from player";
         }
     }
 
