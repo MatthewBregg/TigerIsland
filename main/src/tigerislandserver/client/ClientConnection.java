@@ -1,3 +1,5 @@
+package tigerislandserver.client;
+
 /**
  * Created by christine on 3/20/2017.
  *
@@ -11,8 +13,6 @@
  *
  * this goes both ways with server and client
  */
-
-package tigerislandserver.client;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -48,6 +48,14 @@ public class ClientConnection {
         } catch (IOException e) {
             System.out.println("Issue reading in the socket streams");
         }
+    }
+
+    public int getPortNumber(){
+        return portNumber;
+    }
+
+    public String getHostMachine(){
+        return hostMachine;
     }
 
     /* Once Client object instantiation is successful,

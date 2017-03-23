@@ -6,7 +6,8 @@
 
 package tigerislandserver.server;
 
-import java.net.*;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.io.*;
 
 public class ServerConnection {
