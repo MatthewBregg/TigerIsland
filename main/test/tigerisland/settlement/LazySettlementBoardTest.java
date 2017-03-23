@@ -32,6 +32,16 @@ public class LazySettlementBoardTest {
             return pieceMap.containsKey(location);
         }
 
+        @Override
+        public Piece getPiece(Location location, PlayerID playerID) {
+            return (LocationOccupiedp(location,playerID)) ? getPiece(location) : null;
+        }
+
+        @Override
+        public boolean LocationOccupiedp(Location location, PlayerID playerID) {
+            return (getPlayer(location) == playerID);
+        }
+
         public void addPiece(Location location, Piece piece) {
             pieceMap.put(location, piece);
 

@@ -1,9 +1,7 @@
 package tigerisland.piece;
 
-/**
- * Created by mbregg on 3/15/17.
- */
-public class TotoroCounter implements PieceVisitor {
+
+public class TotoroCounter extends PieceVisitor {
     private int count = 0;
 
     int getCount() {
