@@ -5,13 +5,18 @@ import org.junit.Before;
 import org.junit.Test;
 import tigerisland.board.Location;
 import tigerisland.hex.Hex;
-import tigerisland.piece.*;
+import tigerisland.piece.PieceBoardImpl;
+import tigerisland.piece.Tiger;
+import tigerisland.piece.Totoro;
+import tigerisland.piece.Villager;
 import tigerisland.player.PlayerID;
 import tigerisland.tile.Tile;
 import tigerisland.tile.TileUnpacker;
+import tigerisland.tile_placement.exceptions.NukeTigerRuleException;
+import tigerisland.tile_placement.exceptions.NukeTotoroRuleException;
+import tigerisland.tile_placement.rules.NukeNonNukeablePieceRule;
 import tigerisland.tile_placement.rules.NukePlacementRule;
 
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
@@ -22,7 +27,7 @@ public class NukeCoversOnlyNukablePiecesGetNukedTest {
 
     @Before
     public void setUpNukePlacementRule() {
-        // Set the nuke placement rule to something here!
+        nukePlacementRule = new NukeNonNukeablePieceRule(pieceBoard);
     }
     @Test
     public void test_WhenNothingOnBoardNuke() throws Throwable {
@@ -33,7 +38,7 @@ public class NukeCoversOnlyNukablePiecesGetNukedTest {
         // Assert portion is ensuring this passes with no exception!
     }
 
-    @Test
+    @Test (expected = NukeTotoroRuleException.class)
     public void test_WhenTotoroOnHexDoNotNuke() throws Throwable {
         Location totoroLoc = new Location(0,0,0);
         AddTotoroToPieceBoard(totoroLoc);
@@ -44,7 +49,7 @@ public class NukeCoversOnlyNukablePiecesGetNukedTest {
 
     }
 
-    @Test
+    @Test (expected = NukeTigerRuleException.class)
     public void test_WhenTigerOnHexDoNotNuke() throws Throwable {
         Location tigerLoc = new Location(0,0,0);
         AddTigerToPieceBoard(tigerLoc);
@@ -63,7 +68,13 @@ public class NukeCoversOnlyNukablePiecesGetNukedTest {
         AddVillagerToPieceBoard(locIter.next());
         AddTotoroToPieceBoard(locIter.next());
         AddTigerToPieceBoard(locIter.next());
-        nukePlacementRule.applyRule(locations);
+        boolean exceptionThrow = false;
+        try {
+            nukePlacementRule.applyRule(locations);}
+        catch (Exception e){
+            exceptionThrow = true;
+        }
+        Assert.assertTrue(exceptionThrow);
         // Assert that an exceptions occurs
     }
 
@@ -76,6 +87,7 @@ public class NukeCoversOnlyNukablePiecesGetNukedTest {
             AddVillagerToPieceBoard(loc);
         }
         nukePlacementRule.applyRule(locations);
+
         // Assert portion is ensuring this passes with no exception!
     }
 

@@ -1,7 +1,7 @@
 package tigerisland.piece;
 
 
-public abstract class PieceVisitor {
+public class PieceVisitor {
     public void visitVillager(Villager villager) {
         // Do nothing by default
     }
