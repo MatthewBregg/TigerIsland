@@ -19,10 +19,7 @@ import tigerisland.tile_placement.FirstTilePlacer;
 import tigerisland.tile_placement.InvalidTilePlacer;
 import tigerisland.tile_placement.TilePlacement;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 
 public class CucumberBoardTester {
@@ -73,14 +70,15 @@ public class CucumberBoardTester {
 
         placedLocations = board.getUsedBoardLocations();
 
-        List <Location> placedLocationsShouldBe = new ArrayList();
+        List <Location> placedLocationsShouldBe = Arrays.asList(new Location[]{new Location(0,0,0),
+                new Location(-1,0,1), new Location(0,-1,1)});
 
-        placedLocationsShouldBe.add(new Location(0,0,0));
-        placedLocationsShouldBe.add(new Location(-1,0,1));
-        placedLocationsShouldBe.add(new Location(0,-1,1));
+
 
         Assert.assertTrue(placedLocations.size()==3);
-        Assert.assertTrue(placedLocations.contains(placedLocationsShouldBe));
+        Assert.assertTrue(placedLocations.containsAll(placedLocationsShouldBe)
+                && placedLocationsShouldBe.containsAll(placedLocations));
+
 
         for (Location placedLocation : placedLocations){
             Hex placedHex = board.getHex(placedLocation);
