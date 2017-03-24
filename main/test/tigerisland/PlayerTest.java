@@ -21,7 +21,7 @@ public class PlayerTest
     @Test
     public void constructor_manualCountAssignment_properInitialCounts()
     {
-        Player player=new Player(100,5);
+        Player player=new Player(100,5,0);
         assertEquals(100,player.getVillagerCount());
         assertEquals(5,player.getTotoroCount());
     }
