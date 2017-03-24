@@ -1,5 +1,6 @@
 package tigerisland.piece;
 
+import org.junit.Assert;
 import org.junit.Test;
 import tigerisland.board.Location;
 import tigerisland.player.PlayerID;
@@ -20,7 +21,7 @@ public class PieceBoardImplTest {
     public void test_WhenUnOccupiedThengetNullPiece() throws Exception {
         Piece p = pc.getPiece(locationZero);
         assertNotNull(p);
-        assert(p instanceof NullPiece);
+        Assert.assertTrue(p instanceof NullPiece);
     }
 
     @Test

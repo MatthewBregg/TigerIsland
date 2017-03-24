@@ -79,12 +79,12 @@ public class CucumberBoardTester {
         placedLocationsShouldBe.add(new Location(-1,0,1));
         placedLocationsShouldBe.add(new Location(0,-1,1));
 
-        assert(placedLocations.size()==3);
-        assert(placedLocations.contains(placedLocationsShouldBe));
+        Assert.assertTrue(placedLocations.size()==3);
+        Assert.assertTrue(placedLocations.contains(placedLocationsShouldBe));
 
         for (Location placedLocation : placedLocations){
             Hex placedHex = board.getHex(placedLocation);
-            assert(placedHex.getLevel()==1);
+            Assert.assertTrue(placedHex.getLevel()==1);
         }
 
     }

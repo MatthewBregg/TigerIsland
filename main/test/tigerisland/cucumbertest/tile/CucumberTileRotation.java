@@ -3,6 +3,7 @@ package tigerisland.cucumbertest.tile;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.junit.Assert;
 import tigerisland.terrains.Jungle;
 import tigerisland.terrains.Rocky;
 import tigerisland.terrains.Terrain;
@@ -27,8 +28,8 @@ public class CucumberTileRotation {
 
     @Then("^The tile's orientation changes$")
     public void weFindThatOrientationChange() throws Throwable {
-        assert(tileWithEastOrientation != tileWithNWOrientation);
-        assert(tileWithEastOrientation.getOrientation()==Orientation.getNorthEast());
+        Assert.assertTrue(tileWithEastOrientation != tileWithNWOrientation);
+        Assert.assertTrue(tileWithEastOrientation.getOrientation()==Orientation.getNorthEast());
 
     }
 }

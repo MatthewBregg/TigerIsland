@@ -4,6 +4,7 @@ import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.junit.Assert;
 import tigerisland.tile.Orientation;
 import tigerisland.tile.Tile;
 import tigerisland.tile.TileDeck;
@@ -21,9 +22,9 @@ public class CucumberTileDrawing {
     @Given("^We have non-empty tile deck$")
     public void weHaveNonEmptyTileDeck() throws Throwable {
         nonEmptyDeck = new TileDeck(1234098);
-        assert(nonEmptyDeck.getCount()>0);
+        Assert.assertTrue(nonEmptyDeck.getCount()>0);
         //TODO add the getMaxSize here
-        assert(nonEmptyDeck.getCount()==nonEmptyDeck.getMaxDeckSize());
+        Assert.assertTrue(nonEmptyDeck.getCount()==nonEmptyDeck.getMaxDeckSize());
         initialSize = nonEmptyDeck.getCount();
     }
 
@@ -37,7 +38,7 @@ public class CucumberTileDrawing {
     @Then("^The tile is removed from the deck.$")
     public void weFindThatTileIsRemoved() throws Throwable {
       //TODO method should check that the original tile is not in the deck
-        assert(drawnSize!=initialSize);
+        Assert.assertTrue(drawnSize!=initialSize);
 
 
     }

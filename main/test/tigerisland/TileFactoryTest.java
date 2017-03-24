@@ -1,5 +1,6 @@
 package tigerisland;
 
+import org.junit.Assert;
 import org.junit.Test;
 import tigerisland.tile.Tile;
 import tigerisland.tile.TileFactory;
@@ -20,12 +21,12 @@ public class TileFactoryTest {
     }
     @Test
     public void WhenIndexLess0ThenThrow() throws Exception {
-        assert(throws_exception(-1));
+        Assert.assertTrue(throws_exception(-1));
     }
 
     @Test
     public void WhenIndexMore16ThenThrow() throws Exception {
-        assert(throws_exception(16));
+        Assert.assertTrue(throws_exception(16));
     }
 
     @Test
@@ -51,7 +52,7 @@ public class TileFactoryTest {
             }
             tiles.add(tile);
         }
-        assert(tiles.size() == 16);
+        Assert.assertTrue(tiles.size() == 16);
     }
 
     boolean tilesEqual(Tile a, Tile b) {

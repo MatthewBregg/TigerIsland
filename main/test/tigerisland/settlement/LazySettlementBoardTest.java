@@ -1,5 +1,6 @@
 package tigerisland.settlement;
 
+import org.junit.Assert;
 import org.junit.Test;
 import tigerisland.board.Location;
 import tigerisland.piece.*;
@@ -190,7 +191,7 @@ public class LazySettlementBoardTest {
         Location center = new Location(0,0);
         List<Location> list = center.getSurroundingLocations();
         list.add(center);
-        assert(list.size() > 1);
+        Assert.assertTrue(list.size() > 1);
         return list.toArray(new Location[list.size()]);
     }
 
@@ -203,8 +204,8 @@ public class LazySettlementBoardTest {
         Settlement p2 = settlementBoard.getSettlement(p2Loc);
         assertEquals(1,p1.settlementSize());
         assertEquals(1,p2.settlementSize());
-        assert(p1.LocationOccupiedp(p1Loc));
-        assert(p2.LocationOccupiedp(p2Loc));
+        Assert.assertTrue(p1.LocationOccupiedp(p1Loc));
+        Assert.assertTrue(p2.LocationOccupiedp(p2Loc));
     }
 
 
@@ -226,7 +227,7 @@ public class LazySettlementBoardTest {
         assertTrue(settlementBoard.LocationOccupiedp(p1Loc,CreatePlayerID.getP1()));
         Settlement p1 = settlementBoard.getSettlement(p1Loc, CreatePlayerID.getP1());
         assertEquals(1,p1.settlementSize());
-        assert(p1.LocationOccupiedp(p1Loc));
+        Assert.assertTrue(p1.LocationOccupiedp(p1Loc));
     }
 
 

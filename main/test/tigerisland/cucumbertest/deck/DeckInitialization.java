@@ -22,7 +22,7 @@ public class DeckInitialization implements En {
            
         });
         Then("^The deck contains (\\d+) tiles, (\\d+) unique combinations$", (Integer tilesTotal, Integer uniqueTotal) -> {
-            assert(tileDeck.getCount()==48);
+            Assert.assertTrue(tileDeck.getCount()==48);
             Set<String> tileSet = new HashSet<>();
             for ( int i = 0; i != 48; ++i ) {
                 Tile t = tileDeck.drawTile();
