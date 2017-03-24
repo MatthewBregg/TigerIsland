@@ -1,12 +1,8 @@
 package tigerisland.cucumbertest.deck;
 
 
-import cucumber.api.PendingException;
 import cucumber.api.java8.En;
-import org.jetbrains.annotations.NotNull;
 import org.junit.Assert;
-import tigerisland.hex.Hex;
-import tigerisland.terrains.Terrain;
 import tigerisland.tile.Tile;
 import tigerisland.tile.TileDeck;
 
