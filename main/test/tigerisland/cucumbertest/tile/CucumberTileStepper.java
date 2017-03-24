@@ -1,5 +1,6 @@
 package tigerisland.cucumbertest.tile;
 
+import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -31,5 +32,11 @@ public class CucumberTileStepper {
     public void weFindTwoNonVolcanoTerrainTypes() throws Throwable {
        assert(tile.getLeftHex().getTerrain() != Volcano.getInstance());
        assert(tile.getRightHex().getTerrain() != Volcano.getInstance());
+    }
+
+    @Then("^We find one volcano terrain types$")
+    public void weFindOneVolcanoTerrainTypes() throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        assert(tile.getReferenceHex().getTerrain() == Volcano.getInstance());
     }
 }

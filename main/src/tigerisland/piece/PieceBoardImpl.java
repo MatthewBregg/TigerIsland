@@ -1,6 +1,5 @@
 package tigerisland.piece;
 
-import com.intellij.vcs.log.Hash;
 import tigerisland.board.Location;
 import tigerisland.player.PlayerID;
 
