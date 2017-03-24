@@ -1,5 +1,6 @@
 package tigerisland.cucumbertest.deck;
 
+import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -16,8 +17,9 @@ public class CucumberTileDrawing {
 
 
 
-    @Given("^We have a non-empty tile deck$")
-    public void weHaveADeckWithSizeGreaterThanZero() throws Throwable {
+
+    @Given("^We have non-empty tile deck$")
+    public void weHaveNonEmptyTileDeck() throws Throwable {
         nonEmptyDeck = new TileDeck(1234098);
         assert(nonEmptyDeck.getCount()>0);
         //TODO add the getMaxSize here
@@ -25,7 +27,7 @@ public class CucumberTileDrawing {
         initialSize = nonEmptyDeck.getCount();
     }
 
-    @When("^A tile is drawn.$")
+    @When("^A tile is drawn$")
     public void weDrawATile() throws Throwable {
         nonEmptyDeck.drawTile();
         drawnTile = nonEmptyDeck.drawTile();
@@ -39,5 +41,7 @@ public class CucumberTileDrawing {
 
 
     }
+
+
 }
 
