@@ -1,4 +1,4 @@
 package tigerisland.tile_placement.exceptions;
 
-public class NukeCoverHexesLevelRuleException extends Throwable {
+public class NukeCoverHexesLevelRuleException extends Exception {
 }

@@ -5,5 +5,5 @@ import tigerisland.tile.Tile;
 
 public interface TilePlacement {
 
-    void placeTile(Tile tile, Location location) throws Throwable;
+    void placeTile(Tile tile, Location location) throws Exception;
 }

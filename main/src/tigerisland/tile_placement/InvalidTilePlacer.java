@@ -8,7 +8,7 @@ public class InvalidTilePlacer implements TilePlacement{
 
 
     @Override
-    public void placeTile(Tile tile, Location location) throws Throwable{
+    public void placeTile(Tile tile, Location location) throws Exception{
         throw new InvalidTilePlacementException();
     }
 

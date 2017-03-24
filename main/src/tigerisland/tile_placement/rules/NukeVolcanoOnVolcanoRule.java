@@ -18,7 +18,7 @@ public class NukeVolcanoOnVolcanoRule implements NukePlacementRule{
     }
 
     @Override
-    public void applyRule(Map<Location, Hex> hexes) throws Throwable {
+    public void applyRule(Map<Location, Hex> hexes) throws Exception {
 
             if ( !isTileVolcanoOnBoardVolcano(hexes) ) {
                throw new NukeVolcanoOnVolcanoRuleException();

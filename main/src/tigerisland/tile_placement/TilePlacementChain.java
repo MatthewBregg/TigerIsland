@@ -7,6 +7,6 @@ public interface TilePlacementChain {
 
     void setNextTilePlacement(TilePlacement tilePlacement);
 
-    void nextTilePlacement(Tile tile, Location location) throws Throwable;
+    void nextTilePlacement(Tile tile, Location location) throws Exception;
 
 }

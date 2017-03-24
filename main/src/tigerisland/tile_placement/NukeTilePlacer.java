@@ -27,7 +27,7 @@ public class NukeTilePlacer  implements  TilePlacement, TilePlacementChain{
     }
     
     @Override
-    public void placeTile(Tile tile, Location location) throws Throwable {
+    public void placeTile(Tile tile, Location location) throws Exception {
 
         Map<Location, Hex> hexes = TileUnpacker.getTileHexes(tile, location);
 
@@ -42,7 +42,7 @@ public class NukeTilePlacer  implements  TilePlacement, TilePlacementChain{
         }
     }
 
-    private void applyNukeRules(Map<Location, Hex> hexes) throws Throwable {
+    private void applyNukeRules(Map<Location, Hex> hexes) throws Exception {
         for(NukePlacementRule rule : nukeTilePlacementRules) {
                 rule.applyRule(hexes);
         }
@@ -75,7 +75,7 @@ public class NukeTilePlacer  implements  TilePlacement, TilePlacementChain{
     }
 
     @Override
-    public void nextTilePlacement(Tile tile, Location location) throws Throwable {
+    public void nextTilePlacement(Tile tile, Location location) throws Exception {
         this.nextTilePlacement.placeTile(tile, location);
     }
 }

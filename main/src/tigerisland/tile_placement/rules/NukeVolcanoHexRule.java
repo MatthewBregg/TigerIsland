@@ -19,7 +19,7 @@ public class NukeVolcanoHexRule implements NukePlacementRule{
     }
 
     @Override
-    public void applyRule(Map<Location, Hex> hexes) throws Throwable {
+    public void applyRule(Map<Location, Hex> hexes) throws Exception {
 
         if ( !isThereAVolcanoHexAtLocations(hexes.keySet()) ) {
             throw new NukeVolcanoHexRuleException();

@@ -17,7 +17,7 @@ public class NukeCoverHexesLevelRule implements NukePlacementRule{
     }
 
     @Override
-    public void applyRule(Map<Location, Hex> hexes) throws Throwable {
+    public void applyRule(Map<Location, Hex> hexes) throws Exception {
         int expectedLevel = -1;
         for (Location location : hexes.keySet() ) {
 

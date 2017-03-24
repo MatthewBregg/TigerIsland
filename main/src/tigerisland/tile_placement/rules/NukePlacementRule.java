@@ -7,5 +7,5 @@ import java.util.Map;
 
 public interface NukePlacementRule {
 
-    public void applyRule(Map<Location, Hex> hexes) throws Throwable;
+    public void applyRule(Map<Location, Hex> hexes) throws Exception;
 }

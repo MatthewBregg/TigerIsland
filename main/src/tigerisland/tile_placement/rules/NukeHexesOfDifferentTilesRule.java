@@ -18,7 +18,7 @@ public class NukeHexesOfDifferentTilesRule implements NukePlacementRule {
     }
 
     @Override
-    public void applyRule(Map<Location, Hex> hexes) throws Throwable {
+    public void applyRule(Map<Location, Hex> hexes) throws Exception {
 
         if ( !hexesBelongToTwoOrMoreTiles(hexes) ) {
            throw new NukeHexesOfDifferentTilesRuleException();

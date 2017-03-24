@@ -20,7 +20,7 @@ public class FirstTilePlacer implements TilePlacement, TilePlacementChain {
     }
 
     @Override
-    public void placeTile(Tile tile, Location referenceLocation) throws Throwable {
+    public void placeTile(Tile tile, Location referenceLocation) throws Exception {
 
         if (isBoardEmpty() && isLocationZero(referenceLocation)) {
             Map<Location, Hex> hexes = TileUnpacker.getTileHexes(tile, referenceLocation);
@@ -44,7 +44,7 @@ public class FirstTilePlacer implements TilePlacement, TilePlacementChain {
     }
 
     @Override
-    public void nextTilePlacement(Tile tile, Location location) throws Throwable {
+    public void nextTilePlacement(Tile tile, Location location) throws Exception {
         nextTilePlacement.placeTile(tile, location);
     }
 
