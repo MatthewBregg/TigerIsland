@@ -10,6 +10,10 @@ public abstract class PieceVisitor {
         // Do nothing by default
     }
 
+    public void visitTiger(Tiger tiger){
+        // Do nothing by default
+    }
+
     public void visitNullPiece(NullPiece nullPiece) {
         // Do nothing by default
     }

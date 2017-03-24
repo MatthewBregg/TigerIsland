@@ -14,12 +14,8 @@ package tigerislandserver.client;
  * this goes both ways with server and client
  */
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.Socket;
-import java.io.InputStream;
-
 import java.net.UnknownHostException;
 
 public class ClientConnection {
@@ -27,7 +23,8 @@ public class ClientConnection {
     Socket clientSocket;
     int portNumber;
     String hostMachine;
-    BufferedReader incomingInputStream;
+    PrintWriter outputWriter;
+    BufferedReader inputReader;
     InputStream clientInputStream;
 
     public ClientConnection(int portNumber, String hostMachine) {
@@ -43,7 +40,7 @@ public class ClientConnection {
             // client socket
             // this input stream contains information like: 
 
-            incomingInputStream = new BufferedReader(clientInputStreamReader);
+            inputReader = new BufferedReader(clientInputStreamReader);
 
         } catch (IOException e) {
             System.out.println("Issue reading in the socket streams");
@@ -58,8 +55,60 @@ public class ClientConnection {
         return hostMachine;
     }
 
-    /* Once Client object instantiation is successful,
-     * to pull the information from the server, use the 
-     * variable input, which represents our bufferedReader
-     */
+    public void waitToStart(){
+        String serverStartMessage;
+
+        try {
+            while ((serverStartMessage = inputReader.readLine()) != null) {
+                System.out.println(serverStartMessage);
+
+                if (serverStartMessage.equalsIgnoreCase("BYE PLAYER")) {
+                    System.out.println("Server is terminating game");
+                    break;
+
+                }
+                if (serverStartMessage.equalsIgnoreCase("START YOUR GAME")) {
+                    break;
+                }
+            }
+        }
+        catch (UnknownHostException e) {
+                System.err.println(hostMachine + " is an unknown host");
+                System.exit(1);
+        }
+        catch (IOException e){
+            System.err.println("The I/O connection with host " + hostMachine + " failed");
+            System.exit(1);
+        }
+    }
+
+    public void startGameplay(){
+        String serverPlayMessage;
+
+        try{
+            while((serverPlayMessage = inputReader.readLine()) != null){
+                System.out.println(serverPlayMessage);
+
+                if (serverPlayMessage.equalsIgnoreCase("BYE PLAYER")) {
+                    System.out.println("Server is terminating game");
+                    break;
+
+                }
+
+                if(serverPlayMessage.equalsIgnoreCase("MAKE YOUR MOVE PLAYER")){
+                    System.out.println("GAMEPLAY LOGIC GOES IN THIS IF");
+                }
+            }
+
+        }
+        catch (UnknownHostException e) {
+            System.err.println(hostMachine + " is an unknown host");
+            System.exit(1);
+        }
+        catch (IOException e){
+            System.err.println("The I/O connection with host " + hostMachine + " failed");
+            System.exit(1);
+        }
+    }
+
 }

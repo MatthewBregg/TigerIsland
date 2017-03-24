@@ -86,7 +86,6 @@ public class ScoreManager{
         int level = currentHex.getLevel();
 
         score.addPointsToScore(level*level);
-        System.out.println(score.getScore());
     }
 
     public void addTotoroScore(PlayerID pID){
