@@ -1,10 +1,9 @@
 package tigerisland.settlement;
 
+import org.junit.Assert;
 import org.junit.Test;
 import tigerisland.board.Location;
-import tigerisland.piece.Piece;
-import tigerisland.piece.Totoro;
-import tigerisland.piece.Villager;
+import tigerisland.piece.*;
 
 import java.util.*;
 
@@ -54,9 +53,27 @@ public class SettlementTest {
         pieceMap.put(new Location(0,0),t);
         pieceMap.put(new Location(0,1),v);
         settlement = new Settlement(pieceMap,CreatePlayerID.getPlayerID());
-        assertEquals(settlement.getPieceAt(new Location(0,0)),t);
-        assertEquals(settlement.getPieceAt(new Location(0,1)),v);
+        Boolean[] checkedPiece = new Boolean[]{false};
+        settlement.acceptVisitor(new PieceVisitor() {
+           @Override
+           public void visitTotoro(Totoro totoro) {
+               assertEquals(totoro,t);
+               checkedPiece[0] = true;
+           }
+        });
+        Assert.assertTrue(checkedPiece[0]);
+        checkedPiece[0] = false;
+        settlement.acceptVisitor(new PieceVisitor() {
+           @Override
+           public void visitVillager(Villager villager) {
+               assertEquals(villager,v);
+               checkedPiece[0] = true;
+           }
+        });
+        Assert.assertTrue(checkedPiece[0]);
+        checkedPiece[0] = false;
     }
+
 
     @Test
     public void locationOccupiedp() throws Exception {

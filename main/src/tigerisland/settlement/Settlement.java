@@ -3,6 +3,7 @@ package tigerisland.settlement;
 import tigerisland.board.Location;
 import tigerisland.piece.NullPiece;
 import tigerisland.piece.Piece;
+import tigerisland.piece.PieceVisitor;
 import tigerisland.player.PlayerID;
 
 import java.util.List;
@@ -26,14 +27,14 @@ public class Settlement {
         return piecesInSettlement.keySet();
     }
 
-    public Piece getPieceAt(Location location) {
-        Piece p = piecesInSettlement.get(location);
-        p = (p != null) ? p : new NullPiece();
-        return p;
-    }
-
     public boolean LocationOccupiedp(Location location) {
         return piecesInSettlement.containsKey(location);
+    }
+
+    public void acceptVisitor(PieceVisitor pieceVisitor) {
+        for ( Piece p : piecesInSettlement.values()) {
+            p.accept(pieceVisitor);
+        }
     }
 
     public PlayerID getPlayerID() {

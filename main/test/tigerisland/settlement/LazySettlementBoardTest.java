@@ -157,9 +157,9 @@ public class LazySettlementBoardTest {
         for ( Location base_loc : locations ) {
             Settlement settlement = settlementBoard.getSettlement(base_loc);
             for (Location loc : locations) {
-                Piece p = settlement.getPieceAt(loc);
+
                 if (step) {
-                    p.accept(new PieceVisitor() {
+                    settlement.acceptVisitor(new PieceVisitor() {
                         @Override
                         public void visitVillager(Villager villager) {
                             assert (false);
@@ -171,7 +171,7 @@ public class LazySettlementBoardTest {
                         }
                     });
                 } else {
-                    p.accept(new PieceVisitor() {
+                    settlement.acceptVisitor(new PieceVisitor() {
                         @Override
                         public void visitVillager(Villager villager) {
                             assert (true);
