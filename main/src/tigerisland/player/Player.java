@@ -5,17 +5,19 @@ public class Player
     private PlayerID id;
     private int villagerCount;
     private int totoroCount;
+    private int tigerCount;
 
-    public Player(int villagerCount, int totoroCount)
+    public Player(int villagerCount, int totoroCount, int tigerCount)
     {
         id = new PlayerID();
         this.villagerCount = villagerCount;
         this.totoroCount = totoroCount;
+        this.tigerCount = tigerCount;
     }
 
     public Player()
     {
-        this(20, 3);
+        this(20, 3, 2);
     }
 
     public PlayerID getId()
@@ -31,6 +33,10 @@ public class Player
     public int getTotoroCount()
     {
         return totoroCount;
+    }
+
+    public int getTigerCount() {
+        return tigerCount;
     }
 
     public boolean removeVillagers(int quantity)
@@ -57,6 +63,15 @@ public class Player
         }
 
         totoroCount--;
+        return true;
+    }
+
+    public boolean removeTiger(){
+        if (tigerCount == 0){
+            return false;
+        }
+
+        tigerCount--;
         return true;
     }
 }
