@@ -29,7 +29,7 @@ public class CucumberTileRotation {
     @Then("^The tile's orientation changes$")
     public void weFindThatOrientationChange() throws Throwable {
         Assert.assertTrue(tileWithEastOrientation != tileWithNWOrientation);
-        Assert.assertTrue(tileWithEastOrientation.getOrientation()==Orientation.getNorthEast());
+        Assert.assertTrue(tileWithEastOrientation.getOrientation().equals(Orientation.getNorthEast()));
 
     }
 }
