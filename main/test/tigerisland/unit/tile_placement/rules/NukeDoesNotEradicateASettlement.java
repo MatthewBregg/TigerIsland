@@ -1,5 +1,6 @@
 package tigerisland.unit.tile_placement.rules;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import tigerisland.board.Location;
@@ -14,7 +15,9 @@ import tigerisland.settlement.SettlementBoard;
 import tigerisland.tile.Orientation;
 import tigerisland.tile.Tile;
 import tigerisland.tile.TileUnpacker;
+import tigerisland.tile_placement.exceptions.NukeSettlementSizeException;
 import tigerisland.tile_placement.rules.NukePlacementRule;
+import tigerisland.tile_placement.rules.NukeSettlementSizeGreaterThanOneRule;
 
 import java.util.HashSet;
 import java.util.Map;
@@ -26,11 +29,12 @@ public class NukeDoesNotEradicateASettlement {
     PieceBoardImpl pieceBoard = null;
     SettlementBoard settlementBoard = null;
 
+
     @Before
     public void setUpNukePlacementRule() {
         pieceBoard = new PieceBoardImpl();
         settlementBoard = new LazySettlementBoard(pieceBoard);
-        // Set the nuke placement rule to something here!
+        nukePlacementRule = new NukeSettlementSizeGreaterThanOneRule(settlementBoard);
     }
 
     void CreateSettlement(Location... locations) {
@@ -38,29 +42,32 @@ public class NukeDoesNotEradicateASettlement {
             AddVillagerToPieceBoard(loc);
         }
     }
+    void CreateSettlementOnePlayer(Location... locations) {
+        PlayerID playerID = new PlayerID();
+        for ( Location loc : locations ) {
+            AddVillagerToPieceBoardOnePlayer(loc, playerID);
+        }
+    }
 
-    @Test
+    @Test (expected = NukeSettlementSizeException.class)
     public void test_DoNotNukeSettlementSizeOne() throws Throwable{
         Map<Location,Hex> locations;
         Tile t = new Tile();
         locations = TileUnpacker.getTileHexes(t,new Location(0,0,0));
         CreateSettlement(new Location(0,0,0));
         nukePlacementRule.applyRule(locations);
-        // Assert portion is ensuring exception!
     }
 
-    @Test
+    @Test (expected  = NukeSettlementSizeException.class )
     public void test_DoNotNukeSettlementCompletelyCovered() throws Throwable{
         Map<Location,Hex> locations;
         Tile t = new Tile();
         locations = TileUnpacker.getTileHexes(t,new Location(0,0,0));
         for (Location loc : locations.keySet()) {
             AddVillagerToPieceBoard(loc);
-
         }
         CreateSettlement(locations.keySet().stream().toArray(Location[]::new));
         nukePlacementRule.applyRule(locations);
-        // Assert portion is ensuring exception!
     }
 
     @Test
@@ -68,8 +75,16 @@ public class NukeDoesNotEradicateASettlement {
         Map<Location,Hex> locations;
         Tile t = new Tile();
         locations = TileUnpacker.getTileHexes(t,new Location(0,0,0));
-        nukePlacementRule.applyRule(locations);
-        // Assert portion is ensuring exception!
+        boolean exceptionThrow = false;
+        try{
+            nukePlacementRule.applyRule(locations);
+        }
+        catch(Exception e){
+            exceptionThrow = true;
+        }
+        Assert.assertFalse(exceptionThrow);
+
+        //TODO check if piece actually placed
     }
 
     @Test
@@ -78,8 +93,14 @@ public class NukeDoesNotEradicateASettlement {
         Tile t = new Tile();
         locations = TileUnpacker.getTileHexes(t,new Location(0,0,0));
         CreateSettlement(new Location(42,42,42*-2));
-        nukePlacementRule.applyRule(locations);
-        // Assert portion is ensuring no exception!
+        boolean exceptionThrow = false;
+        try{
+            nukePlacementRule.applyRule(locations);
+        }
+        catch(Exception e){
+            exceptionThrow = true;
+        }
+        Assert.assertFalse(exceptionThrow);
     }
 
     @Test
@@ -95,9 +116,15 @@ public class NukeDoesNotEradicateASettlement {
             currLoc = currLoc.getAdjacent(Orientation.getEast());
             settlementLocation.add(currLoc);
         }
-        CreateSettlement(settlementLocation.stream().toArray(Location[]::new));
-        nukePlacementRule.applyRule(locations);
-        // Assert portion is ensuring no exception!
+        CreateSettlementOnePlayer(settlementLocation.stream().toArray(Location[]::new));
+        boolean exceptionThrow = false;
+        try{
+            nukePlacementRule.applyRule(locations);
+        }
+        catch(Exception e){
+            exceptionThrow = true;
+        }
+        Assert.assertFalse(exceptionThrow);
     }
 
 
@@ -107,6 +134,7 @@ public class NukeDoesNotEradicateASettlement {
     void AddVillagerToPieceBoard(Location loc) {
         pieceBoard.addPiece(new Villager(),loc,new PlayerID());
     }
+    void AddVillagerToPieceBoardOnePlayer(Location loc, PlayerID playerID){pieceBoard.addPiece(new Villager(), loc, playerID);}
     void AddTigerToPieceBoard(Location loc) {
         pieceBoard.addPiece(new Tiger(),loc,new PlayerID());
     }
