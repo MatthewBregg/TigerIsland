@@ -57,7 +57,7 @@ public class Tile {
    }
 
    public void rotate(){
-       orientation.rotate(60);
+       orientation = orientation.rotate(60);
 
 /*
 
