@@ -95,7 +95,7 @@ public class NukeDoesNotEradicateASettlement {
         CreateSettlement(new Location(42,42,42*-2));
         boolean exceptionThrow = false;
         try{
-            nukePlacementRule.applyRule(locations);
+            nukePlacementRule.applyRule(    locations);
         }
         catch(Exception e){
             exceptionThrow = true;

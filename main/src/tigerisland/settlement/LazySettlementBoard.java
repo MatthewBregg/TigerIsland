@@ -71,6 +71,6 @@ public class LazySettlementBoard implements SettlementBoard {
     }
 
     private Settlement CreateEmptySettlement(PlayerID pID) {
-        return new Settlement(new HashMap<>(), pID);
+        return new NullSettlement(new HashMap<>(), pID);
     }
 }

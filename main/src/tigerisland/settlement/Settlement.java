@@ -1,12 +1,10 @@
 package tigerisland.settlement;
 
 import tigerisland.board.Location;
-import tigerisland.piece.NullPiece;
 import tigerisland.piece.Piece;
 import tigerisland.piece.PieceVisitor;
 import tigerisland.player.PlayerID;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
