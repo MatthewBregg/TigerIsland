@@ -25,7 +25,6 @@ public class ClientConnection {
     String hostMachine;
     PrintWriter outputWriter;
     BufferedReader inputReader;
-    InputStream clientInputStream;
 
     public ClientConnection(int portNumber, String hostMachine) {
         this.portNumber = portNumber;
@@ -33,15 +32,15 @@ public class ClientConnection {
 
         try {
             clientSocket = new Socket(this.hostMachine, this.portNumber);
-            InputStream clientInputStream = clientSocket.getInputStream();
-            InputStreamReader clientInputStreamReader = new InputStreamReader(clientInputStream);
 
+            InputStreamReader clientInputStreamReader = new InputStreamReader(clientSocket.getInputStream());
+            inputReader = new BufferedReader(clientInputStreamReader);
             // now we have a way to view the input stream from the
             // client socket
             // this input stream contains information like: 
 
-            inputReader = new BufferedReader(clientInputStreamReader);
-
+            outputWriter = new PrintWriter(clientSocket.getOutputStream(), true);
+            // this provides a way to send string messages on this connection
         } catch (IOException e) {
             System.out.println("Issue reading in the socket streams");
         }
@@ -65,8 +64,8 @@ public class ClientConnection {
                 if (serverStartMessage.equalsIgnoreCase("BYE PLAYER")) {
                     System.out.println("Server is terminating game");
                     break;
-
                 }
+
                 if (serverStartMessage.equalsIgnoreCase("START YOUR GAME")) {
                     break;
                 }
@@ -92,14 +91,12 @@ public class ClientConnection {
                 if (serverPlayMessage.equalsIgnoreCase("BYE PLAYER")) {
                     System.out.println("Server is terminating game");
                     break;
-
                 }
 
                 if(serverPlayMessage.equalsIgnoreCase("MAKE YOUR MOVE PLAYER")){
                     System.out.println("GAMEPLAY LOGIC GOES IN THIS IF");
                 }
             }
-
         }
         catch (UnknownHostException e) {
             System.err.println(hostMachine + " is an unknown host");
@@ -110,5 +107,4 @@ public class ClientConnection {
             System.exit(1);
         }
     }
-
 }
