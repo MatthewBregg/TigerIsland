@@ -10,6 +10,6 @@ public class TournamentClientConnector implements Runnable{
     }
 
     public void run(){
-
+        // TODO
     }
 }
