@@ -5,7 +5,7 @@ import java.net.*;
 import java.util.ArrayList;
 
 /**
- * Created by bigphil16 on 3/26/2017.
+ * Created by pgallen on 3/26/2017.
  */
 public class TournamentServer {
     private ServerSocket serverSocket = null;
@@ -28,6 +28,10 @@ public class TournamentServer {
     }
 
     public void getConnections(){
-        // threaded client connection implementation
+        // TODO: threaded client connection implementation
+    }
+
+    public void finalize(){
+        // TODO: close all connections
     }
 }
