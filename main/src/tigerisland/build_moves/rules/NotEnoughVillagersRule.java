@@ -1,3 +1,11 @@
+
+/* This action woudl be for
+1) Founding new settlment
+2) Expanding settlement
+3) Building totoro?
+ */
+
+
 package tigerisland.build_moves.rules;
 
 import tigerisland.build_moves.builds.BuildActionData;

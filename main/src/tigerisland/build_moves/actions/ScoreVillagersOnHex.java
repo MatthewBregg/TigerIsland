@@ -1,3 +1,9 @@
+
+/* This action would be for
+1) Founding settlement
+2) Expanding settlment-- we call this for each hex?
+ */
+
 package tigerisland.build_moves.actions;
 
 import tigerisland.board.Board;
