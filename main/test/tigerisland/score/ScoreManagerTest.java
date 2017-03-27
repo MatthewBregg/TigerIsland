@@ -69,6 +69,13 @@ public class ScoreManagerTest {
         Assert.assertTrue(scoreManager.getPlayer2Score() == 75);
     }
 
+    @Test
+    public void addPointsForExpandingByPassingInteger(){
+        scoreManager.resetPlayerScores();
+        scoreManager.addMeeplePlacementScoreDueToExpansion(scoreManager.getPlayer1ID(), 5);
+        Assert.assertTrue(scoreManager.getPlayer1Score() == 25);
+    }
+
 
 
 }
