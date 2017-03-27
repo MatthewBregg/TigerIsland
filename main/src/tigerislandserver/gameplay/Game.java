@@ -21,7 +21,7 @@ public class Game extends Thread{
         this.gameID = gameID;
         this.player1 = player1;
         this.player2 = player2;
-        scoreManager = new ScoreManager(player1, player2);
+        scoreManager = new ScoreManager();
     }
 
     public void sendStartGameMessage(){
