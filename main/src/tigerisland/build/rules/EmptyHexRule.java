@@ -22,7 +22,7 @@ public class EmptyHexRule implements BuildActionRule{
     }
 
     private boolean isBoardHexEmptyAtLocation(Location hexLocation) {
-        return pieceBoard.isLocationOccupied(hexLocation);
+        return !pieceBoard.isLocationOccupied(hexLocation);
     }
 
 }
