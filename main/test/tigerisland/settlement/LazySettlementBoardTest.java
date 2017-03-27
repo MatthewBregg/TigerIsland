@@ -29,17 +29,22 @@ public class LazySettlementBoardTest {
         }
 
         @Override
-        public boolean LocationOccupiedp(Location location) {
+        public boolean isLocationOccupied(Location location) {
             return pieceMap.containsKey(location);
         }
 
         @Override
         public Piece getPiece(Location location, PlayerID playerID) {
-            return (LocationOccupiedp(location,playerID)) ? getPiece(location) : null;
+            return (isLocationOccupied(location,playerID)) ? getPiece(location) : null;
         }
 
         @Override
-        public boolean LocationOccupiedp(Location location, PlayerID playerID) {
+        public void addPiece(Piece p, Location loc, PlayerID pID) {
+            pieceMap.put(loc, p);
+        }
+
+        @Override
+        public boolean isLocationOccupied(Location location, PlayerID playerID) {
             return (getPlayer(location) == playerID);
         }
 
@@ -105,7 +110,7 @@ public class LazySettlementBoardTest {
     public void GivenUnoccupiedLocationThenQueryingIfOccupiedThenFalse() throws Exception {
         setUpNoPlayerBoard();
         Location location = new Location(0,0,0);
-        assertFalse(settlementBoard.LocationOccupiedp(location,CreatePlayerID.getPlayerID()));
+        assertFalse(settlementBoard.isLocationOccupied(location,CreatePlayerID.getPlayerID()));
     }
 
     @Test
@@ -123,7 +128,7 @@ public class LazySettlementBoardTest {
         setUpNoPlayerBoard();
         Location location = new Location(0,0,0);
         addAnythingToPieceBoard(location);
-        assertTrue(settlementBoard.LocationOccupiedp(location,CreatePlayerID.getPlayerID()));
+        assertTrue(settlementBoard.isLocationOccupied(location,CreatePlayerID.getPlayerID()));
     }
 
 
@@ -204,8 +209,8 @@ public class LazySettlementBoardTest {
         Settlement p2 = settlementBoard.getSettlement(p2Loc);
         assertEquals(1,p1.settlementSize());
         assertEquals(1,p2.settlementSize());
-        Assert.assertTrue(p1.LocationOccupiedp(p1Loc));
-        Assert.assertTrue(p2.LocationOccupiedp(p2Loc));
+        Assert.assertTrue(p1.isLocationOccupied(p1Loc));
+        Assert.assertTrue(p2.isLocationOccupied(p2Loc));
     }
 
 
@@ -214,7 +219,7 @@ public class LazySettlementBoardTest {
         setUpTwoPlayerBoard();
         addAnythingToPieceBoard(p1Loc);
         addAnythingToPieceBoard(p2Loc);
-        assertFalse(settlementBoard.LocationOccupiedp(p1Loc,CreatePlayerID.getP2()));
+        assertFalse(settlementBoard.isLocationOccupied(p1Loc,CreatePlayerID.getP2()));
         Settlement p1 = settlementBoard.getSettlement(p1Loc, CreatePlayerID.getP2());
         AssertEmptySettlement(p1,CreatePlayerID.getP2());
     }
@@ -224,10 +229,10 @@ public class LazySettlementBoardTest {
         setUpTwoPlayerBoard();
         addAnythingToPieceBoard(p1Loc);
         addAnythingToPieceBoard(p2Loc);
-        assertTrue(settlementBoard.LocationOccupiedp(p1Loc,CreatePlayerID.getP1()));
+        assertTrue(settlementBoard.isLocationOccupied(p1Loc,CreatePlayerID.getP1()));
         Settlement p1 = settlementBoard.getSettlement(p1Loc, CreatePlayerID.getP1());
         assertEquals(1,p1.settlementSize());
-        Assert.assertTrue(p1.LocationOccupiedp(p1Loc));
+        Assert.assertTrue(p1.isLocationOccupied(p1Loc));
     }
 
 

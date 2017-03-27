@@ -26,8 +26,8 @@ public class PieceBoardImplTest {
 
     @Test
     public void test_WhenUnOccupiedThenLocationOccupiedpReturnsFalse() throws Exception {
-        assertFalse(pc.LocationOccupiedp(locationZero));
-        assertFalse(pc.LocationOccupiedp(locationZero,pID));
+        assertFalse(pc.isLocationOccupied(locationZero));
+        assertFalse(pc.isLocationOccupied(locationZero,pID));
     }
 
     @Test
@@ -57,8 +57,8 @@ public class PieceBoardImplTest {
     @Test
     public void test_WhenOccupiedThenLocationOccupiedpReturnsTrue() throws Exception {
         Piece p = addAnyNonNullPiece(locationZero,pID);
-        assertTrue(pc.LocationOccupiedp(locationZero));
-        assertTrue(pc.LocationOccupiedp(locationZero,pID));
+        assertTrue(pc.isLocationOccupied(locationZero));
+        assertTrue(pc.isLocationOccupied(locationZero,pID));
     }
 
     @Test
@@ -71,8 +71,8 @@ public class PieceBoardImplTest {
     @Test
     public void test_WhenOccupiedThenClearThenLocationIsFalse() throws Exception {
         occupyThenClear();
-        assertFalse(pc.LocationOccupiedp(locationZero));
-        assertFalse(pc.LocationOccupiedp(locationZero,pID));
+        assertFalse(pc.isLocationOccupied(locationZero));
+        assertFalse(pc.isLocationOccupied(locationZero,pID));
     }
 
     @Test

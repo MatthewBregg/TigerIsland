@@ -51,4 +51,5 @@ public class Hex {
     public void setLevel(int level) {
         this.level = level;
     }
+
 }

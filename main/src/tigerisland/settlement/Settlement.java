@@ -27,7 +27,7 @@ public class Settlement {
         return piecesInSettlement.keySet();
     }
 
-    public boolean LocationOccupiedp(Location location) {
+    public boolean isLocationOccupied(Location location) {
         return piecesInSettlement.containsKey(location);
     }
 

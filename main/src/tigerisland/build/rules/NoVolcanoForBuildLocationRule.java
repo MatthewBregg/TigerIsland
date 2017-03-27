@@ -4,7 +4,6 @@ import tigerisland.board.Board;
 import tigerisland.board.Location;
 import tigerisland.build.BuildActionData;
 import tigerisland.build.BuildActionResult;
-import tigerisland.build.BuildActionStrategy;
 import tigerisland.hex.Hex;
 import tigerisland.terrains.Volcano;
 
@@ -23,10 +22,10 @@ public class NoVolcanoForBuildLocationRule implements BuildActionRule {
     @Override
     public BuildActionResult applyRule(BuildActionData buildActionData) {
         Location hexLocation = buildActionData.getHexLocation();
-        return isBuildLocationAVolcano(hexLocation) ? failedResult : successfulResult;
+        return isBuildLocationAVolcanoHex(hexLocation) ? failedResult : successfulResult;
     }
 
-    private boolean isBuildLocationAVolcano(Location hexLocation) {
+    private boolean isBuildLocationAVolcanoHex(Location hexLocation) {
         Hex boardHex = board.getHex(hexLocation);
         return boardHex.getTerrain().equals(Volcano.getInstance());
     }

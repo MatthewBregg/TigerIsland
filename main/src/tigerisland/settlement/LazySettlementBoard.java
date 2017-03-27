@@ -20,7 +20,7 @@ public class LazySettlementBoard implements SettlementBoard {
 
     @Override
     public Settlement getSettlement(Location location) {
-        if (!this.LocationOccupiedp(location)) {
+        if (!this.isLocationOccupied(location)) {
             return CreateEmptySettlement(null);
         } else {
             Map<Location, Piece> pieceMap = new HashMap<Location,Piece>();
@@ -36,15 +36,15 @@ public class LazySettlementBoard implements SettlementBoard {
         pieceMap.put(location, pieceBoard.getPiece(location));
 
         for ( Location adjLoc : location.getSurroundingLocations()) {
-            if (pieceBoard.LocationOccupiedp(adjLoc) && playerID.equals(pieceBoard.getPlayer(adjLoc))) {
+            if (pieceBoard.isLocationOccupied(adjLoc) && playerID.equals(pieceBoard.getPlayer(adjLoc))) {
                 generatePieceMapAtLocation(adjLoc, pieceMap,playerID);
             }
         }
     }
 
     @Override
-    public boolean LocationOccupiedp(Location loc) {
-        return ( pieceBoard.LocationOccupiedp(loc));
+    public boolean isLocationOccupied(Location loc) {
+        return ( pieceBoard.isLocationOccupied(loc));
     }
 
     /**
@@ -54,8 +54,8 @@ public class LazySettlementBoard implements SettlementBoard {
      * @return Boolean to indicate if there is a settlement by player, playerID, in location, loc.
      */
     @Override
-    public boolean LocationOccupiedp(Location loc, PlayerID playerID) {
-        return (pieceBoard.LocationOccupiedp(loc)) && playerID.equals(pieceBoard.getPlayer(loc));
+    public boolean isLocationOccupied(Location loc, PlayerID playerID) {
+        return (pieceBoard.isLocationOccupied(loc)) && playerID.equals(pieceBoard.getPlayer(loc));
     }
 
     @Override
