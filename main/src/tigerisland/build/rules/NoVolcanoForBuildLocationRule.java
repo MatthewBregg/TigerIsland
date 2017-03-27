@@ -21,7 +21,7 @@ public class NoVolcanoForBuildLocationRule implements BuildActionRule {
 
     @Override
     public BuildActionResult applyRule(BuildActionData buildActionData) {
-        Location hexLocation = buildActionData.getHexLocation();
+        Location hexLocation = buildActionData.getHexBuildLocation();
         return isBuildLocationAVolcanoHex(hexLocation) ? failedResult : successfulResult;
     }
 

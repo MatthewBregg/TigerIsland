@@ -19,7 +19,7 @@ public class HexLevelOneRule implements BuildActionRule {
 
     @Override
     public BuildActionResult applyRule(BuildActionData buildActionData) {
-        return isHexAtLocationLevelOne(buildActionData.getHexLocation()) ? successfulResult : failedResult;
+        return isHexAtLocationLevelOne(buildActionData.getHexBuildLocation()) ? successfulResult : failedResult;
     }
 
     private boolean isHexAtLocationLevelOne(Location hexLocation) {

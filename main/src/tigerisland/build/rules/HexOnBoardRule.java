@@ -20,7 +20,7 @@ public class HexOnBoardRule implements BuildActionRule{
 
     @Override
     public BuildActionResult applyRule(BuildActionData buildActionData) {
-        return isThereAHexAtLocation(buildActionData.getHexLocation()) ? successfulResult : failedResult;
+        return isThereAHexAtLocation(buildActionData.getHexBuildLocation()) ? successfulResult : failedResult;
     }
 
     private boolean isThereAHexAtLocation(Location hexLocation) {

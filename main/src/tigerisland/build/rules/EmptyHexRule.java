@@ -18,7 +18,7 @@ public class EmptyHexRule implements BuildActionRule{
 
     @Override
     public BuildActionResult applyRule(BuildActionData buildActionData) {
-        return isBoardHexEmptyAtLocation(buildActionData.getHexLocation()) ? successfulResult : failedResult;
+        return isBoardHexEmptyAtLocation(buildActionData.getHexBuildLocation()) ? successfulResult : failedResult;
     }
 
     private boolean isBoardHexEmptyAtLocation(Location hexLocation) {

@@ -17,7 +17,7 @@ public class PlaceVillagerOnHexAction implements MakeBuildAction{
     @Override
     public void applyAction(BuildActionData buildActionData) {
         Player player = buildActionData.getPlayer();
-        Location hexLocation = buildActionData.getHexLocation();
+        Location hexLocation = buildActionData.getHexBuildLocation();
         player.removeVillager();
         pieceBoard.addPiece( new Villager(), hexLocation, player.getId());
     }

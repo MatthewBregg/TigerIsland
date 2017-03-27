@@ -7,39 +7,39 @@ import tigerisland.terrains.Terrain;
 public class BuildActionData {
 
     private Player player;
-    private Location hexLocation;
-    private Location settlementLocation;
-    private Terrain terrain;
+    private Location hexBuildLocation;
+    private Location settlementToExpandFromLocation;
+    private Terrain expansionTerrain;
 
-    private BuildActionData(Player player, Location hexLocation, Location settlementLocation, Terrain terrain) {
+    private BuildActionData(Player player, Location hexBuildLocation, Location settlementToExpandFromLocation, Terrain expansionTerrain) {
         this.player = player;
-        this.hexLocation = hexLocation;
-        this.settlementLocation = settlementLocation;
-        this.terrain = terrain;
+        this.hexBuildLocation = hexBuildLocation;
+        this.settlementToExpandFromLocation = settlementToExpandFromLocation;
+        this.expansionTerrain = expansionTerrain;
     }
 
     public Player getPlayer() {
         return player;
     }
 
-    public Location getHexLocation() {
-        return hexLocation;
+    public Location getHexBuildLocation() {
+        return hexBuildLocation;
     }
 
-    public Location getSettlementLocation() {
-        return settlementLocation;
+    public Location getSettlementToExpandFromLocation() {
+        return settlementToExpandFromLocation;
     }
 
-    public Terrain getTerrain() {
-        return terrain;
+    public Terrain getExpansionTerrain() {
+        return expansionTerrain;
     }
 
     public static class Builder {
 
         private Player player;
-        private Location hexLocation;
-        private Location settlementLocation;
-        private Terrain terrain;
+        private Location hexBuildLocation;
+        private Location settlementToExpandFromLocation;
+        private Terrain expansionTerrain;
 
        public Builder withPlayer(Player player) {
            this.player = player;
@@ -47,22 +47,22 @@ public class BuildActionData {
        }
 
        public Builder withHexLocation(Location hexLocation) {
-           this.hexLocation = hexLocation;
+           this.hexBuildLocation = hexLocation;
            return this;
        }
 
        public Builder withSettlementLocation(Location settlementLocation) {
-            this.settlementLocation = settlementLocation;
+            this.settlementToExpandFromLocation = settlementLocation;
             return this;
        }
 
        public Builder withTerrain(Terrain terrain) {
-           this.terrain = terrain;
+           this.expansionTerrain = terrain;
            return this;
        }
 
        public BuildActionData build() {
-          return new BuildActionData(player, hexLocation, settlementLocation, terrain);
+          return new BuildActionData(player, hexBuildLocation, settlementToExpandFromLocation, expansionTerrain);
        }
     }
 }
