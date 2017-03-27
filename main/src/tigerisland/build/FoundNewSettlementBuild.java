@@ -9,13 +9,12 @@ import tigerisland.piece.PieceBoard;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FoundNewSettlementBuildAction extends BuildAction{
+public class FoundNewSettlementBuild extends BuildAction{
 
-    private final String BUILD_ACTION_NAME = "Found New Settlement";
     private Board board;
     private PieceBoard pieceBoard;
 
-    public FoundNewSettlementBuildAction(Board board, PieceBoard pieceBoard) {
+    public FoundNewSettlementBuild(Board board, PieceBoard pieceBoard) {
        this.board = board;
        this.pieceBoard = pieceBoard;
        this.rules = createBuildActionRules();
@@ -40,8 +39,4 @@ public class FoundNewSettlementBuildAction extends BuildAction{
         return actions;
     }
 
-    @Override
-    public String getBuildActionName() {
-        return this.BUILD_ACTION_NAME;
-    }
 }

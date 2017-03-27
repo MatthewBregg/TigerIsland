@@ -31,6 +31,4 @@ public abstract class BuildAction implements BuildActionStrategy {
     public abstract List<BuildActionRule> createBuildActionRules();
 
     public abstract List<MakeBuildAction> createBuildActions();
-
-    public abstract String getBuildActionName();
 }
