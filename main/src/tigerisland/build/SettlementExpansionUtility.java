@@ -60,7 +60,7 @@ public class SettlementExpansionUtility {
      * @param loc The location to find all connected hexes
      * @return The set of all connected hexes, including loc.
      */
-    private Set<Location> getConnectedUnOccupiedHexesOfSameTerrain(Location loc) {
+    public Set<Location> getConnectedUnOccupiedHexesOfSameTerrain(Location loc) {
         Set<Location> connected = new HashSet<Location>();
         if ( pieceBoard.isLocationOccupied(loc)) {
             return connected;
@@ -102,7 +102,4 @@ public class SettlementExpansionUtility {
         return hexBoard.getHex(expandableLoc).getLevel();
     }
 
-    public Settlement getSettlement(BuildActionData buildActionData) {
-        return settlementBoard.getSettlement(buildActionData.getSettlementLocation(),buildActionData.getPlayer().getId());
-    }
 }
