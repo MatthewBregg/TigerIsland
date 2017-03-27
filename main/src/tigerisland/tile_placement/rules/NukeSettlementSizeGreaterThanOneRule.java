@@ -21,21 +21,17 @@ public class NukeSettlementSizeGreaterThanOneRule implements NukePlacementRule {
 
     @Override
     public void applyRule(Map<Location, Hex> hexes) throws Exception {
-        if (wouldSettlementSizeEqualZeroAfterNuke(hexes.keySet())) {
+        if (isSettlementSizeOne(hexes.keySet())) {
             throw new NukeSettlementSizeException();
         }
     }
 
-    private boolean wouldSettlementSizeEqualZeroAfterNuke(Set<Location> locations) {
-
+    private boolean isSettlementSizeOne(Set<Location> locations) {
 
         for (Location location : locations) {
             Settlement settlement = settlementBoard.getSettlement(location);
-            //Null settlement
-            if (settlement.getClass() != Settlement.class) continue;
-            Set<Location> settlementLocs = settlement.getConnectedLocations();
-            settlementLocs.removeAll(locations);
-            if ( settlementLocs.size() == 0 ) return true;
+            if (settlement.settlementSize() == 1)
+                return true;
         }
 
         return false;
