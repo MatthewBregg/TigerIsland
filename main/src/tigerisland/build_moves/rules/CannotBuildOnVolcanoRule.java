@@ -7,7 +7,7 @@ import tigerisland.build_moves.builds.BuildActionResult;
 import tigerisland.hex.Hex;
 import tigerisland.terrains.Volcano;
 
-public class NoVolcanoForBuildLocationRule implements BuildActionRule {
+public class CannotBuildOnVolcanoRule implements BuildActionRule {
 
     private Board board;
 
@@ -15,7 +15,7 @@ public class NoVolcanoForBuildLocationRule implements BuildActionRule {
     private BuildActionResult successfulResult = new BuildActionResult(true);
     private BuildActionResult failedResult = new BuildActionResult(false, VOLCANO_HEX_ERROR);
 
-    public NoVolcanoForBuildLocationRule(Board board) {
+    public CannotBuildOnVolcanoRule(Board board) {
         this.board = board;
     }
 

@@ -39,7 +39,7 @@ public class FoundNewSettlementBuildTest {
         BuildActionRule hexOnBoardRule = null;
 
         for(BuildActionRule  rule : rules) {
-            if (rule instanceof HexOnBoardRule)
+            if (rule instanceof HexNotOnBoardRule)
                 hexOnBoardRule = rule;
         }
 
@@ -97,7 +97,7 @@ public class FoundNewSettlementBuildTest {
         BuildActionRule noVolcanoOnBuildLocationRule = null;
 
         for(BuildActionRule  rule : rules) {
-            if (rule instanceof NoVolcanoForBuildLocationRule)
+            if (rule instanceof CannotBuildOnVolcanoRule)
                 noVolcanoOnBuildLocationRule = rule;
         }
 
@@ -116,7 +116,7 @@ public class FoundNewSettlementBuildTest {
         BuildActionRule noVolcanoOnBuildLocationRule = null;
 
         for(BuildActionRule  rule : rules) {
-            if (rule instanceof NoVolcanoForBuildLocationRule)
+            if (rule instanceof CannotBuildOnVolcanoRule)
                 noVolcanoOnBuildLocationRule = rule;
         }
 

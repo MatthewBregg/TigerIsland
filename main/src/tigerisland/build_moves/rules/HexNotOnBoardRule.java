@@ -4,17 +4,15 @@ import tigerisland.board.Board;
 import tigerisland.board.Location;
 import tigerisland.build_moves.builds.BuildActionData;
 import tigerisland.build_moves.builds.BuildActionResult;
-import tigerisland.hex.Hex;
-import tigerisland.hex.NullHex;
 
-public class HexOnBoardRule implements BuildActionRule{
+public class HexNotOnBoardRule implements BuildActionRule{
 
     private Board board;
     private final String EMPTY_HEX_ERROR_MESSAGE = "Hex is not on board";
     private BuildActionResult successfulResult = new BuildActionResult(true);
     private BuildActionResult failedResult = new BuildActionResult(false, EMPTY_HEX_ERROR_MESSAGE);
 
-    public HexOnBoardRule(Board board) {
+    public HexNotOnBoardRule(Board board) {
        this.board = board;
     }
 

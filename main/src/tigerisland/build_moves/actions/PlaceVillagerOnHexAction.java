@@ -1,10 +1,10 @@
+
+/* This action woudl be for
+1) Founding new settlment
+2) Expanding settlement
+ */
+
 package tigerisland.build_moves.actions;
-
-
-
-
-
-
 
 import tigerisland.board.Location;
 import tigerisland.build_moves.builds.BuildActionData;

@@ -26,10 +26,10 @@ public class FoundNewSettlementBuild extends BuildAction{
     @Override
     public List<BuildActionRule> createBuildActionRules() {
         List<BuildActionRule> rules = new ArrayList<>();
-        rules.add( new HexOnBoardRule(board));
+        rules.add( new HexNotOnBoardRule(board));
         rules.add( new EmptyHexRule(pieceBoard));
         rules.add( new HexLevelOneRule(board));
-        rules.add( new NoVolcanoForBuildLocationRule(board));
+        rules.add( new CannotBuildOnVolcanoRule(board));
         rules.add( new NotEnoughVillagersRule());
         return rules;
     }

@@ -9,11 +9,11 @@ import tigerisland.board.Location;
 import tigerisland.build_moves.builds.BuildActionData;
 import tigerisland.build_moves.builds.BuildActionResult;
 import tigerisland.build_moves.rules.BuildActionRule;
-import tigerisland.build_moves.rules.HexOnBoardRule;
+import tigerisland.build_moves.rules.HexNotOnBoardRule;
 import tigerisland.hex.Hex;
 import tigerisland.player.Player;
 
-public class HexOnBoardRuleTest {
+public class HexNotOnBoardRuleTest {
 
     private BuildActionRule hexOnBoardRule;
     private Board board;
@@ -22,7 +22,7 @@ public class HexOnBoardRuleTest {
     public void setup() {
 
         this.board = new HexBoard();
-        this.hexOnBoardRule = new HexOnBoardRule(board);
+        this.hexOnBoardRule = new HexNotOnBoardRule(board);
     }
 
     @Test

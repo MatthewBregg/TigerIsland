@@ -9,12 +9,12 @@ import tigerisland.board.Location;
 import tigerisland.build_moves.builds.BuildActionData;
 import tigerisland.build_moves.builds.BuildActionResult;
 import tigerisland.build_moves.rules.BuildActionRule;
-import tigerisland.build_moves.rules.NoVolcanoForBuildLocationRule;
+import tigerisland.build_moves.rules.CannotBuildOnVolcanoRule;
 import tigerisland.hex.Hex;
 import tigerisland.terrains.Rocky;
 import tigerisland.terrains.Volcano;
 
-public class NoVolcanoForBuildLocationRuleTest {
+public class CannotBuildOnVolcanoRuleTest {
 
     private Board board;
     BuildActionRule volcanoHexRule;
@@ -23,7 +23,7 @@ public class NoVolcanoForBuildLocationRuleTest {
     public void setup() {
 
         board = new HexBoard();
-        volcanoHexRule = new NoVolcanoForBuildLocationRule(board);
+        volcanoHexRule = new CannotBuildOnVolcanoRule(board);
     }
 
     @Test
