@@ -60,25 +60,16 @@ public class ScoreManager{
 
     /* a lot of different ways we
     can go about this, so i made a lot of
-    different methods to be integrated
+    different methods to be integrated*/
 
-    NOTE
-    settlement was set as string because there is no real settlement
-    object to work on
-     */
-    public void addMeeplePlacementScoreDueToExpansion(PlayerID pID, String settlement ){
-        // this one is if we were passed some kind of list of hexes expanded too
+
+    // we would use this method if we were passed a hex each time
+    public void addMeeplePlacementScoreDueToExpansion(PlayerID pID, int currentLevel){
         Score score = getPlayerScore(pID);
 
-        // need a way to determine hex in settlement and level of hex
-        // assuming this is possible it would be something like this
-
-        /*
-        for (Hex h: settlement.getExpandedHexList()){
-            score.addPointsToScore(h.level);
-        }
-        */
+        score.addPointsToScore(currentLevel*currentLevel);
     }
+
 
     // we would use this method if we were passed a hex each time
     public void addMeeplePlacementScoreDueToExpansion(PlayerID pID, Hex currentHex){

@@ -15,9 +15,9 @@ import tigerisland.settlement.SettlementBoard;
 import tigerisland.tile.Orientation;
 import tigerisland.tile.Tile;
 import tigerisland.tile.TileUnpacker;
-import tigerisland.tile_placement.exceptions.NukeSettlementSizeException;
+import tigerisland.tile_placement.exceptions.NukeSettlementEradicationException;
 import tigerisland.tile_placement.rules.NukePlacementRule;
-import tigerisland.tile_placement.rules.NukeSettlementSizeGreaterThanOneRule;
+import tigerisland.tile_placement.rules.NukeSettlementEradicationRule;
 
 import java.util.HashSet;
 import java.util.Map;
@@ -34,7 +34,7 @@ public class NukeDoesNotEradicateASettlement {
     public void setUpNukePlacementRule() {
         pieceBoard = new PieceBoardImpl();
         settlementBoard = new LazySettlementBoard(pieceBoard);
-        nukePlacementRule = new NukeSettlementSizeGreaterThanOneRule(settlementBoard);
+        nukePlacementRule = new NukeSettlementEradicationRule(settlementBoard);
     }
 
     void CreateSettlement(Location... locations) {
@@ -49,7 +49,7 @@ public class NukeDoesNotEradicateASettlement {
         }
     }
 
-    @Test (expected = NukeSettlementSizeException.class)
+    @Test (expected = NukeSettlementEradicationException.class)
     public void test_DoNotNukeSettlementSizeOne() throws Throwable{
         Map<Location,Hex> locations;
         Tile t = new Tile();
@@ -58,7 +58,7 @@ public class NukeDoesNotEradicateASettlement {
         nukePlacementRule.applyRule(locations);
     }
 
-    @Test (expected  = NukeSettlementSizeException.class )
+    @Test (expected  = NukeSettlementEradicationException.class )
     public void test_DoNotNukeSettlementCompletelyCovered() throws Throwable{
         Map<Location,Hex> locations;
         Tile t = new Tile();
