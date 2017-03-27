@@ -1,4 +1,4 @@
-package tigerisland.build;
+package tigerisland.build_moves.builds;
 
 import tigerisland.board.Location;
 import tigerisland.player.Player;

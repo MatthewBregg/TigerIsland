@@ -1,9 +1,9 @@
-package tigerisland.build;
+package tigerisland.build_moves.builds;
 
 import tigerisland.board.Board;
-import tigerisland.build.actions.MakeBuildAction;
-import tigerisland.build.actions.PlaceVillagerOnHexAction;
-import tigerisland.build.rules.*;
+import tigerisland.build_moves.actions.MakeBuildAction;
+import tigerisland.build_moves.actions.PlaceVillagerOnHexAction;
+import tigerisland.build_moves.rules.*;
 import tigerisland.piece.PieceBoard;
 
 import java.util.ArrayList;

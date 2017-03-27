@@ -1,6 +1,6 @@
-package tigerisland.build.actions;
+package tigerisland.build_moves.actions;
 
-import tigerisland.build.BuildActionData;
+import tigerisland.build_moves.builds.BuildActionData;
 
 public interface MakeBuildAction {
 

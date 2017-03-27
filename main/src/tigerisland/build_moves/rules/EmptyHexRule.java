@@ -1,8 +1,8 @@
-package tigerisland.build.rules;
+package tigerisland.build_moves.rules;
 
 import tigerisland.board.Location;
-import tigerisland.build.BuildActionData;
-import tigerisland.build.BuildActionResult;
+import tigerisland.build_moves.builds.BuildActionData;
+import tigerisland.build_moves.builds.BuildActionResult;
 import tigerisland.piece.PieceBoard;
 
 public class EmptyHexRule implements BuildActionRule{

@@ -1,4 +1,4 @@
-package tigerisland.build;
+package tigerisland.build_moves.builds;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,7 +1,7 @@
-package tigerisland.build;
+package tigerisland.build_moves.builds;
 
-import tigerisland.build.actions.MakeBuildAction;
-import tigerisland.build.rules.BuildActionRule;
+import tigerisland.build_moves.actions.MakeBuildAction;
+import tigerisland.build_moves.rules.BuildActionRule;
 
 import java.util.List;
 
