@@ -1,13 +1,13 @@
-package build.rules;
+package build_moves.rules;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import tigerisland.board.Location;
-import tigerisland.build.BuildActionData;
-import tigerisland.build.BuildActionResult;
-import tigerisland.build.rules.BuildActionRule;
-import tigerisland.build.rules.NotEnoughVillagersRule;
+import tigerisland.build_moves.builds.BuildActionData;
+import tigerisland.build_moves.builds.BuildActionResult;
+import tigerisland.build_moves.rules.BuildActionRule;
+import tigerisland.build_moves.rules.NotEnoughVillagersRule;
 import tigerisland.player.Player;
 
 public class NotEnoughVillagersRuleTest {

@@ -1,7 +1,7 @@
-package tigerisland.build.actions;
+package tigerisland.build_moves.actions;
 
 import tigerisland.board.Board;
-import tigerisland.build.BuildActionData;
+import tigerisland.build_moves.builds.BuildActionData;
 import tigerisland.hex.Hex;
 import tigerisland.player.Player;
 import tigerisland.score.ScoreManager;

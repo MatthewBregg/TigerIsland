@@ -1,7 +1,7 @@
-package tigerisland.build.rules;
+package tigerisland.build_moves.rules;
 
-import tigerisland.build.BuildActionData;
-import tigerisland.build.BuildActionResult;
+import tigerisland.build_moves.builds.BuildActionData;
+import tigerisland.build_moves.builds.BuildActionResult;
 import tigerisland.player.Player;
 
 public class NotEnoughVillagersRule implements BuildActionRule{
