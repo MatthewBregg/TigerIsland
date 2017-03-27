@@ -10,7 +10,7 @@ import tigerisland.hex.NullHex;
 public class HexOnBoardRule implements BuildActionRule{
 
     private Board board;
-    private final String EMPTY_HEX_ERROR_MESSAGE = "Hex is NOT empty";
+    private final String EMPTY_HEX_ERROR_MESSAGE = "Hex does not exist on board.";
     private BuildActionResult successfulResult = new BuildActionResult(true);
     private BuildActionResult failedResult = new BuildActionResult(false, EMPTY_HEX_ERROR_MESSAGE);
 
@@ -24,8 +24,7 @@ public class HexOnBoardRule implements BuildActionRule{
     }
 
     private boolean isThereAHexAtLocation(Location hexLocation) {
-       Hex hexBoard = board.getHex(hexLocation);
-       return !(hexBoard instanceof NullHex);
+        return board.isLocationUsed(hexLocation);
     }
 
 }
