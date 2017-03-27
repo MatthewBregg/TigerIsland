@@ -7,86 +7,48 @@ package tigerisland.score;
 import tigerisland.player.Player;
 import tigerisland.player.PlayerID;
 import tigerisland.hex.Hex;
+import java.util.*;
 
 public class ScoreManager{
-    private Score p1Score;
-    private Score p2Score;
+    Map<PlayerID, Integer> playerScores;
 
-    public ScoreManager(Player player1, Player player2){
-        p1Score = new Score(player1);
-        p2Score = new Score(player2);
+    public ScoreManager(){
+        playerScores = new HashMap();
     }
 
-    public Score getPlayerScore(PlayerID pID){
-        Score playerScoreToReturn;
-
-        if (pID == p1Score.getPlayer().getId()){
-            playerScoreToReturn = p1Score;
-        }
-        else if (pID == p2Score.getPlayer().getId()){
-           playerScoreToReturn = p2Score;
-        }
-        else{
-            throw new RuntimeException("invalid playerID");
-        }
-        return playerScoreToReturn;
+    public void addNewPlayer(PlayerID pID){
+        playerScores.put(pID, 0);
     }
 
-    public PlayerID getPlayer1ID(){
-        return p1Score.getPlayerId();
+    public int getPlayerScore(PlayerID pID){
+        return playerScores.get(pID);
     }
 
-    public PlayerID getPlayer2ID(){
-        return p2Score.getPlayerId();
+    public int getTotalNumberOfPlayers(){
+        return playerScores.size();
     }
 
-    public int getPlayer1Score(){
-        return p1Score.getScore();
+    public void resetPlayerScore(PlayerID pID){
+        playerScores.put(pID, 0);
     }
 
-    public int getPlayer2Score(){
-        return p2Score.getScore();
-    }
-
-    public void resetPlayerScores(){
-        p1Score.setScore(0);
-        p2Score.setScore(0);
-    }
-
-    public void addBuildNewSettlementScore(PlayerID pID){
-        Score score = getPlayerScore(pID);
-        score.addPointsToScore(1);
-    }
-
-    /* a lot of different ways we
-    can go about this, so i made a lot of
-    different methods to be integrated*/
-
-
-    // we would use this method if we were passed a hex each time
-    public void addMeeplePlacementScoreDueToExpansion(PlayerID pID, int currentLevel){
-        Score score = getPlayerScore(pID);
-
-        score.addPointsToScore(currentLevel*currentLevel);
-    }
-
-
-    // we would use this method if we were passed a hex each time
-    public void addMeeplePlacementScoreDueToExpansion(PlayerID pID, Hex currentHex){
-        Score score = getPlayerScore(pID);
-        int level = currentHex.getLevel();
-
-        score.addPointsToScore(level*level);
+    public void buildOnNewHex(PlayerID pID, int hexLevel){
+        int pointsToAdd = hexLevel * hexLevel;
+        int existingPoints = playerScores.get(pID);
+        existingPoints += pointsToAdd;
+        playerScores.put(pID, existingPoints);
     }
 
     public void addTotoroScore(PlayerID pID){
-        Score score = getPlayerScore(pID);
-        score.addPointsToScore(200);
+        int existingPoints = playerScores.get(pID);
+        existingPoints += 200;
+        playerScores.put(pID, existingPoints);
     }
 
     public void addTigerScore(PlayerID pID){
-        Score score = getPlayerScore(pID);
-        score.addPointsToScore(75);
+        int existingPoints = playerScores.get(pID);
+        existingPoints += 75;
+        playerScores.put(pID, existingPoints);
     }
 
 

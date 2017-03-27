@@ -7,75 +7,68 @@ import tigerisland.player.Player;
 import tigerisland.hex.Hex;
 import tigerisland.player.PlayerID;
 import tigerisland.terrains.Rocky;
+import tigerisland.score.ScoreManager;
 
 
 public class ScoreManagerTest {
-    private static ScoreManager scoreManager;
-    private static Score p1Score;
-    private static Score p2Score;
-    private static Hex testHexLevel1;
+    private static ScoreManager playerScores;
+    private static Player player1;
+    private static Player player2;
     private static Hex testHexLevel3;
 
     @BeforeClass
     public static void makeStartingInstances(){
-        Player player1 = new Player();
-        Player player2 = new Player();
-
-        scoreManager = new ScoreManager(player1, player2);
-
-        testHexLevel1 = new Hex();
+        playerScores = new ScoreManager();
+        player1 = new Player();
+        player2 = new Player();
         testHexLevel3 = new Hex(5, 5, Rocky.getInstance(), 3);
     }
 
     @Test
-    public void addingScoreNewSettlementToBothPlayers(){
-        scoreManager.addBuildNewSettlementScore(scoreManager.getPlayer1ID());
-        scoreManager.addBuildNewSettlementScore(scoreManager.getPlayer2ID());
+    public void adding2PlayersToScoreManager(){
+        playerScores.addNewPlayer(player1.getId());
+        playerScores.addNewPlayer(player2.getId());
 
-        Assert.assertTrue((scoreManager.getPlayer1Score() == 1) && (scoreManager.getPlayer2Score() == 1));
+        Assert.assertTrue(playerScores.getTotalNumberOfPlayers() == 2);
     }
 
     @Test
-    public void checkResetScoreWorks(){
-        scoreManager.resetPlayerScores();
-        Assert.assertTrue((scoreManager.getPlayer1Score() == 0) && (scoreManager.getPlayer2Score() == 0));
+    public void makeSureNewPlayersHaveAZeroScorePointValue(){
+        playerScores.resetPlayerScore(player1.getId());
+        playerScores.resetPlayerScore(player2.getId());
+        int player1Score = playerScores.getPlayerScore(player1.getId());
+        System.out.println(player1Score);
+        int player2Score = playerScores.getPlayerScore(player2.getId());
+        System.out.println(player2Score);
+        Assert.assertTrue((player1Score == 0) && (player2Score == 0));
     }
 
     @Test
-    public void addingPointsForSingleHexDueToExpansion(){
-        scoreManager.resetPlayerScores();
-        scoreManager.addMeeplePlacementScoreDueToExpansion(scoreManager.getPlayer1ID(), testHexLevel1);
-        Assert.assertTrue(scoreManager.getPlayer1Score() == 1);
+    public void addingPointsForNewSettlement(){
+        playerScores.resetPlayerScore(player1.getId());
+        playerScores.buildOnNewHex(player1.getId(), 1);
+        Assert.assertTrue(playerScores.getPlayerScore(player1.getId()) == 1);
     }
 
     @Test
     public void addingPointsForSingleHexLevel3DueToExpansion(){
-        scoreManager.resetPlayerScores();
-        scoreManager.addMeeplePlacementScoreDueToExpansion(scoreManager.getPlayer2ID(), testHexLevel3);
-        Assert.assertTrue(scoreManager.getPlayer2Score() == 9);
+        playerScores.resetPlayerScore(player1.getId());
+        playerScores.buildOnNewHex(player1.getId(), 3);
+        Assert.assertTrue(playerScores.getPlayerScore(player1.getId()) == 9);
     }
 
     @Test
     public void addPointsForAddingTotoroToSettlement(){
-        scoreManager.resetPlayerScores();
-        scoreManager.addTotoroScore(scoreManager.getPlayer1ID());
-        Assert.assertTrue(scoreManager.getPlayer1Score() == 200);
+        playerScores.resetPlayerScore(player2.getId());
+        playerScores.addTotoroScore(player2.getId());
+        Assert.assertTrue(playerScores.getPlayerScore(player2.getId()) == 200);
     }
 
     @Test
     public void addPointsForAddingTigerToSettlement(){
-        scoreManager.resetPlayerScores();
-        scoreManager.addTigerScore(scoreManager.getPlayer2ID());
-        Assert.assertTrue(scoreManager.getPlayer2Score() == 75);
+        playerScores.resetPlayerScore(player2.getId());
+        playerScores.addTigerScore(player2.getId());
+        Assert.assertTrue(playerScores.getPlayerScore(player2.getId()) == 75);
     }
-
-    @Test
-    public void addPointsForExpandingByPassingInteger(){
-        scoreManager.resetPlayerScores();
-        scoreManager.addMeeplePlacementScoreDueToExpansion(scoreManager.getPlayer1ID(), 5);
-        Assert.assertTrue(scoreManager.getPlayer1Score() == 25);
-    }
-
-
 
 }

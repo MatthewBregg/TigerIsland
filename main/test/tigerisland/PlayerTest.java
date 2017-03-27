@@ -21,9 +21,14 @@ public class PlayerTest
     @Test
     public void constructor_manualCountAssignment_properInitialCounts()
     {
+<<<<<<< HEAD
         Player player=new Player(100,5,0);
+=======
+        Player player = new Player(100,5, 8);
+>>>>>>> ChristineServer
         assertEquals(100,player.getVillagerCount());
         assertEquals(5,player.getTotoroCount());
+        assertEquals(8, player.getTigerCount());
     }
 
     @Test
