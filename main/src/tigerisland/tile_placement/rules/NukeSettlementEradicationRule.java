@@ -4,17 +4,17 @@ import tigerisland.board.Location;
 import tigerisland.hex.Hex;
 import tigerisland.settlement.Settlement;
 import tigerisland.settlement.SettlementBoard;
-import tigerisland.tile_placement.exceptions.NukeSettlementSizeException;
+import tigerisland.tile_placement.exceptions.NukeSettlementEradicationException;
 
 import java.util.Map;
 import java.util.Set;
 
-public class NukeSettlementSizeGreaterThanOneRule implements NukePlacementRule {
+public class NukeSettlementEradicationRule implements NukePlacementRule {
 
     private SettlementBoard settlementBoard;
 
 
-    public NukeSettlementSizeGreaterThanOneRule(SettlementBoard settlementBoard) {
+    public NukeSettlementEradicationRule(SettlementBoard settlementBoard) {
         this.settlementBoard = settlementBoard;
     }
 
@@ -22,7 +22,7 @@ public class NukeSettlementSizeGreaterThanOneRule implements NukePlacementRule {
     @Override
     public void applyRule(Map<Location, Hex> hexes) throws Exception {
         if (checkSettlementEradication(hexes.keySet())) {
-            throw new NukeSettlementSizeException();
+            throw new NukeSettlementEradicationException();
         }
     }
 
