@@ -1,4 +1,4 @@
-package build.rules;
+package build_moves.rules;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -6,10 +6,10 @@ import org.junit.Test;
 import tigerisland.board.Board;
 import tigerisland.board.HexBoard;
 import tigerisland.board.Location;
-import tigerisland.build.BuildActionData;
-import tigerisland.build.BuildActionResult;
-import tigerisland.build.rules.BuildActionRule;
-import tigerisland.build.rules.HexLevelOneRule;
+import tigerisland.build_moves.builds.BuildActionData;
+import tigerisland.build_moves.builds.BuildActionResult;
+import tigerisland.build_moves.rules.BuildActionRule;
+import tigerisland.build_moves.rules.HexLevelOneRule;
 import tigerisland.hex.Hex;
 import tigerisland.player.Player;
 

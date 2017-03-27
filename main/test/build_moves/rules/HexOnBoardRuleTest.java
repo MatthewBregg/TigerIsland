@@ -1,4 +1,4 @@
-package build.rules;
+package build_moves.rules;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -6,10 +6,10 @@ import org.junit.Test;
 import tigerisland.board.Board;
 import tigerisland.board.HexBoard;
 import tigerisland.board.Location;
-import tigerisland.build.BuildActionData;
-import tigerisland.build.BuildActionResult;
-import tigerisland.build.rules.BuildActionRule;
-import tigerisland.build.rules.HexOnBoardRule;
+import tigerisland.build_moves.builds.BuildActionData;
+import tigerisland.build_moves.builds.BuildActionResult;
+import tigerisland.build_moves.rules.BuildActionRule;
+import tigerisland.build_moves.rules.HexOnBoardRule;
 import tigerisland.hex.Hex;
 import tigerisland.player.Player;
 
@@ -29,7 +29,7 @@ public class HexOnBoardRuleTest {
     public void test_ShouldReturnUnsuccessfulWhenHexIsNotOnBoard() {
 
         // Arrange
-        final String EMPTY_HEX_ERROR_MESSAGE = "Hex is NOT empty";
+        final String EMPTY_HEX_ERROR_MESSAGE = "Hex is not on board";
 
         Player player = new Player();
         Location hexLocation = new Location(0, 0, 0);
