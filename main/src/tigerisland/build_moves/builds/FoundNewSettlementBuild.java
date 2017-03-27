@@ -3,8 +3,10 @@ package tigerisland.build_moves.builds;
 import tigerisland.board.Board;
 import tigerisland.build_moves.actions.MakeBuildAction;
 import tigerisland.build_moves.actions.PlaceVillagerOnHexAction;
+import tigerisland.build_moves.actions.ScoreVillagersOnHex;
 import tigerisland.build_moves.rules.*;
 import tigerisland.piece.PieceBoard;
+import tigerisland.score.ScoreManager;
 
 import java.util.ArrayList;
 import java.util.List;
