@@ -22,7 +22,7 @@ public class SettlementLocationAdjacentToHexLocation implements BuildActionRule 
 
     @Override
     public BuildActionResult applyRule(BuildActionData buildActionData) {
-        Settlement s = settlementBoard.getSettlement(buildActionData.getHexLocation());
+        Settlement s = settlementBoard.getSettlement(buildActionData.getSettlementLocation());
         Set<Location> settlementLocations = s.getConnectedLocations();
         for ( Location settlementLocation : settlementLocations ) {
             if ( settlementLocation.getSurroundingLocations().contains(buildActionData.getHexLocation())) {

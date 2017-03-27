@@ -1,18 +1,9 @@
 package tigerisland.build.rules;
 
-import tigerisland.board.HexBoard;
 import tigerisland.board.Location;
 import tigerisland.build.BuildActionData;
 import tigerisland.build.BuildActionResult;
 import tigerisland.build.SettlementExpansionUtility;
-import tigerisland.piece.PieceBoard;
-import tigerisland.player.Player;
-import tigerisland.settlement.Settlement;
-import tigerisland.settlement.SettlementBoard;
-import tigerisland.terrains.Terrain;
-
-import java.util.HashSet;
-import java.util.Set;
 
 public class EnoughVillagersToExpandRule implements BuildActionRule {
 
@@ -29,10 +20,9 @@ public class EnoughVillagersToExpandRule implements BuildActionRule {
     public BuildActionResult applyRule(BuildActionData buildActionData) {
         // We now have all the hexes we can expand to, and they all should be on the map.
         int villagersNeeded = 0;
-        for (Location expandableLoc : settlementExpansionUtility.getSettlementsToExpandto(buildActionData)) {
+        for (Location expandableLoc : settlementExpansionUtility.getExpandableHexes(buildActionData)) {
             villagersNeeded+= settlementExpansionUtility.getHexLevel(expandableLoc);
         }
-
         if ( villagersNeeded <= buildActionData.getPlayer().getVillagerCount() ) {
             return successfulResult;
         } else {

@@ -4,13 +4,13 @@ import tigerisland.build.BuildActionData;
 import tigerisland.build.BuildActionResult;
 import tigerisland.piece.PieceBoard;
 
-public class HexLocationUnOccupied implements BuildActionRule {
+public class HexLocationUnOccupiedByPiece implements BuildActionRule {
 
     private BuildActionResult successfulResult = new BuildActionResult(true);
-    private BuildActionResult failedResult = new BuildActionResult(false, "Hex Location is Occupied!");
+    private BuildActionResult failedResult = new BuildActionResult(false, "Hex Location is Occupied by Piece!");
     private PieceBoard pieceBoard;
 
-    public HexLocationUnOccupied(PieceBoard pieceBoard) {
+    public HexLocationUnOccupiedByPiece(PieceBoard pieceBoard) {
         this.pieceBoard = pieceBoard;
     }
 

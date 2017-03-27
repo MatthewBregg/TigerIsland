@@ -31,7 +31,7 @@ public class SettlementExpansionUtility {
      * @param buildActionData
      * @return
      */
-    public Set<Location> getSettlementsToExpandto(BuildActionData buildActionData) {
+    public Set<Location> getExpandableHexes(BuildActionData buildActionData) {
         // Get our settlement, and it's location.
         Set<Location> settlementLocations = settlementBoard.getSettlement(
                 buildActionData.getSettlementLocation(),
@@ -61,20 +61,29 @@ public class SettlementExpansionUtility {
      * @return The set of all connected hexes, including loc.
      */
     public Set<Location> getConnectedUnOccupiedHexesOfSameTerrain(Location loc) {
-        Set<Location> connected = new HashSet<Location>();
-        if ( pieceBoard.isLocationOccupied(loc)) {
-            return connected;
+        Set<Location> connected = new HashSet<>();
+        getConnectedUnOccupiedHexesOfSameTerrainImpl(loc,connected);
+        return connected;
+    }
+
+    private void getConnectedUnOccupiedHexesOfSameTerrainImpl(Location loc, Set<Location> visited) {
+        if ( visited.contains(loc) ) {
+            return;
         }
-        connected.add(loc);
+
+        if ( pieceBoard.isLocationOccupied(loc)) {
+            return;
+        }
+        visited.add(loc);
 
         List<Location> adjLocs = loc.getSurroundingLocations();
         for (Location adjLoc : adjLocs ) {
             if ( locationsTerrainMatchp(loc,adjLoc) && !pieceBoard.isLocationOccupied(adjLoc) ) {
-                connected.addAll(getConnectedUnOccupiedHexesOfSameTerrain(adjLoc));
+                getConnectedUnOccupiedHexesOfSameTerrainImpl(adjLoc,visited);
 
             }
         }
-        return connected;
+        return;
     }
 
     /**
