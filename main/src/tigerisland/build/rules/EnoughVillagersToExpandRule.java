@@ -19,10 +19,7 @@ public class EnoughVillagersToExpandRule implements BuildActionRule {
     @Override
     public BuildActionResult applyRule(BuildActionData buildActionData) {
         // We now have all the hexes we can expand to, and they all should be on the map.
-        int villagersNeeded = 0;
-        for (Location expandableLoc : settlementExpansionUtility.getExpandableHexes(buildActionData)) {
-            villagersNeeded+= settlementExpansionUtility.getHexLevel(expandableLoc);
-        }
+        int villagersNeeded = settlementExpansionUtility.getVillagersNeededToExpand(buildActionData);
         if ( villagersNeeded <= buildActionData.getPlayer().getVillagerCount() ) {
             return successfulResult;
         } else {

@@ -102,13 +102,20 @@ public class SettlementExpansionUtility {
         return hexBoard.getHex(locA).getTerrain().equals(hexBoard.getHex(locB).getTerrain());
     }
 
-    /**
-     * Returns the level of the hex for a location, assuming the location is occupied
-     * @param expandableLoc
-     * @return integer level
-     */
-    public int getHexLevel(Location expandableLoc) {
-        return hexBoard.getHex(expandableLoc).getLevel();
+    public int getVillagersNeededToExpand(BuildActionData buildActionData) {
+        int villagersNeeded = 0;
+        for (Location expandableLoc : this.getExpandableHexes(buildActionData)) {
+            villagersNeeded+= this.getHexLevel(expandableLoc);
+        }
+        return villagersNeeded;
     }
 
+    /**
+     * Precondition is location is occupied
+     * @param loc
+     * @return
+     */
+    private int getHexLevel(Location loc) {
+        return hexBoard.getHex(loc).getLevel();
+    }
 }
