@@ -3,10 +3,8 @@ package tigerisland.build_moves.builds;
 import tigerisland.board.Board;
 import tigerisland.build_moves.actions.MakeBuildAction;
 import tigerisland.build_moves.actions.PlaceVillagerOnHexAction;
-import tigerisland.build_moves.actions.ScoreVillagersOnHex;
 import tigerisland.build_moves.rules.*;
 import tigerisland.piece.PieceBoard;
-import tigerisland.score.ScoreManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,11 +24,11 @@ public class FoundNewSettlementBuild extends BuildAction{
     @Override
     public List<BuildActionRule> createBuildActionRules() {
         List<BuildActionRule> rules = new ArrayList<>();
-        rules.add( new HexNotOnBoardRule(board));
+        rules.add( new BuildLocationMustBeOnBoardRule(board));
         rules.add( new EmptyHexRule(pieceBoard));
-        rules.add( new HexLevelOneRule(board));
+        rules.add( new SettlementMustBeFoundedHexLevelOneRule(board));
         rules.add( new CannotBuildOnVolcanoRule(board));
-        rules.add( new NotEnoughVillagersRule());
+        rules.add( new PlayerMustHaveAVillagerToBuildRule());
         return rules;
     }
 

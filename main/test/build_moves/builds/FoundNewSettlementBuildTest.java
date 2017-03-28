@@ -39,7 +39,7 @@ public class FoundNewSettlementBuildTest {
         BuildActionRule hexOnBoardRule = null;
 
         for(BuildActionRule  rule : rules) {
-            if (rule instanceof HexNotOnBoardRule)
+            if (rule instanceof BuildLocationMustBeOnBoardRule)
                 hexOnBoardRule = rule;
         }
 
@@ -78,7 +78,7 @@ public class FoundNewSettlementBuildTest {
         BuildActionRule hexLevelOneRule = null;
 
         for(BuildActionRule  rule : rules) {
-            if (rule instanceof HexLevelOneRule)
+            if (rule instanceof SettlementMustBeFoundedHexLevelOneRule)
                 hexLevelOneRule = rule;
         }
 

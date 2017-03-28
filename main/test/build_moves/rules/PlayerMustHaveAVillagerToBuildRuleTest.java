@@ -7,16 +7,16 @@ import tigerisland.board.Location;
 import tigerisland.build_moves.builds.BuildActionData;
 import tigerisland.build_moves.builds.BuildActionResult;
 import tigerisland.build_moves.rules.BuildActionRule;
-import tigerisland.build_moves.rules.NotEnoughVillagersRule;
+import tigerisland.build_moves.rules.PlayerMustHaveAVillagerToBuildRule;
 import tigerisland.player.Player;
 
-public class NotEnoughVillagersRuleTest {
+public class PlayerMustHaveAVillagerToBuildRuleTest {
 
     private BuildActionRule villagersRule;
 
     @Before
     public void setup() {
-        this.villagersRule = new NotEnoughVillagersRule();
+        this.villagersRule = new PlayerMustHaveAVillagerToBuildRule();
     }
 
     @Test

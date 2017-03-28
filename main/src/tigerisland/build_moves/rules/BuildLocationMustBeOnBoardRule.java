@@ -5,14 +5,14 @@ import tigerisland.board.Location;
 import tigerisland.build_moves.builds.BuildActionData;
 import tigerisland.build_moves.builds.BuildActionResult;
 
-public class HexNotOnBoardRule implements BuildActionRule{
+public class BuildLocationMustBeOnBoardRule implements BuildActionRule{
 
     private Board board;
     private final String EMPTY_HEX_ERROR_MESSAGE = "Hex is not on board";
     private BuildActionResult successfulResult = new BuildActionResult(true);
     private BuildActionResult failedResult = new BuildActionResult(false, EMPTY_HEX_ERROR_MESSAGE);
 
-    public HexNotOnBoardRule(Board board) {
+    public BuildLocationMustBeOnBoardRule(Board board) {
        this.board = board;
     }
 

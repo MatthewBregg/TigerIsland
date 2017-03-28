@@ -12,7 +12,7 @@ import tigerisland.build_moves.builds.BuildActionData;
 import tigerisland.build_moves.builds.BuildActionResult;
 import tigerisland.player.Player;
 
-public class NotEnoughVillagersRule implements BuildActionRule{
+public class PlayerMustHaveAVillagerToBuildRule implements BuildActionRule{
 
     private final String NOT_ENOUGH_VILLAGERS_ERROR = "Player does not have enough villagers";
 

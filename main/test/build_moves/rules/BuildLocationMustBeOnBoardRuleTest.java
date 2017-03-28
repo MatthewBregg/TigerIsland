@@ -9,27 +9,27 @@ import tigerisland.board.Location;
 import tigerisland.build_moves.builds.BuildActionData;
 import tigerisland.build_moves.builds.BuildActionResult;
 import tigerisland.build_moves.rules.BuildActionRule;
-import tigerisland.build_moves.rules.HexLevelOneRule;
+import tigerisland.build_moves.rules.BuildLocationMustBeOnBoardRule;
 import tigerisland.hex.Hex;
 import tigerisland.player.Player;
 
-public class HexLevelOneRuleTest {
+public class BuildLocationMustBeOnBoardRuleTest {
 
-    private BuildActionRule hexLevelOneRule;
+    private BuildActionRule hexOnBoardRule;
     private Board board;
 
     @Before
     public void setup() {
 
         this.board = new HexBoard();
-        this.hexLevelOneRule = new HexLevelOneRule(board);
+        this.hexOnBoardRule = new BuildLocationMustBeOnBoardRule(board);
     }
 
     @Test
     public void test_ShouldReturnUnsuccessfulWhenHexIsNotOnBoard() {
 
         // Arrange
-        final String LEVEL_ONE_HEX_ERROR_MESSAGE = "Hex is NOT a level one hex.";
+        final String EMPTY_HEX_ERROR_MESSAGE = "Hex is not on board";
 
         Player player = new Player();
         Location hexLocation = new Location(0, 0, 0);
@@ -39,16 +39,13 @@ public class HexLevelOneRuleTest {
                 .withHexLocation(hexLocation)
                 .build();
 
-        Hex hex = new Hex();
-        hex.setLevel(2);
-        board.placeHex(hexLocation, hex);
 
         // Act
-        BuildActionResult result = hexLevelOneRule.applyRule(buildActionData);
+        BuildActionResult result = hexOnBoardRule.applyRule(buildActionData);
 
         // Assert
         Assert.assertFalse(result.successful);
-        Assert.assertEquals(LEVEL_ONE_HEX_ERROR_MESSAGE, result.errorMessage);
+        Assert.assertEquals(EMPTY_HEX_ERROR_MESSAGE, result.errorMessage);
     }
 
     @Test
@@ -65,11 +62,10 @@ public class HexLevelOneRuleTest {
                 .build();
 
         Hex hex = new Hex();
-        hex.setLevel(1);
         board.placeHex(hexLocation, hex);
 
         // Act
-        BuildActionResult result = hexLevelOneRule.applyRule(buildActionData);
+        BuildActionResult result = hexOnBoardRule.applyRule(buildActionData);
 
         // Assert
         Assert.assertTrue(result.successful);

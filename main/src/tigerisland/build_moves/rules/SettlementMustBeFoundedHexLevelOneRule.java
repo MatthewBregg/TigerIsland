@@ -6,14 +6,14 @@ import tigerisland.build_moves.builds.BuildActionData;
 import tigerisland.build_moves.builds.BuildActionResult;
 import tigerisland.hex.Hex;
 
-public class HexLevelOneRule implements BuildActionRule {
+public class SettlementMustBeFoundedHexLevelOneRule implements BuildActionRule {
 
     private Board board;
     private final String LEVEL_ONE_HEX_ERROR_MESSAGE = "Hex is NOT a level one hex.";
     private BuildActionResult successfulResult = new BuildActionResult(true);
     private BuildActionResult failedResult = new BuildActionResult(false, LEVEL_ONE_HEX_ERROR_MESSAGE);
 
-    public HexLevelOneRule(Board board) {
+    public SettlementMustBeFoundedHexLevelOneRule(Board board) {
        this.board = board;
     }
 
