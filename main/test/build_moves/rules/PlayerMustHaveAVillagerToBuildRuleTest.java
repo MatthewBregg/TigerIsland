@@ -13,6 +13,7 @@ import tigerisland.player.Player;
 public class PlayerMustHaveAVillagerToBuildRuleTest {
 
     private BuildActionRule villagersRule;
+    final String NOT_ENOUGH_VILLAGERS_ERROR_MESSAGE = "Player does not have enough villagers";
 
     @Before
     public void setup() {
@@ -23,7 +24,7 @@ public class PlayerMustHaveAVillagerToBuildRuleTest {
     public void test_ShouldReturnUnsuccessfulBuildActionWhenPlayerDoesNotHaveVillagers() {
 
         // Arrange
-        final String NOT_ENOUGH_VILLAGERS_ERROR_MESSAGE = "Player does not have enough villagers";
+
         int villagerCount = 0;
         Player player = new Player(villagerCount, 0, 0);
         Location hexLocation = new Location(0, 0, 0);
@@ -60,6 +61,8 @@ public class PlayerMustHaveAVillagerToBuildRuleTest {
 
         // Assert
         Assert.assertTrue(result.successful);
+        Assert.assertNotEquals(NOT_ENOUGH_VILLAGERS_ERROR_MESSAGE, result.errorMessage);
+
     }
 
 }
