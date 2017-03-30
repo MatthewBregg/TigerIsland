@@ -1,4 +1,4 @@
-package tigerisland.build.rules;
+package build_moves.rules;
 
 import org.junit.Assert;
 import org.junit.Before;
