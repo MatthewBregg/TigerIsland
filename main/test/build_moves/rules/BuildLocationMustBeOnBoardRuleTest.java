@@ -29,7 +29,7 @@ public class BuildLocationMustBeOnBoardRuleTest {
     public void test_ShouldReturnUnsuccessfulWhenHexIsNotOnBoard() {
 
         // Arrange
-        final String EMPTY_HEX_ERROR_MESSAGE = "Hex is not on board";
+        final String EMPTY_HEX_ERROR_MESSAGE = "Hex does not exist on board.";
 
         Player player = new Player();
         Location hexLocation = new Location(0, 0, 0);
