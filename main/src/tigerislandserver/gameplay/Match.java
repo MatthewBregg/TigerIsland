@@ -1,18 +1,21 @@
 package tigerislandserver.gameplay;
 
 import tigerisland.player.Player;
+import tigerisland.tile.Tile;
+
+import java.util.ArrayList;
 
 public class Match extends Thread {
-    private long seed;
+    private ArrayList<Tile> gameTiles;
     private Game game1, game2;
     private Player player1, player2;
 
-    public Match(Player player1, Player player2){
+    public Match(Player player1, Player player2, ArrayList<Tile> tiles){
         this.player1 = player1;
         this.player2 = player2;
-        seed = generateSeed();
-        game1 = new Game(player1, player2, seed, nextGameID());
-        game2 = new Game(player2, player1, seed, nextGameID());
+        gameTiles = tiles;
+        game1 = new Game(player1, player2, gameTiles, nextGameID());
+        game2 = new Game(player2, player1, gameTiles, nextGameID());
     }
 
     private long generateSeed(){
