@@ -25,7 +25,7 @@ public class PieceBoardImpl implements PieceBoard {
     }
 
     @Override
-    public boolean LocationOccupiedp(Location location) {
+    public boolean isLocationOccupied(Location location) {
         return pieceMap.get(location) != null;
     }
 
@@ -36,7 +36,7 @@ public class PieceBoardImpl implements PieceBoard {
     }
 
     @Override
-    public boolean LocationOccupiedp(Location location, PlayerID playerID) {
+    public boolean isLocationOccupied(Location location, PlayerID playerID) {
         PiecePlayerAssocation ppa = pieceMap.get(location);
         return (ppa != null && playerID.equals(ppa.playerID));
     }
@@ -48,6 +48,7 @@ public class PieceBoardImpl implements PieceBoard {
     }
 
 
+    @Override
     public void addPiece(Piece p, Location loc, PlayerID pID) {
         pieceMap.put(loc, new PiecePlayerAssocation(p,pID));
     }

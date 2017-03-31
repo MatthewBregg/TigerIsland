@@ -79,8 +79,8 @@ public class SettlementTest {
     public void locationOccupiedp() throws Exception {
         locations = new Location[]{new Location(0,0)};
         createSettlement();
-        assertTrue(settlement.LocationOccupiedp(new Location(0,0)));
-        assertFalse(settlement.LocationOccupiedp(new Location(0,1)));
+        assertTrue(settlement.isLocationOccupied(new Location(0,0)));
+        assertFalse(settlement.isLocationOccupied(new Location(0,1)));
     }
 
 }

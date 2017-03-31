@@ -1,29 +1,30 @@
-package build.rules;
+package build_moves.rules;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import tigerisland.board.Location;
-import tigerisland.build.BuildActionData;
-import tigerisland.build.BuildActionResult;
-import tigerisland.build.rules.BuildActionRule;
-import tigerisland.build.rules.NotEnoughVillagersRule;
+import tigerisland.build_moves.builds.BuildActionData;
+import tigerisland.build_moves.builds.BuildActionResult;
+import tigerisland.build_moves.rules.BuildActionRule;
+import tigerisland.build_moves.rules.PlayerMustHaveAVillagerToBuildRule;
 import tigerisland.player.Player;
 
-public class NotEnoughVillagersRuleTest {
+public class PlayerMustHaveAVillagerToBuildRuleTest {
 
     private BuildActionRule villagersRule;
+    final String NOT_ENOUGH_VILLAGERS_ERROR_MESSAGE = "Player does not have enough villagers";
 
     @Before
     public void setup() {
-        this.villagersRule = new NotEnoughVillagersRule();
+        this.villagersRule = new PlayerMustHaveAVillagerToBuildRule();
     }
 
     @Test
     public void test_ShouldReturnUnsuccessfulBuildActionWhenPlayerDoesNotHaveVillagers() {
 
         // Arrange
-        final String NOT_ENOUGH_VILLAGERS_ERROR_MESSAGE = "Player does not have enough villagers";
+
         int villagerCount = 0;
         Player player = new Player(villagerCount, 0, 0);
         Location hexLocation = new Location(0, 0, 0);
@@ -60,6 +61,8 @@ public class NotEnoughVillagersRuleTest {
 
         // Assert
         Assert.assertTrue(result.successful);
+        Assert.assertNotEquals(NOT_ENOUGH_VILLAGERS_ERROR_MESSAGE, result.errorMessage);
+
     }
 
 }

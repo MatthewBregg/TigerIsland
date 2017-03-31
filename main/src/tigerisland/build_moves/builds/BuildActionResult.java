@@ -1,4 +1,4 @@
-package tigerisland.build;
+package tigerisland.build_moves.builds;
 
 public class BuildActionResult {
 

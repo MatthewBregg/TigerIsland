@@ -1,10 +1,18 @@
-package tigerisland.build.rules;
 
-import tigerisland.build.BuildActionData;
-import tigerisland.build.BuildActionResult;
+/* This action woudl be for
+1) Founding new settlment
+2) Expanding settlement
+3) Building totoro?
+ */
+
+
+package tigerisland.build_moves.rules;
+
+import tigerisland.build_moves.builds.BuildActionData;
+import tigerisland.build_moves.builds.BuildActionResult;
 import tigerisland.player.Player;
 
-public class NotEnoughVillagersRule implements BuildActionRule{
+public class PlayerMustHaveAVillagerToBuildRule implements BuildActionRule{
 
     private final String NOT_ENOUGH_VILLAGERS_ERROR = "Player does not have enough villagers";
 

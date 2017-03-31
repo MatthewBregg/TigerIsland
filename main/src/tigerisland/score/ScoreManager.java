@@ -52,4 +52,8 @@ public class ScoreManager{
     }
 
 
+    public void addScore(PlayerID id, int hexLevel) {
+        Score score = getPlayerScore(id);
+        score.addPointsToScore(hexLevel);
+    }
 }
