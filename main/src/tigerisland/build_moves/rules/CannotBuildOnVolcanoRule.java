@@ -11,7 +11,7 @@ public class CannotBuildOnVolcanoRule implements BuildActionRule {
 
     private Board board;
 
-    private final String VOLCANO_HEX_ERROR = "Cannot build_moves on a volcano hex";
+    private final String VOLCANO_HEX_ERROR = "Cannot build on a volcano hex";
     private BuildActionResult successfulResult = new BuildActionResult(true);
     private BuildActionResult failedResult = new BuildActionResult(false, VOLCANO_HEX_ERROR);
 

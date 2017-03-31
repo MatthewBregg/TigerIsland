@@ -30,7 +30,7 @@ public class CannotBuildOnVolcanoRuleTest {
     public void test_ShouldReturnUnsuccessfulBuildActionWhenBuildIsOnAVolcanoHex() {
 
         // Arrange
-        final String VOLCANO_HEX_ERROR_MESSAGE = "Cannot build_moves on a volcano hex";
+        final String VOLCANO_HEX_ERROR_MESSAGE = "Cannot build on a volcano hex";
         Hex volcanoHex = new Hex(Volcano.getInstance());
         Location hexLocation = new Location(0, 0, 0);
         board.placeHex(hexLocation, volcanoHex);
