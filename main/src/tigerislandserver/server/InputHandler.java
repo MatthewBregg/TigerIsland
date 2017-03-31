@@ -14,13 +14,22 @@ public class InputHandler extends Thread
     @Override
     public void run()
     {
-        if(isEnterGame())
+        if(isEnterTournamentCommand() && verifyTournamentPassword())
         {
-            //tryEnterGame()
+            enterTournament();
+        }
+        else if(isIdentificationComand() && verifyUsernameAndPassword())
+        {
+            registerUser();
+        }
+        else if(isGameMoveCommand())
+        {
+            GameMoveInputHandler handler=new GameMoveInputHandler(input);
+            handler.start();
         }
     }
 
-    private boolean isEnterGame()
+    private boolean isEnterTournamentCommand()
     {
         boolean isEnterGame = true;
 
@@ -30,7 +39,21 @@ public class InputHandler extends Thread
         return isEnterGame;
     }
 
-    private boolean isIdentification()
+    private boolean verifyTournamentPassword()
+    {
+        int passwordStart = inputTokens[0].length() + inputTokens[0].length() + 2; // 5 + 11 + 2 = 18
+        String password = input.substring(passwordStart); //This is in
+
+        //TODO
+        return password.equals("password");
+    }
+
+    private void enterTournament()
+    {
+        //TODO
+    }
+
+    private boolean isIdentificationComand()
     {
         boolean isIdentification = true;
 
@@ -40,7 +63,21 @@ public class InputHandler extends Thread
         return isIdentification;
     }
 
-    private boolean isGameMove()
+    private boolean verifyUsernameAndPassword()
+    {
+        int passwordStart = inputTokens[0].length() + inputTokens[0].length() + 2; // 1 + 2 + 2 = 5
+        String password = input.substring(passwordStart);
+
+        //TODO
+        return password.equals("password");
+    }
+
+    private void registerUser()
+    {
+        //TODO
+    }
+
+    private boolean isGameMoveCommand()
     {
         boolean isIdentification = true;
 
