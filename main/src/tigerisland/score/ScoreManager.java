@@ -4,10 +4,11 @@ package tigerisland.score;
  * Created by christinemoore on 3/21/17.
  */
 
-import tigerisland.player.Player;
 import tigerisland.player.PlayerID;
-import tigerisland.hex.Hex;
-import java.util.*;
+
+import java.util.HashMap;
+import java.util.Map;
+
 
 public class ScoreManager{
     Map<PlayerID, Integer> playerScores;
@@ -21,7 +22,10 @@ public class ScoreManager{
     }
 
     public int getPlayerScore(PlayerID pID){
-        return playerScores.get(pID);
+        if (playerScores.get(pID)!=null)
+            return playerScores.get(pID);
+
+        return 0;
     }
 
     public int getTotalNumberOfPlayers(){
@@ -53,7 +57,14 @@ public class ScoreManager{
 
 
     public void addScore(PlayerID id, int hexLevel) {
-        Score score = getPlayerScore(id);
-        score.addPointsToScore(hexLevel);
+
+        int score = this.getPlayerScore(id);
+
+        if (score != 0) {
+            score += hexLevel;
+            playerScores.put(id, score);
+        }
+        else
+            playerScores.put(id, hexLevel);
     }
 }

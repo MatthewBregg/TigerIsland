@@ -2,22 +2,23 @@ package tigerisland.score; /**
  * Created by christinemoore on 3/22/17.
  */
 
-import org.junit.*;
-import tigerisland.player.Player;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 import tigerisland.hex.Hex;
-import tigerisland.player.PlayerID;
+import tigerisland.player.Player;
 import tigerisland.terrains.Rocky;
-import tigerisland.score.ScoreManager;
 
 
 public class ScoreManagerTest {
+
     private static ScoreManager playerScores;
     private static Player player1;
     private static Player player2;
     private static Hex testHexLevel3;
 
-    @BeforeClass
-    public static void makeStartingInstances(){
+    @Before
+    public void makeStartingInstances(){
         playerScores = new ScoreManager();
         player1 = new Player();
         player2 = new Player();
@@ -69,6 +70,26 @@ public class ScoreManagerTest {
         playerScores.resetPlayerScore(player2.getId());
         playerScores.addTigerScore(player2.getId());
         Assert.assertTrue(playerScores.getPlayerScore(player2.getId()) == 75);
+    }
+
+    @Test
+    public void test_ShouldCreateANewScoreWhenAddingAScoreForFirstTimeForUser(){
+        //act
+        playerScores.addScore(player1.getId(),3);
+
+        //assert
+        Assert.assertEquals(3, playerScores.getPlayerScore(player1.getId()));
+    }
+
+    @Test
+    public void test_ShouldAddScoreForAnExistingPlayer(){
+
+        //act
+        playerScores.addScore(player1.getId(),3);
+        playerScores.addScore(player1.getId(),5);
+
+        //assert
+        Assert.assertEquals(8, playerScores.getPlayerScore(player1.getId()));
     }
 
 }
