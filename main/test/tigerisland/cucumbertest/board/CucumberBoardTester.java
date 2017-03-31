@@ -1,6 +1,5 @@
 package tigerisland.cucumbertest.board;
 
-import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -14,10 +13,10 @@ import tigerisland.terrains.Rocky;
 import tigerisland.terrains.Volcano;
 import tigerisland.tile.Orientation;
 import tigerisland.tile.Tile;
-import tigerisland.tile_placement.AdjacentToBoardTilePlacer;
-import tigerisland.tile_placement.FirstTilePlacer;
-import tigerisland.tile_placement.InvalidTilePlacer;
-import tigerisland.tile_placement.TilePlacement;
+import tigerisland.tile_placement.placers.AdjacentToBoardTilePlacer;
+import tigerisland.tile_placement.placers.FirstTilePlacer;
+import tigerisland.tile_placement.placers.InvalidTilePlacer;
+import tigerisland.tile_placement.placers.TilePlacement;
 
 import java.util.*;
 
