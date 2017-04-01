@@ -19,3 +19,13 @@ Feature: Valid Build Checking
     Then
     Invalid build action
 
+
+  Scenario
+  Expanding a settlement with insufficient villagers
+    Given
+    Player has an existing settlement
+  Player has level villagers than sum of each hex level in terrain of expansion squared
+    When
+    Player chooses to expand a settlement to one of the adjacent terrain types
+    Then
+    Invalid build action
