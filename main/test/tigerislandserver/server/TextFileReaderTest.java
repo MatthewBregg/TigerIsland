@@ -9,7 +9,7 @@ import java.util.HashMap;
  * Created by christinemoore on 4/1/17.
  */
 public class TextFileReaderTest {
-    public static final String fileLocation = "/Users/christinemoore/Desktop/usernamePasswords.rtf";
+    public static final String fileLocation = "src/usernamesPasswords.txt";
     public static TextFileReader tfr;
     public static HashMap<String, String> usernamesAndPasswords;
 
@@ -19,15 +19,8 @@ public class TextFileReaderTest {
     }
 
     @Test
-    public void doesFileExist(){
-        boolean result = tfr.doesFileExist();
-        Assert.assertTrue(result);
-    }
-
-    @Test
     public void isHashMapRightSize(){
         usernamesAndPasswords = tfr.getUsernameAndPasswordCombos();
-        System.out.println(usernamesAndPasswords.size());
         Assert.assertTrue(usernamesAndPasswords.size() == 2);
     }
 
@@ -35,7 +28,14 @@ public class TextFileReaderTest {
     public void correctlyReadInFirstUserPassword(){
         usernamesAndPasswords = tfr.getUsernameAndPasswordCombos();
         String firstUsername = "phil";
-        Assert.assertTrue(usernamesAndPasswords.get(firstUsername) == "allen");
+        Assert.assertTrue(usernamesAndPasswords.get(firstUsername).equals("allen"));
+    }
+
+    @Test
+    public void correctlyReadInSecondUserPassword(){
+        usernamesAndPasswords = tfr.getUsernameAndPasswordCombos();
+        String firstUsername = "christine";
+        Assert.assertTrue(usernamesAndPasswords.get(firstUsername).equals("moore"));
     }
 
 
