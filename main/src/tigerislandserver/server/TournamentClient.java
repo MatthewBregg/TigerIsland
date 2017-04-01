@@ -14,6 +14,7 @@ public class TournamentClient implements Runnable{
 //    private String clientName;
 
     TournamentClient(Socket newClientSocket){
+
         clientSocket = newClientSocket;
     }
 

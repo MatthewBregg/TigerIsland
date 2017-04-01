@@ -10,19 +10,20 @@ import tigerisland.score.*;
 
 import java.util.ArrayList;
 
-public class Game extends Thread{
+public class GameThread extends Thread{
     private ArrayList<Tile> gameTiles;
-    private Player player1;
-    private Player player2;
+    private ArrayList<Player> playersInGame;
+    private int activePlayerIndex;
     private int gameID;
     private ScoreManager scoreManager;
 
     // tournament class would pass in the seed and gameID
-    public Game(Player player1, Player player2, ArrayList<Tile> tiles, int gameID){
+    public GameThread(Player player1, Player player2, ArrayList<Tile> tiles, int gameID){
+        playersInGame.add(player1);
+        playersInGame.add(player2);
+        activePlayerIndex = 0;
         gameTiles = tiles;
         this.gameID = gameID;
-        this.player1 = player1;
-        this.player2 = player2;
         scoreManager = new ScoreManager();
     }
 
