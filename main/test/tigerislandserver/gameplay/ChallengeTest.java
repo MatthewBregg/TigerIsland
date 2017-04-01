@@ -36,11 +36,7 @@ public class ChallengeTest {
     }
 
     @Test
-    public void playRound() throws Exception {
-    }
-
-    @Test
-    public void setupRound() throws Exception {
+    public void playNextRound() throws Exception {
     }
 
     @Test

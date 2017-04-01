@@ -20,7 +20,7 @@ public class Match extends Thread {
     private int nextGameID(){
         int newID = 0;
 
-        // code for finding game IDs
+        // TODO: code for finding game IDs
 
         return newID;
     }

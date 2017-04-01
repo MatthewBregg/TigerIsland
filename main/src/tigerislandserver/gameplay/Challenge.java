@@ -98,4 +98,8 @@ public class Challenge {
     public int getRoundsRemaining(){
         return (schedule.getTotalRounds() - roundNumber);
     }
+
+    public int getTotalChallengeRounds(){
+        return schedule.getTotalRounds();
+    }
 }
