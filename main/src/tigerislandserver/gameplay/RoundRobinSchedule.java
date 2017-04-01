@@ -71,8 +71,8 @@ public class RoundRobinSchedule extends ScheduleType {
 
         ArrayList<Matchup> newMatchupArray = new ArrayList<Matchup>();
         for(int i = 0; i < (arrayLength / 2); ++i){
-            int player1Index = array[i];
-            int player2Index = array[arrayLength - (i + 1)];
+            int player1Index = array[i] - 1;
+            int player2Index = array[arrayLength - (i + 1)] - 1;
             Matchup tempMatchup = new Matchup(player1Index, player2Index);
             newMatchupArray.add(tempMatchup);
         }

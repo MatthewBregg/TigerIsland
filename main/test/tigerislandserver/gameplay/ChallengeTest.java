@@ -41,9 +41,6 @@ public class ChallengeTest {
 
     @Test
     public void setupRound() throws Exception {
-        tourneyChallenge.setupRound();
-        ArrayList<Tile> deck = tourneyChallenge.currentDeck;
-        assertEquals(48, deck.size());
     }
 
     @Test

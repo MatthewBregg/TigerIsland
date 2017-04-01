@@ -28,10 +28,10 @@ public class RoundRobinMatchupTest {
         firstMatchup = newMatchups.get(0);
         thirdMatchup = newMatchups.get(2);
 
-        assertEquals(8, firstMatchup.getPlayer1Index());
-        assertEquals(7, firstMatchup.getPlayer2Index());
-        assertEquals(1, thirdMatchup.getPlayer1Index());
-        assertEquals(5, thirdMatchup.getPlayer2Index());
+        assertEquals(7, firstMatchup.getPlayer1Index());
+        assertEquals(6, firstMatchup.getPlayer2Index());
+        assertEquals(0, thirdMatchup.getPlayer1Index());
+        assertEquals(4, thirdMatchup.getPlayer2Index());
     }
 
     @Test
