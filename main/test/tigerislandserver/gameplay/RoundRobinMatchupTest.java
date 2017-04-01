@@ -1,6 +1,5 @@
 package tigerislandserver.gameplay;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -9,13 +8,13 @@ import java.util.ArrayList;
 import static org.junit.Assert.*;
 
 public class RoundRobinMatchupTest {
-    TournamentSchedule scheduler;
+    Scheduler scheduler;
     RoundRobinMatchup matchmaker;
 
     @Before
     public void setUp() throws Exception {
         int numOfPlayers = 9;
-        scheduler = new TournamentSchedule(numOfPlayers);
+        scheduler = new Scheduler(numOfPlayers);
         matchmaker = new RoundRobinMatchup(scheduler, numOfPlayers);
     }
 

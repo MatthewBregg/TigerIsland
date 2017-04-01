@@ -2,11 +2,11 @@ package tigerislandserver.gameplay;
 
 import java.util.ArrayList;
 
-public class TournamentSchedule {
+public class Scheduler {
     private int totalParticipants;
     private MatchupType matchmaker;
 
-    public TournamentSchedule(int numOfPlayers){
+    public Scheduler(int numOfPlayers){
         totalParticipants = numOfPlayers;
         matchmaker = new RoundRobinMatchup(this, totalParticipants);
     }
