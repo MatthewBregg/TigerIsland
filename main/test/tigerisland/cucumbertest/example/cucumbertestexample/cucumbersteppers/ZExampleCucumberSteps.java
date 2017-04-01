@@ -10,6 +10,7 @@ import cucumber.api.java.en.Then;
  */
 
 public class ZExampleCucumberSteps {
+
     String cucumberTaste = "";
     @Given("^I have a cucumber$")
     public void iHaveACucumber() throws Throwable {
