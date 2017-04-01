@@ -60,9 +60,47 @@ public class TotoroBuildHexAdjacentToSettlementSizeFiveRuleTest {
 
         Assert.assertEquals(errorMessage, result.errorMessage);
 
+    }
+
+    @Test
+    public void test_ShouldAllowBuildNextToSettlementLessThanFive (){
 
 
+        //arrange
+        pieces = new PieceBoardImpl();
+        Location start = new Location(0,0,0);
+
+        pieces.addPiece(new Villager(), start, player1.getId());
+        Location previous = start;
+        //set up settlment
+        for (int i = 0; i<5;++i ){
+            pieces.addPiece(new Villager(), previous.getAdjacent(Orientation.getEast()), player1.getId());
+            previous = previous.getAdjacent(Orientation.getEast());
+        }
+
+        board = new LazySettlementBoard(pieces);
+        rule = new TotoroBuildHexAdjacentToSettlementSizeFiveRule(board);
+
+        BuildActionData.Builder builder = new BuildActionData.Builder();
+        builder.withHexLocation(start.getAdjacent(Orientation.getWest()));
+        builder.withPlayer(player1);
+
+        //act
+
+
+        result = rule.applyRule(builder.build());
+
+        //assert
+
+        Assert.assertTrue(result.successful);
+
+        Assert.assertNotEquals(errorMessage, result.errorMessage);
 
     }
+
+
+
+
+
 
 }
