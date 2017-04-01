@@ -47,7 +47,7 @@ public class Challenge {
         }
 
         currentDeck = tiles;
-    }g
+    }
 
     private long generateSeed(){
         long randomSeed;
