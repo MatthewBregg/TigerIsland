@@ -1,11 +1,10 @@
 package tigerislandserver.gameplay;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import tigerisland.tile.Tile;
-import tigerislandserver.server.TournamentClient;
+import tigerislandserver.server.TournamentPlayer;
 
 import java.net.Socket;
 import java.util.ArrayList;
@@ -16,14 +15,14 @@ import static org.junit.Assert.*;
  * Created by Philip on 4/1/2017.
  */
 public class ChallengeTest {
-    public static ArrayList<TournamentClient> players;
+    public static ArrayList<TournamentPlayer> players;
     Challenge tourneyChallenge;
 
     @BeforeClass
     public static void suiteSetUp() throws Exception {
-        players = new ArrayList<TournamentClient>();
+        players = new ArrayList<TournamentPlayer>();
         for(int i = 0; i < 10; ++i){
-            players.add(new TournamentClient(new Socket()));
+            players.add(new TournamentPlayer(new Socket()));
         }
     }
 

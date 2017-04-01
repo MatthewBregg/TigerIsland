@@ -4,14 +4,14 @@ import java.util.ArrayList;
 
 public class Scheduler {
     private int totalParticipants;
-    private MatchupType matchmaker;
+    private ScheduleType matchmaker;
 
     public Scheduler(int numOfPlayers){
         totalParticipants = numOfPlayers;
-        matchmaker = new RoundRobinMatchup(this, totalParticipants);
+        matchmaker = new RoundRobinSchedule(this, totalParticipants);
     }
 
-    public void setTournamentType(MatchupType matchmaker){
+    public void setTournamentType(ScheduleType matchmaker){
         if(matchmaker != null)
             this.matchmaker = matchmaker;
     }

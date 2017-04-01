@@ -1,21 +1,20 @@
 package tigerislandserver.gameplay;
 
-import tigerisland.player.Player;
 import tigerisland.tile.Tile;
-import tigerislandserver.server.TournamentClient;
+import tigerislandserver.server.TournamentPlayer;
 
 import java.util.ArrayList;
 
 public class Match extends Thread {
     private ArrayList<Tile> gameTiles;
     private GameThread game1, game2;
-    private ArrayList<TournamentClient> players;
+    private ArrayList<TournamentPlayer> players;
 
-    public Match(ArrayList<TournamentClient> playerList, ArrayList<Tile> tiles){
+    public Match(ArrayList<TournamentPlayer> playerList, ArrayList<Tile> tiles){
         players = playerList;
         gameTiles = tiles;
-        game1 = new GameThread(player1, player2, gameTiles, nextGameID());
-        game2 = new GameThread(player2, player1, gameTiles, nextGameID());
+        game1 = new GameThread(players, gameTiles, nextGameID());
+        game2 = new GameThread(players, gameTiles, nextGameID());
     }
 
     private int nextGameID(){

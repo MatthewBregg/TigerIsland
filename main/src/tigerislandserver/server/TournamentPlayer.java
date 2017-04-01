@@ -6,14 +6,14 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.*;
 
-public class TournamentClient implements Runnable{
+public class TournamentPlayer implements Runnable{
     private Socket clientSocket;
     private PrintWriter outputToClient;
     private BufferedReader inputFromClient;
     private String welcomeMessage = "Welcome. Please enjoy your stay!";
 //    private String clientName;
 
-    public TournamentClient(Socket newClientSocket){
+    public TournamentPlayer(Socket newClientSocket){
         clientSocket = newClientSocket;
     }
 

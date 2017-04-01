@@ -2,10 +2,10 @@ package tigerislandserver.gameplay;
 
 import java.util.ArrayList;
 
-public class RoundRobinMatchup extends MatchupType{
+public class RoundRobinSchedule extends ScheduleType {
     private int numOfParticipants;
 
-    public RoundRobinMatchup(Scheduler parent, int numOfParticipants){
+    public RoundRobinSchedule(Scheduler parent, int numOfParticipants){
         super(parent);
         this.numOfParticipants = numOfParticipants;
     }

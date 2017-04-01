@@ -9,13 +9,13 @@ import static org.junit.Assert.*;
 
 public class RoundRobinMatchupTest {
     Scheduler scheduler;
-    RoundRobinMatchup matchmaker;
+    RoundRobinSchedule matchmaker;
 
     @Before
     public void setUp() throws Exception {
         int numOfPlayers = 9;
         scheduler = new Scheduler(numOfPlayers);
-        matchmaker = new RoundRobinMatchup(scheduler, numOfPlayers);
+        matchmaker = new RoundRobinSchedule(scheduler, numOfPlayers);
     }
 
     @Test
