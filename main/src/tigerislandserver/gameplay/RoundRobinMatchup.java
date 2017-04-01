@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class RoundRobinMatchup extends MatchupType{
     private int numOfParticipants;
 
-    public RoundRobinMatchup(TournamentSchedule parent, int numOfParticipants){
+    public RoundRobinMatchup(Scheduler parent, int numOfParticipants){
         super(parent);
         this.numOfParticipants = numOfParticipants;
     }

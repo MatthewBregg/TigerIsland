@@ -5,17 +5,17 @@ import tigerislandserver.server.TournamentClient;
 
 import java.util.ArrayList;
 
-public class Tournament {
-    private TournamentSchedule schedule;
+public class Challenge {
+    private Scheduler schedule;
     private ArrayList<TournamentClient> playerList;
     private TournamentScoreboard scoreboard;
     private ArrayList<Tile> currentDeck;
     private int roundNumber;
 
-    public Tournament(ArrayList<TournamentClient> participants){
+    public Challenge(ArrayList<TournamentClient> participants){
         playerList = participants;
         scoreboard = new TournamentScoreboard();
-        schedule = new TournamentSchedule(playerList.size());
+        schedule = new Scheduler(playerList.size());
         roundNumber = 0;
     }
 
@@ -24,6 +24,7 @@ public class Tournament {
     }
 
     public void playRound(){
+        // Generate TileDeck for round
         // initiate next round of matchups
     }
 
