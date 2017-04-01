@@ -13,7 +13,7 @@ public class TournamentClient implements Runnable{
     private String welcomeMessage = "Welcome. Please enjoy your stay!";
 //    private String clientName;
 
-    TournamentClient(Socket newClientSocket){
+    public TournamentClient(Socket newClientSocket){
         clientSocket = newClientSocket;
     }
 
