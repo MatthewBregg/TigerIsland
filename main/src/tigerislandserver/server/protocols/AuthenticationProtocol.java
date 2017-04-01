@@ -14,6 +14,7 @@ public class AuthenticationProtocol {
     }
 
     private boolean doesPasswordMatchUsername(String authenticationString) {
+        return false;
     }
 
 

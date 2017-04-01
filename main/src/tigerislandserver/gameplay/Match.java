@@ -7,15 +7,15 @@ import java.util.ArrayList;
 
 public class Match extends Thread {
     private ArrayList<Tile> gameTiles;
-    private Game game1, game2;
+    private GameThread game1, game2;
     private Player player1, player2;
 
     public Match(Player player1, Player player2, ArrayList<Tile> tiles){
         this.player1 = player1;
         this.player2 = player2;
         gameTiles = tiles;
-        game1 = new Game(player1, player2, gameTiles, nextGameID());
-        game2 = new Game(player2, player1, gameTiles, nextGameID());
+        game1 = new GameThread(player1, player2, gameTiles, nextGameID());
+        game2 = new GameThread(player2, player1, gameTiles, nextGameID());
     }
 
     private long generateSeed(){
