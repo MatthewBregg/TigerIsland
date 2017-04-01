@@ -11,6 +11,7 @@ public class TournamentClient implements Runnable{
     private PrintWriter outputToClient;
     private BufferedReader inputFromClient;
     private String welcomeMessage = "Welcome. Please enjoy your stay!";
+    private int pID;
 //    private String clientName;
 
     public TournamentClient(Socket newClientSocket){

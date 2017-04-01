@@ -47,7 +47,7 @@ public class Challenge {
         }
 
         currentDeck = tiles;
-    }
+    }g
 
     private long generateSeed(){
         long randomSeed;
@@ -55,7 +55,7 @@ public class Challenge {
         return randomSeed;
     }
 
-    private ArrayList<TournamentClient>
+    //private ArrayList<TournamentClient>;
 
     public int getCurrentRound(){
         return roundNumber;

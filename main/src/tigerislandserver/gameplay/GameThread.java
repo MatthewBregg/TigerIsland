@@ -16,6 +16,7 @@ public class GameThread extends Thread{
     private int activePlayerIndex;
     private int gameID;
     private ScoreManager scoreManager;
+    private int numberOfMoves;
 
     // tournament class would pass in the seed and gameID
     public GameThread(Player player1, Player player2, ArrayList<Tile> tiles, int gameID){
