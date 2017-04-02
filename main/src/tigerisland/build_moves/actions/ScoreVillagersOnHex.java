@@ -1,7 +1,6 @@
-
 /* This action would be for
 1) Founding settlement
-2) Expanding settlment-- we call this for each hex?
+2) Expanding settlement-- we call this for each hex?
  */
 
 package tigerisland.build_moves.actions;
@@ -26,7 +25,9 @@ public class ScoreVillagersOnHex implements MakeBuildAction {
     public void applyAction(BuildActionData buildActionData) {
         Player player = buildActionData.getPlayer();
         Hex hex = board.getHex(buildActionData.getHexBuildLocation());
+
         int hexLevel = hex.getLevel();
+
         scoreManager.addScore(player.getId(), hexLevel);
     }
 }

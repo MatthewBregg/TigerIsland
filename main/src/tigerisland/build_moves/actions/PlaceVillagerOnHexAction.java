@@ -1,6 +1,5 @@
-
-/* This action woudl be for
-1) Founding new settlment
+/* This action would be for
+1) Founding new settlement
 2) Expanding settlement
  */
 
@@ -24,7 +23,9 @@ public class PlaceVillagerOnHexAction implements MakeBuildAction{
     public void applyAction(BuildActionData buildActionData) {
         Player player = buildActionData.getPlayer();
         Location hexLocation = buildActionData.getHexBuildLocation();
+
         player.removeVillager();
+
         pieceBoard.addPiece( new Villager(), hexLocation, player.getId());
     }
 }

@@ -24,18 +24,22 @@ public class FoundNewSettlementBuild extends BuildAction{
     @Override
     public List<BuildActionRule> createBuildActionRules() {
         List<BuildActionRule> rules = new ArrayList<>();
+
         rules.add( new BuildLocationMustBeOnBoardRule(board));
         rules.add( new EmptyHexRule(pieceBoard));
         rules.add( new SettlementMustBeFoundedHexLevelOneRule(board));
         rules.add( new CannotBuildOnVolcanoRule(board));
         rules.add( new PlayerMustHaveAVillagerToBuildRule());
+
         return rules;
     }
 
     @Override
     public List<MakeBuildAction> createBuildActions() {
         List<MakeBuildAction> actions = new ArrayList<>();
+
         actions.add( new PlaceVillagerOnHexAction(pieceBoard));
+
         return actions;
     }
 

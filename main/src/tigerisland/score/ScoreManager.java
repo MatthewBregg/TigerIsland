@@ -39,7 +39,9 @@ public class ScoreManager{
     public void buildOnNewHex(PlayerID pID, int hexLevel){
         int pointsToAdd = hexLevel * hexLevel;
         int existingPoints = playerScores.get(pID);
+
         existingPoints += pointsToAdd;
+
         playerScores.put(pID, existingPoints);
     }
 

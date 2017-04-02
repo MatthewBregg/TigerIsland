@@ -11,7 +11,7 @@ public class TileDeck {
     private int countPerTileType;
 
     public TileDeck(long seed){
-        tiles = new Vector<Tile>();
+        tiles = new Vector<>();
         tileTypes = TileFactory.getTileCombinations();
         countPerTileType = 3;
 
@@ -21,7 +21,8 @@ public class TileDeck {
 
     private Vector<Integer> getRandomIntOrder(int size, long seed){
         // generate numbers to represent each of cards
-        Vector<Integer> tempIntegerList = new Vector<Integer>();
+        Vector<Integer> tempIntegerList = new Vector<>();
+
         for(int i = 0; i < size; ++i)
             tempIntegerList.add(i, i);
 
@@ -29,7 +30,8 @@ public class TileDeck {
         Random randomGenerator = new Random(seed);
 
         // randomize integer order
-        Vector<Integer> integerList = new Vector<Integer>();
+        Vector<Integer> integerList = new Vector<>();
+
         for(int i = size; i > 0; i--){
             int randInt = randomGenerator.nextInt(i);
             integerList.add(tempIntegerList.remove(randInt));

@@ -53,17 +53,17 @@ public class Location
 
 	public ArrayList<Location> getSurroundingLocations()
 	{
-		ArrayList<Location> locs=new ArrayList<Location>();
+		ArrayList<Location> locations = new ArrayList<Location>();
 		Orientation[] orients = {Orientation.getEast(), Orientation.getNorthEast(), Orientation.getNorthWest(),
 				Orientation.getWest(), Orientation.getSouthWest(), Orientation.getSouthEast()};
 
 		for(int i=0; i<orients.length; i++)
 		{
 			Location loc = getAdjacent(orients[i]);
-			locs.add(loc);
+			locations.add(loc);
 		}
 
-		return locs;
+		return locations;
 	}
 
 	public boolean equals(Object o)

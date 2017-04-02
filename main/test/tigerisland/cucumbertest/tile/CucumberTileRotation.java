@@ -17,8 +17,10 @@ public class CucumberTileRotation {
     public Tile tileWithNWOrientation = null;
     @Given("^We have a tile$")
     public void weHaveATile() throws Throwable {
-        tileWithEastOrientation = new Tile(0, Orientation.getEast());
-        tileWithNWOrientation = new Tile(1, Orientation.getNorthWest());
+        tileWithEastOrientation = new Tile(0);
+        tileWithNWOrientation = new Tile(1);
+        tileWithNWOrientation.rotate();
+        tileWithNWOrientation.rotate();
     }
 
     @When("^We rotate said tile$")

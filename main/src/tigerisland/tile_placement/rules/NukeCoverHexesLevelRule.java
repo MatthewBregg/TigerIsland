@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class NukeCoverHexesLevelRule implements NukePlacementRule{
 
-    Board board;
+    private Board board;
 
     public NukeCoverHexesLevelRule(Board board) {
         this.board = board;

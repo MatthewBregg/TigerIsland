@@ -21,9 +21,11 @@ public class ExpandSettlementOnHexAction implements MakeBuildAction {
     @Override
     public void applyAction(BuildActionData buildActionData) {
         Player player = buildActionData.getPlayer();
-        Set<Location> expandableLocs = settlementExpansionUtility.getExpandableHexes(buildActionData);
+
         int villagersNeeded = settlementExpansionUtility.getVillagersNeededToExpand(buildActionData);
         player.removeVillagers(villagersNeeded);
+
+        Set<Location> expandableLocs = settlementExpansionUtility.getExpandableHexes(buildActionData);
         for ( Location expandableLoc : expandableLocs ) {
             pieceBoard.addPiece(new Villager(), expandableLoc, player.getId());
         }

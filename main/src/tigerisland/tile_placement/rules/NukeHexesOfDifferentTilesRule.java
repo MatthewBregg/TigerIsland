@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class NukeHexesOfDifferentTilesRule implements NukePlacementRule {
 
-    Board board;
+    private Board board;
 
     public NukeHexesOfDifferentTilesRule(Board board) {
         this.board = board;

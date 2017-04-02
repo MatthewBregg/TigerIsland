@@ -36,20 +36,20 @@ public class SettlementExpansionUtility {
                 buildActionData.getSettlementToExpandFromLocation(),
                 buildActionData.getPlayer().getId()).getConnectedLocations();
 
-
-        // The locations we find that arae expandable.
+        // The locations we find that area expandable.
         Set<Location> expandableLocs = new HashSet<>();
-        // Now checkand find all the locations we can expand to.
+        // Now check and find all the locations we can expand to.
         for (Location settlementLoc : settlementLocations) {
             for (Location locationSurroundingSettlementLoc : settlementLoc.getSurroundingLocations()) {
                 if (settlementLocations.contains(locationSurroundingSettlementLoc)) {
                     continue;
                 }
                 if (this.locationsTerrainMatchp(locationSurroundingSettlementLoc,buildActionData.getHexBuildLocation())) {
-                    expandableLocs.addAll(this.getConnectedUnOccupiedHexesOfSameTerrain(locationSurroundingSettlementLoc));
+                    expandableLocs.addAll(this.getConnectedUnoccupiedHexesOfSameTerrain(locationSurroundingSettlementLoc));
                 }
             }
         }
+
         return expandableLocs;
     }
 
@@ -59,30 +59,24 @@ public class SettlementExpansionUtility {
      * @param loc The location to find all connected hexes
      * @return The set of all connected hexes, including loc.
      */
-    public Set<Location> getConnectedUnOccupiedHexesOfSameTerrain(Location loc) {
+    public Set<Location> getConnectedUnoccupiedHexesOfSameTerrain(Location loc) {
         Set<Location> connected = new HashSet<>();
-        getConnectedUnOccupiedHexesOfSameTerrainImpl(loc,connected);
+        getConnectedUnoccupiedHexesOfSameTerrainImpl(loc,connected);
         return connected;
     }
 
-    private void getConnectedUnOccupiedHexesOfSameTerrainImpl(Location loc, Set<Location> visited) {
-        if ( visited.contains(loc) ) {
-            return;
-        }
-
-        if ( pieceBoard.isLocationOccupied(loc)) {
+    private void getConnectedUnoccupiedHexesOfSameTerrainImpl(Location loc, Set<Location> visited) {
+        if (visited.contains(loc) || pieceBoard.isLocationOccupied(loc)) {
             return;
         }
         visited.add(loc);
 
-        List<Location> adjLocs = loc.getSurroundingLocations();
-        for (Location adjLoc : adjLocs ) {
+        List<Location> adjacentLocations = loc.getSurroundingLocations();
+        for (Location adjLoc : adjacentLocations) {
             if ( locationsTerrainMatchp(loc,adjLoc) && !pieceBoard.isLocationOccupied(adjLoc) ) {
-                getConnectedUnOccupiedHexesOfSameTerrainImpl(adjLoc,visited);
-
+                getConnectedUnoccupiedHexesOfSameTerrainImpl(adjLoc,visited);
             }
         }
-        return;
     }
 
     /**
@@ -93,9 +87,7 @@ public class SettlementExpansionUtility {
      * @return Returns true if both locations are occupied and have the same terrain, else false.
      */
     private boolean locationsTerrainMatchp(Location locA, Location locB ) {
-
-        if ( !hexBoard.isLocationUsed(locA) || !hexBoard.isLocationUsed(locB)) {
-            //
+        if( !hexBoard.isLocationUsed(locA) || !hexBoard.isLocationUsed(locB)){
             return false;
         }
         return hexBoard.getHex(locA).getTerrain().equals(hexBoard.getHex(locB).getTerrain());
@@ -103,9 +95,11 @@ public class SettlementExpansionUtility {
 
     public int getVillagersNeededToExpand(BuildActionData buildActionData) {
         int villagersNeeded = 0;
+
         for (Location expandableLoc : this.getExpandableHexes(buildActionData)) {
             villagersNeeded+= this.getHexLevel(expandableLoc);
         }
+
         return villagersNeeded;
     }
 

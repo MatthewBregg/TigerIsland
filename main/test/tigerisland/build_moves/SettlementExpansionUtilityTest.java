@@ -5,7 +5,6 @@ import org.junit.Before;
 import org.junit.Test;
 import tigerisland.board.HexBoard;
 import tigerisland.board.Location;
-import tigerisland.build_moves.SettlementExpansionUtility;
 import tigerisland.build_moves.builds.BuildActionData;
 import tigerisland.hex.Hex;
 import tigerisland.piece.PieceBoard;
@@ -60,7 +59,7 @@ public class SettlementExpansionUtilityTest {
     @Test
     public void test_getConnectedUnOccupiedHexes() throws Exception {
         PrimeBoard();
-        Set<Location> connected_locs = settlementExpansionUtility.getConnectedUnOccupiedHexesOfSameTerrain(lastLoc);
+        Set<Location> connected_locs = settlementExpansionUtility.getConnectedUnoccupiedHexesOfSameTerrain(lastLoc);
         Assert.assertTrue(connected_locs.containsAll(locations_to_place) && locations_to_place.containsAll(connected_locs));
 
     }
@@ -69,7 +68,7 @@ public class SettlementExpansionUtilityTest {
     public void test_getConnectedUnOccupiedHexesWithPieceBlocking() throws Exception {
         PrimeBoard();
         pieceBoard.addPiece(new Villager(),middle,new PlayerID());
-        Set<Location> connected_locs = settlementExpansionUtility.getConnectedUnOccupiedHexesOfSameTerrain(firstLoc);
+        Set<Location> connected_locs = settlementExpansionUtility.getConnectedUnoccupiedHexesOfSameTerrain(firstLoc);
         Assert.assertTrue(connected_locs.size() == 5);
         for ( int i = 5; i != 12; ++ i ) {
             locations_to_place.remove(middle);
