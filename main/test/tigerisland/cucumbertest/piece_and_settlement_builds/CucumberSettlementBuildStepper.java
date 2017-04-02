@@ -20,27 +20,27 @@ import tigerisland.terrains.Terrain;
 
 public class CucumberSettlementBuildStepper implements En {
 
-    Player player;
-    HexBoard board;
-    PieceBoard pieces;
-    Location location;
-    BuildActionData data;
-    BuildActionStrategy foundSettlement;
-    Hex hex;
-    Terrain rocky = Rocky.getInstance();
-    int settlementID = 1;
-    int tileID = 2;
-    int initialVillagerCount;
+    private Player player;
+    private HexBoard board;
+    private PieceBoard pieces;
+    private Location location;
+    private BuildActionData data;
+    private BuildActionStrategy foundSettlement;
+    private Hex hex;
+    private Terrain rocky = Rocky.getInstance();
+    private int settlementID = 1;
+    private int initialVillagerCount;
+    private int tileID = 3;
 
 
     private void setUp(){
-        //todo possibly run this with tile placement
+        //todo possibly run this with tile placement if necessary
         player = new Player(20,3,2);
 
         initialVillagerCount = player.getVillagerCount();
         location = new Location(3,-3,0);
 
-        hex = new Hex(tileID,settlementID,rocky,1);
+        hex = new Hex(tileID, settlementID,rocky,1);
         board = new HexBoard();
         board.placeHex(location, hex);
 
@@ -75,6 +75,8 @@ public class CucumberSettlementBuildStepper implements En {
             Assert.assertEquals(settlementSize.intValue(), settlement.settlementSize());
 
             Assert.assertTrue(player.getVillagerCount() == initialVillagerCount-1);
+
+            //TODO is tile necessary here? or can we just use hex location
 
 
         });
