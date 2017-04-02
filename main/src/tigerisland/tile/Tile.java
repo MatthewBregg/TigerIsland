@@ -51,28 +51,13 @@ public class Tile {
        this.rightHex = rightHex;
    }
 
-   public Tile(int id, Orientation orientation){
+   public Tile(int id){
        this.id = id;
        this.orientation = new Orientation(0);
    }
 
    public void rotate(){
        orientation = orientation.rotate(60);
-
-/*
-
-       // TODO: implement tile rotation
-       //Quick implementation to enable acceptance test. We can fix later if unsatisfactory
-
-
-       //everything but SE orientation
-       if(this.orientation.getAngle()<300)
-           setOrientation(new Orientation(this.orientation.getAngle()+60));
-       // SE orientation
-       else
-           setOrientation(new Orientation(0));
-
-*/
    }
 
    public boolean equals(Tile tile){

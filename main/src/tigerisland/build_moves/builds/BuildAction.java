@@ -7,15 +7,14 @@ import java.util.List;
 
 public abstract class BuildAction implements BuildActionStrategy {
 
-
     List<BuildActionRule> rules;
     List<MakeBuildAction> actions;
 
     @Override
-    public BuildActionResult build(BuildActionData buildActionData) {
-
+    public BuildActionResult build(BuildActionData buildActionData){
         for(BuildActionRule rule : rules) {
             BuildActionResult result = rule.applyRule(buildActionData);
+
             if (result.successful == false) {
                 return result;
             }

@@ -26,10 +26,9 @@ public class NearbySettlementsUtility {
     }
 
     public List<Settlement> getPossibleSettlementsForBuild(){
-
-
         List<Location> locations = location.getSurroundingLocations();
         List<Settlement> settlements = new ArrayList<>();
+
         for (Location location : locations){
             if (board.isLocationOccupied(location, id)){
                 settlements.add(board.getSettlement(location));

@@ -14,8 +14,8 @@ import java.util.Map;
  */
 public class LazySettlementBoard implements SettlementBoard {
     PieceBoard pieceBoard;
-    public LazySettlementBoard(PieceBoard peiceBoard) {
-        this.pieceBoard = peiceBoard;
+    public LazySettlementBoard(PieceBoard pieceBoard) {
+        this.pieceBoard = pieceBoard;
     }
 
     @Override

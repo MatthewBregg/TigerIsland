@@ -4,5 +4,5 @@ import tigerisland.build_moves.builds.BuildActionData;
 
 public interface MakeBuildAction {
 
-    public void applyAction(BuildActionData buildActionData);
+    void applyAction(BuildActionData buildActionData);
 }

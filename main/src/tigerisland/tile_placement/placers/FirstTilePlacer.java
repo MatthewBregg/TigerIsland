@@ -10,9 +10,9 @@ import java.util.Map;
 
 public class FirstTilePlacer implements TilePlacement, TilePlacementChain {
 
-    Board board;
-    TilePlacement nextTilePlacement;
-    Location zeroLocation;
+    private Board board;
+    private TilePlacement nextTilePlacement;
+    private Location zeroLocation;
 
     public FirstTilePlacer(Board board) {
         this.board = board;

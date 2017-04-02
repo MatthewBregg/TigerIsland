@@ -6,13 +6,13 @@ import java.util.List;
 
 public interface Board {
 
-    public List<Location> getUsedBoardLocations();
+    List<Location> getUsedBoardLocations();
 
-    public void placeHex(Location location, Hex hex);
+    void placeHex(Location location, Hex hex);
 
-    public Hex getHex(Location location);
+    Hex getHex(Location location);
 
-    public int getSize();
+    int getSize();
 
     boolean isLocationUsed(Location location);
 }
