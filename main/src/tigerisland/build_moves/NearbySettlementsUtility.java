@@ -31,7 +31,15 @@ public class NearbySettlementsUtility {
         List<Location> locations = location.getSurroundingLocations();
         List<Settlement> settlements = new ArrayList<>();
         for (Location location : locations){
-            if (board.isLocationOccupied(location, id)){
+            boolean hasSettlement;
+            hasSettlement = board.isLocationOccupied(location, id);
+//            try {
+//
+//            }
+//            catch(Exception e){
+//                continue;
+//            }
+            if (hasSettlement){
                 settlements.add(board.getSettlement(location));
             }
 //            else
