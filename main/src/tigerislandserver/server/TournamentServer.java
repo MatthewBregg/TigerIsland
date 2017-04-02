@@ -9,7 +9,7 @@ import java.util.ArrayList;
  */
 public class TournamentServer {
     private ServerSocket serverSocket;
-    private ArrayList<TournamentClient> clientConnections = new ArrayList<>();
+    private ArrayList<TournamentPlayer> clientConnections = new ArrayList<>();
     private boolean currentlyAcceptingConnections;
 
     public TournamentServer(){
@@ -65,8 +65,8 @@ public class TournamentServer {
             while(listening){
                 try{
                     Socket newClient = serverSocket.accept();
-                    TournamentClient client =
-                            new TournamentClient(newClient);
+                    TournamentPlayer client =
+                            new TournamentPlayer(newClient);
 
                     synchronized (clientConnections){
                         clientConnections.add(client);

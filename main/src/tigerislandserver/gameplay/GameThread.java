@@ -5,24 +5,25 @@ package tigerislandserver.gameplay;
  */
 
 import tigerisland.tile.*;
-import tigerisland.player.*;
 import tigerisland.score.*;
+import tigerislandserver.server.TournamentPlayer;
 
 import java.util.ArrayList;
 
-public class Game extends Thread{
+public class GameThread extends Thread{
     private ArrayList<Tile> gameTiles;
-    private Player player1;
-    private Player player2;
+    private ArrayList<TournamentPlayer> playersInGame;
+    private int activePlayerIndex;
     private int gameID;
     private ScoreManager scoreManager;
+    private int numberOfMoves;
 
     // tournament class would pass in the seed and gameID
-    public Game(Player player1, Player player2, ArrayList<Tile> tiles, int gameID){
+    public GameThread(ArrayList<TournamentPlayer> players, ArrayList<Tile> tiles, int gameID){
+        playersInGame = players;
+        activePlayerIndex = 0;
         gameTiles = tiles;
         this.gameID = gameID;
-        this.player1 = player1;
-        this.player2 = player2;
         scoreManager = new ScoreManager();
     }
 

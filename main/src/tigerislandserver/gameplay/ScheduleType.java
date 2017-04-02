@@ -2,15 +2,15 @@ package tigerislandserver.gameplay;
 
 import java.util.ArrayList;
 
-public abstract class MatchupType {
-    private TournamentSchedule parent;
+public abstract class ScheduleType {
+    private Scheduler parent;
 
-    public MatchupType(TournamentSchedule parent){
+    public ScheduleType(Scheduler parent){
         this.parent = parent;
     }
 
-    public void setAlgorithm(MatchupType matchupType){
-        parent.setTournamentType(matchupType);
+    public void setAlgorithm(ScheduleType scheduleType){
+        parent.setTournamentType(scheduleType);
     }
 
     public abstract ArrayList<Matchup> getMatchups(int round);
