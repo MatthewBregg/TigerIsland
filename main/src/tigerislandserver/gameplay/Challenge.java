@@ -2,6 +2,7 @@ package tigerislandserver.gameplay;
 
 import tigerisland.tile.Tile;
 import tigerisland.tile.TileDeck;
+import tigerislandserver.gameplay.identifiers.ChallengeID;
 import tigerislandserver.server.TournamentPlayer;
 import tigerislandserver.server.TournamentServer;
 
@@ -10,6 +11,7 @@ import java.util.ArrayList;
 public class Challenge {
     private Scheduler schedule;
     private ArrayList<TournamentPlayer> playerList;
+    private long challengeID;
     private TournamentScoreboard scoreboard;
     private ArrayList<Match> currentRoundMatches;
     private int roundNumber;
@@ -17,6 +19,7 @@ public class Challenge {
 
     public Challenge(ArrayList<TournamentPlayer> participants){
         playerList = participants;
+        challengeID = ChallengeID.getID();
         scoreboard = new TournamentScoreboard();
         schedule = new Scheduler(playerList.size());
         currentRoundMatches = new ArrayList<>();
