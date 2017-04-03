@@ -1,4 +1,4 @@
-package tigerisland.cucumbertest.piece_and_settlement_builds;
+package tigerisland.cucumbertest.steppers;
 
 import cucumber.api.java8.En;
 import org.junit.Assert;

@@ -1,4 +1,4 @@
-package tigerisland.cucumbertest.deck;
+package tigerisland.cucumbertest.steppers;
 
 import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;

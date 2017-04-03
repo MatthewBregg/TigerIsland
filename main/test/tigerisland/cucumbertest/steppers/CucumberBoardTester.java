@@ -1,4 +1,4 @@
-package tigerisland.cucumbertest.board;
+package tigerisland.cucumbertest.steppers;
 
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;

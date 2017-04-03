@@ -1,19 +1,19 @@
 Feature: Player Piece Information
   Scenario: Displaying a player’s initial Villager count
-  Given No villagers have been placed by the player
+  Given Fresh Player with no pieces placed
   When Player attempts to view the amount of villagers available
-  Then Player sees 20 villagers
+  Then Player sees 20 of above piece
 
 
   Scenario: Displaying  a player’s initial Totoro count
-    Given No totoro have been placed by the player.
+    Given Fresh Player with no pieces placed
     When Player attempts to view the amount of totoros available
-    Then Player sees 3 totoro
+    Then Player sees 3 of above piece
 
   Scenario: Displaying a player’s initial Tiger count
-    Given No Tigers have been placed by the player.
+    Given Fresh Player with no pieces placed
     When  Player attempts to view the amount of Tigers available
-    Then  Player sees 2 Tigers
+    Then  Player sees 2 of above piece
 
 
 
