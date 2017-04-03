@@ -3,7 +3,6 @@ package tigerisland.build_moves.builds;
 import tigerisland.board.Board;
 import tigerisland.build_moves.actions.MakeBuildAction;
 import tigerisland.build_moves.actions.PlaceTotoroOnHexAction;
-import tigerisland.build_moves.actions.PlaceVillagerOnHexAction;
 import tigerisland.build_moves.actions.ScoreTotoroOnHex;
 import tigerisland.build_moves.rules.*;
 import tigerisland.piece.PieceBoard;
@@ -34,7 +33,7 @@ public class TotoroBuild extends BuildAction {
         rules.add( new EmptyHexRule(pieceBoard));
         rules.add( new CannotBuildOnVolcanoRule(board));
         rules.add( new TotoroBuildHexAdjacentToSettlementSizeFiveRule(settlementBoard));
-        rules.add( new SettlementAlreadyContainsTotoroRule());
+        rules.add( new SettlementAlreadyContainsTotoroRule(settlementBoard));
         return rules;
     }
 
