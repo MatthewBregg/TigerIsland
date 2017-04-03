@@ -38,9 +38,9 @@ public class TournamentServer {
 
         currentlyAcceptingConnections = true;
 
-        connectionTimeout_s *= 1000;
+        int connectionTimeout_ms = connectionTimeout_s * 1000;
 
-        new Thread(new ConnectionAcceptor(connectionTimeout_s)).start();
+        new Thread(new ConnectionAcceptor(connectionTimeout_ms)).start(); // TODO: implement using Executor class
     }
 
     public void finalize(){

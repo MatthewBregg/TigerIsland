@@ -6,6 +6,7 @@ package tigerislandserver.gameplay;
 
 import tigerisland.tile.*;
 import tigerisland.score.*;
+import tigerislandserver.gameplay.identifiers.GameID;
 import tigerislandserver.server.TournamentPlayer;
 
 import java.util.ArrayList;
@@ -14,15 +15,15 @@ public class GameThread extends Thread{
     private ArrayList<Tile> gameTiles;
     private ArrayList<TournamentPlayer> playersInGame;
     private int activePlayerIndex;
-    private int gameID;
+    private long gameID;
     private ScoreManager scoreManager;
 
     // tournament class would pass in the seed and gameID
-    public GameThread(ArrayList<TournamentPlayer> players, ArrayList<Tile> tiles, int gameID){
+    public GameThread(ArrayList<TournamentPlayer> players, ArrayList<Tile> tiles){
         playersInGame = players;
         activePlayerIndex = 0;
         gameTiles = tiles;
-        this.gameID = gameID;
+        gameID = GameID.getID();
         scoreManager = new ScoreManager();
     }
 
@@ -37,11 +38,15 @@ public class GameThread extends Thread{
 
     }
 
+    public long getGameID(){
+        return gameID;
+    }
 
 
 
 
     public void run(){
+        // TODO: call Game protocol
         // tbd
     }
 }

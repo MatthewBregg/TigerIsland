@@ -10,11 +10,13 @@ public class TournamentPlayer implements Runnable{
     private Socket clientSocket;
     private PrintWriter outputToClient;
     private BufferedReader inputFromClient;
+    private boolean authenticated;
     private String welcomeMessage = "Welcome. Please enjoy your stay!";
 //    private String clientName;
 
     public TournamentPlayer(Socket newClientSocket){
         clientSocket = newClientSocket;
+        authenticated = false;
     }
 
     public void run(){
@@ -26,6 +28,11 @@ public class TournamentPlayer implements Runnable{
             System.out.println("Error reading from connection");
         }
 
-        outputToClient.println(welcomeMessage);
+        authenticate();
+        outputToClient.println(welcomeMessage); // TODO: Get correct welcome message from server welcome protocol
+    }
+
+    private void authenticate() {
+        // TODO: call authentication protocol
     }
 }

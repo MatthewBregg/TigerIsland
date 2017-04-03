@@ -1,28 +1,24 @@
 package tigerislandserver.gameplay;
 
 import tigerisland.tile.Tile;
+import tigerislandserver.gameplay.identifiers.MatchID;
 import tigerislandserver.server.TournamentPlayer;
 
 import java.util.ArrayList;
+
 
 public class Match extends Thread {
     private ArrayList<Tile> gameTiles;
     private GameThread game1, game2;
     private ArrayList<TournamentPlayer> players;
+    private long matchID;
 
     public Match(ArrayList<TournamentPlayer> playerList, ArrayList<Tile> tiles){
         players = playerList;
         gameTiles = tiles;
-        game1 = new GameThread(players, gameTiles, nextGameID());
-        game2 = new GameThread(players, gameTiles, nextGameID());
-    }
-
-    private int nextGameID(){
-        int newID = 0;
-
-        // TODO: code for finding game IDs
-
-        return newID;
+        matchID = MatchID.getID();
+        game1 = new GameThread(players, gameTiles);
+        game2 = new GameThread(players, gameTiles);
     }
 
     public void startGames(){
@@ -31,6 +27,11 @@ public class Match extends Thread {
     }
 
     public void run(){
-        // TODO
+        // TODO: call Match protocol
+        // TODO: start games, then get game results when ended
+    }
+
+    public long getMatchID(){
+        return matchID;
     }
 }
