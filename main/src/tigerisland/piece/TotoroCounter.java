@@ -4,7 +4,7 @@ package tigerisland.piece;
 public class TotoroCounter extends PieceVisitor {
     private int count = 0;
 
-    int getCount() {
+    public int getCount() {
         return count;
     }
 
