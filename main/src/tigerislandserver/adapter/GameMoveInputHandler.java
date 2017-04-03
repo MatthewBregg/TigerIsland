@@ -10,12 +10,18 @@ import tigerislandserver.tournament.Tournament;
 
 public class GameMoveInputHandler extends InputAdapter
 {
+    private int gid;
+    private int pid;
+
     private PlaceTileCommand placeTileCommand;
     private Tournament tournament;
 
     public GameMoveInputHandler(String input)
     {
         super(input);
+
+        gid=Integer.parseInt(getInputTokens()[])
+
         tournament = Tournament.getInstance();
     }
 
@@ -65,7 +71,7 @@ public class GameMoveInputHandler extends InputAdapter
 
     private void foundSettlement()
     {
-
+        tournament.
     }
 
     private boolean isExpandSettlementCommand()

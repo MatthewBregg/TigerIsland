@@ -1,19 +1,23 @@
 package tigerisland.player;
 
-public class PlayerID {
+public class PlayerID
+{
+    private volatile static int numPlayers = 0;
+    private static final Object lock = new Object();
+    private final int id;
     private static volatile int playerIDs = 0;
     private static Object lock = new Object();
     private static int pID;
 
-
-    public PlayerID(){
+    public PlayerID()
+    {
         synchronized(lock) {
-            pID= ++playerIDs;
+            id= ++numPlayers;
         }
     }
 
-    public int getID(){
-        return pID;
+    public int getId()
+    {
+        return id;
     }
-
 }

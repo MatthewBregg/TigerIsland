@@ -4,7 +4,7 @@ import tigerisland.board.Location;
 
 public class BuildTigerCommand
 {
-    public final Location placementLocation;
+    private final Location placementLocation;
 
     public BuildTigerCommand(Location placementLocation)
     {
