@@ -1,0 +1,13 @@
+package tigerislandserver.command;
+
+import tigerisland.board.Location;
+
+public class BuildTigerCommand
+{
+    public final Location placementLocation;
+
+    public BuildTigerCommand(Location placementLocation)
+    {
+        this.placementLocation=placementLocation;
+    }
+}
