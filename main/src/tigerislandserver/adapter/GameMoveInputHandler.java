@@ -6,14 +6,17 @@ import tigerisland.terrains.*;
 import tigerisland.tile.Orientation;
 import tigerisland.tile.Tile;
 import tigerislandserver.command.PlaceTileCommand;
+import tigerislandserver.tournament.Tournament;
 
 public class GameMoveInputHandler extends InputAdapter
 {
     private PlaceTileCommand placeTileCommand;
+    private Tournament tournament;
 
     public GameMoveInputHandler(String input)
     {
         super(input);
+        tournament = Tournament.getInstance();
     }
 
     @Override
@@ -25,23 +28,23 @@ public class GameMoveInputHandler extends InputAdapter
 
             if(isFoundSettlementCommand())
             {
-                //TODO
+                foundSettlement();
             }
             else if(isExpandSettlementCommand())
             {
-                //TODO
+                expandSettlement();
             }
             else if(isBuildTotoroCommand())
             {
-                //TODO
+                buildTotoro();
             }
             else if(isBuildTigerCommand())
             {
-                //TODO
+                buildTiger();
             }
             else if(isUnableToBuild())
             {
-                //TODO
+                failToBuild();
             }
         }
         else
@@ -52,33 +55,77 @@ public class GameMoveInputHandler extends InputAdapter
 
     private boolean isFoundSettlementCommand()
     {
-        //TODO
-        return true;
+        return getInputTokens()[13].equals("FOUND")
+                && getInputTokens()[14].equals("SETTLEMENT")
+                && getInputTokens()[15].equals("AT")
+                && isValidNumber(getInputTokens()[16])
+                && isValidNumber(getInputTokens()[17])
+                && isValidNumber(getInputTokens()[18]);
+    }
+
+    private void foundSettlement()
+    {
+
     }
 
     private boolean isExpandSettlementCommand()
     {
-        //TODO
-        return true;
+        return getInputTokens()[13].equals("EXPAND")
+                && getInputTokens()[14].equals("SETTLEMENT")
+                && getInputTokens()[15].equals("AT")
+                && isValidNumber(getInputTokens()[16])
+                && isValidNumber(getInputTokens()[17])
+                && isValidNumber(getInputTokens()[18])
+                && isValidTerrain(getInputTokens()[19]);
+    }
+
+    private void expandSettlement()
+    {
+
     }
 
     private boolean isBuildTotoroCommand()
     {
-        //TODO
-        return true;
+        return getInputTokens()[13].equals("BUILD")
+                && getInputTokens()[14].equals("TOTORO")
+                && getInputTokens()[15].equals("SANCTUARY")
+                && getInputTokens()[16].equals("AT")
+                && isValidNumber(getInputTokens()[17])
+                && isValidNumber(getInputTokens()[18])
+                && isValidNumber(getInputTokens()[19]);
+    }
+
+    private void buildTotoro()
+    {
+
     }
 
     private boolean isBuildTigerCommand()
     {
-        //TODO
-        return true;
+        return getInputTokens()[13].equals("BUILD")
+                && getInputTokens()[14].equals("TIGER")
+                && getInputTokens()[15].equals("PLAYGROUND")
+                && getInputTokens()[16].equals("AT")
+                && isValidNumber(getInputTokens()[17])
+                && isValidNumber(getInputTokens()[18])
+                && isValidNumber(getInputTokens()[19]);
+    }
+
+    private void buildTiger()
+    {
+
     }
 
     private boolean isUnableToBuild()
     {
-        return getInputTokens()[0].equals("UNABLE")
-                && getInputTokens()[0].equals("TO")
-                && getInputTokens()[0].equals("BUILD");
+        return getInputTokens()[13].equals("UNABLE")
+                && getInputTokens()[14].equals("TO")
+                && getInputTokens()[15].equals("BUILD");
+    }
+
+    private void failToBuild()
+    {
+
     }
 
     private PlaceTileCommand calculatePlaceTileCommand()
@@ -144,7 +191,7 @@ public class GameMoveInputHandler extends InputAdapter
             case "ROCK":
                 return Rocky.getInstance();
             default:
-                return null;
+                return null; //Impossible to reach
         }
     }
 
