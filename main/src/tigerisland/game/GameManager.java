@@ -9,6 +9,7 @@ import tigerisland.score.ScoreManager;
 import tigerisland.settlement.*;
 import tigerisland.terrains.*;
 import tigerisland.tile.Orientation;
+import tigerisland.tile.Tile;
 
 import java.util.ArrayList;
 
@@ -16,11 +17,13 @@ public class GameManager {
     static int PLAYER_COUNT = 2;
 
     private ArrayList<Player> players;
+    private int playerIndex;
     private HexBoard gameBoard;
     private ScoreManager scoreKeeper;
     private PieceBoard pieces;
     private SettlementBoard settlements;
     private TilePlacementController tilePlacer;
+    private BuildController buildController;
 
     public GameManager(){
         gameBoard = new HexBoard();
@@ -31,6 +34,7 @@ public class GameManager {
         placeStartingHexes();
 
         tilePlacer = new TilePlacementController(gameBoard, settlements, pieces);
+        buildController = new BuildController();
     }
 
     private void initializePlayers(){
@@ -64,5 +68,39 @@ public class GameManager {
 
         Hex startingRocky = new Hex(Rocky.getInstance());
         gameBoard.placeHex(centerLocation.getAdjacent(Orientation.getSouthWest()), startingRocky);
+    }
+
+    public boolean placeTile(Tile tile, Location location) {
+        // TODO: place tile logic. Need player ID?
+        return false;
+    }
+
+    public boolean foundSettlement(Location location){
+        // TODO: build action logic. Need player ID?
+        return false;
+    }
+
+    public boolean expandSettlement(Location location){
+        // TODO: build action logic. Need player ID?
+        return false;
+    }
+
+    public boolean buildTotoro(Location location){
+        // TODO: build action logic. Need player ID?
+        return false;
+    }
+
+    public boolean buildTiger(Location location){
+        // TODO: build action logic. Need player ID?
+        return false;
+    }
+
+    public void endGame(){
+        // TODO
+    }
+
+    public GameResults returnResults(){
+        GameResults results = new GameResults();
+        return results;
     }
 }
