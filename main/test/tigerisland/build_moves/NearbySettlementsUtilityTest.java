@@ -55,9 +55,10 @@ import java.util.List;
 public class NearbySettlementsUtilityTest {
 
 
+
     private NearbySettlementsUtility nearbyFinder;
-    private Player player1 = new Player(3,3,3);
-    private Player player2 = new Player (3,3,3);
+    private Player player1 = new Player();
+    private Player player2 = new Player();
 
     private SettlementBoard settlementBoard;
     private PieceBoard pieceBoard;
