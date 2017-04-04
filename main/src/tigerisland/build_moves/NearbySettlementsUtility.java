@@ -30,8 +30,15 @@ public class NearbySettlementsUtility {
 
         List<Location> locations = location.getSurroundingLocations();
         List<Settlement> settlements = new ArrayList<>();
+
+
+        boolean hasSettlement;
+        Settlement playerNearbySettlement;
+
+        List<Location> previousLocations = new ArrayList<>();
         for (Location location : locations){
-            boolean hasSettlement;
+            if (previousLocations.contains(location))
+                continue;
             hasSettlement = board.isLocationOccupied(location, id);
 //            try {
 //
@@ -40,7 +47,10 @@ public class NearbySettlementsUtility {
 //                continue;
 //            }
             if (hasSettlement){
+                playerNearbySettlement = board.getSettlement(location);
                 settlements.add(board.getSettlement(location));
+                previousLocations.addAll(playerNearbySettlement.getConnectedLocations());
+
             }
 //            else
 //                locations.remove(location);
