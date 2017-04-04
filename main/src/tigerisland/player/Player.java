@@ -7,17 +7,19 @@ public class Player
     private int totoroCount;
     private int tigerCount;
 
-    public Player(int villagerCount, int totoroCount, int tigerCount)
+    public Player(int villagerCount, int totoroCount, int tigerCount, PlayerID pID)
     {
-        id = new PlayerID();
+        id = pID;
         this.villagerCount = villagerCount;
         this.totoroCount = totoroCount;
         this.tigerCount = tigerCount;
     }
 
+
+
     public Player()
     {
-        this(20, 3, 2);
+        this(20, 3, 2, new PlayerID());
     }
 
     public PlayerID getId()

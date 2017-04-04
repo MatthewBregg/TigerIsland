@@ -1,20 +1,26 @@
 package tigerislandserver.server;
 
+import tigerisland.player.PlayerID;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.*;
 
-public class TournamentClient implements Runnable{
+
+public class TournamentPlayer implements Runnable{
     private Socket clientSocket;
     private PrintWriter outputToClient;
     private BufferedReader inputFromClient;
+    private boolean authenticated;
     private String welcomeMessage = "Welcome. Please enjoy your stay!";
+    private PlayerID pID;
 //    private String clientName;
 
-    TournamentClient(Socket newClientSocket){
+    public TournamentPlayer(Socket newClientSocket){
         clientSocket = newClientSocket;
+        authenticated = false;
+        pID = new PlayerID();
     }
 
     public void run(){
@@ -26,6 +32,11 @@ public class TournamentClient implements Runnable{
             System.out.println("Error reading from connection");
         }
 
-        outputToClient.println(welcomeMessage);
+        authenticate();
+        outputToClient.println(welcomeMessage); // TODO: Get correct welcome message from server welcome protocol
+    }
+
+    private void authenticate() {
+        // TODO: call authentication protocol
     }
 }
