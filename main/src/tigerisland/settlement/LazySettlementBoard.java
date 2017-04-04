@@ -13,6 +13,7 @@ import java.util.Map;
     To get settlements per player, will need one board per player.
  */
 public class LazySettlementBoard implements SettlementBoard {
+
     PieceBoard pieceBoard;
     public LazySettlementBoard(PieceBoard pieceBoard) {
         this.pieceBoard = pieceBoard;
