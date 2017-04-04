@@ -17,13 +17,11 @@ public class SQLiteLoggerTest {
     private static int ChallengeId = 1;
     private static int GameId = 1;
     private static String url = null;
-    private static Connection connection;
 
     @BeforeClass
     public static void setUpStatic() {
        url =  "jdbc:sqlite::memory:";
        logger = new SQLiteLogger(ChallengeId,GameId,url);
-       connection = logger.getConnection();
        createTables();
        Assert.assertFalse(logger.hasErrored());
     }
@@ -41,22 +39,7 @@ public class SQLiteLoggerTest {
 
     private static void createTables() {
 
-       String[] queries = new String[]{
-               "CREATE TABLE IF NOT EXISTS matches (challenge_id integer not null, game_id integer not null, p1_id integer not null, p2_id integer not null, status string, primary key(challenge_id, game_id) );",
-               "CREATE TABLE IF NOT EXISTS tiles_placed (challenge_id integer not null, game_id integer not null, turn_number integer not null, p_id integer not null, loc_x integer not null, loc_y integer not null, loc_z integer not null, orientation integer not null, tile text not null, primary key(challenge_id, game_id, turn_number) );",
-               "CREATE TABLE IF NOT EXISTS build_action (challenge_id integer not null, game_id integer not null, turn_number integer not null, p_id integer not null, loc_x integer not null, loc_y integer not null, loc_z integer not null, move_description text not null, primary key(challenge_id, game_id, turn_number) );",
-               "CREATE TABLE IF NOT EXISTS invalid_moves (challenge_id integer not null, game_id integer not null, turn_number integer not null, p_id integer not null, message string not null, primary key(challenge_id, game_id, turn_number) );",
-               "create table IF NOT EXISTS raw_requests ( time_stamp integer primary key, request text not null);"
-       };
-
-        try {
-            for ( String query : queries ) {
-                Statement stmt = connection.createStatement();
-                stmt.execute(query);
-            }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
+       logger.createTables();
     }
     @Test
     public void writeRawRequest() throws Exception {
