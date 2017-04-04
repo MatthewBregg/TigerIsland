@@ -2,6 +2,7 @@ package tigerisland.game;
 
 
 import tigerisland.board.*;
+import tigerisland.build_moves.builds.BuildActionData;
 import tigerisland.hex.Hex;
 import tigerisland.piece.*;
 import tigerisland.player.Player;
@@ -34,7 +35,7 @@ public class GameManager {
         placeStartingHexes();
 
         tilePlacer = new TilePlacementController(gameBoard, settlements, pieces);
-        buildController = new BuildController();
+        buildController = new BuildController(gameBoard, pieces, settlements, scoreKeeper);
     }
 
     private void initializePlayers(){
@@ -75,8 +76,12 @@ public class GameManager {
         return false;
     }
 
-    public boolean foundSettlement(Location location){
-        // TODO: build action logic. Need player ID?
+    public boolean foundSettlement(Location location, Player player){
+        BuildActionData buildAction = new BuildActionData.Builder()
+                .withHexLocation(location)
+                .withPlayer(player)
+                .build();
+
         return false;
     }
 
