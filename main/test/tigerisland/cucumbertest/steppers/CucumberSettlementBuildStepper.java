@@ -11,6 +11,7 @@ import tigerisland.hex.Hex;
 import tigerisland.piece.PieceBoard;
 import tigerisland.piece.PieceBoardImpl;
 import tigerisland.player.Player;
+import tigerisland.player.PlayerID;
 import tigerisland.settlement.LazySettlementBoard;
 import tigerisland.settlement.Settlement;
 import tigerisland.settlement.SettlementBoard;
@@ -35,7 +36,7 @@ public class CucumberSettlementBuildStepper implements En {
 
     private void setUp(){
         //todo possibly run this with tile placement if necessary
-        player = new Player(20,3,2);
+        player = new Player(20,3,2, new PlayerID());
 
         initialVillagerCount = player.getVillagerCount();
         location = new Location(3,-3,0);
