@@ -11,10 +11,7 @@ import tigerisland.board.Location;
 import tigerisland.build_moves.builds.BuildActionData;
 import tigerisland.build_moves.builds.TotoroBuild;
 import tigerisland.hex.Hex;
-import tigerisland.piece.PieceBoard;
-import tigerisland.piece.PieceBoardImpl;
-import tigerisland.piece.Totoro;
-import tigerisland.piece.Villager;
+import tigerisland.piece.*;
 import tigerisland.player.Player;
 import tigerisland.score.ScoreManager;
 import tigerisland.settlement.LazySettlementBoard;
@@ -44,7 +41,7 @@ public class TotoroBuildCucumber {
         previousPlayerTotoroCount = player.getTotoroCount();
     }
 
-    @And("^player has a settlment of size five or greater$")
+    @And("^Player has a settlement of size five or greater$")
     public void playerHasASettlementOfSizeFiveOrGreater() {
 
         // Arrange
@@ -63,15 +60,17 @@ public class TotoroBuildCucumber {
         }
     }
 
-    @And("^player settlement does not have a totoro$")
+    @And("^That settlment does not have a totoro$")
     public void playerSettlementDoesNotHaveATotoro() {
 
         Location referenceLocation = new Location(0, 0, 0);
         Settlement settlement = settlementBoard.getSettlement(referenceLocation);
-        // how do I know if this settlment has a totoro?
+        TotoroCounter tc = new TotoroCounter();
+        settlement.acceptVisitor(tc);
+        Assert.assertEquals(0,tc.getCount());
     }
 
-    @And("Board has a non volcano hex adjacent to settlment")
+    @And("^There is a non-volcano hex adjacent to the settlement$")
     public void boardHasANonVolcanoHexAdjacentToSettlement() {
         buildHex = new Hex();
         List<Location> surroundingLocations = new Location(0, 0, 0).getSurroundingLocations();
@@ -79,19 +78,19 @@ public class TotoroBuildCucumber {
         board.placeHex(buildTotoroLocation, buildHex);
     }
 
-    @And("^Hex does not have game pieces on it$")
+    @And("^that hex does not have any game pieces on it$")
     public void hexDoesNotHaveGamePiecesOnIt() {
         Assert.assertFalse(pieceBoard.isLocationOccupied(buildTotoroLocation));
     }
 
-    @When("^player builds totoro on a hex$")
+    @When("^Player builds totoro on that hex$")
     public void playerBuildsTotoroOnAHex() {
 
         // Arrange
         scoreManager = new ScoreManager();
         totoroBuild = new TotoroBuild(board, pieceBoard, settlementBoard, scoreManager);
-        buildTotoroLocation = new Location(0, 0, 0);
-        pieceBoard = new PieceBoardImpl();
+        totoroBuild.createBuildActionRules();
+        totoroBuild.createBuildActions();
 
         BuildActionData buildActionData = new BuildActionData.Builder()
                                             .withPlayer(player)
@@ -102,13 +101,13 @@ public class TotoroBuildCucumber {
         totoroBuild.build(buildActionData);
     }
 
-    @Then("^Totoro is place on hex$")
+    @Then("^Totoro is placed on hex$")
     public void totoroIsPlaceOnHex() {
         Assert.assertTrue(pieceBoard.isLocationOccupied(buildTotoroLocation));
         Assert.assertTrue(pieceBoard.getPiece(buildTotoroLocation) instanceof Totoro);
     }
 
-    @And("^Player totoro count decrements by one$")
+    @And("^player's totoro account is decremented by one$")
     public void playerTotoroCountDecrementsByOne() {
         Assert.assertEquals(previousPlayerTotoroCount-1, player.getTotoroCount());
     }
@@ -121,7 +120,7 @@ public class TotoroBuildCucumber {
             if ( !pieceBoard.isLocationOccupied(location) )
                 return loc;
         }
-        return new Location(-1, -1, -1);
+        return new Location(-1, -1);
     }
 
     private List<Location> createLocationAndAdjacentLocations(Location referenceLocation) {

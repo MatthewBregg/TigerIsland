@@ -15,11 +15,10 @@ public abstract class BuildAction implements BuildActionStrategy {
         for(BuildActionRule rule : rules) {
             BuildActionResult result = rule.applyRule(buildActionData);
 
-            if (result.successful == false) {
+            if (!result.successful) {
                 return result;
             }
         }
-
         for(MakeBuildAction action : actions) {
             action.applyAction(buildActionData);
         }
