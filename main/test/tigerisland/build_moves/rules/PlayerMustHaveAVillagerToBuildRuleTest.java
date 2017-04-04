@@ -9,6 +9,7 @@ import tigerisland.build_moves.builds.BuildActionResult;
 import tigerisland.build_moves.rules.BuildActionRule;
 import tigerisland.build_moves.rules.PlayerMustHaveAVillagerToBuildRule;
 import tigerisland.player.Player;
+import tigerisland.player.PlayerID;
 
 public class PlayerMustHaveAVillagerToBuildRuleTest {
 
@@ -26,7 +27,7 @@ public class PlayerMustHaveAVillagerToBuildRuleTest {
         // Arrange
 
         int villagerCount = 0;
-        Player player = new Player(villagerCount, 0, 0);
+        Player player = new Player(villagerCount, 0, 0, new PlayerID());
         Location hexLocation = new Location(0, 0, 0);
 
         BuildActionData buildActionData = new BuildActionData.Builder()
@@ -48,7 +49,7 @@ public class PlayerMustHaveAVillagerToBuildRuleTest {
 
         // Arrange
         int villagerCount = 1;
-        Player player = new Player(villagerCount, 0, 0);
+        Player player = new Player(villagerCount, 0, 0, new PlayerID());
         Location hexLocation = new Location(0, 0, 0);
 
         BuildActionData buildActionData = new BuildActionData.Builder()

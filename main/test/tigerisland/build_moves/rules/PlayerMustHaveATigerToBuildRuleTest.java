@@ -8,6 +8,7 @@ import tigerisland.build_moves.builds.BuildActionResult;
 import tigerisland.build_moves.rules.BuildActionRule;
 import tigerisland.build_moves.rules.PlayerMustHaveATigerToBuildRule;
 import tigerisland.player.Player;
+import tigerisland.player.PlayerID;
 
 public class PlayerMustHaveATigerToBuildRuleTest {
 
@@ -26,7 +27,7 @@ public class PlayerMustHaveATigerToBuildRuleTest {
         // Arrange
         final String Error_Message = "Player must have at least one tiger to do this build";
 
-        player = new Player(0,0,0);
+        player = new Player(0,0,0, new PlayerID());
 
         BuildActionData buildActionData = new BuildActionData.Builder()
                 .withPlayer(player)
@@ -46,7 +47,7 @@ public class PlayerMustHaveATigerToBuildRuleTest {
         // Arrange
         final String Error_Message = "Player must have at least one tiger to do this build";
 
-        player = new Player(0,0,1);
+        player = new Player(0,0,1, new PlayerID());
 
         BuildActionData buildActionData = new BuildActionData.Builder()
                 .withPlayer(player)
