@@ -17,8 +17,8 @@ public class Match extends Thread {
         players = playerList;
         gameTiles = tiles;
         matchID = MatchID.getID();
-        game1 = new GameThread(players, gameTiles);
-        game2 = new GameThread(players, gameTiles);
+        game1 = new GameThread(players, gameTiles, 'A');
+        game2 = new GameThread(players, gameTiles, 'B');
     }
 
     public void startGames(){

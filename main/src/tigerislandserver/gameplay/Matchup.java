@@ -1,6 +1,6 @@
 package tigerislandserver.gameplay;
 
-public class Matchup {
+public class Matchup{
     private int player1Index;
     private int player2Index;
 

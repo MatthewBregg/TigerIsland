@@ -15,16 +15,16 @@ public class GameThread extends Thread{
     private ArrayList<Tile> gameTiles;
     private ArrayList<TournamentPlayer> playersInGame;
     private int activePlayerIndex;
-    private long gameID;
+    private char gameID;
     private ScoreManager scoreManager;
     private int numberOfMoves;
 
     // tournament class would pass in the seed and gameID
-    public GameThread(ArrayList<TournamentPlayer> players, ArrayList<Tile> tiles){
+    public GameThread(ArrayList<TournamentPlayer> players, ArrayList<Tile> tiles, char gameLetter){
         playersInGame = players;
         activePlayerIndex = 0;
         gameTiles = tiles;
-        gameID = GameID.getID();
+        gameID = gameLetter;
         scoreManager = new ScoreManager();
     }
 
@@ -34,6 +34,17 @@ public class GameThread extends Thread{
         //player1
         //player2
     }
+
+    public boolean placeTile(){
+
+        return false;
+    }
+
+    public boolean makeBuildMove(){
+
+        return false;
+    }
+
 
     public void sendEndGameMessage(){
 

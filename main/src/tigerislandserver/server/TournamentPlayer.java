@@ -1,10 +1,12 @@
 package tigerislandserver.server;
 
+import tigerisland.player.PlayerID;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.*;
+
 
 public class TournamentPlayer implements Runnable{
     private Socket clientSocket;
@@ -12,12 +14,13 @@ public class TournamentPlayer implements Runnable{
     private BufferedReader inputFromClient;
     private boolean authenticated;
     private String welcomeMessage = "Welcome. Please enjoy your stay!";
-    private int pID;
+    private PlayerID pID;
 //    private String clientName;
 
     public TournamentPlayer(Socket newClientSocket){
         clientSocket = newClientSocket;
         authenticated = false;
+        pID = new PlayerID();
     }
 
     public void run(){
