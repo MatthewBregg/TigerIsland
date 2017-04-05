@@ -46,12 +46,15 @@ public class TilePlacementController {
         return nukePlacer;
     }
 
-    public void placeTile(Tile tile, Location boardLocation){
+    public boolean placeTile(Tile tile, Location boardLocation){
         try {
             tilePlacerChain.placeTile(tile, boardLocation);
         } catch (Exception e) {
             System.out.println("Error placing tile");
             e.printStackTrace();
+            return false;
         }
+        // TODO validate tile placement-- DId this JOsh B- should be enough to be valid
+        return true;
     }
 }

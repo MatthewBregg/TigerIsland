@@ -20,6 +20,7 @@ public class GameThread extends Thread{
     private ScoreManager scoreManager;
     private boolean gameNotEnded;
     private GameManager gameManager;
+    private GameManager gameManager;
 
     // tournament class would pass in the seed and gameID
     public GameThread(ArrayList<TournamentPlayer> players, ArrayList<Tile> tiles, char gameLetter){
@@ -40,10 +41,15 @@ public class GameThread extends Thread{
         //player2
     }
 
-    public boolean placeTile(){
-
-        return false;
+    public int getActivePlayerIndex(){
+        return activePlayerIndex;
     }
+
+    public ArrayList<Tile> getGameTiles(){
+        return gameTiles;
+    }
+
+
 
     public boolean makeBuildMove(){
 
