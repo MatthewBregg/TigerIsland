@@ -13,4 +13,9 @@ public class Volcano extends Terrain {
 		
 		return instance;
 	}
+
+	public String toString()
+	{
+		return "VOLCANO";
+	}
 }

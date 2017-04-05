@@ -1,5 +1,7 @@
 package tigerislandserver.adapter;
 
+//TODO THIS CLASS WILL BE DELETED
+
 public abstract class InputAdapter extends Thread
 {
     private final String input;

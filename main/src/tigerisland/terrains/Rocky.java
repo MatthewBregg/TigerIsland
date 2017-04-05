@@ -13,4 +13,9 @@ public class Rocky extends Terrain {
 		
 		return instance;
 	}
+
+	public String toString()
+	{
+		return "ROCK";
+	}
 }

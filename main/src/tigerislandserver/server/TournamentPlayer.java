@@ -1,6 +1,11 @@
 package tigerislandserver.server;
 
 import tigerisland.player.PlayerID;
+import tigerisland.tile.Tile;
+import tigerislandserver.adapter.GameInputAdapter;
+import tigerislandserver.adapter.OutputAdapter;
+import tigerislandserver.gameplay.GameThread;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -15,7 +20,6 @@ public class TournamentPlayer implements Runnable{
     private boolean authenticated;
     private String welcomeMessage = "Welcome. Please enjoy your stay!";
     private PlayerID pID;
-//    private String clientName;
 
     public TournamentPlayer(Socket newClientSocket){
         clientSocket = newClientSocket;
@@ -38,5 +42,48 @@ public class TournamentPlayer implements Runnable{
 
     private void authenticate() {
         // TODO: call authentication protocol
+    }
+
+    public synchronized void requestMove(GameThread game, char gid, int moveNumber, Tile tile)
+    {
+        outputToClient.println(OutputAdapter.getMoveRequestMessage(gid, moveNumber, tile));
+
+        int timeInMilliseconds = 0;
+        while(timeInMilliseconds < 1800)
+        {
+            try {
+                if(inputFromClient.ready())
+                {
+                    break;
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            timeInMilliseconds+=100;
+        }
+
+        try {
+            if(!inputFromClient.ready())
+            {
+                game.timeout(this);
+                return;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            GameInputAdapter.makeMove(game, this, inputFromClient.readLine(), gid, moveNumber, tile);
+        } catch (IOException e) {
+            e.printStackTrace();
+            game.timeout(this);
+        }
     }
 }

@@ -1,5 +1,7 @@
 package tigerislandserver.adapter;
 
+//TODO THIS CLASS IS GOING TO BE DELETED AND COMPLETELY CHANGED INTO POSSIBLY TWO CLASSES
+
 public class InputHandler extends InputAdapter
 {
     public InputHandler(String input)
@@ -15,8 +17,8 @@ public class InputHandler extends InputAdapter
         } else if (isIdentificationComand() && verifyUsernameAndPassword()) {
             registerUser();
         } else if (isGameMoveCommand()) {
-            GameMoveInputHandler handler = new GameMoveInputHandler(getInput());
-            handler.start();
+         //   GameInputAdapter handler = new GameInputAdapter(getInput());
+        //    handler.start();
         }
     }
 

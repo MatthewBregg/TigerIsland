@@ -13,4 +13,9 @@ public class Lake extends Terrain {
 
 		return instance;
 	}
+
+	public String toString()
+	{
+		return "LAKE";
+	}
 }

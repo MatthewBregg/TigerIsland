@@ -89,4 +89,9 @@ public class Tile {
        return rightHex;
    }
 
+   public String getStringOfTerrains()
+   {
+        return rightHex + "+" + leftHex;
+        //Keep in reverse order please. THis is how the server wants it.
+   }
 }

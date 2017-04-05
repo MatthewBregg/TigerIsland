@@ -1,14 +1,16 @@
-
-
-// IntelliJ
+# IntelliJ
 *.idea
 *.iml
 .idea/
 
-// Libraries
+# Libraries
 lib/
-// Binaries
+
+# Binaries
 main/bin/
-// Output file
+
+# Output file
 *out/
 
+# git file
+*.orig

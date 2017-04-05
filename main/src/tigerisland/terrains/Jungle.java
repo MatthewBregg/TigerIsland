@@ -13,4 +13,9 @@ public class Jungle extends Terrain {
 
 		return instance;
 	}
+
+	public String toString()
+	{
+		return "JUNGLE";
+	}
 }

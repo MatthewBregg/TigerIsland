@@ -13,4 +13,9 @@ public class Grassland extends Terrain {
 		
 		return instance;
 	}
+
+	public String toString()
+	{
+		return "GRASS";
+	}
 }
