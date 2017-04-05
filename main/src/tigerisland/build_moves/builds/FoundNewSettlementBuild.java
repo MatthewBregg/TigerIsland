@@ -20,7 +20,7 @@ public class FoundNewSettlementBuild extends BuildAction{
     }
 
     @Override
-    public List<BuildActionRule> createBuildActionRules() {
+    protected List<BuildActionRule> createBuildActionRules() {
         List<BuildActionRule> rules = new ArrayList<>();
 
         rules.add( new BuildLocationMustBeOnBoardRule(board));
@@ -33,7 +33,7 @@ public class FoundNewSettlementBuild extends BuildAction{
     }
 
     @Override
-    public List<MakeBuildAction> createBuildActions() {
+    protected List<MakeBuildAction> createBuildActions() {
         List<MakeBuildAction> actions = new ArrayList<>();
 
         actions.add( new PlaceVillagerOnHexAction(pieceBoard));

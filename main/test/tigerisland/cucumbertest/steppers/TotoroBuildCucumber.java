@@ -89,8 +89,6 @@ public class TotoroBuildCucumber {
         // Arrange
         scoreManager = new ScoreManager();
         totoroBuild = new TotoroBuild(board, pieceBoard, settlementBoard, scoreManager);
-        totoroBuild.createBuildActionRules();
-        totoroBuild.createBuildActions();
 
         BuildActionData buildActionData = new BuildActionData.Builder()
                                             .withPlayer(player)
