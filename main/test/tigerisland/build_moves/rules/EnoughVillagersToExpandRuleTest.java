@@ -63,7 +63,7 @@ public class EnoughVillagersToExpandRuleTest {
     private BuildActionResult runTestWithPlayer(Player p) {
         PrimeBoard();
         BuildActionData.Builder builder = new BuildActionData.Builder();
-        builder.withHexLocation(firstLoc);
+        builder.withTerrain(hexBoard.getHex(firstLoc).getTerrain());
         Location settlementLocA = firstLoc.getAdjacent(Orientation.getEast());
         builder.withSettlementLocation(settlementLocA);
         pieceBoard.addPiece(new Villager(), settlementLocA, p.getId());

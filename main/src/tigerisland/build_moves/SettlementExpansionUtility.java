@@ -5,6 +5,7 @@ import tigerisland.board.Location;
 import tigerisland.build_moves.builds.BuildActionData;
 import tigerisland.piece.PieceBoard;
 import tigerisland.settlement.SettlementBoard;
+import tigerisland.terrains.Terrain;
 
 import java.util.HashSet;
 import java.util.List;
@@ -44,12 +45,11 @@ public class SettlementExpansionUtility {
                 if (settlementLocations.contains(locationSurroundingSettlementLoc)) {
                     continue;
                 }
-                if (this.locationsTerrainMatchp(locationSurroundingSettlementLoc,buildActionData.getHexBuildLocation())) {
+                if (this.locationHasTerrainp(locationSurroundingSettlementLoc,buildActionData.getExpansionTerrain())) {
                     expandableLocs.addAll(this.getConnectedUnoccupiedHexesOfSameTerrain(locationSurroundingSettlementLoc));
                 }
             }
         }
-
         return expandableLocs;
     }
 
@@ -91,6 +91,13 @@ public class SettlementExpansionUtility {
             return false;
         }
         return hexBoard.getHex(locA).getTerrain().equals(hexBoard.getHex(locB).getTerrain());
+    }
+
+    private boolean locationHasTerrainp(Location loc, Terrain t) {
+        if ( !hexBoard.isLocationUsed(loc) ) {
+            return false;
+        }
+        return hexBoard.getHex(loc).getTerrain().equals(t);
     }
 
     public int getVillagersNeededToExpand(BuildActionData buildActionData) {
