@@ -19,4 +19,6 @@ public interface DataLogger {
     void writeGameStarted(PlayerID p1, PlayerID p2);
 
     void nextTurn();
+
+    void newGame(int gameId, int challengeID);
 }

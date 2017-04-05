@@ -88,4 +88,12 @@ public class ConsoleLogger implements DataLogger {
         System.out.println(" Turn has ended");
         turnNumber++;
     }
+
+    @Override
+    public void newGame(int gameId, int challengeID) {
+        System.out.println("Starting a new game!");
+        this.gameId = gameId;
+        this.challengeId = challengeID;
+        turnNumber = 0;
+    }
 }

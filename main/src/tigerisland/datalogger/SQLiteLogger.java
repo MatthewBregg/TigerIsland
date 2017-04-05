@@ -179,6 +179,13 @@ public class SQLiteLogger implements DataLogger {
         ++turnNumber;
     }
 
+    @Override
+    public void newGame(int gameId, int challengeID) {
+        this.gameId = gameId;
+        this.challengeId = challengeID;
+        turnNumber = 0;
+    }
+
 
     public void createTables() {
         final String[] queries = new String[]{
