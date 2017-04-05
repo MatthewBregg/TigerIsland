@@ -51,7 +51,7 @@ public class SQLiteLogger implements DataLogger {
     }
 
     private int pidToInt(PlayerID pid) {
-        return pid.hashCode();
+        return pid.getID();
     }
 
     private void writeToMatches(PlayerID p1, PlayerID p2, String status) {
