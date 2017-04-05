@@ -1,10 +1,7 @@
 package tigerislandserver.gameplay;
 
-/**
- * Created by christinemoore on 3/23/17.
- */
-
 import tigerisland.game.GameManager;
+import tigerisland.player.Player;
 import tigerisland.tile.*;
 import tigerisland.score.*;
 import tigerislandserver.gameplay.identifiers.GameID;
@@ -20,10 +17,13 @@ public class GameThread extends Thread{
     private ScoreManager scoreManager;
     private boolean gameNotEnded;
     private GameManager gameManager;
-    private GameManager gameManager;
 
-    // tournament class would pass in the seed and gameID
     public GameThread(ArrayList<TournamentPlayer> players, ArrayList<Tile> tiles, char gameLetter){
+        if (players.size() != 2)
+        {
+            throw new IllegalArgumentException("Exactly two players required");
+        }
+
         playersInGame = players;
         activePlayerIndex = 0;
         gameTiles = tiles;
@@ -31,7 +31,15 @@ public class GameThread extends Thread{
         scoreManager = new ScoreManager();
 
         gameNotEnded = true;
-        gameManager = new GameManager();
+
+        ArrayList<Player> gamePlayers=new ArrayList<Player>();
+
+        for(TournamentPlayer tp: players)
+        {
+            gamePlayers.add(new Player(tp.getID()));
+        }
+
+        gameManager = new GameManager(gamePlayers);
     }
 
     private void sendStartGameMessage(){
@@ -87,7 +95,7 @@ public class GameThread extends Thread{
         //TODO
     }
 
-    public void lost(TournamentPlayer tournamentPlayer)
+    public void unableToBuild(TournamentPlayer tournamentPlayer)
     {
         //TODO
     }

@@ -6,6 +6,7 @@ import tigerisland.build_moves.builds.BuildActionData;
 import tigerisland.hex.Hex;
 import tigerisland.piece.*;
 import tigerisland.player.Player;
+import tigerisland.player.PlayerID;
 import tigerisland.score.ScoreManager;
 import tigerisland.settlement.*;
 import tigerisland.terrains.*;
@@ -15,8 +16,6 @@ import tigerisland.tile.Tile;
 import java.util.ArrayList;
 
 public class GameManager {
-    static int PLAYER_COUNT = 2;
-
     private ArrayList<Player> players;
     private int playerIndex;
     private HexBoard gameBoard;
@@ -26,11 +25,17 @@ public class GameManager {
     private TilePlacementController tilePlacer;
     private BuildController buildController;
 
-    public GameManager(){
-        gameBoard = new HexBoard();
-        scoreKeeper = new ScoreManager();
+    public GameManager(ArrayList<Player> players){
+        if (players.size() != 2)
+        {
+            throw new IllegalArgumentException("Exactly two players required");
+        }
 
-        initializePlayers();
+        gameBoard = new HexBoard();
+
+        this.players=players;
+
+        initializeScoreKeeper();
         initializeSettlementBoard();
         placeStartingHexes();
 
@@ -38,12 +43,11 @@ public class GameManager {
         buildController = new BuildController(gameBoard, pieces, settlements, scoreKeeper);
     }
 
-    private void initializePlayers(){
-        players = new ArrayList<>();
-        for(int i = 0; i < PLAYER_COUNT; ++i){
-            Player newPlayer = new Player();
-            players.add(newPlayer);
-            scoreKeeper.addNewPlayer(newPlayer.getId());
+    private void initializeScoreKeeper(){
+        scoreKeeper = new ScoreManager();
+
+        for(int i = 0; i < players.size(); i++){
+            scoreKeeper.addNewPlayer(players.get(i).getId());
         }
     }
 
@@ -110,6 +114,19 @@ public class GameManager {
                 .build();
 
         return buildController.buildTiger(buildAction);
+    }
+
+    public Player getPlayer(PlayerID pID)
+    {
+        for(Player p: players)
+        {
+            if(p.getId().equals(pID))
+            {
+                return p;
+            }
+        }
+
+        return null;
     }
 
     public void endGame(){

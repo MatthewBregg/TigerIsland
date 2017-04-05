@@ -86,4 +86,9 @@ public class TournamentPlayer implements Runnable{
             game.timeout(this);
         }
     }
+
+    public PlayerID getID()
+    {
+        return pID;
+    }
 }

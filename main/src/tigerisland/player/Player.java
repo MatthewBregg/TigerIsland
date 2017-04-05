@@ -22,6 +22,11 @@ public class Player
         this(20, 3, 2, new PlayerID());
     }
 
+    public Player(PlayerID pID)
+    {
+        this(20, 3, 2, pID);
+    }
+
     public PlayerID getId()
     {
         return id;

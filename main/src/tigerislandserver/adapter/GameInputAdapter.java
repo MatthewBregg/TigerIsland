@@ -3,6 +3,7 @@ package tigerislandserver.adapter;
 import tigerisland.board.Location;
 import tigerisland.game.GameManager;
 import tigerisland.hex.Hex;
+import tigerisland.player.Player;
 import tigerisland.terrains.*;
 import tigerisland.tile.Orientation;
 import tigerisland.tile.Tile;
@@ -26,9 +27,28 @@ public class GameInputAdapter
 
     private static boolean placeTile(GameThread game, TournamentPlayer tournamentPlayer, String[] inputTokens)
     {
+        int x = Integer.parseInt(inputTokens[8]);
+        int y = Integer.parseInt(inputTokens[9]);
+        int z = Integer.parseInt(inputTokens[10]);
+
+        if(x+y+z != 0)
+        {
+            return false;
+        }
+
+        String[] terrains = inputTokens[7].split("\\+");
+
+        Terrain bottomRight = getTerrain(terrains[0]);
+        Terrain bottomLeft = getTerrain(terrains[1]);
+
+        Location loc=new Location(x, y, z);
+        Tile tile = new Tile(0, new Hex(bottomLeft), new Hex(bottomRight));
+
+        rotateTile(tile, inputTokens[12]);
+
         GameManager gm = game.getGameManager();
-        //TODO
-        return true;
+
+        return gm.placeTile(tile, loc);
     }
 
     private static boolean isFoundSettlementCommand(String[] inputTokens)
@@ -43,8 +63,20 @@ public class GameInputAdapter
 
     private static void foundSettlement(GameThread game, TournamentPlayer tournamentPlayer, String[] inputTokens)
     {
+        int x = Integer.parseInt(inputTokens[16]);
+        int y = Integer.parseInt(inputTokens[17]);
+        int z = Integer.parseInt(inputTokens[18]);
+
+        if(x+y+z != 0)
+        {
+            game.invalidBuild(tournamentPlayer);
+        }
+
+        Location loc=new Location(x, y, z);
+
         GameManager gm = game.getGameManager();
-        //TODO
+        Player p = gm.getPlayer(tournamentPlayer.getID());
+        gm.foundSettlement(loc, p);
     }
 
     private static boolean isExpandSettlementCommand(String[] inputTokens)
@@ -60,8 +92,21 @@ public class GameInputAdapter
 
     private static void expandSettlement(GameThread game, TournamentPlayer tournamentPlayer, String[] inputTokens)
     {
+        int x = Integer.parseInt(inputTokens[16]);
+        int y = Integer.parseInt(inputTokens[17]);
+        int z = Integer.parseInt(inputTokens[18]);
+
+        if(x+y+z != 0)
+        {
+            game.invalidBuild(tournamentPlayer);
+        }
+
+        Location loc=new Location(x, y, z);
+        Terrain t=getTerrain(inputTokens[19]);
+
         GameManager gm = game.getGameManager();
-        //TODO
+        Player p = gm.getPlayer(tournamentPlayer.getID());
+        gm.expandSettlement(loc, t, p);
     }
 
     private static boolean isBuildTotoroCommand(String[] inputTokens)
@@ -77,8 +122,20 @@ public class GameInputAdapter
 
     private static void buildTotoro(GameThread game, TournamentPlayer tournamentPlayer, String[] inputTokens)
     {
+        int x = Integer.parseInt(inputTokens[17]);
+        int y = Integer.parseInt(inputTokens[18]);
+        int z = Integer.parseInt(inputTokens[19]);
+
+        if(x+y+z != 0)
+        {
+            game.invalidBuild(tournamentPlayer);
+        }
+
+        Location loc=new Location(x, y, z);
+
         GameManager gm = game.getGameManager();
-        //TODO
+        Player p = gm.getPlayer(tournamentPlayer.getID());
+        gm.buildTotoro(loc, p);
     }
 
     private static boolean isBuildTigerCommand(String[] inputTokens)
@@ -94,8 +151,20 @@ public class GameInputAdapter
 
     private static void buildTiger(GameThread game, TournamentPlayer tournamentPlayer, String[] inputTokens)
     {
+        int x = Integer.parseInt(inputTokens[17]);
+        int y = Integer.parseInt(inputTokens[18]);
+        int z = Integer.parseInt(inputTokens[19]);
+
+        if(x+y+z != 0)
+        {
+            game.invalidBuild(tournamentPlayer);
+        }
+
+        Location loc=new Location(x, y, z);
+
         GameManager gm = game.getGameManager();
-        //TODO
+        Player p = gm.getPlayer(tournamentPlayer.getID());
+        gm.buildTiger(loc, p);
     }
 
     private static boolean isUnableToBuild(String[] inputTokens)
@@ -108,7 +177,7 @@ public class GameInputAdapter
     private static void failToBuild(GameThread game, TournamentPlayer tournamentPlayer, String[] inputTokens)
     {
         GameManager gm = game.getGameManager();
-        //TODO
+        game.unableToBuild(tournamentPlayer);
     }
 
     private static PlaceTileCommand calculatePlaceTileCommand(String[] inputTokens)
@@ -233,6 +302,7 @@ public class GameInputAdapter
             {
                 if(!placeTile(game, tournamentPlayer, inputTokens))
                 {
+                    game.invalidTilePlacement(tournamentPlayer);
                     return;
                 }
 
