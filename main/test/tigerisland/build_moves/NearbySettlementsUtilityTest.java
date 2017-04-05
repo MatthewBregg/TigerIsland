@@ -16,42 +16,6 @@ import tigerisland.settlement.SettlementBoard;
 import java.util.ArrayList;
 import java.util.List;
 
-
-//public NearbySettlementsUtility(BuildActionData data, SettlementBoard board){
-//        this.player = data.getPlayer();
-//        this.board = board;
-//        this.id = player.getId();
-//        this.location = data.getHexBuildLocation();
-//
-//        }
-//
-//public List<Settlement> getPossibleSettlementsForBuild(){
-//
-//
-//        List<Location> locations = location.getSurroundingLocations();
-//        List<Settlement> settlements = new ArrayList<>();
-//        for (Location location : locations){
-//        boolean hasSettlement;
-//        hasSettlement = board.isLocationOccupied(location, id);
-////            try {
-////
-////            }
-////            catch(Exception e){
-////                continue;
-////            }
-//        if (hasSettlement){
-//        settlements.add(board.getSettlement(location));
-//        }
-////            else
-////                locations.remove(location);
-//        }
-//
-//        return settlements;
-
-
-
-
-
 public class NearbySettlementsUtilityTest {
 
 

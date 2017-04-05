@@ -24,11 +24,12 @@ public class TotoroBuild extends BuildAction {
         this.pieceBoard = pieceBoard;
         this.settlementBoard = settlementBoard;
         this.scoreManager = scoreManager;
+
     }
 
     @Override
-    public List<BuildActionRule> createBuildActionRules() {
-       List<BuildActionRule> rules = new ArrayList<>();
+    protected List<BuildActionRule> createBuildActionRules() {
+        List<BuildActionRule> rules = new ArrayList<>();
         rules.add( new PlayerMustHaveATotoroToBuildRule());
         rules.add( new EmptyHexRule(pieceBoard));
         rules.add( new CannotBuildOnVolcanoRule(board));
@@ -38,7 +39,7 @@ public class TotoroBuild extends BuildAction {
     }
 
     @Override
-    public List<MakeBuildAction> createBuildActions() {
+    protected List<MakeBuildAction> createBuildActions() {
         List<MakeBuildAction> actions = new ArrayList<>();
         actions.add( new PlaceTotoroOnHexAction(pieceBoard));
         actions.add( new ScoreTotoroOnHex(scoreManager));

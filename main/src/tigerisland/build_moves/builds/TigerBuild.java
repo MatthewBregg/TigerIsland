@@ -26,7 +26,7 @@ public class TigerBuild extends BuildAction {
     }
 
     @Override
-    public List<BuildActionRule> createBuildActionRules() {
+    protected List<BuildActionRule> createBuildActionRules() {
         List<BuildActionRule> rules = new ArrayList<>();
         //Todo add BuildLocationOnBoard
         rules.add( new PlayerMustHaveATigerToBuildRule());
@@ -38,7 +38,7 @@ public class TigerBuild extends BuildAction {
     }
 
     @Override
-    public List<MakeBuildAction> createBuildActions() {
+    protected List<MakeBuildAction> createBuildActions() {
         List<MakeBuildAction> actions = new ArrayList<>();
         actions.add( new PlaceTigerOnHexAction(pieceBoard));
         actions.add( new ScoreTigerOnHex(scoreManager));
