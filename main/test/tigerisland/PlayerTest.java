@@ -3,6 +3,7 @@ package tigerisland;
 import org.junit.Before;
 import org.junit.Test;
 import tigerisland.player.Player;
+import tigerisland.player.PlayerID;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -21,7 +22,7 @@ public class PlayerTest
     @Test
     public void constructor_manualCountAssignment_properInitialCounts()
     {
-        Player player = new Player(100,5, 8);
+        Player player = new Player(100,5, 8, new PlayerID());
         assertEquals(100,player.getVillagerCount());
         assertEquals(5,player.getTotoroCount());
         assertEquals(8, player.getTigerCount());

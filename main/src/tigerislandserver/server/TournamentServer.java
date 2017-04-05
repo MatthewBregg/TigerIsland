@@ -9,7 +9,7 @@ import java.util.ArrayList;
  */
 public class TournamentServer {
     private ServerSocket serverSocket;
-    private ArrayList<TournamentClient> clientConnections = new ArrayList<>();
+    private ArrayList<TournamentPlayer> clientConnections = new ArrayList<>();
     private boolean currentlyAcceptingConnections;
 
     public TournamentServer(){
@@ -38,9 +38,9 @@ public class TournamentServer {
 
         currentlyAcceptingConnections = true;
 
-        connectionTimeout_s *= 1000;
+        int connectionTimeout_ms = connectionTimeout_s * 1000;
 
-        new Thread(new ConnectionAcceptor(connectionTimeout_s)).start();
+        new Thread(new ConnectionAcceptor(connectionTimeout_ms)).start(); // TODO: implement using Executor class
     }
 
     public void finalize(){
@@ -65,8 +65,8 @@ public class TournamentServer {
             while(listening){
                 try{
                     Socket newClient = serverSocket.accept();
-                    TournamentClient client =
-                            new TournamentClient(newClient);
+                    TournamentPlayer client =
+                            new TournamentPlayer(newClient);
 
                     synchronized (clientConnections){
                         clientConnections.add(client);

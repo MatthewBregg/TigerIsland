@@ -5,24 +5,26 @@ package tigerislandserver.gameplay;
  */
 
 import tigerisland.tile.*;
-import tigerisland.player.*;
 import tigerisland.score.*;
+import tigerislandserver.gameplay.identifiers.GameID;
+import tigerislandserver.server.TournamentPlayer;
 
 import java.util.ArrayList;
 
-public class Game extends Thread{
+public class GameThread extends Thread{
     private ArrayList<Tile> gameTiles;
-    private Player player1;
-    private Player player2;
-    private int gameID;
+    private ArrayList<TournamentPlayer> playersInGame;
+    private int activePlayerIndex;
+    private char gameID;
     private ScoreManager scoreManager;
+    private int numberOfMoves;
 
     // tournament class would pass in the seed and gameID
-    public Game(Player player1, Player player2, ArrayList<Tile> tiles, int gameID){
+    public GameThread(ArrayList<TournamentPlayer> players, ArrayList<Tile> tiles, char gameLetter){
+        playersInGame = players;
+        activePlayerIndex = 0;
         gameTiles = tiles;
-        this.gameID = gameID;
-        this.player1 = player1;
-        this.player2 = player2;
+        gameID = gameLetter;
         scoreManager = new ScoreManager();
     }
 
@@ -33,15 +35,30 @@ public class Game extends Thread{
         //player2
     }
 
+    public boolean placeTile(){
+
+        return false;
+    }
+
+    public boolean makeBuildMove(){
+
+        return false;
+    }
+
+
     public void sendEndGameMessage(){
 
+    }
+
+    public long getGameID(){
+        return gameID;
     }
 
 
 
 
-
     public void run(){
+        // TODO: call Game protocol
         // tbd
     }
 }
