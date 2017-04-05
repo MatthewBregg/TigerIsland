@@ -72,11 +72,7 @@ public class GameManager {
     }
 
     public boolean placeTile(Tile tile, Location location) {
-        // TODO: place tile logic. Need player ID?
-
-        tilePlacer.placeTile(tile, location);
-
-        return false;
+        return tilePlacer.placeTile(tile, location);
     }
 
     public boolean foundSettlement(Location location, Player player){
@@ -85,22 +81,35 @@ public class GameManager {
                 .withPlayer(player)
                 .build();
 
-        return false;
+        return buildController.foundSettlement(buildAction);
     }
 
-    public boolean expandSettlement(Location location){
-        // TODO: build action logic. Need player ID?
-        return false;
+    public boolean expandSettlement(Location locationExpandingFrom, Terrain terrainToExpandTo, Player player){
+        BuildActionData buildAction = new BuildActionData.Builder()
+                .withSettlementLocation(locationExpandingFrom)
+                .withTerrain(terrainToExpandTo)
+                .withPlayer(player)
+                .build();
+
+        return buildController.expandSettlement(buildAction);
     }
 
-    public boolean buildTotoro(Location location){
-        // TODO: build action logic. Need player ID?
-        return false;
+    public boolean buildTotoro(Location locationExpandingTo, Player player){
+        BuildActionData buildAction = new BuildActionData.Builder()
+                .withHexLocation(locationExpandingTo)
+                .withPlayer(player)
+                .build();
+
+        return buildController.buildTotoro(buildAction);
     }
 
-    public boolean buildTiger(Location location){
-        // TODO: build action logic. Need player ID?
-        return false;
+    public boolean buildTiger(Location locationExpandingTo, Player player){
+        BuildActionData buildAction = new BuildActionData.Builder()
+                .withHexLocation(locationExpandingTo)
+                .withPlayer(player)
+                .build();
+
+        return buildController.buildTiger(buildAction);
     }
 
     public void endGame(){

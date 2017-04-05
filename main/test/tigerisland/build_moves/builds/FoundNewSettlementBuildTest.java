@@ -10,6 +10,7 @@ import tigerisland.build_moves.actions.PlaceVillagerOnHexAction;
 import tigerisland.build_moves.rules.*;
 import tigerisland.piece.PieceBoard;
 import tigerisland.piece.PieceBoardImpl;
+import tigerisland.score.ScoreManager;
 
 import java.util.List;
 
@@ -18,12 +19,14 @@ public class FoundNewSettlementBuildTest {
     private FoundNewSettlementBuild foundNewSettlementBuildAction;
     private Board board;
     private PieceBoard pieceBoard;
+    private ScoreManager scoreManager;
 
     @Before
     public void setup() {
         this.board = new HexBoard();
         this.pieceBoard = new PieceBoardImpl();
-        foundNewSettlementBuildAction = new FoundNewSettlementBuild(board, pieceBoard);
+        this.scoreManager = new ScoreManager();
+        foundNewSettlementBuildAction = new FoundNewSettlementBuild(board, pieceBoard, scoreManager);
     }
 
     @Test

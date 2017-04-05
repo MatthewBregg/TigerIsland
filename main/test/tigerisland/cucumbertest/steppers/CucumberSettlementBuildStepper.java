@@ -12,6 +12,7 @@ import tigerisland.piece.PieceBoard;
 import tigerisland.piece.PieceBoardImpl;
 import tigerisland.player.Player;
 import tigerisland.player.PlayerID;
+import tigerisland.score.ScoreManager;
 import tigerisland.settlement.LazySettlementBoard;
 import tigerisland.settlement.Settlement;
 import tigerisland.settlement.SettlementBoard;
@@ -24,6 +25,7 @@ public class CucumberSettlementBuildStepper implements En {
     private Player player;
     private HexBoard board;
     private PieceBoard pieces;
+    private ScoreManager scoreManager;
     private Location location;
     private BuildActionData data;
     private BuildActionStrategy foundSettlement;
@@ -45,13 +47,15 @@ public class CucumberSettlementBuildStepper implements En {
         board = new HexBoard();
         board.placeHex(location, hex);
 
+        scoreManager = new ScoreManager();
+
         pieces = new PieceBoardImpl();
 
         data = new BuildActionData.Builder().withPlayer(player)
                 .withHexLocation(location)
                 .withTerrain(Rocky.getInstance()).build();
 
-        foundSettlement= new FoundNewSettlementBuild(board, pieces);
+        foundSettlement= new FoundNewSettlementBuild(board, pieces, scoreManager);
     }
     public CucumberSettlementBuildStepper() {
         Given("^Player has at least (\\d+) villager$", (Integer numVillagers) -> {
