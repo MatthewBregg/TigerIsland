@@ -5,11 +5,14 @@ import org.junit.Before;
 import org.junit.Test;
 import tigerisland.board.Board;
 import tigerisland.board.HexBoard;
+import tigerisland.board.Location;
 import tigerisland.build_moves.actions.MakeBuildAction;
 import tigerisland.build_moves.actions.PlaceVillagerOnHexAction;
 import tigerisland.build_moves.rules.*;
+import tigerisland.hex.Hex;
 import tigerisland.piece.PieceBoard;
 import tigerisland.piece.PieceBoardImpl;
+import tigerisland.player.Player;
 
 import java.util.List;
 
@@ -24,6 +27,26 @@ public class FoundNewSettlementBuildTest {
         this.board = new HexBoard();
         this.pieceBoard = new PieceBoardImpl();
         foundNewSettlementBuildAction = new FoundNewSettlementBuild(board, pieceBoard);
+    }
+
+    @Test
+    public void test_trivialFoundSettlement() {
+
+        // Arrange
+        Location loc = new Location(0,0,0);
+        board.placeHex(loc,new Hex());
+        BuildActionData.Builder builder = new BuildActionData.Builder();
+        builder.withHexLocation(loc);
+        Player player = new Player();
+        int villagerCount = player.getVillagerCount();
+        builder.withPlayer(player);
+
+        // Act
+
+        // Arrange
+        Assert.assertTrue(foundNewSettlementBuildAction.build(builder.build()).successful);
+        Assert.assertEquals(player.getVillagerCount(),villagerCount-1);
+        Assert.assertTrue(pieceBoard.isLocationOccupied(loc,player.getId()));
     }
 
     @Test
