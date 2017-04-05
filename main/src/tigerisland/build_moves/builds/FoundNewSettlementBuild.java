@@ -17,8 +17,6 @@ public class FoundNewSettlementBuild extends BuildAction{
     public FoundNewSettlementBuild(Board board, PieceBoard pieceBoard) {
        this.board = board;
        this.pieceBoard = pieceBoard;
-       this.rules = createBuildActionRules();
-       this.actions = createBuildActions();
     }
 
     @Override

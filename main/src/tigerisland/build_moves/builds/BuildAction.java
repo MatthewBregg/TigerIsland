@@ -7,11 +7,31 @@ import java.util.List;
 
 public abstract class BuildAction implements BuildActionStrategy {
 
-    List<BuildActionRule> rules;
-    List<MakeBuildAction> actions;
+    private List<BuildActionRule> rules;
+    private List<MakeBuildAction> actions;
+
+
+    public BuildAction(){
+
+    }
+
+
+
+    private void InitializeLists(){
+        if ( actions == null ) {
+            actions = this.createBuildActions();
+        }
+        if ( rules == null ) {
+            rules = this.createBuildActionRules();
+        }
+
+    }
 
     @Override
     public BuildActionResult build(BuildActionData buildActionData){
+
+        this.InitializeLists();
+
         for(BuildActionRule rule : rules) {
             BuildActionResult result = rule.applyRule(buildActionData);
 
@@ -26,7 +46,7 @@ public abstract class BuildAction implements BuildActionStrategy {
         return new BuildActionResult(true);
     }
 
-    public abstract List<BuildActionRule> createBuildActionRules();
+    protected abstract List<BuildActionRule> createBuildActionRules();
 
-    public abstract List<MakeBuildAction> createBuildActions();
+    protected abstract List<MakeBuildAction> createBuildActions();
 }

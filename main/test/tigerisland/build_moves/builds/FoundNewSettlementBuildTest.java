@@ -5,7 +5,6 @@ import org.junit.Before;
 import org.junit.Test;
 import tigerisland.board.Board;
 import tigerisland.board.HexBoard;
-import tigerisland.build_moves.builds.FoundNewSettlementBuild;
 import tigerisland.build_moves.actions.MakeBuildAction;
 import tigerisland.build_moves.actions.PlaceVillagerOnHexAction;
 import tigerisland.build_moves.rules.*;

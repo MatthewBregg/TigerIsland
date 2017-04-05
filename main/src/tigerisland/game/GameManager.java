@@ -72,6 +72,9 @@ public class GameManager {
 
     public boolean placeTile(Tile tile, Location location) {
         // TODO: place tile logic. Need player ID?
+
+        tilePlacer.placeTile(tile, location);
+
         return false;
     }
 
