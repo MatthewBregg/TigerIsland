@@ -40,7 +40,7 @@ public class Tile {
    }
 
    public Tile(int id, Hex leftHex, Hex rightHex){
-       this(id, new Hex(), leftHex, rightHex);
+       this(id, new Hex(Volcano.getInstance()), leftHex, rightHex);
    }
 
    public Tile(int id, Hex referenceHex, Hex leftHex, Hex rightHex){

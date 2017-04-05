@@ -52,8 +52,9 @@ public class TilePlacementController {
         } catch (Exception e) {
             System.out.println("Error placing tile");
             e.printStackTrace();
+            return false;
         }
-        // TODO validate tile placement
-        return false;
+        // TODO validate tile placement-- DId this JOsh B- should be enough to be valid
+        return true;
     }
 }
