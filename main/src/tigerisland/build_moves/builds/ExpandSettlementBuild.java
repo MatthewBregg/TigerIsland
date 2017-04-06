@@ -24,7 +24,7 @@ public class ExpandSettlementBuild extends BuildAction {
     protected List<BuildActionRule> createBuildActionRules() {
         List<BuildActionRule> rules  = new ArrayList<BuildActionRule>();
         rules.add(new BuildActionRule() {
-            // Check if expanding onto volcano type
+            // Check if expanding onto volcano type or if terrain
             @Override
             public BuildActionResult applyRule(BuildActionData buildActionData) {
                if ( buildActionData.getExpansionTerrain().equals(Volcano.getInstance())) {

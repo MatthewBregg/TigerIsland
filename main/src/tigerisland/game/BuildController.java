@@ -2,9 +2,10 @@ package tigerisland.game;
 
 import tigerisland.board.HexBoard;
 import tigerisland.build_moves.SettlementExpansionUtility;
-import tigerisland.build_moves.actions.*;
+import tigerisland.build_moves.actions.ScoreTigerOnHex;
+import tigerisland.build_moves.actions.ScoreTotoroOnHex;
+import tigerisland.build_moves.actions.ScoreVillagersOnHex;
 import tigerisland.build_moves.builds.*;
-import tigerisland.build_moves.rules.EnoughVillagersToExpandRule;
 import tigerisland.piece.PieceBoard;
 import tigerisland.score.ScoreManager;
 import tigerisland.settlement.SettlementBoard;
@@ -17,7 +18,7 @@ public class BuildController {
 
     SettlementExpansionUtility expansionUtility;
     FoundNewSettlementBuild foundSettlementAction;
-    ExpandSettlementOnHexAction expandAction;
+    ExpandSettlementBuild expandSettlementBuild;
     TotoroBuild totoroAction;
     TigerBuild tigerAction;
 
@@ -36,9 +37,10 @@ public class BuildController {
     }
 
     private void initializeBuilders(){
-        expansionUtility = new SettlementExpansionUtility(hexBoard, pieceBoard, settlementBoard);
+
         foundSettlementAction = new FoundNewSettlementBuild(hexBoard, pieceBoard, scoreMgr);
-        expandAction = new ExpandSettlementOnHexAction(pieceBoard, expansionUtility);
+        expandSettlementBuild = new ExpandSettlementBuild(new SettlementExpansionUtility(hexBoard, pieceBoard,settlementBoard),pieceBoard);
+
         totoroAction = new TotoroBuild(hexBoard, pieceBoard, settlementBoard, scoreMgr);
         tigerAction = new TigerBuild(hexBoard, pieceBoard, settlementBoard, scoreMgr);
     }
@@ -52,23 +54,14 @@ public class BuildController {
     public boolean foundSettlement(BuildActionData buildActionData){
         BuildActionResult result = foundSettlementAction.build(buildActionData);
         return result.successful;
+        //TODO change to FoundNewSettlement Build
     }
 
     public boolean expandSettlement(BuildActionData buildActionData){
-        EnoughVillagersToExpandRule expansionRule = new EnoughVillagersToExpandRule(expansionUtility);
-        BuildActionResult result = expansionRule.applyRule(buildActionData);
 
-        if( result.successful == true) {
-            expandAction.applyAction(buildActionData);
-            villageScorer.applyAction(buildActionData);
-
-            return true;
-        }
-        else{
-            return false;
-        }
-
+        BuildActionResult result = expandSettlementBuild.build(buildActionData);
         //TODO check scoring for expansion vs founding
+        return result.successful;
     }
 
     public boolean buildTiger(BuildActionData buildActionData){
