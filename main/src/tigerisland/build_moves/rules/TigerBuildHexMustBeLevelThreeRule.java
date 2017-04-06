@@ -9,7 +9,7 @@ import tigerisland.hex.Hex;
 
 public class TigerBuildHexMustBeLevelThreeRule implements BuildActionRule {
 
-    private final String BUILD_HEX_MUST_BE_LEVEL_THREE_ERROR = "The tiger build hex must be level 3";
+    private final String BUILD_HEX_MUST_BE_LEVEL_THREE_ERROR = "The tiger build hex must be level 3 or greater";
     private BuildActionResult successfulResult = new BuildActionResult(true);
     private BuildActionResult failedResult = new BuildActionResult(false, BUILD_HEX_MUST_BE_LEVEL_THREE_ERROR);
     private Board board;

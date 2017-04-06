@@ -44,9 +44,4 @@ public class TigerBuild extends BuildAction {
         actions.add( new ScoreTigerOnHex(scoreManager));
         return actions;
     }
-
-
-
-
-
 }
