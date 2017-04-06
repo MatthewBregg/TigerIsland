@@ -8,6 +8,28 @@ Feature: Building Settlements
     And the hex is unoccupied
     Then A new settlement of size 1 is formed on that tile, one villager is subtracted from players villager count, and appears on that tile
 
+
+
+
+  #  Scenario:
+#  Placing a villager/totoro/tiger on a volcano hex
+#    Given
+#    Player has a villager or totoro or tiger
+#    And is attempting a build action
+#    When
+#    Player attempts to place said villager or totoro or tiger during a build action onto a hex with a volcano.
+#    Then
+#    Invalid build action
+#
+#  Scenario:
+#  Placing a villager/totoro/tiger on a occupied hex
+#    Given
+#    Player has a villager or totoro and is attempting a build action
+#    When
+#    Player attempts to place said villager or totoro on a hex that  is already occupied by a totoro or tiger  or villager
+#    Then
+#    Invalid build action
+
 #  Scenario
 #  Expanding a settlement
 #    Given

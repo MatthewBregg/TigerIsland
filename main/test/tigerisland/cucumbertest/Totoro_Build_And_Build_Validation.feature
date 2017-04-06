@@ -14,3 +14,24 @@ Feature: Placing Totoro
     When Player builds totoro on that hex
     Then Totoro is placed on hex
     And player's totoro account is decremented by one
+
+
+  Scenario:
+#  Placing a tiger on a volcano hex
+#    Given
+#    Player has a  tiger
+#    And is attempting a build action
+#    When
+#    Player attempts to place said villager or totoro or tiger during a build action onto a hex with a volcano.
+#    Then
+#    Invalid build action
+#
+#
+#  Scenario:
+#  Placing a tiger on a occupied hex
+#    Given
+#    Player has a villager or totoro and is attempting a build action
+#    When
+#    Player attempts to place said villager or totoro on a hex that  is already occupied by a totoro or tiger  or villager
+#    Then
+#    Invalid build action
