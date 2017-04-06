@@ -2,7 +2,7 @@
 Feature: PlacingPieces
   As a game
   I want to allow players to place tigers and totoro
-  So that they can score points
+  So that they can score points. I want these Builds to be valid.
 
   Scenario: Placing a tiger
     Given A player has at least 1 tiger

@@ -1,4 +1,6 @@
 Feature: Building Settlements
+  As a game, I want to allow players to build settlements
+
   Scenario: Founding a settlement
     Given Player has at least 1 villager
     When Player attempts to place the villager on a non-volcano hex
