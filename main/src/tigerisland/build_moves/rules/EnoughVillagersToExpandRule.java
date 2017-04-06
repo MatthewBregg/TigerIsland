@@ -19,6 +19,8 @@ public class EnoughVillagersToExpandRule implements BuildActionRule {
     public BuildActionResult applyRule(BuildActionData buildActionData) {
         // We now have all the hexes we can expand to, and they all should be on the map.
         int villagersNeeded = settlementExpansionUtility.getVillagersNeededToExpand(buildActionData);
+        if (villagersNeeded==0)
+            return failedResult;
         if ( villagersNeeded <= buildActionData.getPlayer().getVillagerCount() ) {
             return successfulResult;
         } else {

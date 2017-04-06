@@ -8,6 +8,7 @@ import tigerisland.hex.Hex;
 import tigerisland.player.Player;
 import tigerisland.terrains.Jungle;
 import tigerisland.terrains.Lake;
+import tigerisland.terrains.Rocky;
 import tigerisland.tile.Orientation;
 import tigerisland.tile.Tile;
 import tigerisland.tile.TileDeck;
@@ -115,22 +116,22 @@ public class GameManagerTest {
         Assert.assertTrue(manager.expandSettlement(found, Jungle.getInstance(), playerOne));
     }
 
-//    @Test
-//
-//    public void test_expandSettlementShouldReturnFalseForInvalidSettlementExpansion() {
-//        //arrange
-//        Location found = new Location(0,0,0).getAdjacent(Orientation.getNorthEast());
-//
-//        Assert.assertTrue(manager.foundSettlement(found, playerOne));
-//
-//        Location expandTo = found.getAdjacent(Orientation.getWest());
-//
-//
-//
-//        Assert.assertFalse(manager.expandSettlement(found, Rocky.getInstance(), playerOne));
-//
-//        //Todo
-//    }
+    @Test
+
+    public void test_expandSettlementShouldReturnFalseForInvalidSettlementExpansion() {
+        //arrange
+        Location found = new Location(0,0,0).getAdjacent(Orientation.getNorthEast());
+
+        Assert.assertTrue(manager.foundSettlement(found, playerOne));
+
+        Location expandTo = found.getAdjacent(Orientation.getWest());
+
+
+
+        Assert.assertFalse(manager.expandSettlement(found, Rocky.getInstance(), playerOne));
+
+        //Todo
+    }
 
     @Test
 
