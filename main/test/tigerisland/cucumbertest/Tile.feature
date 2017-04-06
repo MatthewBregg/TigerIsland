@@ -9,4 +9,9 @@ Feature: Tiles
     When We examine the left and right portions of said tile
     Then We find one volcano terrain types
 
+  Scenario: Tile Orientation (rotation)
+    Given We have a tile
+    When We rotate said tile
+    Then The tile's orientation changes
+
 
