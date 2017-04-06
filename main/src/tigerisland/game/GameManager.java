@@ -15,9 +15,7 @@ import tigerisland.tile.Tile;
 import java.util.ArrayList;
 
 public class GameManager {
-    static int PLAYER_COUNT = 2;
 
-    private ArrayList<Player> players;
     private int playerIndex;
     private HexBoard gameBoard;
     private ScoreManager scoreKeeper;
@@ -30,7 +28,6 @@ public class GameManager {
         gameBoard = new HexBoard();
         scoreKeeper = new ScoreManager();
 
-        initializePlayers();
         initializeSettlementBoard();
         placeStartingHexes();
 
@@ -38,14 +35,6 @@ public class GameManager {
         buildController = new BuildController(gameBoard, pieces, settlements, scoreKeeper);
     }
 
-    private void initializePlayers(){
-        players = new ArrayList<>();
-        for(int i = 0; i < PLAYER_COUNT; ++i){
-            Player newPlayer = new Player();
-            players.add(newPlayer);
-            scoreKeeper.addNewPlayer(newPlayer.getId());
-        }
-    }
 
     private void initializeSettlementBoard(){
         pieces = new PieceBoardImpl();
