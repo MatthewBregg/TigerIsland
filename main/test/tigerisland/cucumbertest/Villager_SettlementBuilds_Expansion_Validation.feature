@@ -7,6 +7,15 @@ Feature: Building Settlements
     And the hex has a level of 1
     And the hex is unoccupied
     Then A new settlement of size 1 is formed on that tile, one villager is subtracted from players villager count, and appears on that tile
+#
+#  Scenario
+#  Can found a new settlement only on level 1
+#    Given
+#    A player is founding a settlement
+#    When
+#    Player attempts to found a settlement on a tile that is not at level 1
+#    Then
+#    Nothing happens, actions fails.
 
 
 
