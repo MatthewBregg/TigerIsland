@@ -23,6 +23,10 @@ public class TournamentPlayer implements Runnable{
         pID = new PlayerID();
     }
 
+    public PlayerID getPlayerID(){
+        return pID;
+    }
+
     public void run(){
         try {
             outputToClient = new PrintWriter(clientSocket.getOutputStream());

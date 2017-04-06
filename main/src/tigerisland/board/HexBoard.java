@@ -45,4 +45,12 @@ public class HexBoard implements Board{
     public boolean isLocationUsed(Location location) {
         return this.board.get(location) != null;
     }
+
+    public void setBoard(HashMap<Location, Hex> newBoard){
+        board = newBoard;
+    }
+
+    public HashMap<Location, Hex> getBoard(){
+        return board;
+    }
 }

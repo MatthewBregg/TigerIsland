@@ -13,6 +13,7 @@ import tigerisland.tile.Orientation;
 import tigerisland.tile.Tile;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class GameManager {
 
@@ -33,6 +34,20 @@ public class GameManager {
 
         tilePlacer = new TilePlacementController(gameBoard, settlements, pieces);
         buildController = new BuildController(gameBoard, pieces, settlements, scoreKeeper);
+    }
+
+
+    public BuildController getBuildController(){
+        return buildController;
+    }
+
+    private void initializePlayers(){
+        players = new ArrayList<>();
+        for(int i = 0; i < PLAYER_COUNT; ++i){
+            Player newPlayer = new Player();
+            players.add(newPlayer);
+            scoreKeeper.addNewPlayer(newPlayer.getId());
+        }
     }
 
 
@@ -99,6 +114,22 @@ public class GameManager {
                 .build();
 
         return buildController.buildTiger(buildAction);
+    }
+
+    public HexBoard getHexBoard(){
+        return gameBoard;
+    }
+
+    public PieceBoard getPieceBoard(){
+        return pieces;
+    }
+
+    public void setPieceBoard(PieceBoard newBoard){
+        pieces = newBoard;
+    }
+
+    public void setHexBoard(HashMap<Location, Hex> board){
+        gameBoard.setBoard(board);
     }
 
     public void endGame(){

@@ -7,6 +7,7 @@ import tigerisland.build_moves.actions.ScoreTotoroOnHex;
 import tigerisland.build_moves.actions.ScoreVillagersOnHex;
 import tigerisland.build_moves.builds.*;
 import tigerisland.piece.PieceBoard;
+import tigerisland.piece.Tiger;
 import tigerisland.score.ScoreManager;
 import tigerisland.settlement.SettlementBoard;
 
@@ -34,6 +35,38 @@ public class BuildController {
 
         initializeBuilders();
         initializeScoring();
+    }
+
+
+    public SettlementExpansionUtility getSettlementExpansionUtility(){
+        return expansionUtility;
+    }
+
+    public FoundNewSettlementBuild getFoundNewSettlementBuild(){
+        return foundSettlementAction;
+    }
+
+    public ExpandSettlementOnHexAction getExpandSettlmentAction(){
+        return expandAction;
+    }
+
+    public TotoroBuild getTotoroBuild(){
+        return totoroAction;
+    }
+
+    public TigerBuild getTigerBuild(){
+        return tigerAction;
+    }
+
+    public ScoreVillagersOnHex getVillageScorer(){
+        return villageScorer;
+    }
+    public ScoreTotoroOnHex getTotoroScorer(){
+        return totoroScorer;
+    }
+
+    public ScoreTigerOnHex getTigerScorer(){
+        return tigerScorer;
     }
 
     private void initializeBuilders(){
@@ -73,6 +106,8 @@ public class BuildController {
         BuildActionResult result = totoroAction.build(buildActionData);
         return result.successful;
     }
+
+
 
 
     //TODO
