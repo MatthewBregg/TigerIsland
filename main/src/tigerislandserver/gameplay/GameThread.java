@@ -5,6 +5,7 @@ package tigerislandserver.gameplay;
  */
 
 import tigerisland.game.GameManager;
+import tigerisland.player.PlayerID;
 import tigerisland.tile.*;
 import tigerisland.score.*;
 import tigerislandserver.gameplay.identifiers.GameID;
@@ -30,6 +31,26 @@ public class GameThread extends Thread{
         scoreManager = new ScoreManager();
         gameManager = new GameManager();
     }
+
+    public ScoreManager getScoreManager(){
+        return scoreManager;
+    }
+
+    public int getPlayer1FinalScore(){
+        TournamentPlayer player1 = playersInGame.get(0);
+        PlayerID pID = player1.getPlayerID();
+
+        return scoreManager.getPlayerScore(pID);
+    }
+
+    public int getPlayer2FinalScore(){
+        TournamentPlayer player2 = playersInGame.get(1);
+        PlayerID pID = player2.getPlayerID();
+
+        return scoreManager.getPlayerScore(pID);
+    }
+
+
 
     public void sendStartGameMessage(){
         // to send starting game info that dave is probably going to make us send

@@ -38,6 +38,10 @@ public class GameManager {
         buildController = new BuildController(gameBoard, pieces, settlements, scoreKeeper);
     }
 
+    public BuildController getBuildController(){
+        return buildController;
+    }
+
     private void initializePlayers(){
         players = new ArrayList<>();
         for(int i = 0; i < PLAYER_COUNT; ++i){
