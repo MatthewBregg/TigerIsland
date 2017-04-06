@@ -13,6 +13,7 @@ import tigerisland.tile.Orientation;
 import tigerisland.tile.Tile;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class GameManager {
     static int PLAYER_COUNT = 2;
@@ -114,6 +115,22 @@ public class GameManager {
                 .build();
 
         return buildController.buildTiger(buildAction);
+    }
+
+    public HexBoard getHexBoard(){
+        return gameBoard;
+    }
+
+    public PieceBoard getPieceBoard(){
+        return pieces;
+    }
+
+    public void setPieceBoard(PieceBoard newBoard){
+        pieces = newBoard;
+    }
+
+    public void setHexBoard(HashMap<Location, Hex> board){
+        gameBoard.setBoard(board);
     }
 
     public void endGame(){
