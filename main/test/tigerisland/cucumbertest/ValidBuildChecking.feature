@@ -1,5 +1,5 @@
-#Feature: Valid Build Checking
-#
+Feature: Valid Build Checking
+
 #  Scenario:
 #  Placing a villager/totoro/tiger on a volcano hex
 #    Given
