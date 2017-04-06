@@ -42,3 +42,16 @@ Feature: Building Settlements
 #    Player’s villagers are placed on all connected hexes of that terrain type
 #    And the villagers placed on each hex are equal to the level of that hex
 #    And player’s villagers are decremented by an amount equal to the number of villagers placed
+
+
+#  Scenario (See Villater_SettlementBuilds....feature)
+#
+#  Expanding a settlement with insufficient villagers
+#    Given
+#    Player has an existing settlement
+#  Player has level villagers than sum of each hex level in terrain of expansion squared
+#    When
+#    Player chooses to expand a settlement to one of the adjacent terrain types
+#    Then
+#    Invalid build action
+

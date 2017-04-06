@@ -16,7 +16,7 @@ Feature: Placing Totoro
     And player's totoro account is decremented by one
 
 
-  Scenario:
+#  Scenario:
 #  Placing a tiger on a volcano hex
 #    Given
 #    Player has a  tiger
@@ -35,3 +35,24 @@ Feature: Placing Totoro
 #    Player attempts to place said villager or totoro on a hex that  is already occupied by a totoro or tiger  or villager
 #    Then
 #    Invalid build action
+
+
+#  Scenario
+#  Placing a totoro in a settlement that already has one
+#    Given
+#    Player has a totoro.
+#    And player has a settlement of size 5 or greater with 1+ totoro in it
+#    When
+#    Player attempts to place a totoro on a hex adjacent to that settlement
+#    Then
+#    Invalid move. (Also remember that settlements are combined at end of turn.)
+#Scenario
+#  Placing a totoro in a settlement that already has one
+#    Given
+#    Player has a totoro.
+#    And player has a settlement of size 5 or greater with 1+ totoro in it
+#    When
+#    Player attempts to place a totoro on a hex adjacent to that settlement
+#    Then
+#    Invalid move. (Also remember that settlements are combined at end of turn.)
+
