@@ -6,7 +6,6 @@ import org.junit.Test;
 import tigerisland.board.HexBoard;
 import tigerisland.board.Location;
 import tigerisland.build_moves.SettlementExpansionUtility;
-import tigerisland.build_moves.actions.ExpandSettlementOnHexAction;
 import tigerisland.build_moves.builds.BuildActionData;
 import tigerisland.hex.Hex;
 import tigerisland.piece.PieceBoard;
@@ -62,7 +61,7 @@ public class ExpandSettlementOnHexActionTest {
     private void runTestWithPlayer(Player p) {
         PrimeBoard();
         BuildActionData.Builder builder = new BuildActionData.Builder();
-        builder.withHexLocation(firstLoc);
+        builder.withTerrain(hexBoard.getHex(firstLoc).getTerrain());
         Location settlementLocA = firstLoc.getAdjacent(Orientation.getEast());
         builder.withSettlementLocation(settlementLocA);
         pieceBoard.addPiece(new Villager(), settlementLocA, p.getId());

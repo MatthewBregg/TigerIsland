@@ -85,7 +85,7 @@ public class SettlementExpansionUtilityTest {
         PrimeBoard();
         Player p = new Player();
         BuildActionData.Builder builder = new BuildActionData.Builder();
-        builder.withHexLocation(firstLoc);
+        builder.withTerrain(hexBoard.getHex(firstLoc).getTerrain());
         Location settlementLocA = firstLoc.getAdjacent(Orientation.getEast());
         Location settlementLocB = settlementLocA.getAdjacent(Orientation.getEast());
         builder.withSettlementLocation(settlementLocA);

@@ -7,7 +7,6 @@ import tigerisland.board.Location;
 import tigerisland.build_moves.SettlementExpansionUtility;
 import tigerisland.build_moves.builds.BuildActionData;
 import tigerisland.build_moves.builds.BuildActionResult;
-import tigerisland.build_moves.rules.EnoughVillagersToExpandRule;
 import tigerisland.hex.Hex;
 import tigerisland.piece.PieceBoard;
 import tigerisland.piece.PieceBoardImpl;
@@ -63,7 +62,7 @@ public class EnoughVillagersToExpandRuleTest {
     private BuildActionResult runTestWithPlayer(Player p) {
         PrimeBoard();
         BuildActionData.Builder builder = new BuildActionData.Builder();
-        builder.withHexLocation(firstLoc);
+        builder.withTerrain(hexBoard.getHex(firstLoc).getTerrain());
         Location settlementLocA = firstLoc.getAdjacent(Orientation.getEast());
         builder.withSettlementLocation(settlementLocA);
         pieceBoard.addPiece(new Villager(), settlementLocA, p.getId());
