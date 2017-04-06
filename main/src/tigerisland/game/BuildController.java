@@ -46,8 +46,8 @@ public class BuildController {
         return foundSettlementAction;
     }
 
-    public ExpandSettlementOnHexAction getExpandSettlmentAction(){
-        return expandAction;
+    public ExpandSettlementBuild getExpandSettlmentBuild(){
+        return expandSettlementBuild;
     }
 
     public TotoroBuild getTotoroBuild(){

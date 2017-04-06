@@ -41,16 +41,6 @@ public class GameManager {
         return buildController;
     }
 
-    private void initializePlayers(){
-        players = new ArrayList<>();
-        for(int i = 0; i < PLAYER_COUNT; ++i){
-            Player newPlayer = new Player();
-            players.add(newPlayer);
-            scoreKeeper.addNewPlayer(newPlayer.getId());
-        }
-    }
-
-
     private void initializeSettlementBoard(){
         pieces = new PieceBoardImpl();
         settlements = new LazySettlementBoard(pieces);
