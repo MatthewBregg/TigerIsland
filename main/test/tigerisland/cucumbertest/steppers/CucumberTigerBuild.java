@@ -82,7 +82,6 @@ public class CucumberTigerBuild implements En {
                     .build();
 
             BuildActionResult result = tigerBuild.build(buildActionData);
-            System.out.print("bob");
 
         });
         Then("^Tiger is placed on hex$", () -> {

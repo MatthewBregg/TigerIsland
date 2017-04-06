@@ -25,6 +25,7 @@ public class CucumberSettlementBuildStepper implements En {
     private Player player;
     private HexBoard board;
     private PieceBoard pieces;
+    private ScoreManager scoreManager;
     private Location location;
     private BuildActionData data;
     private BuildActionStrategy foundSettlement;
@@ -46,13 +47,14 @@ public class CucumberSettlementBuildStepper implements En {
         board = new HexBoard();
         board.placeHex(location, hex);
 
+        scoreManager = new ScoreManager();
+
         pieces = new PieceBoardImpl();
 
         data = new BuildActionData.Builder().withPlayer(player)
                 .withHexLocation(location)
                 .withTerrain(Rocky.getInstance()).build();
 
-        ScoreManager scoreManager = new ScoreManager();
         foundSettlement= new FoundNewSettlementBuild(board, pieces, scoreManager);
     }
     public CucumberSettlementBuildStepper() {

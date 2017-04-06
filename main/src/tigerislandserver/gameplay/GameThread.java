@@ -4,6 +4,7 @@ package tigerislandserver.gameplay;
  * Created by christinemoore on 3/23/17.
  */
 
+import tigerisland.game.GameManager;
 import tigerisland.tile.*;
 import tigerisland.score.*;
 import tigerislandserver.gameplay.identifiers.GameID;
@@ -18,6 +19,7 @@ public class GameThread extends Thread{
     private char gameID;
     private ScoreManager scoreManager;
     private int numberOfMoves;
+    private GameManager gameManager;
 
     // tournament class would pass in the seed and gameID
     public GameThread(ArrayList<TournamentPlayer> players, ArrayList<Tile> tiles, char gameLetter){
@@ -26,6 +28,7 @@ public class GameThread extends Thread{
         gameTiles = tiles;
         gameID = gameLetter;
         scoreManager = new ScoreManager();
+        gameManager = new GameManager();
     }
 
     public void sendStartGameMessage(){
@@ -35,10 +38,15 @@ public class GameThread extends Thread{
         //player2
     }
 
-    public boolean placeTile(){
-
-        return false;
+    public int getActivePlayerIndex(){
+        return activePlayerIndex;
     }
+
+    public ArrayList<Tile> getGameTiles(){
+        return gameTiles;
+    }
+
+
 
     public boolean makeBuildMove(){
 

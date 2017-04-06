@@ -13,9 +13,9 @@ import java.util.List;
 
 public class FoundNewSettlementBuild extends BuildAction{
 
+    private ScoreManager scoreManager;
     private Board board;
     private PieceBoard pieceBoard;
-    private ScoreManager scoreManager;
 
     public FoundNewSettlementBuild(Board board, PieceBoard pieceBoard, ScoreManager scoreManager) {
        this.board = board;
@@ -26,6 +26,7 @@ public class FoundNewSettlementBuild extends BuildAction{
     @Override
     protected List<BuildActionRule> createBuildActionRules() {
         List<BuildActionRule> rules = new ArrayList<>();
+
         rules.add( new BuildLocationMustBeOnBoardRule(board));
         rules.add( new EmptyHexRule(pieceBoard));
         rules.add( new SettlementMustBeFoundedHexLevelOneRule(board));
@@ -38,8 +39,10 @@ public class FoundNewSettlementBuild extends BuildAction{
     @Override
     protected List<MakeBuildAction> createBuildActions() {
         List<MakeBuildAction> actions = new ArrayList<>();
+
         actions.add( new PlaceVillagerOnHexAction(pieceBoard));
         actions.add( new ScoreVillagersOnHex(board, scoreManager));
+
         return actions;
     }
 
