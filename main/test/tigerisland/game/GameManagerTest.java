@@ -19,17 +19,17 @@ import java.util.List;
 
 public class GameManagerTest {
     private GameManager manager;
+    private ArrayList<Player> players;
+    private TileDeck deck;
 
-    TileDeck deck;
-
-    Player playerOne;
+    private Player playerOne;
 
 
 
     @Before
     public void setUp() throws Exception {
         deck = new TileDeck(12341298);
-        ArrayList<Player> players = new ArrayList<Player>();
+        this.players = new ArrayList<Player>();
         playerOne = new Player();
         players.add(playerOne);
         players.add(new Player());
@@ -66,7 +66,7 @@ public class GameManagerTest {
 
         //test with other possible orientation
         //arrange
-
+        manager= new GameManager(players);
 
         tile.setOrientation((Orientation.getSouthEast()));
 
