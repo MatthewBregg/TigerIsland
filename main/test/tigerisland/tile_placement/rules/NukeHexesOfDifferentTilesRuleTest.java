@@ -44,7 +44,7 @@ public class NukeHexesOfDifferentTilesRuleTest {
        Location location = new Location(0, 0, 0);
 
        hexes = TileUnpacker.getTileHexes(tile, location);
-       
+
        hexes.forEach( (loc, hex) -> {
           board.placeHex(loc, hex);
        });
