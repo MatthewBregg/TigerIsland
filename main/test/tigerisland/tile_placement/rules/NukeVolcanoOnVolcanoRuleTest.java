@@ -10,6 +10,7 @@ import tigerisland.hex.Hex;
 import tigerisland.terrains.Grassland;
 import tigerisland.terrains.Rocky;
 import tigerisland.terrains.Volcano;
+import tigerisland.tile.Orientation;
 import tigerisland.tile.Tile;
 import tigerisland.tile.TileUnpacker;
 import tigerisland.tile_placement.exceptions.NukeVolcanoHexRuleException;
@@ -48,8 +49,9 @@ public class NukeVolcanoOnVolcanoRuleTest {
 
        addTileHexesToBoard(tile, location);
 
-       Tile tile2 = null; //new Tile(tileId, rockyHex, volcanoHex, grasslandHex);
+       Tile tile2 = new Tile(tileId+1, Rocky.getInstance(), Grassland.getInstance());
        hexes = TileUnpacker.getTileHexes(tile2, location);
+       removeVolcanoFromHexMap(tileId+1);
 
        // Act
        volcanoOnVolcanoRule.applyRule(hexes);
@@ -70,13 +72,22 @@ public class NukeVolcanoOnVolcanoRuleTest {
 
        addTileHexesToBoard(tile, location);
 
-       Tile tile2 = null; //new Tile(tileId, rockyHex2, rockyHex, grasslandHex);
+       Tile tile2 = new Tile(tileId+1, Rocky.getInstance(), Grassland.getInstance());
        hexes = TileUnpacker.getTileHexes(tile2, location);
+        removeVolcanoFromHexMap(tileId+1);
 
        // Act
        volcanoOnVolcanoRule.applyRule(hexes);
    }
 
+   void removeVolcanoFromHexMap(int tId) {
+       for ( Map.Entry<Location, Hex> entry : hexes.entrySet()) {
+           //Remove the volcano
+           if ( entry.getValue().getTerrain() == Volcano.getInstance() ) {
+               entry.setValue(new Hex(tId, Grassland.getInstance()));
+           }
+       }
+   }
     @Test
     public void test_ShouldNotThrowExceptionWhenTileVolcanoIsOnBoardVolcano() {
 
@@ -89,7 +100,7 @@ public class NukeVolcanoOnVolcanoRuleTest {
        addTileHexesToBoard(tile, location);
 
 
-       Tile tile2  = null; //new Tile(tileId, volcanoHex, rockyHex, grasslandHex);
+       Tile tile2  = new Tile(tileId, Rocky.getInstance(), Grassland.getInstance());
        hexes = TileUnpacker.getTileHexes(tile2, location);
 
        try {
