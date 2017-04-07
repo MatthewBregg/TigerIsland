@@ -44,8 +44,8 @@ public class BuildControllerTest {
     public static BuildController buildController;
     public static Player currentPlayer;
 
-    @BeforeClass
-    public static void initializeGameManagerAndBuildController(){
+    @Before
+    public void initializeGameManagerAndBuildController(){
         gameManager = new GameManager();
         buildController = gameManager.getBuildController();
     }
@@ -146,22 +146,27 @@ public class BuildControllerTest {
 
         if (settlementExpansionUtility != null){
             seuCheck = true;
+            System.out.println("seu" + seuCheck);
         }
 
         if (foundSettlementAction != null) {
             fnsbCheck = true;
+            System.out.println("fnsb"+fnsbCheck);
         }
 
         if (expandAction != null) {
             esohaCheck = true;
+            System.out.println("esoha"+esohaCheck);
         }
 
         if (totoroAction != null) {
             totoroActionCheck = true;
+            System.out.println("tororo"+totoroActionCheck);
         }
 
         if (tigerAction != null) {
             tigerActionCheck = true;
+            System.out.println("tiger"+tigerActionCheck);
         }
 
         Assert.assertTrue(seuCheck && fnsbCheck && esohaCheck && totoroActionCheck && tigerActionCheck);
@@ -194,7 +199,23 @@ public class BuildControllerTest {
     }
 
     @Test
-    public void ableToFoundSettlementOnTopLeftStartingTileHex() {
+    public void ableToFoundSettlementOnGrassStartingTileHex() {
+        Location grassLocatoin = new Location(0, -1, 1);
+
+        currentPlayer = new Player();
+
+        BuildActionData badTL = new BuildActionData.Builder()
+                .withHexLocation(grassLocatoin)
+                .withPlayer(currentPlayer)
+                .build();
+
+        BuildActionResult resultTL = buildController.foundSettlement(badTL);
+        System.out.println(resultTL.errorMessage);
+        Assert.assertTrue(resultTL.successful);
+    }
+
+    @Test
+    public void ableToFoundSettlementOnJungleStartingTileHex() {
         Location validTopLeft = new Location(0, 1, -1);
 
         currentPlayer = new Player();
@@ -204,8 +225,41 @@ public class BuildControllerTest {
                 .withPlayer(currentPlayer)
                 .build();
 
-        boolean resultTL = buildController.foundSettlement(badTL);
-        Assert.assertTrue(resultTL);
+        BuildActionResult resultTL = buildController.foundSettlement(badTL);
+        System.out.println(resultTL.errorMessage);
+        Assert.assertTrue(resultTL.successful);
+    }
+
+    @Test
+    public void ableToFoundSettlementOnRockyStartingTileHex() {
+        Location rockyLocation = new Location(-1, 0 , 1);
+
+        currentPlayer = new Player();
+
+        BuildActionData badTL = new BuildActionData.Builder()
+                .withHexLocation(rockyLocation)
+                .withPlayer(currentPlayer)
+                .build();
+
+        BuildActionResult resultTL = buildController.foundSettlement(badTL);
+        System.out.println(resultTL.errorMessage);
+        Assert.assertTrue(resultTL.successful);
+    }
+
+    @Test
+    public void ableToFoundSettlementOnLakeStartingTileHex() {
+        Location lakeLocation = new Location(1, 0, -1);
+
+        currentPlayer = new Player();
+
+        BuildActionData badTL = new BuildActionData.Builder()
+                .withHexLocation(lakeLocation)
+                .withPlayer(currentPlayer)
+                .build();
+
+        BuildActionResult resultTL = buildController.foundSettlement(badTL);
+        System.out.println(resultTL.errorMessage);
+        Assert.assertTrue(resultTL.successful);
     }
 
     @Test
@@ -237,25 +291,28 @@ public class BuildControllerTest {
                 .withPlayer(currentPlayer)
                 .build();
 
-        boolean resultBL = buildController.foundSettlement(badBL);
-        boolean resultBR = buildController.foundSettlement(badBR);
-        boolean resultTL = buildController.foundSettlement(badTL);
-        boolean resultTR = buildController.foundSettlement(badTR);
+        BuildActionResult resultTL = buildController.foundSettlement(badTL);
 
-        Assert.assertTrue(resultBL && resultBR && resultTL && resultTR);
+        BuildActionResult resultBL = buildController.foundSettlement(badBL);
+
+        BuildActionResult resultBR = buildController.foundSettlement(badBR);
+
+        BuildActionResult resultTR = buildController.foundSettlement(badTR);
+
+        Assert.assertTrue(resultBL.successful && resultBR.successful && resultTL.successful && resultTR.successful);
 
     }
 
     @Test
     public void unableToFoundNewSettlementWhereTileDoesntExist() {
-        Location l = new Location(1, 0, -1);
+        Location l = new Location(-1, 1, 0);
         currentPlayer = new Player();
         BuildActionData bad = new BuildActionData.Builder()
                 .withHexLocation(l)
                 .withPlayer(currentPlayer)
                 .build();
 
-        boolean result = buildController.foundSettlement(bad);
+        boolean result = buildController.foundSettlement(bad).successful;
         Assert.assertFalse(result);
     }
 
@@ -263,12 +320,14 @@ public class BuildControllerTest {
     public void ableToFoundNewSettlementOnStartingTile() {
         Location topRightStartingHex = new Location(1, 0, -1);
         currentPlayer = new Player();
+
+
         BuildActionData bad = new BuildActionData.Builder()
                 .withHexLocation(topRightStartingHex)
                 .withPlayer(currentPlayer)
                 .build();
 
-        boolean result = buildController.foundSettlement(bad);
+        boolean result = buildController.foundSettlement(bad).successful;
         Assert.assertTrue(result);
     }
 
@@ -293,7 +352,7 @@ public class BuildControllerTest {
                 .withPlayer(currentPlayer)
                 .build();
 
-        boolean result = buildController.foundSettlement(bad);
+        boolean result = buildController.foundSettlement(bad).successful;
         Assert.assertTrue(result);
     }
 
@@ -306,7 +365,7 @@ public class BuildControllerTest {
                 .withPlayer(currentPlayer)
                 .build();
 
-        boolean result = buildController.foundSettlement(bad);
+        boolean result = buildController.foundSettlement(bad).successful;
         Assert.assertFalse(result);
     }
 
@@ -319,7 +378,7 @@ public class BuildControllerTest {
                 .withPlayer(currentPlayer)
                 .build();
 
-        boolean result = buildController.foundSettlement(bad);
+        boolean result = buildController.foundSettlement(bad).successful;
         Assert.assertFalse(result);
     }
 
@@ -332,7 +391,7 @@ public class BuildControllerTest {
                 .withPlayer(currentPlayer)
                 .build();
 
-        boolean result = buildController.expandSettlement(buildAction);
+        boolean result = buildController.expandSettlement(buildAction).successful;
         Assert.assertFalse(result);
     }
 
@@ -344,7 +403,7 @@ public class BuildControllerTest {
                 .withPlayer(currentPlayer)
                 .build();
 
-        boolean result = buildController.buildTiger(buildAction);
+        boolean result = buildController.buildTiger(buildAction).successful;
         Assert.assertFalse(result);
     }
 
@@ -391,7 +450,7 @@ public class BuildControllerTest {
                 .withPlayer(currentPlayer)
                 .build();
 
-        boolean result = buildController.buildTotoro(buildAction);
+        boolean result = buildController.buildTiger(buildAction).successful;
         Assert.assertTrue(result);
     }
 
@@ -438,7 +497,7 @@ public class BuildControllerTest {
                 .withPlayer(currentPlayer)
                 .build();
 
-        boolean result = buildController.buildTotoro(buildAction);
+        boolean result = buildController.buildTotoro(buildAction).successful;
         Assert.assertFalse(result);
     }
 
@@ -450,7 +509,7 @@ public class BuildControllerTest {
                 .withPlayer(currentPlayer)
                 .build();
 
-        boolean result = buildController.buildTotoro(buildAction);
+        boolean result = buildController.buildTotoro(buildAction).successful;
         Assert.assertFalse(result);
     }
 
@@ -481,7 +540,7 @@ public class BuildControllerTest {
                 .withPlayer(currentPlayer)
                 .build();
 
-        boolean result = buildController.buildTotoro(buildAction);
+        boolean result = buildController.buildTotoro(buildAction).successful;
         Assert.assertFalse(result);
     }
 
@@ -531,7 +590,7 @@ public class BuildControllerTest {
                 .withPlayer(currentPlayer)
                 .build();
 
-        boolean result = buildController.buildTotoro(buildAction);
+        boolean result = buildController.buildTotoro(buildAction).successful;
         Assert.assertFalse(result);
     }
 
@@ -578,7 +637,7 @@ public class BuildControllerTest {
                 .withPlayer(currentPlayer)
                 .build();
 
-        boolean result = buildController.buildTotoro(buildAction);
+        boolean result = buildController.buildTotoro(buildAction).successful;
         Assert.assertTrue(result);
     }
 
