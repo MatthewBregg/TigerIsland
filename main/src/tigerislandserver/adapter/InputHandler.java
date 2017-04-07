@@ -1,75 +1,54 @@
 package tigerislandserver.adapter;
 
-//TODO THIS CLASS IS GOING TO BE DELETED AND COMPLETELY CHANGED INTO POSSIBLY TWO CLASSES
+import tigerislandserver.server.TournamentPlayer;
 
-public class InputHandler extends InputAdapter
+public class InputHandler
 {
-    public InputHandler(String input)
+    public static boolean canEnterTournament(String input)
     {
-        super(input);
+        return isEnterTournamentCommand(input) && verifyTournamentPassword(input);
     }
 
-    @Override
-    public void run()
+    public static boolean authenticate(String input)
     {
-        if (isEnterTournamentCommand() && verifyTournamentPassword()) {
-            enterTournament();
-        } else if (isIdentificationComand() && verifyUsernameAndPassword()) {
-            registerUser();
-        } else if (isGameMoveCommand()) {
-         //   GameInputAdapter handler = new GameInputAdapter(getInput());
-        //    handler.start();
-        }
+       return isIdentificationComand(input) && verifyUsernameAndPassword(input);
     }
 
-    private boolean isEnterTournamentCommand()
+    private static boolean isEnterTournamentCommand(String input)
     {
-        return getInputTokens().length == 3
-                && getInputTokens()[0].equals("ENTER")
-                && getInputTokens()[1].equals("THUNDERDOME");
+        String[] inputTokens = input.split("\\s+");
+        return inputTokens.length == 3
+                && inputTokens[0].equals("ENTER")
+                && inputTokens[1].equals("THUNDERDOME");
     }
 
-    private boolean verifyTournamentPassword()
+    private static boolean verifyTournamentPassword(String input)
     {
-        String password = getInputTokens()[3];
+        String[] inputTokens = input.split("\\s+");
+        String password = inputTokens[3];
 
         //TODO
         return password.equals("password");
     }
 
-    private void enterTournament()
+    private static boolean isIdentificationComand(String input)
     {
-        //TODO
+        String[] inputTokens = input.split("\\s+");
+
+        return inputTokens.length == 4
+                && inputTokens[0].equals("I")
+                && inputTokens[1].equals("AM");
     }
 
-    private boolean isIdentificationComand()
+    private static boolean verifyUsernameAndPassword(String input)
     {
-        return getInputTokens().length == 4
-                && getInputTokens()[0].equals("I")
-                && getInputTokens()[1].equals("AM");
-    }
+        String[] inputTokens = input.split("\\s+");
 
-    private boolean verifyUsernameAndPassword()
-    {
-        String username = getInputTokens()[2];
-        String password = getInputTokens()[3];
+        String username = inputTokens[2];
+        String password = inputTokens[3];
 
         //TODO
         return username.equals("username")
                 && password.equals("password");
-    }
-
-    private void registerUser()
-    {
-        //TODO
-    }
-
-    private boolean isGameMoveCommand()
-    {
-        return getInputTokens().length > 12
-                && getInputTokens()[0].equals("GAME")
-                && isValidNumber(getInputTokens()[1])
-                && getInputTokens()[2].equals("MOVE")
-                && isValidNumber(getInputTokens()[3]);
     }
 }

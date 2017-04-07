@@ -2,6 +2,7 @@ package tigerislandserver.gameplay;
 
 import tigerisland.tile.Tile;
 import tigerisland.tile.TileDeck;
+import tigerislandserver.adapter.OutputAdapter;
 import tigerislandserver.gameplay.identifiers.ChallengeID;
 import tigerislandserver.server.TournamentPlayer;
 import tigerislandserver.server.TournamentServer;
@@ -16,6 +17,8 @@ public class Challenge {
     private ArrayList<Match> currentRoundMatches;
     private int roundNumber;
     private long currentSeed;
+    private static int challengeNumber = 0;
+
 
     public Challenge(ArrayList<TournamentPlayer> participants){
         playerList = participants;
@@ -41,8 +44,18 @@ public class Challenge {
         ++roundNumber;
         setupRound();
 
+        OutputAdapter.sendStartRoundMessage(playerList, roundNumber, getTotalChallengeRounds());
+
         for(Match m : currentRoundMatches)
             m.start();
+        if(getRoundsRemaining() == 0)
+        {
+            OutputAdapter.sendEndOfAllRoundMessage(playerList, roundNumber, getTotalChallengeRounds());
+        }
+        else
+        {
+            OutputAdapter.sendEndRoundMessage(playerList, roundNumber, getTotalChallengeRounds());
+        }
     }
 
     private void setupRound(){

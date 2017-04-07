@@ -153,17 +153,23 @@ public class OutputAdapter extends Thread
         tournamentPlayer.sendMessage("WAIT FOR THE TOURNAMENT TO BEGIN " + tournamentPlayer.getID().getId());
     }
 
-    public static void sendWaitForChallengeMessage(TournamentPlayer tournamentPlayer)
+    public static void sendWaitForChallengeMessage(ArrayList<TournamentPlayer> players)
     {
-        tournamentPlayer.sendMessage("WAIT FOR THE NEXT CHALLENGE TO BEGIN");
+        for(TournamentPlayer tournamentPlayer: players)
+        {
+            tournamentPlayer.sendMessage("WAIT FOR THE NEXT CHALLENGE TO BEGIN");
+        }
     }
 
-    public static void sendEndOfChallengesMessage(TournamentPlayer tournamentPlayer)
+    public static void sendEndOfChallengesMessage(ArrayList<TournamentPlayer> players)
     {
-        tournamentPlayer.sendMessage("END OF CHALLENGES");
+        for(TournamentPlayer tournamentPlayer: players)
+        {
+            tournamentPlayer.sendMessage("END OF CHALLENGES");
+        }
     }
 
-    public static void sendNewChallengeMessage(TournamentPlayer tournamentPlayer, int cid, int numRounds)
+    public static void sendNewChallengeMessage(ArrayList<TournamentPlayer> players, int cid, int numRounds)
     {
         String message ="NEW CHALLENGE  " + cid + " YOU WILL PLAY " + numRounds;
         if(numRounds == 1)
@@ -175,22 +181,34 @@ public class OutputAdapter extends Thread
             message += " MATCHES";
         }
 
-        tournamentPlayer.sendMessage(message);
+        for(TournamentPlayer tournamentPlayer: players)
+        {
+            tournamentPlayer.sendMessage(message);
+        }
     }
 
-    public static void sendStartRoundMessage(TournamentPlayer tournamentPlayer, int round, int totalRounds)
+    public static void sendStartRoundMessage(ArrayList<TournamentPlayer> players, int round, int totalRounds)
     {
-        tournamentPlayer.sendMessage("BEGIN ROUND " + round + " OF " + totalRounds);
+        for(TournamentPlayer tournamentPlayer: players)
+        {
+            tournamentPlayer.sendMessage("BEGIN ROUND " + round + " OF " + totalRounds);
+        }
     }
 
-    public static void sendEndRoundMessage(TournamentPlayer tournamentPlayer, int round, int totalRounds)
+    public static void sendEndRoundMessage(ArrayList<TournamentPlayer> players, int round, int totalRounds)
     {
-        tournamentPlayer.sendMessage("END OF ROUND " + round + " OF " + totalRounds + " WAIT FOR NEXT MATCH");
+        for(TournamentPlayer tournamentPlayer: players)
+        {
+            tournamentPlayer.sendMessage("END OF ROUND " + round + " OF " + totalRounds + " WAIT FOR NEXT MATCH");
+        }
     }
 
-    public static void sendEndOfAllRoundMessage(TournamentPlayer tournamentPlayer, int round, int totalRounds)
+    public static void sendEndOfAllRoundMessage(ArrayList<TournamentPlayer> players, int round, int totalRounds)
     {
-        tournamentPlayer.sendMessage("END OF ROUND " + round + " OF " + totalRounds);
+        for(TournamentPlayer tournamentPlayer: players)
+        {
+            tournamentPlayer.sendMessage("END OF ROUND " + round + " OF " + totalRounds);
+        }
     }
 
     public static void sendStartMatchMessage(TournamentPlayer player1, TournamentPlayer player2)
@@ -203,8 +221,8 @@ public class OutputAdapter extends Thread
     {
         String message = "GAME "+gid;
         message += " OVER";
-        message += "PLAYER " + player1.getID().getId() + " " + p1Score;
-        message += "PLAYER " + player2.getID().getId() + " " + p2Score;
+        message += " PLAYER " + player1.getID().getId() + " " + p1Score;
+        message += " PLAYER " + player2.getID().getId() + " " + p2Score;
 
         player1.sendMessage(message);
         player2.sendMessage(message);

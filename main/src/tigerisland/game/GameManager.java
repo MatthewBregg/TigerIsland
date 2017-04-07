@@ -156,6 +156,11 @@ public class GameManager {
         // TODO
     }
 
+    public boolean isGameDone(){
+        //TODO
+        return true;
+    }
+
     public GameResults returnResults(){
         GameResults results = new GameResults();
         return results;

@@ -88,7 +88,11 @@ public class GameThread extends Thread{
 
 
     public void sendEndGameMessage(){
-
+        TournamentPlayer p1 = playersInGame.get(0);
+        TournamentPlayer p2 = playersInGame.get(1);
+        ScoreManager sm =gameManager.getScoreManager();
+        OutputAdapter.sendEndGameMessage(p1, p2, gameID, ""+sm.getPlayerScore(p1.getID()), ""+sm.getPlayerScore(p2.getID()));
+        gameNotEnded=false;
     }
 
     public long getGameID(){
@@ -111,6 +115,11 @@ public class GameThread extends Thread{
 
             moveNumber++;
             activePlayerIndex = (activePlayerIndex + 1) % playersInGame.size();
+
+            if(gameManager.isGameDone())
+            {
+                gameNotEnded = false;
+            }
         }
 
         sendEndGameMessage();
@@ -118,27 +127,30 @@ public class GameThread extends Thread{
 
     public void timeout(TournamentPlayer tournamentPlayer)
     {
-        //TODO The message is already so the client when this is called.
+        //TODO The message for turn is already sent so the client when this is called.
+        OutputAdapter.sendEndGameMessage(tournamentPlayer, otherPlayer(tournamentPlayer), gameID, "FORFEITED", "WIN");
+        gameNotEnded=false;
     }
 
     public void unableToBuild(TournamentPlayer tournamentPlayer)
     {
         //TODO
+        OutputAdapter.sendEndGameMessage(tournamentPlayer, otherPlayer(tournamentPlayer), gameID, "FORFEITED", "WIN");
+        gameNotEnded=false;
     }
 
     public void invalidTilePlacement(TournamentPlayer tournamentPlayer)
     {
         //TODO
+        OutputAdapter.sendEndGameMessage(tournamentPlayer, otherPlayer(tournamentPlayer), gameID, "FORFEITED", "WIN");
+        gameNotEnded=false;
     }
 
     public void invalidBuild(TournamentPlayer tournamentPlayer)
     {
         //TODO
-    }
-
-    public void successfulMove(String message)
-    {
-        //TODO
+        OutputAdapter.sendEndGameMessage(tournamentPlayer, otherPlayer(tournamentPlayer), gameID, "FORFEITED", "WIN");
+        gameNotEnded=false;
     }
 
     public GameManager getGameManager()
@@ -149,5 +161,10 @@ public class GameThread extends Thread{
     public ArrayList<TournamentPlayer> getPlayersInGame()
     {
         return playersInGame;
+    }
+
+    private TournamentPlayer otherPlayer(TournamentPlayer tp)
+    {
+        return playersInGame.get((playersInGame.indexOf(tp)+1)%2);
     }
 }
