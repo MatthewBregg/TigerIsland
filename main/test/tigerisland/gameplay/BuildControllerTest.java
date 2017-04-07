@@ -26,6 +26,9 @@ import tigerisland.build_moves.actions.PlaceVillagerOnHexAction;
 import tigerisland.build_moves.rules.*;
 import tigerisland.piece.PieceBoard;
 import tigerisland.score.ScoreManager;
+import tigerisland.terrains.Grassland;
+import tigerisland.terrains.Jungle;
+import tigerisland.terrains.Lake;
 import tigerisland.terrains.Rocky;
 
 import java.util.HashMap;
@@ -47,11 +50,91 @@ public class BuildControllerTest {
         buildController = gameManager.getBuildController();
     }
 
+
+    @Test
+    public void checkThatRockyStartingTilesIsPlaced(){
+        HashMap<Location, Hex> hexBoard = gameManager.getHexBoard().getBoard();
+
+        Hex rockyHex = new Hex(Rocky.getInstance());
+
+        Location rockyLocation = new Location(-1, 0 , 1);
+
+        Hex shouldRocky = hexBoard.get(rockyLocation);
+
+
+        boolean rockCheck = false;
+
+        if(rockyHex.getTerrain() == shouldRocky.getTerrain()){
+            rockCheck = true;
+        }
+
+
+        Assert.assertTrue( rockCheck);
+    }
+
+    @Test
+    public void checkThatLakeStartingTilesISPlaced(){
+        HashMap<Location, Hex> hexBoard = gameManager.getHexBoard().getBoard();
+
+        Hex lakeHex = new Hex(Lake.getInstance());
+
+        Location lakeLocation = new Location(1, 0, -1);
+
+        Hex shoudlLake= hexBoard.get(lakeLocation);
+
+        boolean lakeCheck= false;
+
+        if(lakeHex.getTerrain() == shoudlLake.getTerrain()) {
+            lakeCheck = true;
+        }
+
+        Assert.assertTrue(lakeCheck );
+    }
+
+    @Test
+    public void checkThatGrassStartingTilesIsPlaced(){
+        HashMap<Location, Hex> hexBoard = gameManager.getHexBoard().getBoard();
+
+        Hex grassHex = new Hex(Grassland.getInstance());
+
+        Location grassLocatoin = new Location(0, -1, 1);
+
+        Hex shouldGrass = hexBoard.get(grassLocatoin);
+
+        boolean grassCheck= false;
+
+        if(grassHex.getTerrain() == shouldGrass.getTerrain()){
+            grassCheck = true;
+        }
+
+
+        Assert.assertTrue( grassCheck);
+    }
+
+    @Test
+    public void checkThatJungleStartingTilesArePlaced(){
+        HashMap<Location, Hex> hexBoard = gameManager.getHexBoard().getBoard();
+
+        Hex jungleHex = new Hex(Jungle.getInstance());
+
+        Location jungleLocation = new Location(0, 1, -1 );
+
+        Hex shouldJungle = hexBoard.get(jungleLocation);
+
+        boolean jungleCheck = false;
+
+        if(jungleHex.getTerrain() == shouldJungle.getTerrain()){
+            jungleCheck = true;
+        }
+
+        Assert.assertTrue(jungleCheck);
+    }
+
     @Test
     public void checkThatBuildersExist(){
         SettlementExpansionUtility settlementExpansionUtility = buildController.getSettlementExpansionUtility();
         FoundNewSettlementBuild foundSettlementAction = buildController.getFoundNewSettlementBuild();
-        ExpandSettlementOnHexAction expandAction = buildController.getExpandSettlmentAction();
+        ExpandSettlementBuild expandAction = buildController.getExpandSettlmentBuild();
         TotoroBuild totoroAction = buildController.getTotoroBuild();
         TigerBuild tigerAction = buildController.getTigerBuild();
 
@@ -127,10 +210,10 @@ public class BuildControllerTest {
 
     @Test
     public void ableToFoundSettlementOnAllValidStartingTileHexes(){
-        Location validTopLeft = new Location(-1, 1, 0 );
-        Location validTopRight = new Location(0, 1, -1);
-        Location validBottomLeft = new Location(0, -1 , 1);
-        Location validBottomRight = new Location(1, -1, 0);
+        Location validTopLeft = new Location(0, 1, -1 );
+        Location validTopRight = new Location(1, 0, -1);
+        Location validBottomLeft = new Location(-1, 0 , 1);
+        Location validBottomRight = new Location(0, -1, 1);
 
         currentPlayer = new Player();
 
