@@ -28,6 +28,7 @@ public class GameManagerTest {
     @Before
     public void setUp() throws Exception {
         manager = new GameManager();
+        playerOne = new Player();
     }
 
     @Test
@@ -35,7 +36,6 @@ public class GameManagerTest {
 
         //arrange
         //starting tile initialized by GameManager
-        manager = new GameManager();
 
         Location location = new Location(0,0,0);
 
@@ -60,6 +60,7 @@ public class GameManagerTest {
 
         //test with other possible orientation
         //arrange
+
         manager = new GameManager();
 
         tile.setOrientation((Orientation.getSouthEast()));
@@ -69,14 +70,43 @@ public class GameManagerTest {
     }
 
     @Test
-    public void test_ShouldReturnTrueForFoundingSettlementOnLevelOne(){
+
+    public void test_PlaceTileShouldReturnFalsePlacingOnNonAdjacentLocation(){
+        //arrange
+
+        Tile tile = deck.drawTile();
+        Location location = new Location(-5,5,0);
+        tile.setOrientation(Orientation.getSouthWest());
+
+        //act/assert
+        Assert.assertFalse(manager.placeTile(tile, location));
+
+    }
+
+    @Test
+    public void test_PlaceTileShouldReturnFalsePlacingTileOnHexesOfDifferentLevels(){
+        //arrange
+
+        Tile tile = deck.drawTile();
+        Location location = new Location(1,-1,0);
+        tile.setOrientation(Orientation.getSouthWest());
+
+        //act/assert
+        Assert.assertFalse(manager.placeTile(tile, location));
+
+    }
+
+
+
+    @Test
+    public void test_FoundSettlementShouldReturnTrueForFoundingSettlementOnLevelOne(){
 
         Location location = new Location(0,-1,1);
         Assert.assertTrue(manager.foundSettlement(location, playerOne));
     }
 
     @Test
-    public void test_ShouldReturnFalseForFoundingOnLevelGreatThanOne(){
+    public void test_FoundSettlementShouldReturnFalseForFoundingOnLevelGreaterThanOne(){
 
         //arrange
 
@@ -84,6 +114,8 @@ public class GameManagerTest {
 
         Tile toPlace = deck.drawTile();
         toPlace.setOrientation(Orientation.getEast());
+
+        //placing on starting tile yields level 2
         manager.placeTile(toPlace,location);
 
         Location settleLocation = new Location(0,-1,1);
@@ -94,8 +126,7 @@ public class GameManagerTest {
     }
 
     @Test
-    public void test_ShouldReturnFalseForFoundingOnVolcanoHex() {
-        //arrange
+    public void test_FoundSettlementShouldReturnFalseForFoundingOnVolcanoHex() {
 
         Location location = new Location(0,0,0);
 
@@ -103,44 +134,48 @@ public class GameManagerTest {
     }
 
     @Test
-    public void test_expandSettlementShouldReturnTrueForValidSettlementExpansion() {
-        //arrange
+    public void test_ExpandSettlementShouldReturnTrueForValidSettlementExpansionTerrain() {
+
         Location found = new Location(0,0,0).getAdjacent(Orientation.getNorthEast());
 
         manager.foundSettlement(found, playerOne);
-
-        Location expandTo = found.getAdjacent(Orientation.getWest());
-
-
 
         Assert.assertTrue(manager.expandSettlement(found, Jungle.getInstance(), playerOne));
     }
 
     @Test
 
-    public void test_expandSettlementShouldReturnFalseForInvalidSettlementExpansion() {
-        //arrange
+    public void test_ExpandSettlementShouldReturnFalseForInvalidSettlementExpansionTerrain() {
+
         Location found = new Location(0,0,0).getAdjacent(Orientation.getNorthEast());
 
         Assert.assertTrue(manager.foundSettlement(found, playerOne));
 
-        Location expandTo = found.getAdjacent(Orientation.getWest());
-
-
-
         Assert.assertFalse(manager.expandSettlement(found, Rocky.getInstance(), playerOne));
 
-        //Todo
     }
 
     @Test
 
     public void test_BuildTotoroShouldReturnTrueForValidTotoroBuild(){
 
+        createTestBoardForTotoro();
+        Location settlement = new Location(2,-1,-1);
+
+        Assert.assertTrue(manager.foundSettlement(settlement, playerOne));
+        //expanding yields settlement size 5
+        Assert.assertTrue(manager.expandSettlement(settlement, Lake.getInstance(),playerOne));
 
 
+
+        Assert.assertTrue(manager.buildTotoro(new Location(0,1,-1), playerOne));
+
+    }
+
+    private void createTestBoardForTotoro() {
         List<Tile> tiles = new ArrayList();
 
+        //I used 12-15 to have a high tile id so as not to have possibility of duplication with the starting tile ids
         for (int i = 12; i<15; ++i){
             Hex hex = new Hex(Lake.getInstance());
             tiles.add(new Tile(i,hex,hex));
@@ -157,70 +192,92 @@ public class GameManagerTest {
         Assert.assertTrue(manager.placeTile(toPlace, new Location(3,-3,0) ));
 
         Location settlement = new Location(2,-1,-1);
+    }
+
+    @Test
+    public void test_BuildTotoroShouldReturnFalseForInvalidTotoroBuild(){
+        createTestBoardForTotoro();
+        Location settlement = new Location(2,-1,-1);
+        Assert.assertTrue(manager.foundSettlement(settlement, playerOne));;
+        //no expansion;settlement size 1; invalid totoro build
+
+        Assert.assertFalse(manager.buildTotoro(new Location(0,1,-1), playerOne));
+
+    }
+
+    @Test
+
+    public void test_BuildTigerShouldReturnTrueForValidTigerBuild(){
+        createTestBoardForTiger();
+        Location settlement = new Location(1,0,-1);
 
         Assert.assertTrue(manager.foundSettlement(settlement, playerOne));
-        Assert.assertTrue(manager.expandSettlement(settlement, Lake.getInstance(),playerOne));
 
-        Assert.assertTrue(manager.buildTotoro(new Location(0,1,-1), playerOne));
-
-    }
-
-
-
-    private void createTotoroSettlement(){
-
-
-
-
-
+        Location tiger = new Location(2,-1,-1);
+        Assert.assertTrue(manager.buildTiger(tiger, playerOne));
 
     }
 
 
+    private void createTestBoardForTiger() {
+        List<Tile> tiles = new ArrayList();
 
-//    private Location createSettlement(Location startLocation){
-//        manager = new GameManager();
-//        Location next = startLocation;
-//
-//        List<Orientation> orientations = new ArrayList<>();
-//
-//        orientations.add(Orientation.getEast());
-//        orientations.add(Orientation.getNorthEast());
-//        orientations.add(Orientation.getNorthWest());
-//        orientations.add(Orientation.getWest());
-//        orientations.add(Orientation.getSouthWest());
-//
-//
-//        for (Orientation orientation : orientations){
-//            Tile tile = deck.drawTile();
-//            tile.setOrientation(orientation);
-//
-//
-//        }
-//
-//
-//
-//        for (int i = 0; i<5; ++i){
-//            Tile tile = deck.drawTile();
-//            tile.setOrientation(Orientation.getSouthWest());
-//            Assert.assertTrue(manager.placeTile(tile,next));
-//            Assert.assertTrue(manager.foundSettlement(next.getAdjacent(Orientation.getEast()), playerOne));
-//            manager.foundSettlement(next.getAdjacent(Orientation.getEast()), playerOne);
-//            next = next.getAdjacent(Orientation.getEast()).getAdjacent(Orientation.getEast());
-//        }
-//        return next;
-//    }
+        //I used 12-15 to have a high tile id so as not to have possibility of duplication with the starting tile ids
+        for (int i = 12; i < 15; ++i) {
+            Hex hex = new Hex(Lake.getInstance());
+            tiles.add(new Tile(i, hex, hex));
+        }
+        Tile toPlace = new Tile();
+        //tiles @ level 3
+        for (int i = 0; i < 3; ++i) {
+            toPlace = tiles.get(i);
+            toPlace.setOrientation(Orientation.getSouthWest());
+            Assert.assertTrue(manager.placeTile(toPlace, new Location(2, -2, 0)));
+        }
 
+        Assert.assertEquals(toPlace.getLeftHex().getLevel(), 3);
+    }
 
+    @Test
 
+    public void test_BuildTigerShouldReturnFalseForInvalidTigerBuild(){
+        createInvalidTestBoardForTiger();
+        Location settlement = new Location(1,0,-1);
+
+        Assert.assertTrue(manager.foundSettlement(settlement, playerOne));
+
+        Location tiger = new Location(2,-1,-1);
+        Assert.assertFalse(manager.buildTiger(tiger, playerOne));
+
+    }
+
+    private void createInvalidTestBoardForTiger() {
+        List<Tile> tiles = new ArrayList();
+
+        //I used 12-15 to have a high tile id so as not to have possibility of duplication with the starting tile ids
+        for (int i = 12; i < 15; ++i) {
+            Hex hex = new Hex(Lake.getInstance());
+            tiles.add(new Tile(i, hex, hex));
+        }
+        Tile toPlace = new Tile();
+        //tiles only @ level 2
+        for (int i = 0; i < 2; ++i) {
+            toPlace = tiles.get(i);
+            toPlace.setOrientation(Orientation.getSouthWest());
+            Assert.assertTrue(manager.placeTile(toPlace, new Location(2, -2, 0)));
+        }
+
+        Assert.assertEquals(toPlace.getLeftHex().getLevel(), 2);
+    }
 
     @Test
     public void endGame() throws Exception {
-
+        //TODO
     }
 
     @Test
     public void returnResults() throws Exception {
+        //TODO
 
     }
 
