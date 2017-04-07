@@ -14,6 +14,7 @@ import tigerisland.piece.*;
 import tigerisland.player.Player;
 import tigerisland.player.PlayerID;
 import tigerisland.score.ScoreManager;
+import tigerisland.settlement.LazySettlementBoard;
 import tigerisland.settlement.SettlementBoard;
 import org.junit.Assert;
 import org.junit.Before;
@@ -36,24 +37,26 @@ import java.util.List;
 import java.util.Map;
 
 
-/**
- * Created by christinemoore on 4/5/17.
- */
-@Ignore
+
 public class BuildControllerTest {
-    public static GameManager gameManager;
-    public static BuildActionData buildActionData;
-    public static BuildController buildController;
-    public static Player currentPlayer;
+    public GameManager gameManager;
+    public BuildActionData buildActionData;
+    public BuildController buildController;
+    public Player currentPlayer;
 
 
-    @BeforeClass
-    public static void initializeGameManagerAndBuildController() {
+    @Before
+    public void initializeGameManagerAndBuildController() {
         ArrayList<Player> players = new ArrayList<Player>();
         players.add(new Player());
         players.add(new Player());
 
         gameManager = new GameManager(players);
+        buildController = new BuildController(gameManager.getHexBoard(),
+                gameManager.getPieceBoard(),
+                new LazySettlementBoard(gameManager.getPieceBoard()),
+                gameManager.getScoreManager());
+        currentPlayer = players.get(0);
     }
 
     @Test
@@ -403,6 +406,7 @@ public class BuildControllerTest {
     @Test
     public void wasntAbleToBuildTigerBecauseHexDoesntExist(){
         Location l = new Location(1, 0, -1);
+
         BuildActionData buildAction = new BuildActionData.Builder()
                 .withHexLocation(l)
                 .withPlayer(currentPlayer)
