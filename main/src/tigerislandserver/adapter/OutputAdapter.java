@@ -193,18 +193,20 @@ public class OutputAdapter extends Thread
         tournamentPlayer.sendMessage("END OF ROUND " + round + " OF " + totalRounds);
     }
 
-    public static void sendStartMatchMessage(TournamentPlayer tournamentPlayer, TournamentPlayer opponent)
+    public static void sendStartMatchMessage(TournamentPlayer player1, TournamentPlayer player2)
     {
-        tournamentPlayer.sendMessage("NEW MATCH BEGINNING NOW YOUR OPPONENT IS PLAYER " + opponent.getID().getId());
+        player1.sendMessage("NEW MATCH BEGINNING NOW YOUR OPPONENT IS PLAYER " + player2.getID().getId());
+        player2.sendMessage("NEW MATCH BEGINNING NOW YOUR OPPONENT IS PLAYER " + player1.getID().getId());
     }
 
-    public static void sendEndMatchMessage(TournamentPlayer tournamentPlayer, TournamentPlayer opponent, int gid, int myScore, int opponentScore)
+    public static void sendEndGameMessage(TournamentPlayer player1, TournamentPlayer player2, int gid, String p1Score, String p2Score)
     {
         String message = "GAME "+gid;
         message += " OVER";
-        message += "PLAYER " + tournamentPlayer.getID().getId() + " " + myScore;
-        message += "PLAYER " + opponent.getID().getId() + " " + opponentScore;
+        message += "PLAYER " + player1.getID().getId() + " " + p1Score;
+        message += "PLAYER " + player2.getID().getId() + " " + p2Score;
 
-        tournamentPlayer.sendMessage(message);
+        player1.sendMessage(message);
+        player2.sendMessage(message);
     }
 }

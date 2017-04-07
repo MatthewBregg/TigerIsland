@@ -22,13 +22,11 @@ public class GameThread extends Thread{
     private boolean gameNotEnded;
     private GameManager gameManager;
 
-    public GameThread(ArrayList<TournamentPlayer> players, ArrayList<Tile> tiles, char gameLetter, TournamentScoreboard scoreboard){
-        if (players.size() != 2)
-        {
-            throw new IllegalArgumentException("Exactly two players required");
-        }
+    public GameThread(TournamentPlayer player1, TournamentPlayer player2, ArrayList<Tile> tiles, char gameLetter, TournamentScoreboard scoreboard){
+        playersInGame = new ArrayList<TournamentPlayer>();
+        playersInGame.add(player1);
+        playersInGame.add(player2);
 
-        playersInGame = players;
         activePlayerIndex = 0;
         gameTiles = tiles;
         gameID = gameLetter;
@@ -39,7 +37,7 @@ public class GameThread extends Thread{
 
         ArrayList<Player> gamePlayers=new ArrayList<Player>();
 
-        for(TournamentPlayer tp: players)
+        for(TournamentPlayer tp: playersInGame)
         {
             gamePlayers.add(new Player(tp.getID()));
         }
@@ -120,10 +118,7 @@ public class GameThread extends Thread{
 
     public void timeout(TournamentPlayer tournamentPlayer)
     {
-        for(TournamentPlayer player: playersInGame)
-        {
-            //TODO
-        }
+        //TODO The message is already so the client when this is called.
     }
 
     public void unableToBuild(TournamentPlayer tournamentPlayer)

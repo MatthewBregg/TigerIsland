@@ -76,6 +76,7 @@ public class TournamentPlayer implements Runnable{
         try {
             if(!inputFromClient.ready())
             {
+                OutputAdapter.sendTimeoutMessage(game.getPlayersInGame(), this, new String[]{"GAME", ""+gid, "MOVE", ""+moveNumber});
                 game.timeout(this);
                 return;
             }
@@ -87,6 +88,7 @@ public class TournamentPlayer implements Runnable{
             GameInputAdapter.makeMove(game, this, inputFromClient.readLine(), gid, moveNumber, tile);
         } catch (IOException e) {
             e.printStackTrace();
+            OutputAdapter.sendTimeoutMessage(game.getPlayersInGame(), this, new String[]{"GAME", ""+gid, "MOVE", ""+moveNumber});
             game.timeout(this);
         }
     }
