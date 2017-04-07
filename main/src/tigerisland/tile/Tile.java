@@ -39,7 +39,7 @@ public class Tile {
     private Hex rightHex;
 
    public Tile(){
-       this((int)Math.random());
+       this((int)Math.random()*1000000000);
    }
 
    public Tile(int id,Terrain left, Terrain right){

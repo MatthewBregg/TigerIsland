@@ -9,12 +9,14 @@ import tigerisland.board.Location;
 import tigerisland.hex.Hex;
 import tigerisland.terrains.Lake;
 import tigerisland.terrains.Rocky;
+import tigerisland.tile.Orientation;
 import tigerisland.tile.Tile;
 import tigerisland.tile.TileUnpacker;
 import tigerisland.tile_placement.exceptions.NukeCoverHexesLevelRuleException;
 import tigerisland.tile_placement.rules.NukeCoverHexesLevelRule;
 import tigerisland.tile_placement.rules.NukePlacementRule;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class NukeCoverHexesLevelRuleTest {
@@ -34,13 +36,18 @@ public class NukeCoverHexesLevelRuleTest {
     public void test_ShouldThrowExceptionWhenABoardHexHasDifferentLevel() throws Throwable {
 
        // Arrange
-       Tile tile  = new Tile(0, 1, Rocky.getInstance(), Lake.getInstance());
-       Location location = new Location(0, 0, 0);
+        Location location = new Location(0, 0, 0);
 
-       hexes = TileUnpacker.getTileHexes(tile, location);
+        hexes = new HashMap<Location,Hex>();
 
+       hexes.put(location,new Hex(0));
+       hexes.put(location.getAdjacent(Orientation.getEast()),new Hex(1));
+       int i = 0;
+       for ( Hex hex : hexes.values() ) {
+           hex.setLevel(++i);
+       }
        hexes.forEach( (loc, hex) -> {
-          board.placeHex(loc, hex);
+           board.placeHex(loc,hex);
        });
 
        // Act
