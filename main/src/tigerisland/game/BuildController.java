@@ -72,7 +72,8 @@ public class BuildController {
     private void initializeBuilders(){
 
         foundSettlementAction = new FoundNewSettlementBuild(hexBoard, pieceBoard, scoreMgr);
-        expandSettlementBuild = new ExpandSettlementBuild(new SettlementExpansionUtility(hexBoard, pieceBoard,settlementBoard),pieceBoard);
+        expansionUtility = new SettlementExpansionUtility(hexBoard, pieceBoard,settlementBoard);
+        expandSettlementBuild = new ExpandSettlementBuild(expansionUtility,pieceBoard);
 
         totoroAction = new TotoroBuild(hexBoard, pieceBoard, settlementBoard, scoreMgr);
         tigerAction = new TigerBuild(hexBoard, pieceBoard, settlementBoard, scoreMgr);

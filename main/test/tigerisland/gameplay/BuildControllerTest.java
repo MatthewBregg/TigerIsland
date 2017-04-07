@@ -51,7 +51,7 @@ public class BuildControllerTest {
     public void checkThatBuildersExist(){
         SettlementExpansionUtility settlementExpansionUtility = buildController.getSettlementExpansionUtility();
         FoundNewSettlementBuild foundSettlementAction = buildController.getFoundNewSettlementBuild();
-        ExpandSettlementOnHexAction expandAction = buildController.getExpandSettlmentAction();
+        ExpandSettlementBuild expandAction = buildController.getExpandSettlmentBuild();
         TotoroBuild totoroAction = buildController.getTotoroBuild();
         TigerBuild tigerAction = buildController.getTigerBuild();
 
