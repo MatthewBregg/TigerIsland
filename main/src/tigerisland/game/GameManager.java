@@ -45,12 +45,14 @@ public class GameManager {
         buildController = new BuildController(gameBoard, pieces, settlements, scoreKeeper);
     }
 
-    private void initializeScoreKeeper(){
+    private void initializeScoreKeeper()
+    {
         scoreKeeper = new ScoreManager();
 
-        for(int i = 0; i < players.size(); i++){
+        for (int i = 0; i < players.size(); i++) {
             scoreKeeper.addNewPlayer(players.get(i).getId());
         }
+    }
 
     public BuildController getBuildController(){
         return buildController;

@@ -27,6 +27,7 @@ import tigerisland.piece.PieceBoard;
 import tigerisland.score.ScoreManager;
 import tigerisland.terrains.Rocky;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,7 +44,11 @@ public class BuildControllerTest {
 
     @BeforeClass
     public static void initializeGameManagerAndBuildController(){
-        gameManager = new GameManager();
+        ArrayList<Player> players = new ArrayList<Player>();
+        players.add(new Player());
+        players.add(new Player());
+
+        gameManager = new GameManager(players);
         buildController = gameManager.getBuildController();
     }
 

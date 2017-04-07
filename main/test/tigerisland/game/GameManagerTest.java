@@ -67,7 +67,6 @@ public class GameManagerTest {
         //test with other possible orientation
         //arrange
 
-        manager = new GameManager();
 
         tile.setOrientation((Orientation.getSouthEast()));
 
