@@ -7,7 +7,6 @@ import tigerisland.board.HexBoard;
 import tigerisland.board.Location;
 import tigerisland.build_moves.builds.BuildActionData;
 import tigerisland.build_moves.builds.BuildActionResult;
-import tigerisland.build_moves.builds.TigerBuild;
 import tigerisland.hex.Hex;
 import tigerisland.piece.*;
 import tigerisland.player.Player;
@@ -18,9 +17,9 @@ import tigerisland.settlement.SettlementBoard;
 import tigerisland.terrains.Rocky;
 import tigerisland.tile.Orientation;
 
-public class CucumberTigerBuild implements En {
+public class TigerBuildNextToSettlement implements En {
 
-    private TigerBuild tigerBuild;
+    private tigerisland.build_moves.builds.TigerBuild tigerBuild;
 
     private Board board;
     private PieceBoard pieceBoard;
@@ -34,7 +33,7 @@ public class CucumberTigerBuild implements En {
     private Location settlementLocation;
     private int previousScore;
 
-    public CucumberTigerBuild() {
+    public TigerBuildNextToSettlement() {
 
 
 
@@ -73,7 +72,7 @@ public class CucumberTigerBuild implements En {
         When("^Player builds tiger on that hex$", () -> {
             scoreManager = new ScoreManager();
             previousScore = scoreManager.getPlayerScore(player.getId());
-            tigerBuild = new TigerBuild(board, pieceBoard, settlementBoard, scoreManager);
+            tigerBuild = new tigerisland.build_moves.builds.TigerBuild(board, pieceBoard, settlementBoard, scoreManager);
             
 
             BuildActionData buildActionData = new BuildActionData.Builder()

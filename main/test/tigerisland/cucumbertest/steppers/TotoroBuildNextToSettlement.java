@@ -21,7 +21,7 @@ import tigerisland.settlement.SettlementBoard;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CucumberTotoroBuild {
+public class TotoroBuildNextToSettlement {
 
     private TotoroBuild totoroBuild;
 

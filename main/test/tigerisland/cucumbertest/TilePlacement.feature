@@ -8,8 +8,8 @@ Feature: Tile_Placement
 #    And all of the placed hexes have a level of (1 + the level of the hex below)
 #    And all of the placed hexes are on the same level
 #    And all villagers on any covered hexes are destroyed and removed from the game
-
-  #
+#
+#  #
 #Scenario
 #Fail to place tile due to overlap with tiles of different levels or game board (level 0)
 #Given

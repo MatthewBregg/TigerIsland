@@ -11,7 +11,7 @@ import tigerisland.terrains.Terrain;
 import tigerisland.terrains.Volcano;
 import tigerisland.tile.Tile;
 
-public class CucumberTileTerrainNonVolcano {
+public class TileTerrainNonVolcano {
     public Tile tile = null;
     @Given("^We can examine a tile$")
     public void weCanExamineATile() throws Throwable {

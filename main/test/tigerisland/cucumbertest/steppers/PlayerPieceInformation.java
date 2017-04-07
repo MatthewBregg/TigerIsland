@@ -1,13 +1,12 @@
 package tigerisland.cucumbertest.steppers;
 
-import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.junit.Assert;
 import tigerisland.player.Player;
 
-public class CucumberPlayerPieceInformation {
+public class PlayerPieceInformation {
 
     int piecesFound = 0;
     Player player = null;
