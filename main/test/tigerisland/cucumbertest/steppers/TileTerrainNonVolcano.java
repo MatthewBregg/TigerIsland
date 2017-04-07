@@ -17,7 +17,7 @@ public class TileTerrainNonVolcano {
     public void weCanExamineATile() throws Throwable {
        Terrain lTerrain = Rocky.getInstance();
        Terrain rTerrain = Jungle.getInstance();
-       tile = new Tile(0, new Hex(Volcano.getInstance()), new Hex(lTerrain), new Hex(rTerrain));
+       tile = new Tile(0, lTerrain, rTerrain);
     }
 
     @When("^We examine the left and right portions of said tile$")

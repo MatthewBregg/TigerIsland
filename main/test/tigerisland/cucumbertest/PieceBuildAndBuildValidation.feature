@@ -1,5 +1,5 @@
 
-Feature: Placing Totoro
+Feature: Placing Pieces
   As a game
   I want to allow players to place tigers and totoro
   So that they can score points. I want these Builds to be valid.
@@ -21,8 +21,21 @@ Feature: Placing Totoro
     And is attempting a build action
     When Player attempts to place totoro onto a hex with a volcano.
     Then Invalid build action
-#
-#
+
+  #Scenario: Placing a tiger on a volcano hex
+  #  Given Player has a  tiger
+  #  And is attempting a build action
+  #  And there is a tile of level three or more
+  #  When Player attempts to place tiger onto a hex with a volcano on said tile
+  #  Then Invalid build action
+
+
+  Scenario: Placing a villager on a volcano hex
+    Given Player has a  villager
+    And is attempting a build action
+    When Player attempts to place villager onto a hex with a volcano on said tile
+    Then Invalid build action
+
 #  Scenario:
 #  Placing a tiger on a occupied hex
 #    Given

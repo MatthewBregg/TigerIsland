@@ -287,7 +287,7 @@ public class BuildControllerTest {
         PlayerID pID = currentPlayer.getId();
 
         Location openHex = new Location(-1, 3, -2);
-        Hex hexToBuildOn = new Hex();
+        Hex hexToBuildOn = new Hex(0);
 
         hexBoard.put(openHex, hexToBuildOn);
 
@@ -372,9 +372,9 @@ public class BuildControllerTest {
         Piece villager = new Villager();
         Piece tiger = new Tiger();
 
-        Hex hexToPlaceTiger = new Hex();
-        Hex hexLevel3ToPlace = new Hex();
-        Hex hexLevel3ToPlace2 = new Hex();
+        Hex hexToPlaceTiger = new Hex(0);
+        Hex hexLevel3ToPlace = new Hex(1);
+        Hex hexLevel3ToPlace2 = new Hex(2);
         hexLevel3ToPlace.setLevel(3);
         hexLevel3ToPlace2.setLevel(3);
         hexToPlaceTiger.setLevel(3);
@@ -419,9 +419,9 @@ public class BuildControllerTest {
         Piece villager = new Villager();
         Piece tiger = new Tiger();
 
-        Hex hexToPlaceTiger = new Hex();
-        Hex hexLevel3ToPlace = new Hex();
-        Hex hexLevel3ToPlace2 = new Hex();
+        Hex hexToPlaceTiger = new Hex(0);
+        Hex hexLevel3ToPlace = new Hex(1);
+        Hex hexLevel3ToPlace2 = new Hex(2);
         hexLevel3ToPlace.setLevel(3);
         hexLevel3ToPlace2.setLevel(3);
         hexToPlaceTiger.setLevel(3);
@@ -469,7 +469,7 @@ public class BuildControllerTest {
 
         Location locationToAddTotoro = new Location(1, 0, -1);
         Location topRightStartingHex = new Location(0, 1, -1);
-        Hex hexToPlace = new Hex();
+        Hex hexToPlace = new Hex(0);
 
         Piece villager = new Villager();
         Piece totoro = new Totoro();
@@ -512,7 +512,7 @@ public class BuildControllerTest {
         Piece villager = new Villager();
         Piece totoro = new Totoro();
 
-        Hex hexToPlace = new Hex();
+        Hex hexToPlace = new Hex(0);
 
         hexBoard.put(l1, hexToPlace);
         hexBoard.put(l2, hexToPlace);
@@ -561,7 +561,7 @@ public class BuildControllerTest {
         Piece villager = new Villager();
         Piece totoro = new Totoro();
 
-        Hex hexToPlace = new Hex();
+        Hex hexToPlace = new Hex(0);
 
         hexBoard.put(l1, hexToPlace);
         hexBoard.put(l2, hexToPlace);

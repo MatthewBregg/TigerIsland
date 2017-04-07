@@ -31,7 +31,7 @@ public class ScoreVillagersOnHexTest {
 
         // Arrange
         int hexLevel = 3;
-        Hex hex = new Hex(); hex.setLevel(hexLevel);
+        Hex hex = new Hex(0); hex.setLevel(hexLevel);
         Player player = new Player();
         Location location = new Location(0, 0, 0);
 

@@ -8,6 +8,7 @@ import tigerisland.piece.Tiger;
 import tigerisland.piece.Totoro;
 import tigerisland.tile_placement.exceptions.NukeTigerRuleException;
 import tigerisland.tile_placement.exceptions.NukeTotoroRuleException;
+import tigerisland.tile_placement.exceptions.TilePlacementException;
 
 import java.util.Map;
 import java.util.Set;
@@ -43,13 +44,13 @@ public class NukeNonNukeablePieceRule implements NukePlacementRule {
     }
 
     @Override
-    public void applyRule(Map<Location, Hex> hexes) throws Exception {
+    public void applyRule(Map<Location, Hex> hexes) throws TilePlacementException {
 
         isThereATotoroAtLocations(hexes.keySet());
 
     }
 
-    private void isThereATotoroAtLocations(Set<Location> locations) throws Exception {
+    private void isThereATotoroAtLocations(Set<Location> locations) throws TilePlacementException {
         NukablePieceVistor pieceVisitor = new NukablePieceVistor();
         for (Location location : locations) {
 

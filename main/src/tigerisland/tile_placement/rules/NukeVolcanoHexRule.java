@@ -6,6 +6,7 @@ import tigerisland.hex.Hex;
 import tigerisland.terrains.Terrain;
 import tigerisland.terrains.Volcano;
 import tigerisland.tile_placement.exceptions.NukeVolcanoHexRuleException;
+import tigerisland.tile_placement.exceptions.TilePlacementException;
 
 import java.util.Map;
 import java.util.Set;
@@ -19,7 +20,7 @@ public class NukeVolcanoHexRule implements NukePlacementRule{
     }
 
     @Override
-    public void applyRule(Map<Location, Hex> hexes) throws Exception {
+    public void applyRule(Map<Location, Hex> hexes) throws TilePlacementException {
 
         if ( !isThereAVolcanoHexAtLocations(hexes.keySet()) ) {
             throw new NukeVolcanoHexRuleException();

@@ -23,7 +23,7 @@ public class HexTest {
 
     @Test
     public void makeDefaultTile(){
-        Hex defaultHex = new Hex();
+        Hex defaultHex = new Hex(0);
 
         Assert.assertTrue(defaultHex instanceof Hex);
     }

@@ -5,6 +5,7 @@ import tigerisland.board.Location;
 import tigerisland.hex.Hex;
 import tigerisland.tile.Tile;
 import tigerisland.tile.TileUnpacker;
+import tigerisland.tile_placement.exceptions.TilePlacementException;
 
 import java.util.Map;
 
@@ -20,7 +21,7 @@ public class FirstTilePlacer implements TilePlacement, TilePlacementChain {
     }
 
     @Override
-    public void placeTile(Tile tile, Location referenceLocation) throws Exception {
+    public void placeTile(Tile tile, Location referenceLocation) throws TilePlacementException {
 
         if (isBoardEmpty() && isLocationZero(referenceLocation)) {
             Map<Location, Hex> hexes = TileUnpacker.getTileHexes(tile, referenceLocation);
@@ -44,7 +45,7 @@ public class FirstTilePlacer implements TilePlacement, TilePlacementChain {
     }
 
     @Override
-    public void nextTilePlacement(Tile tile, Location location) throws Exception {
+    public void nextTilePlacement(Tile tile, Location location) throws TilePlacementException {
         nextTilePlacement.placeTile(tile, location);
     }
 

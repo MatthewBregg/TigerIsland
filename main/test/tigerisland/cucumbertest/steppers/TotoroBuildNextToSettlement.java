@@ -55,7 +55,7 @@ public class TotoroBuildNextToSettlement {
 
         for(Location location : piecesLocation) {
 
-            board.placeHex(location, new Hex());
+            board.placeHex(location, new Hex(0));
             pieceBoard.addPiece(new Villager(), location, player.getId());
         }
     }
@@ -72,7 +72,7 @@ public class TotoroBuildNextToSettlement {
 
     @And("^There is a non-volcano hex adjacent to the settlement$")
     public void boardHasANonVolcanoHexAdjacentToSettlement() {
-        buildHex = new Hex();
+        buildHex = new Hex(0);
         List<Location> surroundingLocations = new Location(0, 0, 0).getSurroundingLocations();
         buildTotoroLocation = getAdjacentLocationNotAlreadyUsedOnBoard(surroundingLocations.get(0));
         board.placeHex(buildTotoroLocation, buildHex);

@@ -63,11 +63,8 @@ public class NukeTilePlacerTest {
     public void test_ShouldPlace3HexesOnBoardWithLevel2() throws Throwable {
 
         // Arrange
-        Hex hexA = new Hex();
-        Hex hexB = new Hex();
-        Hex hexC = new Hex();
         int tileId = 1;
-        Tile tile = new Tile(tileId, hexA, hexB, hexC);
+        Tile tile = new Tile(tileId);
         Location location = new Location(0, 0, 0);
 
         firstTilePlacer.placeTile(tile, location);

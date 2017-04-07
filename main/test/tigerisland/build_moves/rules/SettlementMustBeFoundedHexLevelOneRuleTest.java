@@ -39,7 +39,7 @@ public class SettlementMustBeFoundedHexLevelOneRuleTest {
                 .withHexLocation(hexLocation)
                 .build();
 
-        Hex hex = new Hex();
+        Hex hex = new Hex(0);
         hex.setLevel(2);
         board.placeHex(hexLocation, hex);
 
@@ -64,7 +64,7 @@ public class SettlementMustBeFoundedHexLevelOneRuleTest {
                 .withHexLocation(hexLocation)
                 .build();
 
-        Hex hex = new Hex();
+        Hex hex = new Hex(0);
         hex.setLevel(1);
         board.placeHex(hexLocation, hex);
 

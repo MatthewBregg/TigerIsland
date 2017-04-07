@@ -13,7 +13,7 @@ public class TileFactory {
         for (Terrain i : terrainTypes) {
             for (Terrain j : terrainTypes) {
                 if (id == desiredTileType) {
-                    return (new Tile(newTileID, new Hex(i), new Hex(j)));
+                    return (new Tile(newTileID, i, j));
                 }
                 ++id;
             }

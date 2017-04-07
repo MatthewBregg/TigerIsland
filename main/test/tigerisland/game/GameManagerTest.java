@@ -6,6 +6,7 @@ import org.junit.Test;
 import tigerisland.board.Location;
 import tigerisland.hex.Hex;
 import tigerisland.player.Player;
+import tigerisland.terrains.Grassland;
 import tigerisland.terrains.Jungle;
 import tigerisland.terrains.Lake;
 import tigerisland.terrains.Rocky;
@@ -121,7 +122,7 @@ public class GameManagerTest {
         toPlace.setOrientation(Orientation.getEast());
 
         //placing on starting tile yields level 2
-        manager.placeTile(toPlace,location);
+        Assert.assertTrue(manager.placeTile(toPlace,location));
 
         Location settleLocation = new Location(0,-1,1);
 
@@ -182,8 +183,7 @@ public class GameManagerTest {
 
         //I used 12-15 to have a high tile id so as not to have possibility of duplication with the starting tile ids
         for (int i = 12; i<15; ++i){
-            Hex hex = new Hex(Lake.getInstance());
-            tiles.add(new Tile(i,hex,hex));
+            tiles.add(new Tile(i,Lake.getInstance(), Lake.getInstance()));
         }
 
 
@@ -229,8 +229,7 @@ public class GameManagerTest {
 
         //I used 12-15 to have a high tile id so as not to have possibility of duplication with the starting tile ids
         for (int i = 12; i < 15; ++i) {
-            Hex hex = new Hex(Lake.getInstance());
-            tiles.add(new Tile(i, hex, hex));
+            tiles.add(new Tile(i, Lake.getInstance(), Lake.getInstance()));
         }
         Tile toPlace = new Tile();
         //tiles @ level 3
@@ -261,8 +260,7 @@ public class GameManagerTest {
 
         //I used 12-15 to have a high tile id so as not to have possibility of duplication with the starting tile ids
         for (int i = 12; i < 15; ++i) {
-            Hex hex = new Hex(Lake.getInstance());
-            tiles.add(new Tile(i, hex, hex));
+            tiles.add(new Tile(i,Lake.getInstance(),Lake.getInstance()));
         }
         Tile toPlace = new Tile();
         //tiles only @ level 2

@@ -44,7 +44,7 @@ public class TotoroBuildTest {
         PlayerID playeId = new PlayerID();
         int totoroCount = 0;
         Player player = new Player(0, totoroCount, 0,  playeId);
-        Hex hex = new Hex();
+        Hex hex = new Hex(0);
         Location hexLocation = new Location(0, 0, 0);
         BuildActionData buildActionData = new BuildActionData.Builder()
                                         .withPlayer(player)
@@ -65,7 +65,7 @@ public class TotoroBuildTest {
         // Arrange
         final String errorMessage = "Hex is NOT empty";
         Player player = new Player();
-        Hex hex = new Hex();
+        Hex hex = new Hex(0);
         Location hexLocation = new Location(0, 0, 0);
         BuildActionData buildActionData = new BuildActionData.Builder()
                                         .withPlayer(player)
@@ -111,7 +111,7 @@ public class TotoroBuildTest {
         // Arrange
         final String errorMessage = "Totoro build hex must be adjacent to a settlment of size >=5";
         Player player = new Player();
-        Hex hex = new Hex();
+        Hex hex = new Hex(0);
         Location hexLocation = new Location(0, 0, 0);
         BuildActionData buildActionData = new BuildActionData.Builder()
                                         .withPlayer(player)
@@ -133,7 +133,7 @@ public class TotoroBuildTest {
         // Arrange
         final String errorMessage = "Totoro build hex must be adjacent to a settlement that doesn't contain a totoro";
         Player player = new Player();
-        Hex hex = new Hex();
+        Hex hex = new Hex(0);
         Location hexLocation = new Location(0, 0, 0);
         BuildActionData buildActionData = new BuildActionData.Builder()
                                         .withPlayer(player)
@@ -163,7 +163,7 @@ public class TotoroBuildTest {
 
         // Arrange
         Player player = new Player();
-        Hex hex = new Hex();
+        Hex hex = new Hex(0);
         Location hexLocation = new Location(0, 0, 0);
         BuildActionData buildActionData = new BuildActionData.Builder()
                                         .withPlayer(player)
@@ -194,7 +194,7 @@ public class TotoroBuildTest {
         // Arrange
         Player player = new Player();
         int totoroCount = player.getTotoroCount();
-        Hex hex = new Hex();
+        Hex hex = new Hex(0);
         Location hexLocation = new Location(0, 0, 0);
         BuildActionData buildActionData = new BuildActionData.Builder()
                                         .withPlayer(player)
@@ -220,7 +220,7 @@ public class TotoroBuildTest {
     public void test_ShouldScoreTotoroOnWhenWhenAllRulesApplied() {
         // Arrange
         Player player = new Player();
-        Hex hex = new Hex();
+        Hex hex = new Hex(0);
         Location hexLocation = new Location(0, 0, 0);
         BuildActionData buildActionData = new BuildActionData.Builder()
                                         .withPlayer(player)

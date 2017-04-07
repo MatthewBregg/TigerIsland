@@ -43,7 +43,7 @@ public class NukeHexesOfDifferentTilesRuleTest {
        Hex hexB = new Hex(tileId, settlementId, Rocky.getInstance(), hexLevel);
        Hex hexC = new Hex(tileId, settlementId, Grassland.getInstance(), hexLevel);
 
-       Tile tile  = new Tile(tileId, hexA, hexB, hexC);
+       Tile tile  = new Tile(tileId, hexLevel, Rocky.getInstance(), Grassland.getInstance());
        Location location = new Location(0, 0, 0);
 
        hexes = TileUnpacker.getTileHexes(tile, location);
@@ -63,14 +63,14 @@ public class NukeHexesOfDifferentTilesRuleTest {
        int tileId = 1;
        int tileId2 = 2;
 
-       int settlementId = -1;
+       //int settlementId = -1;
        int hexLevel = 1;
 
-       Hex hexA = new Hex(tileId, settlementId, Volcano.getInstance(), hexLevel);
-       Hex hexB = new Hex(tileId, settlementId, Rocky.getInstance(), hexLevel);
-       Hex hexC = new Hex(tileId2, settlementId, Grassland.getInstance(), hexLevel);
+      // Hex hexA = new Hex(tileId, settlementId, Volcano.getInstance(), hexLevel);
+       //Hex hexB = new Hex(tileId, settlementId, Rocky.getInstance(), hexLevel);
+      // Hex hexC = new Hex(tileId2, settlementId, Grassland.getInstance(), hexLevel);
 
-       Tile tile  = new Tile(tileId, hexA, hexB, hexC);
+       Tile tile  = null; //new Tile(tileId, hexA, hexB, hexC);
        Location location = new Location(0, 0, 0);
 
        hexes = TileUnpacker.getTileHexes(tile, location);
@@ -98,14 +98,14 @@ public class NukeHexesOfDifferentTilesRuleTest {
        int tileId2 = 2;
        int tileId3 = 3;
 
-       int settlementId = -1;
+      // int settlementId = -1;
        int hexLevel = 1;
 
-       Hex hexA = new Hex(tileId, settlementId, Volcano.getInstance(), hexLevel);
-       Hex hexB = new Hex(tileId2, settlementId, Rocky.getInstance(), hexLevel);
-       Hex hexC = new Hex(tileId3, settlementId, Grassland.getInstance(), hexLevel);
+      // Hex hexA = new Hex(tileId, settlementId, Volcano.getInstance(), hexLevel);
+      // Hex hexB = new Hex(tileId2, settlementId, Rocky.getInstance(), hexLevel);
+      // Hex hexC = new Hex(tileId3, settlementId, Grassland.getInstance(), hexLevel);
 
-       Tile tile  = new Tile(tileId, hexA, hexB, hexC);
+       Tile tile  = null; //new Tile(tileId, hexA, hexB, hexC);
        Location location = new Location(0, 0, 0);
 
        hexes = TileUnpacker.getTileHexes(tile, location);

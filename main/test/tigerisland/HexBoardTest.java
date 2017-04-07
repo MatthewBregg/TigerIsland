@@ -30,7 +30,7 @@ public class HexBoardTest {
 
         // Arrange
         Location location = new Location(0, 0, 0);
-        Hex hex = new Hex();
+        Hex hex = new Hex(0);
 
         // Act
         hexBoard.placeHex(location, hex);
@@ -58,7 +58,7 @@ public class HexBoardTest {
 
         Location unPlacedLocation = new Location(1, -1, 0);
 
-        Hex hex = new Hex();
+        Hex hex = new Hex(0);
 
         // Act
         hexBoard.placeHex(location, hex);
@@ -75,8 +75,8 @@ public class HexBoardTest {
         Location location = new Location(0,1,-1);
         Location location1 = new Location(0, 2, -2);
 
-        Hex hex = new Hex();
-        Hex hex1 = new Hex();
+        Hex hex = new Hex(0);
+        Hex hex1 = new Hex(0);
 
         //Act
         hexBoard.placeHex(location, hex);
@@ -99,7 +99,7 @@ public class HexBoardTest {
         }
 
         for (Location location : locationList) {
-            Hex newHex = new Hex();
+            Hex newHex = new Hex(0);
             hexBoard.placeHex(location, newHex);
             hexList.add(newHex);
         }

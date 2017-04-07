@@ -61,7 +61,7 @@ public class BuildLocationMustBeOnBoardRuleTest {
                 .withHexLocation(hexLocation)
                 .build();
 
-        Hex hex = new Hex();
+        Hex hex = new Hex(0);
         board.placeHex(hexLocation, hex);
 
         // Act

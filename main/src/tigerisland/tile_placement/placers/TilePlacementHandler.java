@@ -2,6 +2,7 @@ package tigerisland.tile_placement.placers;
 
 import tigerisland.board.Location;
 import tigerisland.tile.Tile;
+import tigerisland.tile_placement.exceptions.TilePlacementException;
 
 public class TilePlacementHandler implements TilePlacement {
 
@@ -15,7 +16,7 @@ public class TilePlacementHandler implements TilePlacement {
     public void placeTile(Tile tile, Location location) {
         try {
             tilePlacement.placeTile(tile, location);
-        } catch (Throwable throwable) {
+        } catch (TilePlacementException throwable) {
             throwable.printStackTrace();
         }
     }

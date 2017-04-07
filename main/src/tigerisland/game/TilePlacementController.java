@@ -5,6 +5,7 @@ import tigerisland.board.Location;
 import tigerisland.piece.PieceBoard;
 import tigerisland.settlement.SettlementBoard;
 import tigerisland.tile.Tile;
+import tigerisland.tile_placement.exceptions.TilePlacementException;
 import tigerisland.tile_placement.placers.*;
 import tigerisland.tile_placement.rules.*;
 
@@ -50,15 +51,13 @@ public class TilePlacementController {
         boolean validPlacement = true;
         try {
             tilePlacerChain.placeTile(tile, boardLocation);
-        } catch (Exception e) {
+        } catch (TilePlacementException e) {
             System.out.println("Error placing tile");
 //            e.printStackTrace();
             validPlacement = false;
             //TODO Come back and decide what to do with stackTrace
         }
         // TODO validate tile placement-- DId this with the finally JOsh B- should be enough to be valid
-        finally {
-            return validPlacement;
-        }
+        return validPlacement;
     }
 }

@@ -54,7 +54,7 @@ public class BoardAndTileSomeDupe {
 
     private Tile createValidTile() {
         ++tileID;
-        return new Tile(tileID, new Hex(tileID, Volcano.getInstance()), new Hex(tileID,Grassland.getInstance()), new Hex(tileID,Rocky.getInstance()) );
+        return new Tile(tileID, Grassland.getInstance(),Rocky.getInstance() );
     }
     private void createTilePlacer() {
         AdjacentToBoardTilePlacer adjPlacer = new AdjacentToBoardTilePlacer(board);

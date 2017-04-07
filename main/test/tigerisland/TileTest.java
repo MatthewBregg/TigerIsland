@@ -20,10 +20,8 @@ public class TileTest {
     @BeforeClass
     public static void makeCustomTile(){
         int id = 2;
-        Hex leftHex = new Hex();
-        Hex rightHex = new Hex();
 
-        customTile = new Tile(id, leftHex, rightHex);
+        customTile = new Tile(id,Rocky.getInstance(), Rocky.getInstance() );
     }
 
     @Test
@@ -79,9 +77,9 @@ public class TileTest {
 
     @Test
     public void equalTilesTest(){
-        Tile tile1 = new Tile(0, new Hex(), new Hex());
-        Tile tile2 = new Tile(0, new Hex(), new Hex());
-        Tile tile3 = new Tile(1, new Hex(), new Hex());
+        Tile tile1 = new Tile(0);
+        Tile tile2 = new Tile(1);
+        Tile tile3 = new Tile(2);
 
         assertTrue(tile1.equals(tile2));
         assertTrue(tile1.equals(tile3));

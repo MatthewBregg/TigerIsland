@@ -1,4 +1,4 @@
 package tigerisland.tile_placement.exceptions;
 
-public class InvalidTilePlacementException extends Exception {
+public class InvalidTilePlacementException extends TilePlacementException {
 }

@@ -43,7 +43,7 @@ public class FoundNewSettlementBuildTest {
         // Arrange
         final String errorMessage = "Hex does not exist on board.";
         Player player = new Player();
-        Hex hex = new Hex();
+        Hex hex = new Hex(0);
         Location hexLocation = new Location(0, 0, 0);
         BuildActionData buildActionData = new BuildActionData.Builder()
                                         .withPlayer(player)

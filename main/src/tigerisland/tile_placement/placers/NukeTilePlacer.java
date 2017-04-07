@@ -5,6 +5,7 @@ import tigerisland.board.Location;
 import tigerisland.hex.Hex;
 import tigerisland.tile.Tile;
 import tigerisland.tile.TileUnpacker;
+import tigerisland.tile_placement.exceptions.TilePlacementException;
 import tigerisland.tile_placement.rules.NukePlacementRule;
 
 import java.util.ArrayList;
@@ -27,7 +28,7 @@ public class NukeTilePlacer  implements  TilePlacement, TilePlacementChain{
     }
     
     @Override
-    public void placeTile(Tile tile, Location location) throws Exception {
+    public void placeTile(Tile tile, Location location) throws TilePlacementException {
 
         Map<Location, Hex> hexes = TileUnpacker.getTileHexes(tile, location);
 
@@ -42,7 +43,7 @@ public class NukeTilePlacer  implements  TilePlacement, TilePlacementChain{
         }
     }
 
-    private void applyNukeRules(Map<Location, Hex> hexes) throws Exception {
+    private void applyNukeRules(Map<Location, Hex> hexes) throws TilePlacementException {
         for(NukePlacementRule rule : nukeTilePlacementRules) {
                 rule.applyRule(hexes);
         }
@@ -75,7 +76,7 @@ public class NukeTilePlacer  implements  TilePlacement, TilePlacementChain{
     }
 
     @Override
-    public void nextTilePlacement(Tile tile, Location location) throws Exception {
+    public void nextTilePlacement(Tile tile, Location location) throws TilePlacementException {
         this.nextTilePlacement.placeTile(tile, location);
     }
 }

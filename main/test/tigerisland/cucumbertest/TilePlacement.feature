@@ -21,3 +21,9 @@ Feature: Tile_Placement
 #    And the position does not have any edges touching existing tiles
 #    Then Invalid placement, tile is not placed.
 
+
+  Scenario: A tile cannot be placed directly on top of another tile
+    Given The board is not empty, and there is one tile placed somewhere
+    When A player attempts to place a tile on top of said tile
+    Then Failure occurs
+

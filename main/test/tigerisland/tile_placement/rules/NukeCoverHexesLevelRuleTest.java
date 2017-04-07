@@ -7,6 +7,8 @@ import tigerisland.board.Board;
 import tigerisland.board.HexBoard;
 import tigerisland.board.Location;
 import tigerisland.hex.Hex;
+import tigerisland.terrains.Lake;
+import tigerisland.terrains.Rocky;
 import tigerisland.tile.Tile;
 import tigerisland.tile.TileUnpacker;
 import tigerisland.tile_placement.exceptions.NukeCoverHexesLevelRuleException;
@@ -32,11 +34,7 @@ public class NukeCoverHexesLevelRuleTest {
     public void test_ShouldThrowExceptionWhenABoardHexHasDifferentLevel() throws Throwable {
 
        // Arrange
-       Hex hexA = new Hex(); hexA.setLevel(2);
-       Hex hexB = new Hex();
-       Hex hexC = new Hex();
-
-       Tile tile  = new Tile(1, hexA, hexB, hexC);
+       Tile tile  = new Tile(0, 1, Rocky.getInstance(), Lake.getInstance());
        Location location = new Location(0, 0, 0);
 
        hexes = TileUnpacker.getTileHexes(tile, location);
@@ -53,11 +51,8 @@ public class NukeCoverHexesLevelRuleTest {
     public void test_ShouldNotThrowExceptionWhenBoardHexesHaveTheSameLevel() {
 
        // Arrange
-       Hex hexA = new Hex();
-       Hex hexB = new Hex();
-       Hex hexC = new Hex();
 
-       Tile tile  = new Tile(1, hexA, hexB, hexC);
+       Tile tile  = new Tile(0);
        Location location = new Location(0, 0, 0);
 
        hexes = TileUnpacker.getTileHexes(tile, location);

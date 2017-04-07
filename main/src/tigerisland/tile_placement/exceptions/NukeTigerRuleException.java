@@ -1,4 +1,4 @@
 package tigerisland.tile_placement.exceptions;
 
-public class NukeTigerRuleException extends Exception {
+public class NukeTigerRuleException extends TilePlacementException {
 }

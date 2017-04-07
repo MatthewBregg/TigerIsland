@@ -1,6 +1,9 @@
 package tigerisland.tile;
 
 import tigerisland.hex.Hex;
+import tigerisland.terrains.Grassland;
+import tigerisland.terrains.Jungle;
+import tigerisland.terrains.Terrain;
 import tigerisland.terrains.Volcano;
 
 /**
@@ -36,24 +39,24 @@ public class Tile {
     private Hex rightHex;
 
    public Tile(){
-       this(5, new Hex(), new Hex());
+       this((int)Math.random());
    }
 
-   public Tile(int id, Hex leftHex, Hex rightHex){
-       this(id, new Hex(Volcano.getInstance()), leftHex, rightHex);
+   public Tile(int id,Terrain left, Terrain right){
+       this(id,1,left,right);
    }
 
-   public Tile(int id, Hex referenceHex, Hex leftHex, Hex rightHex){
-       this.id = id;
-       this.orientation = new Orientation(0);
-       this.referenceHex = referenceHex;
-       this.leftHex = leftHex;
-       this.rightHex = rightHex;
-   }
+    public Tile(int id, int level, Terrain left, Terrain right){
+        this.id = id;
+        this.orientation = Orientation.getEast();
+        this.leftHex = new Hex(id,level,left);
+        this.rightHex = new Hex(id,level,right);
+        this.referenceHex = new Hex(id,level,Volcano.getInstance());
+    }
+
 
    public Tile(int id){
-       this.id = id;
-       this.orientation = new Orientation(0);
+       this(id,Grassland.getInstance(), Jungle.getInstance());
    }
 
    public void rotate(){

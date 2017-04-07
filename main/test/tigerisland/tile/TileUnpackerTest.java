@@ -26,8 +26,7 @@ public class TileUnpackerTest {
     }
 
     private Tile createTile(Orientation orientation) {
-        Hex hex = new Hex();
-        Tile tile = new Tile(0, hex, hex, hex);
+        Tile tile = new Tile(0);
         tile.setOrientation(orientation);
         return tile;
     }

@@ -5,6 +5,7 @@ import tigerisland.hex.Hex;
 import tigerisland.settlement.Settlement;
 import tigerisland.settlement.SettlementBoard;
 import tigerisland.tile_placement.exceptions.NukeSettlementEradicationException;
+import tigerisland.tile_placement.exceptions.TilePlacementException;
 
 import java.util.Map;
 import java.util.Set;
@@ -20,7 +21,7 @@ public class NukeSettlementEradicationRule implements NukePlacementRule {
 
 
     @Override
-    public void applyRule(Map<Location, Hex> hexes) throws Exception {
+    public void applyRule(Map<Location, Hex> hexes) throws TilePlacementException {
         if (checkSettlementEradication(hexes.keySet())) {
             throw new NukeSettlementEradicationException();
         }

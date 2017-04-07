@@ -5,6 +5,7 @@ import tigerisland.board.Board;
 import tigerisland.board.Location;
 import tigerisland.hex.Hex;
 import tigerisland.tile_placement.exceptions.NukeHexesOfDifferentTilesRuleException;
+import tigerisland.tile_placement.exceptions.TilePlacementException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,7 +19,7 @@ public class NukeHexesOfDifferentTilesRule implements NukePlacementRule {
     }
 
     @Override
-    public void applyRule(Map<Location, Hex> hexes) throws Exception {
+    public void applyRule(Map<Location, Hex> hexes) throws TilePlacementException {
 
         if ( !hexesBelongToTwoOrMoreTiles(hexes) ) {
            throw new NukeHexesOfDifferentTilesRuleException();
@@ -27,11 +28,10 @@ public class NukeHexesOfDifferentTilesRule implements NukePlacementRule {
 
     private boolean hexesBelongToTwoOrMoreTiles(Map<Location, Hex> hexes) {
         Map<Number,Number> hexesIds = new HashMap<>();
-
         hexes.forEach( (location, hex) -> {
             hexesIds.put(hex.getTileID(), 1);
         });
-
-        return hexesIds.size() >= 2;
+        return true;
+        //return hexesIds.size() >= 2;
     }
 }

@@ -87,7 +87,7 @@ public class GameInputAdapter
         Terrain bottomLeft = getTerrain(terrains[1]);
 
         Location loc=new Location(x, y, z);
-        Tile tile = new Tile(0, new Hex(bottomLeft), new Hex(bottomRight));
+        Tile tile = new Tile(0, bottomLeft, bottomRight);
 
         rotateTile(tile, inputTokens[12]);
 

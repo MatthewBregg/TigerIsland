@@ -1,5 +1,5 @@
 package tigerisland.tile_placement.exceptions;
 
-public class NukeVolcanoOnVolcanoRuleException extends Exception {
+public class NukeVolcanoOnVolcanoRuleException extends TilePlacementException {
 
 }

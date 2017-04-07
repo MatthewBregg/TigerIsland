@@ -64,7 +64,7 @@ public class TigerBuildTest {
         PlayerID playeId = new PlayerID();
         int tigerCount = 0;
         Player player = new Player(0, 0, tigerCount,  playeId);
-        Hex hex = new Hex();
+        Hex hex = new Hex(0);
         Location hexLocation = new Location(0, 0, 0);
         BuildActionData buildActionData = new BuildActionData.Builder()
                                         .withPlayer(player)
@@ -85,7 +85,7 @@ public class TigerBuildTest {
         // Arrange
         final String errorMessage = "Hex is NOT empty";
         Player player = new Player();
-        Hex hex = new Hex();
+        Hex hex = new Hex(0);
         Location hexLocation = new Location(0, 0, 0);
         BuildActionData buildActionData = new BuildActionData.Builder()
                                         .withPlayer(player)
@@ -131,7 +131,7 @@ public class TigerBuildTest {
         // Arrange
         final String errorMessage = "The tiger build hex must be level 3 or greater";
         Player player = new Player();
-        Hex hex = new Hex(); hex.setLevel(1);
+        Hex hex = new Hex(0); hex.setLevel(1);
         Location hexLocation = new Location(0, 0, 0);
         BuildActionData buildActionData = new BuildActionData.Builder()
                                         .withPlayer(player)
@@ -153,7 +153,7 @@ public class TigerBuildTest {
         // Arrange
         final String errorMessage = "Tiger build hex must be adjacent to a settlement that doesn't contain a tiger";
         Player player = new Player();
-        Hex hex = new Hex(); hex.setLevel(4);
+        Hex hex = new Hex(0); hex.setLevel(4);
         Location hexLocation = new Location(0, 0, 0);
         BuildActionData buildActionData = new BuildActionData.Builder()
                                         .withPlayer(player)
@@ -183,7 +183,7 @@ public class TigerBuildTest {
 
         // Arrange
         Player player = new Player();
-        Hex hex = new Hex(); hex.setLevel(4);
+        Hex hex = new Hex(0); hex.setLevel(4);
         Location hexLocation = new Location(0, 0, 0);
         BuildActionData buildActionData = new BuildActionData.Builder()
                                         .withPlayer(player)
@@ -214,7 +214,7 @@ public class TigerBuildTest {
         // Arrange
         Player player = new Player();
         int tigerAmount = player.getTigerCount();
-        Hex hex = new Hex(); hex.setLevel(4);
+        Hex hex = new Hex(0); hex.setLevel(4);
         Location hexLocation = new Location(0, 0, 0);
         BuildActionData buildActionData = new BuildActionData.Builder()
                                         .withPlayer(player)
@@ -240,7 +240,7 @@ public class TigerBuildTest {
     public void test_ShouldScoreTigerOnWhenWhenAllRulesApplied() {
         // Arrange
         Player player = new Player();
-        Hex hex = new Hex(); hex.setLevel(3);
+        Hex hex = new Hex(0); hex.setLevel(3);
         Location hexLocation = new Location(0, 0, 0);
         BuildActionData buildActionData = new BuildActionData.Builder()
                                         .withPlayer(player)
