@@ -23,14 +23,10 @@ Feature: Placing Totoro
     Then Invalid build action
 #
 #
-#  Scenario:
-#  Placing a tiger on a occupied hex
-#    Given
-#    Player has a villager or totoro and is attempting a build action
-#    When
-#    Player attempts to place said villager or totoro on a hex that  is already occupied by a totoro or tiger  or villager
-#    Then
-#    Invalid build action
+  Scenario:Placing a totoro on a occupied hex
+    Given Player has a  totoro
+    When Player attempts to place totoro on a hex that is already occupied by a totoro or tiger  or villager
+    Then Invalid build action
 
 
 #  Scenario

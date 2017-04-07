@@ -5,10 +5,11 @@ import org.junit.Assert;
 import tigerisland.board.Location;
 import tigerisland.game.GameManager;
 import tigerisland.player.Player;
+import tigerisland.tile.Orientation;
 
 import java.util.ArrayList;
 
-public class TotoroBuildOnVolcanoInvalid implements En {
+public class TotoroInvalidBuilds implements En {
 
 
     private ArrayList<Player> players = new ArrayList<>();
@@ -25,8 +26,15 @@ public class TotoroBuildOnVolcanoInvalid implements En {
 
     }
 
+//
+//    Scenario:Placing a totoro on a occupied hex
+//    Given A player has at least one totoro
+//    When Player attempts to place totoro on a hex that is already occupied by a totoro or tiger  or villager
+//    Then Invalid build action
 
-    public TotoroBuildOnVolcanoInvalid() {
+
+
+    public TotoroInvalidBuilds() {
         Given("^Player has a  totoro$", () -> {
             initializePlayers();
             Assert.assertTrue(players.get(0).getTotoroCount()>0);
@@ -39,6 +47,10 @@ public class TotoroBuildOnVolcanoInvalid implements En {
         });
         Then("^Invalid build action$", () -> {
             //TODO is there a need to assert anything here if done in when?
+        });
+        When("^Player attempts to place totoro on a hex that is already occupied by a totoro or tiger  or villager$", () -> {
+            Assert.assertTrue(manager.foundSettlement(build.getAdjacent(Orientation.getNorthEast()), players.get(0)));
+            Assert.assertFalse(manager.buildTotoro(build.getAdjacent(Orientation.getNorthEast()), players.get(0)));
         });
     }
 }
