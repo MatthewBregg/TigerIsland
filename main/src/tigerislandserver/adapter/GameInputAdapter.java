@@ -26,6 +26,7 @@ public class GameInputAdapter
                 if(!placeTile(game, tournamentPlayer, inputTokens))
                 {
                     game.invalidTilePlacement(tournamentPlayer);
+                    OutputAdapter.sendIllegalTilePlacementMessage(game.getPlayersInGame(), tournamentPlayer, inputTokens);
                     return;
                 }
 
@@ -52,7 +53,7 @@ public class GameInputAdapter
             }
             else
             {
-                //TODO Log Invalid Message Provided
+                OutputAdapter.sendTimeoutMessage(game.getPlayersInGame(), tournamentPlayer, inputTokens);
                 game.timeout(tournamentPlayer);
                 return;
             }
@@ -125,6 +126,10 @@ public class GameInputAdapter
         {
             OutputAdapter.sendFoundedSettlementMessage(game.getPlayersInGame(), tournamentPlayer, inputTokens);
         }
+        else
+        {
+            OutputAdapter.sendIllegalBuildMessage(game.getPlayersInGame(), tournamentPlayer, inputTokens);
+        }
     }
 
     private static boolean isExpandSettlementCommand(String[] inputTokens)
@@ -154,7 +159,14 @@ public class GameInputAdapter
 
         GameManager gm = game.getGameManager();
         Player p = gm.getPlayer(tournamentPlayer.getID());
-        gm.expandSettlement(loc, t, p);
+        if(gm.expandSettlement(loc, t, p))
+        {
+            OutputAdapter.sendExpandedSettlementMessage(game.getPlayersInGame(), tournamentPlayer, inputTokens);
+        }
+        else
+        {
+            OutputAdapter.sendIllegalBuildMessage(game.getPlayersInGame(), tournamentPlayer, inputTokens);
+        }
     }
 
     private static boolean isBuildTotoroCommand(String[] inputTokens)
@@ -183,7 +195,14 @@ public class GameInputAdapter
 
         GameManager gm = game.getGameManager();
         Player p = gm.getPlayer(tournamentPlayer.getID());
-        gm.buildTotoro(loc, p);
+        if(gm.buildTotoro(loc, p))
+        {
+            OutputAdapter.sendBuiltTotoroMessage(game.getPlayersInGame(), tournamentPlayer, inputTokens);
+        }
+        else
+        {
+            OutputAdapter.sendIllegalBuildMessage(game.getPlayersInGame(), tournamentPlayer, inputTokens);
+        }
     }
 
     private static boolean isBuildTigerCommand(String[] inputTokens)
@@ -212,7 +231,14 @@ public class GameInputAdapter
 
         GameManager gm = game.getGameManager();
         Player p = gm.getPlayer(tournamentPlayer.getID());
-        gm.buildTiger(loc, p);
+        if(gm.buildTiger(loc, p))
+        {
+            OutputAdapter.sendBuiltTigerMessage(game.getPlayersInGame(), tournamentPlayer, inputTokens);
+        }
+        else
+        {
+            OutputAdapter.sendIllegalBuildMessage(game.getPlayersInGame(), tournamentPlayer, inputTokens);
+        }
     }
 
     private static boolean isUnableToBuild(String[] inputTokens)
@@ -225,6 +251,7 @@ public class GameInputAdapter
     private static void failToBuild(GameThread game, TournamentPlayer tournamentPlayer, String[] inputTokens)
     {
         game.unableToBuild(tournamentPlayer);
+        OutputAdapter.sendUnableToBuildMessage(game.getPlayersInGame(), tournamentPlayer, inputTokens);
     }
 
     private static void rotateTile(Tile tile, String orientation)

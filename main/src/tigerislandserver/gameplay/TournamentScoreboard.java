@@ -28,6 +28,8 @@ public class TournamentScoreboard {
     // ** NOTE for all the data needed for this part, phil suggested maybe pull from database
     // if pulling from the database becomes too cumbersome we may just want to write to a file
 
+    // all methods taht modify somethign need to be sycnhronized
+    // lock on what you are changing
 
     // may need this to figure out the final score of a game
     // but the game thread will end sooooo?

@@ -2,6 +2,8 @@ package tigerislandserver.adapter;
 
 //TODO THIS CLASS WILL BE DELETED
 
+import tigerislandserver.server.TournamentPlayer;
+
 public abstract class InputAdapter extends Thread
 {
     private final String input;
@@ -26,5 +28,9 @@ public abstract class InputAdapter extends Thread
     protected static boolean isValidNumber(String inputToken)
     {
         return inputToken.matches("^(\\+|-)?\\d+$");
+    }
+
+    public static void authenticate(TournamentPlayer tournamentPlayer, String s)
+    {
     }
 }

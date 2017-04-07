@@ -85,27 +85,27 @@ public class BuildController {
         tigerScorer = new ScoreTigerOnHex(scoreMgr);
     }
 
-    public boolean foundSettlement(BuildActionData buildActionData){
+    public BuildActionResult foundSettlement(BuildActionData buildActionData){
         BuildActionResult result = foundSettlementAction.build(buildActionData);
-        return result.successful;
+        return result;
         //TODO change to FoundNewSettlement Build
     }
 
-    public boolean expandSettlement(BuildActionData buildActionData){
+    public BuildActionResult expandSettlement(BuildActionData buildActionData){
 
         BuildActionResult result = expandSettlementBuild.build(buildActionData);
         //TODO check scoring for expansion vs founding
-        return result.successful;
+        return result;
     }
 
-    public boolean buildTiger(BuildActionData buildActionData){
+    public BuildActionResult buildTiger(BuildActionData buildActionData){
         BuildActionResult result = tigerAction.build(buildActionData);
-        return result.successful;
+        return result;
     }
 
-    public boolean buildTotoro(BuildActionData buildActionData){
+    public BuildActionResult buildTotoro(BuildActionData buildActionData){
         BuildActionResult result = totoroAction.build(buildActionData);
-        return result.successful;
+        return result;
     }
 
 

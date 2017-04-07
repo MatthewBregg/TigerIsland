@@ -92,7 +92,7 @@ public class GameManager {
                 .withPlayer(player)
                 .build();
 
-        return buildController.foundSettlement(buildAction);
+        return buildController.foundSettlement(buildAction).successful;
     }
 
     public boolean expandSettlement(Location locationExpandingFrom, Terrain terrainToExpandTo, Player player){
@@ -102,7 +102,7 @@ public class GameManager {
                 .withPlayer(player)
                 .build();
 
-        return buildController.expandSettlement(buildAction);
+        return buildController.expandSettlement(buildAction).successful;
     }
 
     public boolean buildTotoro(Location locationExpandingTo, Player player){
@@ -111,7 +111,7 @@ public class GameManager {
                 .withPlayer(player)
                 .build();
 
-        return buildController.buildTotoro(buildAction);
+        return buildController.buildTotoro(buildAction).successful;
     }
 
     public boolean buildTiger(Location locationExpandingTo, Player player){
@@ -120,7 +120,7 @@ public class GameManager {
                 .withPlayer(player)
                 .build();
 
-        return buildController.buildTiger(buildAction);
+        return buildController.buildTiger(buildAction).successful;
     }
 
     public HexBoard getHexBoard(){
@@ -154,6 +154,11 @@ public class GameManager {
 
     public void endGame(){
         // TODO
+    }
+
+    public boolean isGameDone(){
+        //TODO
+        return true;
     }
 
     public GameResults returnResults(){

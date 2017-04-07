@@ -21,7 +21,6 @@ Feature: Placing Pieces
     And is attempting a build action
     When Player attempts to place totoro onto a hex with a volcano.
     Then Invalid build action
-
   #Scenario: Placing a tiger on a volcano hex
   #  Given Player has a  tiger
   #  And is attempting a build action
@@ -44,24 +43,10 @@ Feature: Placing Pieces
 #    Player attempts to place said villager or totoro on a hex that  is already occupied by a totoro or tiger  or villager
 #    Then
 #    Invalid build action
-
-
-#  Scenario
-#  Placing a totoro in a settlement that already has one
-#    Given
-#    Player has a totoro.
-#    And player has a settlement of size 5 or greater with 1+ totoro in it
-#    When
-#    Player attempts to place a totoro on a hex adjacent to that settlement
-#    Then
-#    Invalid move. (Also remember that settlements are combined at end of turn.)
-#Scenario
-#  Placing a totoro in a settlement that already has one
-#    Given
-#    Player has a totoro.
-#    And player has a settlement of size 5 or greater with 1+ totoro in it
-#    When
-#    Player attempts to place a totoro on a hex adjacent to that settlement
-#    Then
-#    Invalid move. (Also remember that settlements are combined at end of turn.)
+#
+#
+  Scenario:Placing a totoro on a occupied hex
+    Given Player has a  totoro
+    When Player attempts to place totoro on a hex that is already occupied by a totoro or tiger  or villager
+    Then Invalid build action
 

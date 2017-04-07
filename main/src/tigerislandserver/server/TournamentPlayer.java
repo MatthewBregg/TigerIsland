@@ -3,6 +3,8 @@ package tigerislandserver.server;
 import tigerisland.player.PlayerID;
 import tigerisland.tile.Tile;
 import tigerislandserver.adapter.GameInputAdapter;
+import tigerislandserver.adapter.InputAdapter;
+import tigerislandserver.adapter.InputHandler;
 import tigerislandserver.adapter.OutputAdapter;
 import tigerislandserver.gameplay.GameThread;
 
@@ -18,7 +20,6 @@ public class TournamentPlayer implements Runnable{
     private PrintWriter outputToClient;
     private BufferedReader inputFromClient;
     private boolean authenticated;
-    private String welcomeMessage = "Welcome. Please enjoy your stay!";
     private PlayerID pID;
 
     public TournamentPlayer(Socket newClientSocket){
@@ -41,11 +42,36 @@ public class TournamentPlayer implements Runnable{
         }
 
         authenticate();
-        outputToClient.println(welcomeMessage); // TODO: Get correct welcome message from server welcome protocol
+        OutputAdapter.sendWaitForTournamentMessage(this);
     }
 
     private void authenticate() {
-        // TODO: call authentication protocol
+        OutputAdapter.requestAuthentication(this);
+
+        int timeInMilliseconds = 0;
+        while(timeInMilliseconds < 30000) //3 minutes allowed to authenticate
+        {
+            try {
+                if(inputFromClient.ready())
+                {
+                    if(InputHandler.authenticate(inputFromClient.readLine()))
+                    {
+                        authenticated = true;
+                        break;
+                    }
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            timeInMilliseconds+=100;
+        }
     }
 
     public synchronized void requestMove(GameThread game, char gid, int moveNumber, Tile tile)
@@ -76,6 +102,7 @@ public class TournamentPlayer implements Runnable{
         try {
             if(!inputFromClient.ready())
             {
+                OutputAdapter.sendTimeoutMessage(game.getPlayersInGame(), this, new String[]{"GAME", ""+gid, "MOVE", ""+moveNumber});
                 game.timeout(this);
                 return;
             }
@@ -87,6 +114,7 @@ public class TournamentPlayer implements Runnable{
             GameInputAdapter.makeMove(game, this, inputFromClient.readLine(), gid, moveNumber, tile);
         } catch (IOException e) {
             e.printStackTrace();
+            OutputAdapter.sendTimeoutMessage(game.getPlayersInGame(), this, new String[]{"GAME", ""+gid, "MOVE", ""+moveNumber});
             game.timeout(this);
         }
     }

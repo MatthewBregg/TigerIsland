@@ -2,6 +2,7 @@ package tigerislandserver.gameplay;
 
 import tigerisland.score.ScoreManager;
 import tigerisland.tile.Tile;
+import tigerislandserver.adapter.OutputAdapter;
 import tigerislandserver.gameplay.identifiers.MatchID;
 import tigerislandserver.server.TournamentPlayer;
 
@@ -18,8 +19,8 @@ public class Match extends Thread {
         players = playerList;
         gameTiles = tiles;
         matchID = MatchID.getID();
-        game1 = new GameThread(players, gameTiles, 'A', scoreboard);
-        game2 = new GameThread(players, gameTiles, 'B', scoreboard);
+        game1 = new GameThread(players.get(0), players.get(1), gameTiles, 'A', scoreboard);
+        game2 = new GameThread(players.get(1), players.get(0), gameTiles, 'B', scoreboard);
     }
 
     public void startGames(){
@@ -28,8 +29,8 @@ public class Match extends Thread {
     }
 
     public void run(){
-        // TODO: call Match protocol
-        // TODO: start games, then get game results when ended
+        OutputAdapter.sendStartMatchMessage(players.get(0), players.get(1));
+        startGames();
     }
 
     public long getMatchID(){
