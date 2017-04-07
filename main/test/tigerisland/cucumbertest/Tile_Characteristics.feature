@@ -1,4 +1,4 @@
-Feature: Tiles
+Feature: Tile Characteristics
   Scenario: Tile Structure Non Volcano
     Given We can examine a tile
     When We examine the left and right portions of said tile
