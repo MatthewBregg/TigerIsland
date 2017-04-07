@@ -52,10 +52,11 @@ public class TilePlacementController {
             tilePlacerChain.placeTile(tile, boardLocation);
         } catch (Exception e) {
             System.out.println("Error placing tile");
-            e.printStackTrace();
+//            e.printStackTrace();
             validPlacement = false;
+            //TODO Come back and decide what to do with stackTrace
         }
-        // TODO validate tile placement-- DId this JOsh B- should be enough to be valid
+        // TODO validate tile placement-- DId this with the finally JOsh B- should be enough to be valid
         finally {
             return validPlacement;
         }

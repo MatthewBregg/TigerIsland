@@ -12,6 +12,7 @@ import tigerisland.terrains.Rocky;
 import tigerisland.tile.Orientation;
 import tigerisland.tile.Tile;
 import tigerisland.tile.TileDeck;
+import tigerisland.tile_placement.exceptions.InvalidTilePlacementException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -84,7 +85,7 @@ public class GameManagerTest {
     }
 
     @Test
-    public void test_PlaceTileShouldReturnFalsePlacingTileOnHexesOfDifferentLevels(){
+    public void test_PlaceTileShouldReturnFalsePlacingTileOnHexesOfDifferentLevels() throws InvalidTilePlacementException{
         //arrange
 
         Tile tile = deck.drawTile();
