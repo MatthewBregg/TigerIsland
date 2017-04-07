@@ -13,6 +13,7 @@ import tigerisland.terrains.Volcano;
 import tigerisland.tile.Tile;
 import tigerisland.tile.TileUnpacker;
 import tigerisland.tile_placement.exceptions.NukeHexesOfDifferentTilesRuleException;
+import tigerisland.tile_placement.exceptions.TilePlacementException;
 import tigerisland.tile_placement.rules.NukeHexesOfDifferentTilesRule;
 import tigerisland.tile_placement.rules.NukePlacementRule;
 
@@ -36,18 +37,14 @@ public class NukeHexesOfDifferentTilesRuleTest {
 
        // Arrange
        int tileId = 1;
-       int settlementId = -1;
        int hexLevel = 1;
 
-       Hex hexA = new Hex(tileId, settlementId, Volcano.getInstance(), hexLevel);
-       Hex hexB = new Hex(tileId, settlementId, Rocky.getInstance(), hexLevel);
-       Hex hexC = new Hex(tileId, settlementId, Grassland.getInstance(), hexLevel);
 
        Tile tile  = new Tile(tileId, hexLevel, Rocky.getInstance(), Grassland.getInstance());
        Location location = new Location(0, 0, 0);
 
        hexes = TileUnpacker.getTileHexes(tile, location);
-
+       
        hexes.forEach( (loc, hex) -> {
           board.placeHex(loc, hex);
        });
@@ -61,20 +58,15 @@ public class NukeHexesOfDifferentTilesRuleTest {
 
        // Arrange
        int tileId = 1;
-       int tileId2 = 2;
+       int tileId2 = 2;;
 
-       //int settlementId = -1;
-       int hexLevel = 1;
 
-      // Hex hexA = new Hex(tileId, settlementId, Volcano.getInstance(), hexLevel);
-       //Hex hexB = new Hex(tileId, settlementId, Rocky.getInstance(), hexLevel);
-      // Hex hexC = new Hex(tileId2, settlementId, Grassland.getInstance(), hexLevel);
 
-       Tile tile  = null; //new Tile(tileId, hexA, hexB, hexC);
+       Tile tile  = new Tile(tileId, Rocky.getInstance(), Grassland.getInstance() );
        Location location = new Location(0, 0, 0);
 
        hexes = TileUnpacker.getTileHexes(tile, location);
-
+       setHexesToDifferentIds(hexes);
        hexes.forEach( (loc, hex) -> {
           board.placeHex(loc, hex);
        });
@@ -83,10 +75,10 @@ public class NukeHexesOfDifferentTilesRuleTest {
            // Act
            differentTilesRule.applyRule(hexes);
 
-       } catch (Throwable throwable) {
+       } catch (TilePlacementException throwable) {
 
            // Assert
-           Assert.assertNull(throwable);
+           Assert.assertNull(throwable.getMessage(),throwable);
        }
    }
 
@@ -105,11 +97,11 @@ public class NukeHexesOfDifferentTilesRuleTest {
       // Hex hexB = new Hex(tileId2, settlementId, Rocky.getInstance(), hexLevel);
       // Hex hexC = new Hex(tileId3, settlementId, Grassland.getInstance(), hexLevel);
 
-       Tile tile  = null; //new Tile(tileId, hexA, hexB, hexC);
+       Tile tile  = new Tile(tileId, Rocky.getInstance(), Grassland.getInstance());
        Location location = new Location(0, 0, 0);
 
        hexes = TileUnpacker.getTileHexes(tile, location);
-
+       setHexesToDifferentIds(hexes);
        hexes.forEach( (loc, hex) -> {
           board.placeHex(loc, hex);
        });
@@ -122,6 +114,14 @@ public class NukeHexesOfDifferentTilesRuleTest {
 
            // Assert
            Assert.assertNull(throwable);
+       }
+   }
+
+   void setHexesToDifferentIds(Map<Location,Hex> hexes ) {
+       int i = 0;
+       for ( Map.Entry<Location,Hex> entry : hexes.entrySet() ) {
+           // Hack to get hexes of different ids without dealing with tile placement
+           entry.setValue(new Hex(++i));
        }
    }
 
