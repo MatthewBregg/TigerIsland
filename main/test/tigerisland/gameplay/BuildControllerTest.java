@@ -39,6 +39,7 @@ import java.util.Map;
 /**
  * Created by christinemoore on 4/5/17.
  */
+@Ignore
 public class BuildControllerTest {
     public static GameManager gameManager;
     public static BuildActionData buildActionData;
