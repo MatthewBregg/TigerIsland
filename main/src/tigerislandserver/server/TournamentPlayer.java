@@ -4,7 +4,6 @@ import tigerisland.player.PlayerID;
 import tigerisland.tile.Tile;
 import tigerislandserver.adapter.GameInputAdapter;
 import tigerislandserver.adapter.InputAdapter;
-import tigerislandserver.adapter.InputHandler;
 import tigerislandserver.adapter.OutputAdapter;
 import tigerislandserver.gameplay.GameThread;
 
@@ -54,7 +53,7 @@ public class TournamentPlayer implements Runnable{
             try {
                 if(inputFromClient.ready())
                 {
-                    if(InputHandler.authenticate(inputFromClient.readLine()))
+                    if(InputAdapter.authenticate(inputFromClient.readLine()))
                     {
                         authenticated = true;
                         break;

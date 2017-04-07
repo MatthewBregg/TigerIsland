@@ -1,36 +1,54 @@
 package tigerislandserver.adapter;
 
-//TODO THIS CLASS WILL BE DELETED
-
 import tigerislandserver.server.TournamentPlayer;
 
-public abstract class InputAdapter extends Thread
+public class InputAdapter
 {
-    private final String input;
-    private final String[] inputTokens;
-
-    public InputAdapter(String input)
+    public static boolean canEnterTournament(String input)
     {
-        this.input = input;
-        this.inputTokens = input.split("\\s+");
+        return isEnterTournamentCommand(input) && verifyTournamentPassword(input);
     }
 
-    public String getInput()
+    public static boolean authenticate(String input)
     {
-        return input;
+       return isIdentificationComand(input) && verifyUsernameAndPassword(input);
     }
 
-    public String[] getInputTokens()
+    private static boolean isEnterTournamentCommand(String input)
     {
-        return inputTokens;
+        String[] inputTokens = input.split("\\s+");
+        return inputTokens.length == 3
+                && inputTokens[0].equals("ENTER")
+                && inputTokens[1].equals("THUNDERDOME");
     }
 
-    protected static boolean isValidNumber(String inputToken)
+    private static boolean verifyTournamentPassword(String input)
     {
-        return inputToken.matches("^(\\+|-)?\\d+$");
+        String[] inputTokens = input.split("\\s+");
+        String password = inputTokens[3];
+
+        //TODO
+        return password.equals("password");
     }
 
-    public static void authenticate(TournamentPlayer tournamentPlayer, String s)
+    private static boolean isIdentificationComand(String input)
     {
+        String[] inputTokens = input.split("\\s+");
+
+        return inputTokens.length == 4
+                && inputTokens[0].equals("I")
+                && inputTokens[1].equals("AM");
+    }
+
+    private static boolean verifyUsernameAndPassword(String input)
+    {
+        String[] inputTokens = input.split("\\s+");
+
+        String username = inputTokens[2];
+        String password = inputTokens[3];
+
+        //TODO
+        return username.equals("username")
+                && password.equals("password");
     }
 }

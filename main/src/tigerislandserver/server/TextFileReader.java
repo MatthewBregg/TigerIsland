@@ -1,8 +1,5 @@
 package tigerislandserver.server;
 
-import com.intellij.openapi.vcs.FilePath;
-import com.intellij.openapi.vcs.LocalFilePath;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
