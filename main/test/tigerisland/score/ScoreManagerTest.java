@@ -38,10 +38,9 @@ public class ScoreManagerTest {
         playerScores.resetPlayerScore(player1.getId());
         playerScores.resetPlayerScore(player2.getId());
         int player1Score = playerScores.getPlayerScore(player1.getId());
-        System.out.println(player1Score);
         int player2Score = playerScores.getPlayerScore(player2.getId());
-        System.out.println(player2Score);
-        Assert.assertTrue((player1Score == 0) && (player2Score == 0));
+        Assert.assertEquals(0,player1Score);
+        Assert.assertEquals(0,player2Score);
     }
 
     @Test
