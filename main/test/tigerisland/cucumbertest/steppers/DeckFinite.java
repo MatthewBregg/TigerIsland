@@ -8,7 +8,7 @@ import tigerisland.tile.Tile;
 import tigerisland.tile.TileDeck;
 
 
-public class CucumberDeckFinite {
+public class DeckFinite {
     private TileDeck deck = new TileDeck(0);
     private Tile drawnTile = null;
     private int initialSize;

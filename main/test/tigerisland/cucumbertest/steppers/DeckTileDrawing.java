@@ -1,16 +1,14 @@
 package tigerisland.cucumbertest.steppers;
 
-import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.junit.Assert;
-import tigerisland.tile.Orientation;
 import tigerisland.tile.Tile;
 import tigerisland.tile.TileDeck;
 
 
-public class CucumberTileDrawing {
+public class DeckTileDrawing {
     private TileDeck nonEmptyDeck = null;
     private Tile drawnTile = null;
     private int initialSize;

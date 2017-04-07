@@ -1,4 +1,7 @@
 Feature: Player Piece Information
+  As a game,
+  I want to have the right amount of villagers etc, when I start.
+
   Scenario: Displaying a player’s initial Villager count
   Given Fresh Player with no pieces placed
   When Player attempts to view the amount of villagers available
