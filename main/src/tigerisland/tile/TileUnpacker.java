@@ -18,15 +18,17 @@ public class TileUnpacker {
     private TileUnpacker() {}
 
     public static Map<Location, Hex> getTileHexes(Tile tile, Location referenceHexLocation)  {
+        int level = 1;
 
         Orientation tileOrientation = tile.getOrientation();
         Location left = referenceHexLocation.getAdjacent(tileOrientation.rotate(-120));
         Location right = referenceHexLocation.getAdjacent(tileOrientation.rotate(-60));
 
         HashMap<Location, Hex> nonVolcanoHexes = new HashMap<>();
-        nonVolcanoHexes.put(referenceHexLocation, tile.getReferenceHex());
-        nonVolcanoHexes.put(left, tile.getLeftHex());
-        nonVolcanoHexes.put(right, tile.getRightHex());
+        int tId = tile.getID();
+        nonVolcanoHexes.put(referenceHexLocation, new Hex(tId, level, tile.getReferenceTerrain()));
+        nonVolcanoHexes.put(left, new Hex(tId,level, tile.getLeftTerrain()));
+        nonVolcanoHexes.put(right, new Hex(tId, level, tile.getRightTerrain()));
 
         return nonVolcanoHexes;
     }

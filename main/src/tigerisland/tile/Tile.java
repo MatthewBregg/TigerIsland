@@ -34,9 +34,8 @@ public class Tile {
 
     private int id;
     private Orientation orientation;
-    private Hex referenceHex;
-    private Hex leftHex;
-    private Hex rightHex;
+    private Terrain left;
+    private Terrain right;
 
    public Tile(){
        this((int)Math.random()*1000000000);
@@ -49,9 +48,8 @@ public class Tile {
     public Tile(int id, int level, Terrain left, Terrain right){
         this.id = id;
         this.orientation = Orientation.getEast();
-        this.leftHex = new Hex(id,level,left);
-        this.rightHex = new Hex(id,level,right);
-        this.referenceHex = new Hex(id,level,Volcano.getInstance());
+        this.left = left;
+        this.right = right;
     }
 
 
@@ -64,8 +62,8 @@ public class Tile {
    }
 
    public boolean equals(Tile tile){
-       return (this.leftHex.getTerrain() == tile.leftHex.getTerrain()
-               && this.rightHex.getTerrain() == tile.rightHex.getTerrain());
+       return (this.left == tile.left
+               && this.right == tile.right);
    }
 
    public int getID(){
@@ -80,21 +78,21 @@ public class Tile {
       this.orientation = orientation;
    }
 
-   public Hex getReferenceHex() {
-       return referenceHex;
+   public Terrain getReferenceTerrain() {
+       return Volcano.getInstance();
    }
 
-   public Hex getLeftHex(){
-       return leftHex;
+   public Terrain getLeftTerrain(){
+       return left;
    }
 
-   public Hex getRightHex(){
-       return rightHex;
+   public Terrain getRightTerrain(){
+       return right;
    }
 
    public String getStringOfTerrains()
    {
-        return rightHex + "+" + leftHex;
+        return right + "+" + left;
         //Keep in reverse order please. THis is how the server wants it.
    }
 }

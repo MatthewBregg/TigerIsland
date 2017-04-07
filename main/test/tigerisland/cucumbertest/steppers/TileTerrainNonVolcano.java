@@ -27,13 +27,13 @@ public class TileTerrainNonVolcano {
 
     @Then("^We find two non volcano terrain types$")
     public void weFindTwoNonVolcanoTerrainTypes() throws Throwable {
-       Assert.assertTrue(tile.getLeftHex().getTerrain() != Volcano.getInstance());
-       Assert.assertTrue(tile.getRightHex().getTerrain() != Volcano.getInstance());
+       Assert.assertTrue(tile.getLeftTerrain() != Volcano.getInstance());
+       Assert.assertTrue(tile.getRightTerrain() != Volcano.getInstance());
     }
 
     @Then("^We find one volcano terrain types$")
     public void weFindOneVolcanoTerrainTypes() throws Throwable {
         // Write code here that turns the phrase above into concrete actions
-        Assert.assertTrue(tile.getReferenceHex().getTerrain() == Volcano.getInstance());
+        Assert.assertTrue(tile.getReferenceTerrain() == Volcano.getInstance());
     }
 }

@@ -63,14 +63,14 @@ public class TileTest {
 
     @Test
     public void leftTerrainSetCorrectly(){
-        Terrain leftTerrain = customTile.getLeftHex().getTerrain();
+        Terrain leftTerrain = customTile.getLeftTerrain();
 
         assertTrue(leftTerrain instanceof Rocky);
     }
 
     @Test
     public void rightTerrainSetCorrectly(){
-        Terrain rightTerrain = customTile.getRightHex().getTerrain();
+        Terrain rightTerrain = customTile.getRightTerrain();
 
         assertTrue(rightTerrain instanceof Rocky);
     }

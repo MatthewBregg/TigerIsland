@@ -64,6 +64,7 @@ public class AdjacentToBoardTilePlacer implements TilePlacement, TilePlacementCh
 
     private void placeHexesOnBoard(Map<Location, Hex> hexes) {
         hexes.forEach((location, hex) -> {
+            hex.setLevel(1);
             this.board.placeHex(location, hex);
         });
     }

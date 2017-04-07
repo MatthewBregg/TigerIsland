@@ -233,13 +233,14 @@ public class GameManagerTest {
         }
         Tile toPlace = new Tile();
         //tiles @ level 3
+        Location placementLoc = new Location(2,-2,0);
         for (int i = 0; i < 3; ++i) {
             toPlace = tiles.get(i);
             toPlace.setOrientation(Orientation.getSouthWest());
-            Assert.assertTrue(manager.placeTile(toPlace, new Location(2, -2, 0)));
+            Assert.assertTrue(manager.placeTile(toPlace, placementLoc));
         }
 
-        Assert.assertEquals(toPlace.getLeftHex().getLevel(), 3);
+        Assert.assertEquals(manager.getHexBoard().getHex(placementLoc).getLevel(), 3);
     }
 
     @Test
@@ -264,13 +265,14 @@ public class GameManagerTest {
         }
         Tile toPlace = new Tile();
         //tiles only @ level 2
+        Location placementLoc = new Location(2, -2, 0);
         for (int i = 0; i < 2; ++i) {
             toPlace = tiles.get(i);
             toPlace.setOrientation(Orientation.getSouthWest());
-            Assert.assertTrue(manager.placeTile(toPlace, new Location(2, -2, 0)));
+            Assert.assertTrue(manager.placeTile(toPlace,placementLoc ));
         }
 
-        Assert.assertEquals(toPlace.getLeftHex().getLevel(), 2);
+        Assert.assertEquals(manager.getHexBoard().getHex(placementLoc).getLevel(), 2);
     }
 
     @Test

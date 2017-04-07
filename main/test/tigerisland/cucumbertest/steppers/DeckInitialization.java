@@ -2,6 +2,7 @@ package tigerisland.cucumbertest.steppers;
 
 import cucumber.api.java8.En;
 import org.junit.Assert;
+import tigerisland.hex.Hex;
 import tigerisland.tile.Tile;
 import tigerisland.tile.TileDeck;
 
@@ -21,9 +22,12 @@ public class DeckInitialization implements En {
             Set<String> tileSet = new HashSet<>();
             for ( int i = 0; i != 48; ++i ) {
                 Tile t = tileDeck.drawTile();
-                tileSet.add((t.getLeftHex().getTerrain().toString()
-                        + t.getRightHex().getTerrain().toString()
-                        + t.getReferenceHex().getTerrain()).toString());
+                Hex refHex = new Hex(t.getID(),1,t.getReferenceTerrain());
+                Hex lHex = new Hex(t.getID(), 1, t.getLeftTerrain());
+                Hex rHex = new Hex(t.getID(), 1, t.getRightTerrain());
+                tileSet.add((lHex.getTerrain().toString()
+                        + rHex.getTerrain().toString()
+                        + refHex.getTerrain()).toString());
             }
             Assert.assertTrue(tileSet.size() == 16);
             // throw new PendingException();
