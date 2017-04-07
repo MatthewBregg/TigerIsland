@@ -195,7 +195,7 @@ public class BuildControllerTest {
 
     @Test
     public void ableToFoundSettlementOnTopLeftStartingTileHex() {
-        Location validTopLeft = new Location(-1, 1, 0);
+        Location validTopLeft = new Location(0, 1, -1);
 
         currentPlayer = new Player();
 
@@ -261,7 +261,7 @@ public class BuildControllerTest {
 
     @Test
     public void ableToFoundNewSettlementOnStartingTile() {
-        Location topRightStartingHex = new Location(0, 1, -1);
+        Location topRightStartingHex = new Location(1, 0, -1);
         currentPlayer = new Player();
         BuildActionData bad = new BuildActionData.Builder()
                 .withHexLocation(topRightStartingHex)
@@ -311,8 +311,8 @@ public class BuildControllerTest {
     }
 
     @Test
-    public void unbleToFoundNewSettlementInLeftConcave() {
-        Location l = new Location(-1, 0, 1);
+    public void unbleToFoundNewSettlementInLeftConcaveBecauseTileDoesntExist() {
+        Location l = new Location(-1, 1, 0);
         currentPlayer = new Player();
         BuildActionData bad = new BuildActionData.Builder()
                 .withHexLocation(l)
