@@ -160,4 +160,9 @@ public class GameManager {
         GameResults results = new GameResults();
         return results;
     }
+
+    public ScoreManager getScoreManager()
+    {
+        return scoreKeeper;
+    }
 }

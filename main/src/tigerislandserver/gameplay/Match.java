@@ -1,5 +1,6 @@
 package tigerislandserver.gameplay;
 
+import tigerisland.score.ScoreManager;
 import tigerisland.tile.Tile;
 import tigerislandserver.gameplay.identifiers.MatchID;
 import tigerislandserver.server.TournamentPlayer;
@@ -13,12 +14,12 @@ public class Match extends Thread {
     private ArrayList<TournamentPlayer> players;
     private long matchID;
 
-    public Match(ArrayList<TournamentPlayer> playerList, ArrayList<Tile> tiles){
+    public Match(ArrayList<TournamentPlayer> playerList, ArrayList<Tile> tiles, TournamentScoreboard scoreboard){
         players = playerList;
         gameTiles = tiles;
         matchID = MatchID.getID();
-        game1 = new GameThread(players, gameTiles, 'A');
-        game2 = new GameThread(players, gameTiles, 'B');
+        game1 = new GameThread(players, gameTiles, 'A', scoreboard);
+        game2 = new GameThread(players, gameTiles, 'B', scoreboard);
     }
 
     public void startGames(){

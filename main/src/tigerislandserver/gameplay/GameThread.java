@@ -11,16 +11,18 @@ import tigerislandserver.server.TournamentPlayer;
 
 import java.util.ArrayList;
 
+import static tigerislandserver.gameplay.TournamentScoreboard.scoreManager;
+
 public class GameThread extends Thread{
     private ArrayList<Tile> gameTiles;
     private ArrayList<TournamentPlayer> playersInGame;
     private int activePlayerIndex;
     private char gameID;
-    private ScoreManager scoreManager;
+    private TournamentScoreboard scoreboard;
     private boolean gameNotEnded;
     private GameManager gameManager;
 
-    public GameThread(ArrayList<TournamentPlayer> players, ArrayList<Tile> tiles, char gameLetter){
+    public GameThread(ArrayList<TournamentPlayer> players, ArrayList<Tile> tiles, char gameLetter, TournamentScoreboard scoreboard){
         if (players.size() != 2)
         {
             throw new IllegalArgumentException("Exactly two players required");
@@ -30,7 +32,8 @@ public class GameThread extends Thread{
         activePlayerIndex = 0;
         gameTiles = tiles;
         gameID = gameLetter;
-        scoreManager = new ScoreManager();
+
+        this.scoreboard=scoreboard;
 
         gameNotEnded = true;
 
@@ -45,23 +48,22 @@ public class GameThread extends Thread{
     }
 
     public ScoreManager getScoreManager(){
-        return scoreManager;
+        return gameManager.getScoreManager();
     }
 
     public int getPlayer1FinalScore(){
         TournamentPlayer player1 = playersInGame.get(0);
         PlayerID pID = player1.getPlayerID();
 
-        return scoreManager.getPlayerScore(pID);
+        return gameManager.getScoreManager().getPlayerScore(pID);
     }
 
     public int getPlayer2FinalScore(){
         TournamentPlayer player2 = playersInGame.get(1);
         PlayerID pID = player2.getPlayerID();
 
-        return scoreManager.getPlayerScore(pID);
+        return gameManager.getScoreManager().getPlayerScore(pID);
     }
-
 
 
     public void sendStartGameMessage(){
