@@ -37,10 +37,9 @@ public class NukeHexesOfDifferentTilesRuleTest {
 
        // Arrange
        int tileId = 1;
-       int hexLevel = 1;
 
 
-       Tile tile  = new Tile(tileId, hexLevel, Rocky.getInstance(), Grassland.getInstance());
+       Tile tile  = new Tile(tileId, Rocky.getInstance(), Grassland.getInstance());
        Location location = new Location(0, 0, 0);
 
        hexes = TileUnpacker.getTileHexes(tile, location);

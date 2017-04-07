@@ -41,11 +41,7 @@ public class Tile {
        this((int)Math.random()*1000000000);
    }
 
-   public Tile(int id,Terrain left, Terrain right){
-       this(id,1,left,right);
-   }
-
-    public Tile(int id, int level, Terrain left, Terrain right){
+    public Tile(int id, Terrain left, Terrain right){
         this.id = id;
         this.orientation = Orientation.getEast();
         this.left = left;

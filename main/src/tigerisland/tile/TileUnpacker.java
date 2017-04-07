@@ -19,6 +19,7 @@ public class TileUnpacker {
 
     public static Map<Location, Hex> getTileHexes(Tile tile, Location referenceHexLocation)  {
         int level = 1;
+        // TODO : Make this a parameter
 
         Orientation tileOrientation = tile.getOrientation();
         Location left = referenceHexLocation.getAdjacent(tileOrientation.rotate(-120));

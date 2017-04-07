@@ -60,14 +60,9 @@ public class NukeVolcanoHexRuleTest {
 
        // Arrange
        int tileId = 1;
-       int settlementId = -1;
-       int hexLevel = 1;
 
-       Hex hexA = new Hex(tileId, settlementId, Volcano.getInstance(), hexLevel);
-       Hex hexB = new Hex(tileId, settlementId, Rocky.getInstance(), hexLevel);
-       Hex hexC = new Hex(tileId, settlementId, Grassland.getInstance(), hexLevel);
 
-       Tile tile  = new Tile(tileId, hexLevel, Rocky.getInstance(), Grassland.getInstance());
+       Tile tile  = new Tile(tileId, Rocky.getInstance(), Grassland.getInstance());
        Location location = new Location(0, 0, 0);
 
        hexes = TileUnpacker.getTileHexes(tile, location);

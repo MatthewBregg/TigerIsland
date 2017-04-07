@@ -39,12 +39,10 @@ public class NukeVolcanoOnVolcanoRuleTest {
 
        // Arrange
        int tileId = 1;
-       //int settlementId = -1;
-       int hexLevel = 1;
 
 
 
-       Tile tile  = new Tile(tileId, 1, Rocky.getInstance(), Grassland.getInstance());
+       Tile tile  = new Tile(tileId, Rocky.getInstance(), Grassland.getInstance());
        Location location = new Location(0, 0, 0);
 
        addTileHexesToBoard(tile, location);
