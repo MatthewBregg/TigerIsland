@@ -19,7 +19,7 @@ public class TigerBuildHexMustBeLevelThreeRuleTest {
     private Location location = null;
     private BuildActionRule rule = null;
     private BuildActionData buildData = null;
-    private final String errorMessage = "The tiger build hex must be level 3";
+    private final String errorMessage = "The tiger build hex must be level 3 or greater";
     private BuildActionResult result = null;
 
 
@@ -45,7 +45,6 @@ public class TigerBuildHexMustBeLevelThreeRuleTest {
         //Assert
 
         Assert.assertFalse(result.successful);
-
         Assert.assertEquals(errorMessage, result.errorMessage);
 
     }

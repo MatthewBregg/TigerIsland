@@ -26,6 +26,10 @@ public class Challenge {
         roundNumber = 0;
     }
 
+    public ArrayList<Match> getCurrentRoundMatches(){
+        return currentRoundMatches;
+    }
+
     public void setMatchupType(ScheduleType matchmaker){
         schedule.setTournamentType(matchmaker);
     }
@@ -53,6 +57,8 @@ public class Challenge {
         }
     }
 
+
+
     private ArrayList<Tile> generateTileArray() {
         currentSeed = generateSeed();
         TileDeck tileDeck = new TileDeck(currentSeed);
@@ -73,10 +79,15 @@ public class Challenge {
         return randomSeed;
     }
 
-    private ArrayList<ArrayList<TournamentPlayer>> getPlayerMatchups(int round){
+    public ArrayList<ArrayList<TournamentPlayer>> getPlayerMatchups(int round){
+        // holds the players in each round
         ArrayList<ArrayList<TournamentPlayer>> playerMatchups = new ArrayList<>();
+
+        // holds the matchups of each round
         ArrayList<Matchup> matchupIndexes = schedule.getMatchups(round);
 
+        // go through each set oup matchup indexes and pull the players associated
+        // with the matchup ids
         for(Matchup m : matchupIndexes){
             int p1Index = m.getPlayer1Index();
             TournamentPlayer player1 = playerList.get(p1Index);
@@ -84,6 +95,7 @@ public class Challenge {
             int p2Index = m.getPlayer2Index();
             TournamentPlayer player2 = playerList.get(p2Index);
 
+            // add the actual players to an array list, and store each player in the list
             ArrayList<TournamentPlayer> newMatchup = new ArrayList<>();
             newMatchup.add(player1);
             newMatchup.add(player2);
@@ -104,5 +116,9 @@ public class Challenge {
 
     public int getTotalChallengeRounds(){
         return schedule.getTotalRounds();
+    }
+
+    public Scheduler getSchedule(){
+        return schedule;
     }
 }

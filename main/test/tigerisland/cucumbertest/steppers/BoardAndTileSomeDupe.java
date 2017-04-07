@@ -21,7 +21,7 @@ import tigerisland.tile_placement.placers.TilePlacement;
 import java.util.*;
 
 
-public class CucumberBoardTester {
+public class BoardAndTileSomeDupe {
     private Tile tile = null;
 
     private Board board = null;

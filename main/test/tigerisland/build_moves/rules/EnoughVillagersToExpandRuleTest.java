@@ -7,7 +7,6 @@ import tigerisland.board.Location;
 import tigerisland.build_moves.SettlementExpansionUtility;
 import tigerisland.build_moves.builds.BuildActionData;
 import tigerisland.build_moves.builds.BuildActionResult;
-import tigerisland.build_moves.rules.EnoughVillagersToExpandRule;
 import tigerisland.hex.Hex;
 import tigerisland.piece.PieceBoard;
 import tigerisland.piece.PieceBoardImpl;
