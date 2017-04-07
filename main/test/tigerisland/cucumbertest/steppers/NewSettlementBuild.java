@@ -20,7 +20,7 @@ import tigerisland.terrains.Rocky;
 import tigerisland.terrains.Terrain;
 
 
-public class CucumberSettlementBuildStepper implements En {
+public class NewSettlementBuild implements En {
 
     private Player player;
     private HexBoard board;
@@ -57,7 +57,7 @@ public class CucumberSettlementBuildStepper implements En {
 
         foundSettlement= new FoundNewSettlementBuild(board, pieces, scoreManager);
     }
-    public CucumberSettlementBuildStepper() {
+    public NewSettlementBuild() {
         Given("^Player has at least (\\d+) villager$", (Integer numVillagers) -> {
             setUp();
             Assert.assertTrue(player.getVillagerCount()>=numVillagers.intValue());

@@ -8,10 +8,10 @@ import tigerisland.tile.TileDeck;
 import java.util.HashSet;
 import java.util.Set;
 
-public class CucumberDeckInitialization implements En {
+public class DeckInitialization implements En {
     TileDeck tileDeck = null;
 
-    public CucumberDeckInitialization() {
+    public DeckInitialization() {
         When("^The deck is initialized$", () -> {
             tileDeck = new TileDeck(0);
 

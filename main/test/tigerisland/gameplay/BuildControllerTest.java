@@ -1,6 +1,5 @@
 package tigerisland.gameplay;
 
-
 import org.junit.*;
 import tigerisland.board.HexBoard;
 import tigerisland.board.Location;
@@ -31,6 +30,7 @@ import tigerisland.terrains.Rocky;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 
 /**
  * Created by christinemoore on 4/5/17.

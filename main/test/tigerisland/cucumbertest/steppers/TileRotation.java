@@ -12,7 +12,7 @@ import tigerisland.tile.Orientation;
 import tigerisland.tile.Tile;
 
 
-public class CucumberTileRotation {
+public class TileRotation {
     public Tile tileWithEastOrientation = null;
     public Tile tileWithNWOrientation = null;
     @Given("^We have a tile$")
