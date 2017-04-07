@@ -4,9 +4,12 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import tigerisland.board.Location;
+import tigerisland.player.Player;
 import tigerisland.tile.Orientation;
 import tigerisland.tile.Tile;
 import tigerisland.tile.TileDeck;
+
+import java.util.ArrayList;
 
 public class GameManagerTest {
     private GameManager manager;
@@ -15,13 +18,15 @@ public class GameManagerTest {
 
     @Before
     public void setUp() throws Exception {
+        ArrayList<Player> players = new ArrayList<Player>();
+        players.add(new Player());
+        players.add(new Player());
 
+        manager = new GameManager(players);
     }
 
     @Test
     public void test_PlaceTileShouldBeTrueNukingStartingHex() {
-        manager = new GameManager();
-
         Location location = new Location(0,0,0);
 
         Tile toPlace = deck.drawTile();
@@ -33,7 +38,6 @@ public class GameManagerTest {
 
     @Test
     public void test_PlaceTileShouldBeTruePlacingNextToStartingHex() {
-        manager = new GameManager();
         Tile tile = new Tile();
         Location location = new Location(-1,1,0);
 

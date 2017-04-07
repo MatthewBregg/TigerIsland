@@ -46,7 +46,7 @@ public class TournamentPlayer implements Runnable{
 
     public synchronized void requestMove(GameThread game, char gid, int moveNumber, Tile tile)
     {
-        outputToClient.println(OutputAdapter.getMoveRequestMessage(gid, moveNumber, tile));
+        OutputAdapter.sendMoveRequestMessage(this, gid, moveNumber, tile);
 
         int timeInMilliseconds = 0;
         while(timeInMilliseconds < 1800)
@@ -85,6 +85,11 @@ public class TournamentPlayer implements Runnable{
             e.printStackTrace();
             game.timeout(this);
         }
+    }
+
+    public synchronized void sendMessage(String message)
+    {
+        outputToClient.println(message);
     }
 
     public PlayerID getID()

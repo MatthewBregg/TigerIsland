@@ -1,9 +1,7 @@
 package tigerislandserver.tournament;
 
 import tigerisland.player.PlayerID;
-import tigerislandserver.command.FoundSettlementCommand;
-import tigerislandserver.command.PlaceTileCommand;
-import tigerislandserver.gameplay.Game;
+import tigerislandserver.gameplay.GameThread;
 
 import java.util.HashMap;
 
@@ -12,7 +10,7 @@ public class Tournament
     private static final Object lock = new Object();
     private static volatile Tournament instance;
 
-    private HashMap<PlayerID, Game> games;
+    private HashMap<PlayerID, GameThread> games;
 
     public static Tournament getInstance()
     {
@@ -36,6 +34,6 @@ public class Tournament
 
     private Tournament()
     {
-        games=new HashMap<PlayerID, Game>();
+        games=new HashMap<PlayerID, GameThread>();
     }
 }

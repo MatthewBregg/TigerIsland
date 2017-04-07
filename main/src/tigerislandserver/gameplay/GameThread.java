@@ -4,6 +4,7 @@ import tigerisland.game.GameManager;
 import tigerisland.player.Player;
 import tigerisland.tile.*;
 import tigerisland.score.*;
+import tigerislandserver.adapter.OutputAdapter;
 import tigerislandserver.gameplay.identifiers.GameID;
 import tigerislandserver.server.TournamentPlayer;
 
@@ -82,9 +83,13 @@ public class GameThread extends Thread{
 
         while(gameNotEnded)
         {
-            int playerTurnNumber = ++moveNumber/2;
+            int playerTurnNumber = moveNumber/2;
+            Tile tile = gameTiles.get(moveNumber);
 
-            playersInGame.get(activePlayerIndex++).requestMove(this, gameID, moveNumber++/2, gameTiles.get(moveNumber));
+            playersInGame.get(activePlayerIndex).requestMove(this, gameID, playerTurnNumber, tile);
+
+            moveNumber++;
+            activePlayerIndex = (activePlayerIndex + 1) % playersInGame.size();
         }
 
         sendEndGameMessage();
@@ -92,7 +97,10 @@ public class GameThread extends Thread{
 
     public void timeout(TournamentPlayer tournamentPlayer)
     {
-        //TODO
+        for(TournamentPlayer player: playersInGame)
+        {
+            //TODO
+        }
     }
 
     public void unableToBuild(TournamentPlayer tournamentPlayer)
@@ -118,5 +126,10 @@ public class GameThread extends Thread{
     public GameManager getGameManager()
     {
         return gameManager;
+    }
+
+    public ArrayList<TournamentPlayer> getPlayersInGame()
+    {
+        return playersInGame;
     }
 }
