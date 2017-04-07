@@ -3,6 +3,8 @@ package tigerisland.cucumbertest.steppers;
 import cucumber.api.java8.En;
 
 public class TilePlacementAddLevel implements En {
+//    GameManager manager = new Game;
+//
 //    public Tile_Placement_Add_Level() {
 //        Given("^It’s the player’s turn$", () -> {
 //            // Write code here that turns the phrase above into concrete actions
@@ -20,7 +22,7 @@ public class TilePlacementAddLevel implements En {
 //            // Write code here that turns the phrase above into concrete actions
 //            throw new PendingException();
 //        });
-//        And("^all of the placed hexes have a level of \((\\d+) \+ the level of the hex below\)$", (Integer arg0) -> {
+//        And("^all of the placed hexes have a level of (\\d+) plus the level of the hex below\)$", (Integer arg0) -> {
 //            // Write code here that turns the phrase above into concrete actions
 //            throw new PendingException();
 //        });
