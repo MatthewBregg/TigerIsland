@@ -3,9 +3,12 @@ package tigerisland.build_moves.builds;
 import tigerisland.build_moves.SettlementExpansionUtility;
 import tigerisland.build_moves.actions.ExpandSettlementOnHexAction;
 import tigerisland.build_moves.actions.MakeBuildAction;
+import tigerisland.build_moves.actions.ScoreSettlementExpansion;
+import tigerisland.build_moves.actions.ScoreVillagersOnHex;
 import tigerisland.build_moves.rules.BuildActionRule;
 import tigerisland.build_moves.rules.EnoughVillagersToExpandRule;
 import tigerisland.piece.PieceBoard;
+import tigerisland.score.ScoreManager;
 import tigerisland.terrains.Volcano;
 
 import java.util.ArrayList;
@@ -14,10 +17,14 @@ import java.util.List;
 public class ExpandSettlementBuild extends BuildAction {
     private SettlementExpansionUtility settlementExpansionUtility;
     private PieceBoard pieceBoard;
+    private ScoreManager scoreManager;
 
-    public ExpandSettlementBuild(SettlementExpansionUtility settlementExpansionUtility, PieceBoard pieceBoard) {
+    public ExpandSettlementBuild(SettlementExpansionUtility settlementExpansionUtility,
+                                 PieceBoard pieceBoard,
+                                 ScoreManager scoreManager) {
         this.settlementExpansionUtility = settlementExpansionUtility;
         this.pieceBoard = pieceBoard;
+        this.scoreManager = scoreManager;
     }
 
     @Override
@@ -53,6 +60,7 @@ public class ExpandSettlementBuild extends BuildAction {
     @Override
     protected List<MakeBuildAction> createBuildActions() {
         List<MakeBuildAction> actions = new ArrayList<MakeBuildAction>();
+        actions.add (new ScoreSettlementExpansion(scoreManager,settlementExpansionUtility));
         actions.add ( new ExpandSettlementOnHexAction(pieceBoard,settlementExpansionUtility));
         return actions;
     }

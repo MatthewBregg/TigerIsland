@@ -10,6 +10,7 @@ import tigerisland.terrains.Terrain;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Consumer;
 
 public class SettlementExpansionUtility {
     private HexBoard hexBoard;
@@ -101,13 +102,43 @@ public class SettlementExpansionUtility {
     }
 
     public int getVillagersNeededToExpand(BuildActionData buildActionData) {
-        int villagersNeeded = 0;
+        class VillagerCountReducer implements Consumer<Location> {
+            int villagers = 0;
+            @Override
+            public void accept(Location location) {
+                villagers+= SettlementExpansionUtility.this.getHexLevel(location);
+            }
 
-        for (Location expandableLoc : this.getExpandableHexes(buildActionData)) {
-            villagersNeeded+= this.getHexLevel(expandableLoc);
+            public int getVillagers() {
+                return villagers;
+            }
         }
+        VillagerCountReducer villagerCountReducer = new VillagerCountReducer();
+        mapOverExpandableLocations(buildActionData, villagerCountReducer);
+        return villagerCountReducer.getVillagers();
+    }
 
-        return villagersNeeded;
+    public int getScoreOnExpansion(BuildActionData buildActionData) {
+        class ScoreReducer implements Consumer<Location> {
+            int runningScore = 0;
+            @Override
+            public void accept(Location location) {
+                runningScore += Math.pow(SettlementExpansionUtility.this.getHexLevel(location),2);
+            }
+
+            public int getRunningScore() {
+                return runningScore;
+            }
+        }
+        ScoreReducer scoreReducer = new ScoreReducer();
+        mapOverExpandableLocations(buildActionData, scoreReducer);
+        return scoreReducer.getRunningScore();
+    }
+
+    private void mapOverExpandableLocations(BuildActionData buildActionData, Consumer<Location> consumer) {
+        for (Location expandableLoc : this.getExpandableHexes(buildActionData)) {
+            consumer.accept(expandableLoc);
+        }
     }
 
     /**

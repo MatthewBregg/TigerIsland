@@ -73,7 +73,7 @@ public class BuildController {
 
         foundSettlementAction = new FoundNewSettlementBuild(hexBoard, pieceBoard, scoreMgr);
         expansionUtility = new SettlementExpansionUtility(hexBoard, pieceBoard,settlementBoard);
-        expandSettlementBuild = new ExpandSettlementBuild(expansionUtility,pieceBoard);
+        expandSettlementBuild = new ExpandSettlementBuild(expansionUtility,pieceBoard,scoreMgr);
 
         totoroAction = new TotoroBuild(hexBoard, pieceBoard, settlementBoard, scoreMgr);
         tigerAction = new TigerBuild(hexBoard, pieceBoard, settlementBoard, scoreMgr);

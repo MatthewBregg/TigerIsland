@@ -11,6 +11,7 @@ import tigerisland.piece.PieceBoard;
 import tigerisland.piece.PieceBoardImpl;
 import tigerisland.piece.Villager;
 import tigerisland.player.Player;
+import tigerisland.score.ScoreManager;
 import tigerisland.settlement.LazySettlementBoard;
 import tigerisland.settlement.Settlement;
 import tigerisland.settlement.SettlementBoard;
@@ -31,6 +32,7 @@ public class ExpandSettlementBuildTest {
     private SettlementBoard settlementBoard;
     private SettlementExpansionUtility settlementExpansionUtility;
     private ExpandSettlementBuild expandSettlementBuild;
+    private ScoreManager scoreManager = new ScoreManager();
 
     @Before
     public void setUp() throws Exception {
@@ -38,7 +40,7 @@ public class ExpandSettlementBuildTest {
         pieceBoard = new PieceBoardImpl();
         settlementBoard = new LazySettlementBoard(pieceBoard);
         settlementExpansionUtility = new SettlementExpansionUtility(hexBoard,pieceBoard,settlementBoard);
-        expandSettlementBuild = new ExpandSettlementBuild(settlementExpansionUtility,pieceBoard);
+        expandSettlementBuild = new ExpandSettlementBuild(settlementExpansionUtility,pieceBoard,scoreManager);
     }
 
     Location firstLoc = null;
@@ -66,7 +68,7 @@ public class ExpandSettlementBuildTest {
     private void runTestWithPlayer(Player p) {
         PrimeBoard();
         Terrain t =  hexBoard.getHex(firstLoc).getTerrain();
-        runTestWithPlayer(p,t);
+        runTestWithPlayerImpl(p,t);
     }
     private void runTestWithPlayer(Player p, Terrain buildActionTerrain) {
         PrimeBoard();
@@ -86,9 +88,13 @@ public class ExpandSettlementBuildTest {
     public void test_BuildingASettlement() throws Exception {
         Player player = new Player();
         int villagerCountInit = player.getVillagerCount();
+        // Hexes are
+        // Empty:1 Villager:2 Empty:3
         runTestWithPlayer(player);
         Assert.assertTrue(buildActionResult.errorMessage, buildActionResult.successful);
         Assert.assertEquals(villagerCountInit-4,player.getVillagerCount());
+        Assert.assertEquals(10,scoreManager.getPlayerScore(player.getId()));
+        // Villager:1 Villager:2 Villager:3, so 10 points to Gryffindor
         Settlement s = settlementBoard.getSettlement(firstLoc);
         Assert.assertEquals(3,s.settlementSize());
         Assert.assertEquals(locations_to_place,s.getConnectedLocations());
@@ -108,6 +114,7 @@ public class ExpandSettlementBuildTest {
         runTestWithPlayer(player);
         Assert.assertFalse(buildActionResult.errorMessage, buildActionResult.successful);
         Assert.assertEquals(villagerCountInit,player.getVillagerCount());
+        Assert.assertEquals(0,scoreManager.getPlayerScore(player.getId()));
         Settlement s = settlementBoard.getSettlement(firstLoc);
         Assert.assertEquals(0,s.settlementSize());
         Assert.assertEquals(0,s.getConnectedLocations().size());
@@ -122,6 +129,7 @@ public class ExpandSettlementBuildTest {
         runTestWithPlayer(player, terrain);
         Assert.assertFalse(buildActionResult.errorMessage, buildActionResult.successful);
         Assert.assertEquals(villagerCountInit,player.getVillagerCount());
+        Assert.assertEquals(0,scoreManager.getPlayerScore(player.getId()));
         Settlement s = settlementBoard.getSettlement(firstLoc);
         Assert.assertEquals(0,s.settlementSize());
         Assert.assertEquals(0,s.getConnectedLocations().size());
@@ -144,6 +152,7 @@ public class ExpandSettlementBuildTest {
 
         Assert.assertFalse(buildActionResult.errorMessage, buildActionResult.successful);
         Assert.assertEquals(villagerCountInit,player.getVillagerCount());
+        Assert.assertEquals(0,scoreManager.getPlayerScore(player.getId()));
         Settlement s = settlementBoard.getSettlement(firstLoc);
         Assert.assertEquals(0,s.settlementSize());
         Assert.assertEquals(0,s.getConnectedLocations().size());
