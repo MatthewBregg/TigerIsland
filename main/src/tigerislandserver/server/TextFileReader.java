@@ -1,7 +1,14 @@
 package tigerislandserver.server;
 
+import com.intellij.openapi.vcs.FilePath;
+import com.intellij.openapi.vcs.LocalFilePath;
+
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -18,8 +25,9 @@ public class TextFileReader {
     }
 
     public HashMap<String, String> getUsernameAndPasswordCombos() {
+        Path filePath = FileSystems.getDefault().getPath(usernameAndPasswordFileName);
         try {
-            Scanner scan = new Scanner(new File(usernameAndPasswordFileName));
+            Scanner scan = new Scanner(filePath);
             while (scan.hasNextLine()) {
                 String userInfo = scan.nextLine();
                 String username = getUsername(userInfo);
@@ -28,8 +36,8 @@ public class TextFileReader {
                 usernameAndPasswords.put(username, password);
             }
 
-        } catch (FileNotFoundException exc) {
-            System.out.println(" Sorry, your filename of " + usernameAndPasswordFileName + " was not found.");
+        } catch (IOException ioexception) {
+            System.out.println("Did not find file, looked in:" + filePath.toAbsolutePath());
         }
 
         return usernameAndPasswords;

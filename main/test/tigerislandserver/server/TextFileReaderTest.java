@@ -9,7 +9,7 @@ import java.util.HashMap;
  * Created by christinemoore on 4/1/17.
  */
 public class TextFileReaderTest {
-    public static final String fileLocation = "src/usernamesPasswords.txt";
+    public static final String fileLocation = "main/src/usernamesPasswords.txt";
     public static TextFileReader tfr;
     public static HashMap<String, String> usernamesAndPasswords;
 

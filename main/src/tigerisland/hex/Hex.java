@@ -9,7 +9,6 @@ import tigerisland.terrains.Terrain;
 
 public class Hex {
     private int tileID;
-    private int settlementID;
     private Terrain terrain;
     private int level;
 
@@ -31,17 +30,12 @@ public class Hex {
 
     public Hex(int tileID, int settlementID, Terrain terrain, int level){
         this.tileID = tileID;
-        this.settlementID = settlementID;
         this.terrain = terrain;
         this.level = level; // Level should not be set at constructor or will have to be set again when placed on board
     }
 
     public int getTileID(){
         return tileID;
-    }
-
-    public int getSettlementID(){
-        return settlementID;
     }
 
     public Terrain getTerrain(){

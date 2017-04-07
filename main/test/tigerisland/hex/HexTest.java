@@ -36,13 +36,6 @@ public class HexTest {
     }
 
     @Test
-    public void settlementIDSetCorrectly(){
-        int settleID = customHex.getSettlementID();
-
-        Assert.assertTrue(settleID == 6);
-    }
-
-    @Test
     public void terrainSetCorrectly(){
         Terrain setTerrain = customHex.getTerrain();
 
