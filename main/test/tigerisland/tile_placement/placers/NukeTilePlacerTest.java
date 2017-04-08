@@ -86,7 +86,7 @@ public class NukeTilePlacerTest {
     }
 
     @Test(expected = NukeCoverHexesLevelRuleException.class)
-    public void test_ShouldThrowExceptionWhenNukeHexesLevelRuleIsApplied() throws Exception{
+    public void test_ShouldThrowExceptionWhenNukeHexesLevelRuleIsApplied() throws TilePlacementException{
 
         // Arrange
         Hex volcanoHex = new Hex(Volcano.getInstance()); volcanoHex.setLevel(1);
@@ -111,7 +111,7 @@ public class NukeTilePlacerTest {
     }
 
     @Test(expected = NukeHexesOfDifferentTilesRuleException.class)
-    public void test_ShouldThrowExceptionWhenHexesOfTilesIsAppliedIsApplied() throws Exception{
+    public void test_ShouldThrowExceptionWhenHexesOfTilesIsAppliedIsApplied() throws TilePlacementException{
 
         // Arrange
         int firstTileId = 1;
@@ -137,7 +137,7 @@ public class NukeTilePlacerTest {
     }
 
     @Test(expected = NukeVolcanoOnVolcanoRuleException.class)
-    public void test_ShouldThrowExceptionWhenVolcanoOnVolcanoRuleIsApplied() throws Exception{
+    public void test_ShouldThrowExceptionWhenVolcanoOnVolcanoRuleIsApplied() throws TilePlacementException{
 
         // Arrange
         Hex lakeHex = new Hex(1, Lake.getInstance()); lakeHex.setLevel(1);
@@ -162,7 +162,7 @@ public class NukeTilePlacerTest {
     }
 
     @Test(expected = NukeTotoroRuleException.class)
-    public void test_ShouldThrowExceptionWhenNukeNonNukeablePieceRuleIsApplied() throws Exception{
+    public void test_ShouldThrowExceptionWhenNukeNonNukeablePieceRuleIsApplied() throws TilePlacementException{
         // Arrange
         Hex volcanoHex = new Hex(1, Volcano.getInstance()); volcanoHex.setLevel(1);
         Hex grasslandHex = new Hex(2, Grassland.getInstance()); grasslandHex.setLevel(1);
@@ -190,7 +190,7 @@ public class NukeTilePlacerTest {
     }
 
     @Test(expected = NukeSettlementEradicationException.class)
-    public void test_ShouldThrowExceptionWhenSettlementEradicationRuleIsApplied() throws Exception{
+    public void test_ShouldThrowExceptionWhenSettlementEradicationRuleIsApplied() throws TilePlacementException{
         // Arrange
         Hex volcanoHex = new Hex(1, Volcano.getInstance()); volcanoHex.setLevel(1);
         Hex grasslandHex = new Hex(2, Grassland.getInstance()); grasslandHex.setLevel(1);
@@ -220,7 +220,7 @@ public class NukeTilePlacerTest {
     }
 
     @Test()
-    public void test_ShouldPlace3HexesOnBoardWithLevel2() throws Throwable {
+    public void test_ShouldPlace3HexesOnBoardWithLevel2() throws TilePlacementException{
 
         // Arrange
         Hex volcanoHex = new Hex(1, Volcano.getInstance()); volcanoHex.setLevel(1);
