@@ -58,15 +58,15 @@ public class ScoreManager{
     }
 
 
-    public void addScore(PlayerID id, int hexLevel) {
+    public void addScore(PlayerID id, int valueToAdd) {
 
         int score = this.getPlayerScore(id);
 
         if (score != 0) {
-            score += hexLevel;
+            score += valueToAdd;
             playerScores.put(id, score);
         }
         else
-            playerScores.put(id, hexLevel);
+            playerScores.put(id, valueToAdd);
     }
 }
