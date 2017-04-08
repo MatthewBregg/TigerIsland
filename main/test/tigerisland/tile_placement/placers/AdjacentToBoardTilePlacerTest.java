@@ -10,6 +10,7 @@ import tigerisland.hex.Hex;
 import tigerisland.tile.Orientation;
 import tigerisland.tile.Tile;
 import tigerisland.tile_placement.exceptions.InvalidTilePlacementException;
+import tigerisland.tile_placement.exceptions.TilePlacementException;
 import tigerisland.tile_placement.placers.AdjacentToBoardTilePlacer;
 import tigerisland.tile_placement.placers.FirstTilePlacer;
 import tigerisland.tile_placement.placers.InvalidTilePlacer;
@@ -42,38 +43,49 @@ public class AdjacentToBoardTilePlacerTest {
 
 
     @Test
-    public void test_ShouldAdd3HexesWhenBoardIsHasSome() throws Throwable {
+    public void test_ShouldAdd3HexesWhenAtLeastOneHexIsAdjacent() throws TilePlacementException {
 
 
         // Arrange
-        Tile tile = new Tile();
+        int firstTileId = 1;
+        Tile firstTile = new Tile(firstTileId);
         Location startLocation = new Location(0, 0,0);
+
+        int secondTileId = 2;
+        Tile secondTile = new Tile(secondTileId);
         Location location = startLocation.getAdjacent(Orientation.getWest());
         location = location.getAdjacent(Orientation.getWest());
 
         // Prime the board with a tile
-        firstTilePlacer.placeTile(new Tile(), startLocation);
+        firstTilePlacer.placeTile(firstTile, startLocation);
         // Act
-        adjacentToBoardTilePlacer.placeTile(tile, location);
+        adjacentToBoardTilePlacer.placeTile(secondTile, location);
 
         // Assert
         int expectedHexesOnBoard = 6;
         Assert.assertEquals(expectedHexesOnBoard, board.getSize());
+        Assert.assertTrue(board.isLocationUsed(location));
+        Assert.assertTrue(board.isLocationUsed(location.getAdjacent(Orientation.getSouthEast())));
+        Assert.assertTrue(board.isLocationUsed(location.getAdjacent(Orientation.getSouthWest())));
     }
 
     @Test
-    public void test_ShouldAdd3HexesWithLevel1() throws Throwable {
+    public void test_ShouldAdd3HexesWithLevel1() throws TilePlacementException {
 
         // Arrange
-        Tile tile = new Tile();
+        int firstTileId = 1;
+        Tile firstTile = new Tile(firstTileId);
         Location startLocation = new Location(0, 0,0);
+
+        int secondTileId = 2;
+        Tile secondTile = new Tile(secondTileId);
         Location location = startLocation.getAdjacent(Orientation.getWest());
         location = location.getAdjacent(Orientation.getWest());
 
         // Prime the board with a tile
-        firstTilePlacer.placeTile(new Tile(), startLocation);
+        firstTilePlacer.placeTile(firstTile, startLocation);
         // Act
-        adjacentToBoardTilePlacer.placeTile(tile, location);
+        adjacentToBoardTilePlacer.placeTile(secondTile, location);
 
 
         // Assert
@@ -83,7 +95,7 @@ public class AdjacentToBoardTilePlacerTest {
     }
 
     @Test (expected = InvalidTilePlacementException.class)
-    public void test_ShouldThrowExceptionWhenEmptyBoard() throws Throwable {
+    public void test_ShouldThrowExceptionWhenEmptyBoard() throws TilePlacementException {
 
         // Arrange
         Tile tile = new Tile();
@@ -101,13 +113,13 @@ public class AdjacentToBoardTilePlacerTest {
     }
 
     @Test
-    public void test_AllowsPlacementForAllAdjacent() throws Throwable {
+    public void test_AllowsPlacementForAllAdjacent() throws TilePlacementException {
         // TODO mbregg create this test.
 
     }
 
     @Test (expected = InvalidTilePlacementException.class)
-    public void test_DisallowsPlacementIfNoAdjacent() throws Throwable {
+    public void test_DisallowsPlacementIfNoAdjacent() throws TilePlacementException{
         // Arrange
         Tile tile = new Tile();
         Location location = new Location(0, 0, 0);

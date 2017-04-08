@@ -3,6 +3,7 @@ package tigerisland.tile_placement.placers;
 import tigerisland.board.Board;
 import tigerisland.board.Location;
 import tigerisland.hex.Hex;
+import tigerisland.piece.PieceBoard;
 import tigerisland.tile.Tile;
 import tigerisland.tile.TileUnpacker;
 import tigerisland.tile_placement.exceptions.TilePlacementException;
@@ -17,10 +18,12 @@ public class NukeTilePlacer  implements  TilePlacement, TilePlacementChain{
     TilePlacement nextTilePlacement;
     List<NukePlacementRule> nukeTilePlacementRules;
     Board board;
+    PieceBoard pieceBoard;
 
-    public NukeTilePlacer(Board board, NukePlacementRule... rules) {
+    public NukeTilePlacer(Board board, PieceBoard pieceBoard, NukePlacementRule... rules) {
 
         this.board = board;
+        this.pieceBoard = pieceBoard;
         nukeTilePlacementRules = new ArrayList<>();
         for(NukePlacementRule rule : rules) {
             nukeTilePlacementRules.add(rule);
@@ -38,6 +41,8 @@ public class NukeTilePlacer  implements  TilePlacement, TilePlacementChain{
         else {
 
             applyNukeRules(hexes);
+
+            removePiecesFromBoard(hexes);
 
             placeHexesOnBoard(hexes);
         }
@@ -69,6 +74,13 @@ public class NukeTilePlacer  implements  TilePlacement, TilePlacementChain{
 
         });
     }
+
+    private void removePiecesFromBoard(Map<Location, Hex> hexes) {
+         hexes.forEach( (location, hex) -> {
+             this.pieceBoard.removePiece(location);
+        });
+    }
+
 
     @Override
     public void setNextTilePlacement(TilePlacement tilePlacement) {

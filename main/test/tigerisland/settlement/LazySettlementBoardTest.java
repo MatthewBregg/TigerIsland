@@ -22,6 +22,11 @@ public class LazySettlementBoardTest {
             return CreatePlayerID.getPlayerID();
         }
 
+        @Override
+        public void removePiece(Location location) {
+            this.pieceMap.remove(location);
+        }
+
         Map<Location, Piece> pieceMap = new HashMap<Location,Piece>();
         @Override
         public Piece getPiece(Location location) {

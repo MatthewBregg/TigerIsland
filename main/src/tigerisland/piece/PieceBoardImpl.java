@@ -48,6 +48,10 @@ public class PieceBoardImpl implements PieceBoard {
         return (ppa != null ) ? ppa.playerID : null;
     }
 
+    @Override
+    public void removePiece(Location location) {
+        pieceMap.remove(location);
+    }
 
     @Override
     public void addPiece(Piece p, Location loc, PlayerID pID) {
