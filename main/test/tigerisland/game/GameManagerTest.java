@@ -4,9 +4,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import tigerisland.board.Location;
-import tigerisland.hex.Hex;
 import tigerisland.player.Player;
-import tigerisland.terrains.Grassland;
 import tigerisland.terrains.Jungle;
 import tigerisland.terrains.Lake;
 import tigerisland.terrains.Rocky;
@@ -25,6 +23,7 @@ public class GameManagerTest {
 
     private Player playerOne;
 
+    private DebugBoardMaker debugBoard;
 
 
     @Before
@@ -225,6 +224,14 @@ public class GameManagerTest {
 
 
     private void createTestBoardForTiger() {
+
+
+//        debugBoard = new DebugBoardMaker("./")
+
+
+
+
+
         List<Tile> tiles = new ArrayList();
 
         //I used 12-15 to have a high tile id so as not to have possibility of duplication with the starting tile ids
