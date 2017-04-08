@@ -1,31 +1,17 @@
-package tigerisland.gameplay;
+package tigerisland.game;
 
-import org.junit.*;
-import tigerisland.board.HexBoard;
 import tigerisland.board.Location;
 import tigerisland.build_moves.SettlementExpansionUtility;
-import tigerisland.build_moves.actions.*;
 import tigerisland.build_moves.builds.*;
-import tigerisland.build_moves.rules.EnoughVillagersToExpandRule;
-import tigerisland.game.BuildController;
-import tigerisland.game.GameManager;
 import tigerisland.hex.Hex;
 import tigerisland.piece.*;
 import tigerisland.player.Player;
 import tigerisland.player.PlayerID;
-import tigerisland.score.ScoreManager;
 import tigerisland.settlement.LazySettlementBoard;
-import tigerisland.settlement.SettlementBoard;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import tigerisland.board.Board;
-import tigerisland.board.HexBoard;
-import tigerisland.build_moves.actions.MakeBuildAction;
-import tigerisland.build_moves.actions.PlaceVillagerOnHexAction;
-import tigerisland.build_moves.rules.*;
 import tigerisland.piece.PieceBoard;
-import tigerisland.score.ScoreManager;
 import tigerisland.terrains.Grassland;
 import tigerisland.terrains.Jungle;
 import tigerisland.terrains.Lake;
@@ -33,17 +19,13 @@ import tigerisland.terrains.Rocky;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-
 
 public class BuildControllerTest {
+
     public GameManager gameManager;
     public BuildActionData buildActionData;
     public BuildController buildController;
     public Player currentPlayer;
-
 
     @Before
     public void initializeGameManagerAndBuildController() {
@@ -178,32 +160,6 @@ public class BuildControllerTest {
         }
 
         Assert.assertTrue(seuCheck && fnsbCheck && esohaCheck && totoroActionCheck && tigerActionCheck);
-    }
-
-    @Test
-    public void checkThatScoreresWereAllInitialized(){
-        ScoreVillagersOnHex villageScorer = buildController.getVillageScorer();
-        ScoreTotoroOnHex totoroScorer = buildController.getTotoroScorer();
-        ScoreTigerOnHex tigerScorer = buildController.getTigerScorer();
-
-        boolean villageCheck = false;
-        boolean totoroCheck = false;
-        boolean tigerCheck = false;
-
-        if (villageScorer != null) {
-            villageCheck = true;
-        }
-
-        if (totoroScorer != null) {
-            totoroCheck = true;
-        }
-
-        if (tigerScorer != null) {
-            tigerCheck = true;
-        }
-
-        Assert.assertTrue(villageCheck && totoroCheck && tigerCheck);
-
     }
 
     @Test

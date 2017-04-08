@@ -2,12 +2,8 @@ package tigerisland.game;
 
 import tigerisland.board.HexBoard;
 import tigerisland.build_moves.SettlementExpansionUtility;
-import tigerisland.build_moves.actions.ScoreTigerOnHex;
-import tigerisland.build_moves.actions.ScoreTotoroOnHex;
-import tigerisland.build_moves.actions.ScoreVillagersOnHex;
 import tigerisland.build_moves.builds.*;
 import tigerisland.piece.PieceBoard;
-import tigerisland.piece.Tiger;
 import tigerisland.score.ScoreManager;
 import tigerisland.settlement.SettlementBoard;
 
@@ -18,14 +14,10 @@ public class BuildController {
     ScoreManager scoreMgr;
 
     SettlementExpansionUtility expansionUtility;
-    FoundNewSettlementBuild foundSettlementAction;
+    FoundNewSettlementBuild foundSettlementBuild;
     ExpandSettlementBuild expandSettlementBuild;
-    TotoroBuild totoroAction;
-    TigerBuild tigerAction;
-
-    ScoreVillagersOnHex villageScorer;
-    ScoreTotoroOnHex totoroScorer;
-    ScoreTigerOnHex tigerScorer;
+    TotoroBuild totoroBuild;
+    TigerBuild tigerBuild;
 
     public BuildController(HexBoard hexBoard, PieceBoard pieceBoard, SettlementBoard settlementBoard, ScoreManager scoreManager){
         this.hexBoard = hexBoard;
@@ -34,16 +26,24 @@ public class BuildController {
         scoreMgr = scoreManager;
 
         initializeBuilders();
-        initializeScoring();
     }
 
+    private void initializeBuilders(){
+
+        expansionUtility = new SettlementExpansionUtility(hexBoard, pieceBoard,settlementBoard);
+
+        foundSettlementBuild = new FoundNewSettlementBuild(hexBoard, pieceBoard, scoreMgr);
+        expandSettlementBuild = new ExpandSettlementBuild(expansionUtility,pieceBoard,scoreMgr);
+        totoroBuild = new TotoroBuild(hexBoard, pieceBoard, settlementBoard, scoreMgr);
+        tigerBuild = new TigerBuild(hexBoard, pieceBoard, settlementBoard, scoreMgr);
+    }
 
     public SettlementExpansionUtility getSettlementExpansionUtility(){
         return expansionUtility;
     }
 
     public FoundNewSettlementBuild getFoundNewSettlementBuild(){
-        return foundSettlementAction;
+        return foundSettlementBuild;
     }
 
     public ExpandSettlementBuild getExpandSettlmentBuild(){
@@ -51,42 +51,15 @@ public class BuildController {
     }
 
     public TotoroBuild getTotoroBuild(){
-        return totoroAction;
+        return totoroBuild;
     }
 
     public TigerBuild getTigerBuild(){
-        return tigerAction;
-    }
-
-    public ScoreVillagersOnHex getVillageScorer(){
-        return villageScorer;
-    }
-    public ScoreTotoroOnHex getTotoroScorer(){
-        return totoroScorer;
-    }
-
-    public ScoreTigerOnHex getTigerScorer(){
-        return tigerScorer;
-    }
-
-    private void initializeBuilders(){
-
-        foundSettlementAction = new FoundNewSettlementBuild(hexBoard, pieceBoard, scoreMgr);
-        expansionUtility = new SettlementExpansionUtility(hexBoard, pieceBoard,settlementBoard);
-        expandSettlementBuild = new ExpandSettlementBuild(expansionUtility,pieceBoard,scoreMgr);
-
-        totoroAction = new TotoroBuild(hexBoard, pieceBoard, settlementBoard, scoreMgr);
-        tigerAction = new TigerBuild(hexBoard, pieceBoard, settlementBoard, scoreMgr);
-    }
-
-    private void initializeScoring(){
-        villageScorer = new ScoreVillagersOnHex(hexBoard, scoreMgr);
-        totoroScorer = new ScoreTotoroOnHex(scoreMgr);
-        tigerScorer = new ScoreTigerOnHex(scoreMgr);
+        return tigerBuild;
     }
 
     public BuildActionResult foundSettlement(BuildActionData buildActionData){
-        BuildActionResult result = foundSettlementAction.build(buildActionData);
+        BuildActionResult result = foundSettlementBuild.build(buildActionData);
         return result;
         //TODO change to FoundNewSettlement Build
     }
@@ -99,17 +72,13 @@ public class BuildController {
     }
 
     public BuildActionResult buildTiger(BuildActionData buildActionData){
-        BuildActionResult result = tigerAction.build(buildActionData);
+        BuildActionResult result = tigerBuild.build(buildActionData);
         return result;
     }
 
     public BuildActionResult buildTotoro(BuildActionData buildActionData){
-        BuildActionResult result = totoroAction.build(buildActionData);
+        BuildActionResult result = totoroBuild.build(buildActionData);
         return result;
     }
 
-
-
-
-    //TODO
 }
