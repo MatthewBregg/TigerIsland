@@ -50,8 +50,15 @@ public class GameManager {
         tilePlacer = new TilePlacementController(gameBoard, settlements, pieces);
         buildController = new BuildController(gameBoard, pieces, settlements, scoreKeeper);
     }
-    public void injectHexBoardOnlyForTesting(HexBoard hexBoard){
-        this.gameBoard = hexBoard;
+
+
+    public static GameManager injectHexBoardOnlyForTesting(HexBoard hexBoard){
+        ArrayList<Player> players = new ArrayList<>();
+
+        players.add(new Player());
+        players.add(new Player());
+
+       return new GameManager(players, hexBoard);
     }
 
 
@@ -202,4 +209,24 @@ public class GameManager {
     {
         return scoreKeeper;
     }
+
+    private GameManager(ArrayList<Player> players , HexBoard hexboard){
+        if (players.size() != 2)
+        {
+            throw new IllegalArgumentException("Exactly two players required");
+        }
+
+        gameBoard = hexboard;
+        this.players=players;
+
+        tilesDrawn = 0;
+
+        initializeScoreKeeper();
+        initializeSettlementBoard();
+        placeStartingHexes();
+
+        tilePlacer = new TilePlacementController(gameBoard, settlements, pieces);
+        buildController = new BuildController(gameBoard, pieces, settlements, scoreKeeper);
+    }
+
 }

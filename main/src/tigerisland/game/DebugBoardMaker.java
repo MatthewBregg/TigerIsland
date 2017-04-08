@@ -74,7 +74,10 @@ public class DebugBoardMaker {
     private List<Object> getLevel(String[] hexInfo) {
         List<Object> levelAndTerrainInfo = new ArrayList();
 
+        //tile level
         levelAndTerrainInfo.add(new Integer(Integer.parseInt(hexInfo[3])));
+        //tile id
+        levelAndTerrainInfo.add(new Integer(Integer.parseInt(hexInfo[4])));
 
         levelAndTerrainInfo.add(getTerrain(hexInfo[5]));
         return levelAndTerrainInfo;
