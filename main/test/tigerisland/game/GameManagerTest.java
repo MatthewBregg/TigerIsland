@@ -226,8 +226,7 @@ public class GameManagerTest {
     private void createTestBoardForTiger() {
 
 
-//        debugBoard = new DebugBoardMaker("./")
-
+        debugBoard = new DebugBoardMaker("./main/test/tigerisland/game/GameManagerTestBoard");
 
 
 
