@@ -3,6 +3,7 @@ package tigerisland.game;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import tigerisland.board.HexBoard;
 import tigerisland.board.Location;
 import tigerisland.player.Player;
 import tigerisland.terrains.Jungle;
@@ -226,8 +227,9 @@ public class GameManagerTest {
     private void createTestBoardForTiger() {
 
 
-        debugBoard = new DebugBoardMaker("./main/test/tigerisland/game/GameManagerTestBoard");
-
+        debugBoard = new DebugBoardMaker("./main/test/tigerisland/game/GameManagerTestBoard.txt");
+        HexBoard hexBoard = debugBoard.getBoard();
+        manager.injectHexBoardOnlyForTesting(hexBoard);
 
 
 

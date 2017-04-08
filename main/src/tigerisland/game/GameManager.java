@@ -1,19 +1,21 @@
 package tigerisland.game;
 
 
-import tigerisland.board.*;
+import tigerisland.board.HexBoard;
+import tigerisland.board.Location;
 import tigerisland.build_moves.builds.BuildActionData;
 import tigerisland.hex.Hex;
-import tigerisland.piece.*;
+import tigerisland.piece.PieceBoard;
+import tigerisland.piece.PieceBoardImpl;
 import tigerisland.player.Player;
 import tigerisland.player.PlayerID;
 import tigerisland.score.ScoreManager;
-import tigerisland.settlement.*;
+import tigerisland.settlement.LazySettlementBoard;
+import tigerisland.settlement.SettlementBoard;
 import tigerisland.terrains.*;
 import tigerisland.tile.Orientation;
 import tigerisland.tile.Tile;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -48,6 +50,10 @@ public class GameManager {
         tilePlacer = new TilePlacementController(gameBoard, settlements, pieces);
         buildController = new BuildController(gameBoard, pieces, settlements, scoreKeeper);
     }
+    public void injectHexBoardOnlyForTesting(HexBoard hexBoard){
+        this.gameBoard = hexBoard;
+    }
+
 
     private void initializeScoreKeeper()
     {
