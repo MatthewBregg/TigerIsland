@@ -13,6 +13,7 @@ import tigerisland.terrains.*;
 import tigerisland.tile.Orientation;
 import tigerisland.tile.Tile;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -26,6 +27,7 @@ public class GameManager {
     private SettlementBoard settlements;
     private TilePlacementController tilePlacer;
     private BuildController buildController;
+    private int tilesDrawn;
 
     public GameManager(ArrayList<Player> players){
         if (players.size() != 2)
@@ -36,6 +38,8 @@ public class GameManager {
         gameBoard = new HexBoard();
 
         this.players=players;
+
+        tilesDrawn = 0;
 
         initializeScoreKeeper();
         initializeSettlementBoard();
@@ -52,6 +56,14 @@ public class GameManager {
         for (int i = 0; i < players.size(); i++) {
             scoreKeeper.addNewPlayer(players.get(i).getId());
         }
+    }
+
+    public ArrayList<Player> getPlayers(){
+        return players;
+    }
+
+    public int getTilesDrawn(){
+        return tilesDrawn;
     }
 
     public BuildController getBuildController(){
@@ -83,6 +95,7 @@ public class GameManager {
     }
 
     public boolean placeTile(Tile tile, Location location) {
+        tilesDrawn++;
         return tilePlacer.placeTile(tile, location);
     }
 
@@ -123,6 +136,23 @@ public class GameManager {
         return buildController.buildTiger(buildAction).successful;
     }
 
+    public boolean totoroOrTigerPlaced(PlayerID pID){
+        Player player = players.get(0);
+        Player player2 = players.get(1);
+
+        if (player.getId() == pID){
+            if((player.getTotoroCount() < 3) || (player.getTigerCount() < 2)){
+                return true;
+            }
+        }
+        else if(player2.getId() == pID){
+            if((player2.getTotoroCount() < 3) || (player2.getTigerCount() < 2)){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public HexBoard getHexBoard(){
         return gameBoard;
     }
@@ -152,13 +182,9 @@ public class GameManager {
         return null;
     }
 
-    public void endGame(){
-        // TODO
-    }
-
     public boolean isGameDone(){
-        //TODO
-        return true;
+
+        return false;
     }
 
     public GameResults returnResults(){

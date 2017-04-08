@@ -6,12 +6,9 @@ import tigerisland.player.Player;
 import tigerisland.tile.*;
 import tigerisland.score.*;
 import tigerislandserver.adapter.OutputAdapter;
-import tigerislandserver.gameplay.identifiers.GameID;
 import tigerislandserver.server.TournamentPlayer;
 
 import java.util.ArrayList;
-
-import static tigerislandserver.gameplay.TournamentScoreboard.scoreManager;
 
 public class GameThread extends Thread{
     private ArrayList<Tile> gameTiles;
@@ -19,6 +16,8 @@ public class GameThread extends Thread{
     private int activePlayerIndex;
     private char gameID;
     private TournamentScoreboard scoreboard;
+    private TournamentScoreboardData tourneyDataPlayer1;
+    private TournamentScoreboardData tourneyDataPlayer2;
     private boolean gameNotEnded;
     private GameManager gameManager;
 
@@ -49,20 +48,42 @@ public class GameThread extends Thread{
         return gameManager.getScoreManager();
     }
 
-    public int getPlayer1FinalScore(){
-        TournamentPlayer player1 = playersInGame.get(0);
+    public int getPlayerFinalScore(int playerIndex){
+        TournamentPlayer player1 = playersInGame.get(playerIndex);
         PlayerID pID = player1.getPlayerID();
 
         return gameManager.getScoreManager().getPlayerScore(pID);
     }
 
-    public int getPlayer2FinalScore(){
-        TournamentPlayer player2 = playersInGame.get(1);
-        PlayerID pID = player2.getPlayerID();
+    // to hold the data the tournament scoreboard needs
+    // there is a new class taht has been made
+    public ArrayList<TournamentScoreboardData> makeTournamentScoreboardDataList(){
+        int player1Index = 0;
+        int player2Index = 1;
+        TournamentScoreboardData player1Data = makeTournamentScoreboardData(player1Index);
+        TournamentScoreboardData player2Data = makeTournamentScoreboardData(player2Index);
 
-        return gameManager.getScoreManager().getPlayerScore(pID);
+        ArrayList<TournamentScoreboardData> playerData = new ArrayList<>();
+        playerData.add(player1Data);
+        playerData.add(player2Data);
+
+        return playerData;
     }
 
+    public TournamentScoreboardData makeTournamentScoreboardData(int playerIndex){
+        Player player = getPlayerFromPID(playersInGame.get(playerIndex).getPlayerID());
+
+        int finalScore = getPlayerFinalScore(playerIndex);
+
+        TournamentScoreboardData data = new TournamentScoreboardData(player, finalScore);
+        return data;
+    }
+
+
+    public Player getPlayerFromPID(PlayerID pID){
+        Player player = gameManager.getPlayer(pID);
+        return player;
+    }
 
     public void sendStartGameMessage(){
         // to send starting game info that dave is probably going to make us send
@@ -113,23 +134,111 @@ public class GameThread extends Thread{
 
             playersInGame.get(activePlayerIndex).requestMove(this, gameID, playerTurnNumber, tile);
 
+            if (gameEndedWithValidWin()){
+                ArrayList<TournamentScoreboardData> playerData = makeTournamentScoreboardDataList();
+                scoreboard.updateTournamentScoresForValidWin(playerData);
+                endGame();
+            }
+            // enter the check for valid move and then call gameEnded()
+
             moveNumber++;
             activePlayerIndex = (activePlayerIndex + 1) % playersInGame.size();
 
-            if(gameManager.isGameDone())
+            if(isGameDone())
             {
                 gameNotEnded = false;
             }
         }
 
+
         sendEndGameMessage();
     }
+
+    public boolean playerUsedAllOfTwoTiles(PlayerID pID){
+        ArrayList<Player> players = gameManager.getPlayers();
+        Player player1 = players.get(0);
+        Player player2 = players.get(1);
+
+        Player player = new Player();
+
+        if(player1.getId() == pID){
+            player = player1;
+        }
+        else if(player2.getId() == pID){
+            player = player2;
+        }
+
+        if((player.getTigerCount() == 0) && (player.getTotoroCount() == 0)){
+            return true;
+        }
+        else if((player.getTigerCount() == 0) && (player.getVillagerCount() == 0)){
+            return true;
+        }
+        else if((player.getTotoroCount() == 0) && (player.getVillagerCount() == 0)){
+            return true;
+        }
+
+        return false;
+    }
+
+    public boolean gameEndedWithValidWin(){
+        //there are two ways the game ends validly
+        // Player has only one type of piece left
+        // Player wins tie
+        TournamentPlayer player = playersInGame.get(activePlayerIndex);
+        PlayerID pID = player.getPlayerID();
+
+        boolean usedAllOfTwo = playerUsedAllOfTwoTiles(pID);
+        boolean allTilesDrawn = noMoreTilesAreLeftToPlace();
+
+        return usedAllOfTwo || allTilesDrawn;
+    }
+
+    public boolean noMoreTilesAreLeftToPlace(){
+        if(gameManager.getTilesDrawn() == 48){
+            return true;
+        }
+
+        return false;
+    }
+
+    public ArrayList<TournamentPlayer> generatePlayerToReturnToScoreboard(TournamentPlayer player){
+        ArrayList<TournamentPlayer> players = new ArrayList<>();
+
+        TournamentPlayer firstPlayer = playersInGame.get(0);
+        TournamentPlayer secondPlayer =playersInGame.get(1);
+
+
+        if (player.getPlayerID() == firstPlayer.getPlayerID()){
+            players.add(firstPlayer);
+            players.add(secondPlayer);
+        }
+        else if(player.getPlayerID() == secondPlayer.getPlayerID()){
+            players.add(secondPlayer);
+            players.add(firstPlayer);
+        }
+
+        return players;
+    }
+
+    public boolean isGameDone(){
+        return gameNotEnded;
+    }
+
+    public void endGame(){
+        gameNotEnded = !gameNotEnded;
+    }
+
+    // pass botht the players so you can immediately add in the score
 
     public void timeout(TournamentPlayer tournamentPlayer)
     {
         //TODO The message for turn is already sent so the client when this is called.
         OutputAdapter.sendEndGameMessage(tournamentPlayer, otherPlayer(tournamentPlayer), gameID, "FORFEITED", "WIN");
         gameNotEnded=false;
+        ArrayList<TournamentPlayer> players = generatePlayerToReturnToScoreboard(tournamentPlayer);
+
+        scoreboard.playerTimedOut(players);
     }
 
     public void unableToBuild(TournamentPlayer tournamentPlayer)
@@ -137,6 +246,16 @@ public class GameThread extends Thread{
         //TODO
         OutputAdapter.sendEndGameMessage(tournamentPlayer, otherPlayer(tournamentPlayer), gameID, "FORFEITED", "WIN");
         gameNotEnded=false;
+        ArrayList<TournamentPlayer> players = generatePlayerToReturnToScoreboard(tournamentPlayer);
+
+        boolean didTheyPlaceTigerOrTotoro = gameManager.totoroOrTigerPlaced(tournamentPlayer.getPlayerID());
+
+        if (didTheyPlaceTigerOrTotoro){
+            scoreboard.playerWasUnableToBuildAndPlacedSpecialPiece(players);
+        }
+        else {
+            scoreboard.playerWasUnableToBuildAndPlacedNoSpecialPieces(players);
+        }
     }
 
     public void invalidTilePlacement(TournamentPlayer tournamentPlayer)
@@ -144,6 +263,9 @@ public class GameThread extends Thread{
         //TODO
         OutputAdapter.sendEndGameMessage(tournamentPlayer, otherPlayer(tournamentPlayer), gameID, "FORFEITED", "WIN");
         gameNotEnded=false;
+        ArrayList<TournamentPlayer> players = generatePlayerToReturnToScoreboard(tournamentPlayer);
+
+        scoreboard.playerPlacedInvalidTile(players);
     }
 
     public void invalidBuild(TournamentPlayer tournamentPlayer)
@@ -151,6 +273,9 @@ public class GameThread extends Thread{
         //TODO
         OutputAdapter.sendEndGameMessage(tournamentPlayer, otherPlayer(tournamentPlayer), gameID, "FORFEITED", "WIN");
         gameNotEnded=false;
+        ArrayList<TournamentPlayer> players = generatePlayerToReturnToScoreboard(tournamentPlayer);
+
+        scoreboard.playerMadeInvalidBuild(players);
     }
 
     public GameManager getGameManager()
