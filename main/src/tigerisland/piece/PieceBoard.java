@@ -16,4 +16,6 @@ public interface PieceBoard {
     boolean isLocationOccupied(Location location, PlayerID playerID);
 
     PlayerID getPlayer(Location location);
+
+    void removePiece(Location location);
 }
