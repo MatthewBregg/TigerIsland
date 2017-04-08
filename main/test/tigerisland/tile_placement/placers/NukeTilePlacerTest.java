@@ -189,6 +189,8 @@ public class NukeTilePlacerTest {
         this.nukeTilePlacer.placeTile(tile, referenceLocation);
     }
 
+
+
     @Test(expected = NukeSettlementEradicationException.class)
     public void test_ShouldThrowExceptionWhenSettlementEradicationRuleIsApplied() throws TilePlacementException{
         // Arrange
@@ -242,7 +244,6 @@ public class NukeTilePlacerTest {
 
         // Act
         this.nukeTilePlacer.placeTile(tile, referenceLocation);
-        Assert.assertEquals(3, board.getSize());
 
         Hex volcanoHexFromTile = board.getHex(referenceLocation);
         Assert.assertEquals(2, volcanoHexFromTile.getLevel());
@@ -295,4 +296,40 @@ public class NukeTilePlacerTest {
         Assert.assertEquals(1, leftOverSettlement.settlementSize());
     }
 
+    @Test()
+    public void test_ShouldNukeWhenThereIsATigerOnAHex() throws TilePlacementException{
+        // Arrange
+        Hex volcanoHex = new Hex(1, Volcano.getInstance()); volcanoHex.setLevel(1);
+        Hex grasslandHex = new Hex(2, Grassland.getInstance()); grasslandHex.setLevel(1);
+        Hex rockyHex = new Hex(2, Rocky.getInstance()); rockyHex.setLevel(1);
+
+        Location referenceLocation = new Location(0, 0, 0);
+        Location southEastLocation = referenceLocation.getAdjacent(Orientation.getSouthEast());
+        Location southWestLocation = referenceLocation.getAdjacent(Orientation.getSouthWest());
+
+        board.placeHex(referenceLocation, volcanoHex);
+        board.placeHex(southEastLocation, grasslandHex);
+        board.placeHex(southWestLocation, rockyHex);
+
+        Player player = new Player();
+        Piece villager = new Villager();
+        Piece tiger = new Tiger();
+        pieceBoard.addPiece(tiger, referenceLocation, player.getId());
+        pieceBoard.addPiece(villager, southEastLocation, player.getId());
+        pieceBoard.addPiece(villager, southWestLocation, player.getId());
+
+        Location eastOfReferenceLocation = referenceLocation.getAdjacent(Orientation.getEast());
+        pieceBoard.addPiece(villager, eastOfReferenceLocation, player.getId());
+
+        int secondTileId = 3;
+        Tile tile = new Tile(secondTileId, Lake.getInstance(), Jungle.getInstance());
+        Orientation tileOrientation = new Orientation(Orientation.EAST);
+        tile.setOrientation(tileOrientation);
+
+        // Act
+        this.nukeTilePlacer.placeTile(tile, referenceLocation);
+
+        Settlement referenceLocationSettlement = settlementBoard.getSettlement(referenceLocation, player.getId());
+        Assert.assertEquals(0, referenceLocationSettlement.settlementSize());
+    }
 }
