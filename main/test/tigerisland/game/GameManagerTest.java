@@ -217,10 +217,10 @@ public class GameManagerTest {
         createTestBoardForTiger();
         Location settlement = new Location(1,0,-1);
 
-        Assert.assertTrue(manager.foundSettlement(settlement, playerOne));
+//        Assert.assertTrue(manager.foundSettlement(settlement, playerOne));
 
         Location tiger = new Location(2,-1,-1);
-//        Assert.assertTrue(manager.buildTiger(tiger, playerOne));
+        Assert.assertTrue(manager.buildTiger(tiger, playerOne));
 
     }
 

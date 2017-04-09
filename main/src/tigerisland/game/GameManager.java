@@ -213,12 +213,26 @@ public class GameManager {
 
         this.gameBoard = hexboard;
         this.pieces = pieces;
-        this.players=players;
+        this.settlements = new LazySettlementBoard(pieces);
+        this.players = players;
+
+
+//        private ArrayList<Player> players;
+//        private int playerIndex;
+//        private HexBoard gameBoard;
+//        private ScoreManager scoreKeeper;
+//        private PieceBoard pieces;
+//        private SettlementBoard settlements;
+//        private TilePlacementController tilePlacer;
+//        private BuildController buildController;
+//        private int tilesDrawn;
+
+
 
         tilesDrawn = 0;
 
         initializeScoreKeeper();
-        initializeSettlementBoard();
+//        initializeSettlementBoard();
 //        placeStartingHexes();
 
         tilePlacer = new TilePlacementController(gameBoard, settlements, pieces);
