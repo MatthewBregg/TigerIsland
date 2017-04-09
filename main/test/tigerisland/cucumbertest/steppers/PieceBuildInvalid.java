@@ -3,6 +3,7 @@ package tigerisland.cucumbertest.steppers;
 import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import org.junit.Assert;
+import tigerisland.TestLogger;
 import tigerisland.board.Location;
 import tigerisland.game.GameManager;
 import tigerisland.player.Player;
@@ -24,7 +25,7 @@ public class PieceBuildInvalid implements En {
         players.add(new Player());
         players.add(new Player());
 
-        manager = new GameManager(players);
+        manager = new GameManager(players, new TestLogger());
 
     }
 

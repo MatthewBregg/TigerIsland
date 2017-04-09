@@ -4,6 +4,8 @@ package tigerisland.game;
 import tigerisland.board.HexBoard;
 import tigerisland.board.Location;
 import tigerisland.build_moves.builds.BuildActionData;
+import tigerisland.build_moves.builds.BuildActionResult;
+import tigerisland.datalogger.DataLogger;
 import tigerisland.hex.Hex;
 import tigerisland.piece.PieceBoard;
 import tigerisland.piece.PieceBoardImpl;
@@ -21,6 +23,7 @@ import java.util.HashMap;
 
 public class GameManager {
 
+    private DataLogger logger;
     private ArrayList<Player> players;
     private int playerIndex;
     private HexBoard gameBoard;
@@ -31,7 +34,8 @@ public class GameManager {
     private BuildController buildController;
     private int tilesDrawn;
 
-    public GameManager(ArrayList<Player> players){
+    public GameManager(ArrayList<Player> players, DataLogger logger){
+        this.logger = logger;
         if (players.size() != 2)
         {
             throw new IllegalArgumentException("Exactly two players required");
@@ -104,7 +108,13 @@ public class GameManager {
 
     public boolean placeTile(Tile tile, Location location) {
         tilesDrawn++;
-        return tilePlacer.placeTile(tile, location);
+        logger.writePlacedTileMove(new PlayerID(), location, tile.getOrientation(), tile.toString());
+        // TODO : mbregg
+        boolean result = tilePlacer.placeTile(tile, location);
+        if ( !result ) {
+            logger.writeInvalidMoveAttempted(new PlayerID(),"Failed to place tile!");
+        }
+        return result;
     }
 
     public boolean foundSettlement(Location location, Player player){
@@ -112,8 +122,12 @@ public class GameManager {
                 .withHexLocation(location)
                 .withPlayer(player)
                 .build();
-
-        return buildController.foundSettlement(buildAction).successful;
+        logger.writeFoundedSettlementMove(player.getId(),location);
+        BuildActionResult result = buildController.foundSettlement(buildAction);
+        if ( !result.successful ) {
+            logger.writeInvalidMoveAttempted(player.getId(),result.errorMessage);
+        }
+        return result.successful;
     }
 
     public boolean expandSettlement(Location locationExpandingFrom, Terrain terrainToExpandTo, Player player){
@@ -122,8 +136,12 @@ public class GameManager {
                 .withTerrain(terrainToExpandTo)
                 .withPlayer(player)
                 .build();
-
-        return buildController.expandSettlement(buildAction).successful;
+        logger.writeExpandedSettlementMove(player.getId(),locationExpandingFrom,terrainToExpandTo.toString());
+        BuildActionResult result = buildController.expandSettlement(buildAction);
+        if ( !result.successful ) {
+            logger.writeInvalidMoveAttempted(player.getId(),result.errorMessage);
+        }
+        return result.successful;
     }
 
     public boolean buildTotoro(Location locationExpandingTo, Player player){
@@ -131,8 +149,12 @@ public class GameManager {
                 .withHexLocation(locationExpandingTo)
                 .withPlayer(player)
                 .build();
-
-        return buildController.buildTotoro(buildAction).successful;
+        logger.writePlacedTotoroMove(player.getId(),locationExpandingTo);
+        BuildActionResult result = buildController.buildTotoro(buildAction);
+        if ( !result.successful ) {
+            logger.writeInvalidMoveAttempted(player.getId(),result.errorMessage);
+        }
+        return result.successful;
     }
 
     public boolean buildTiger(Location locationExpandingTo, Player player){
@@ -140,8 +162,12 @@ public class GameManager {
                 .withHexLocation(locationExpandingTo)
                 .withPlayer(player)
                 .build();
-
-        return buildController.buildTiger(buildAction).successful;
+        logger.writePlacedTigerMove(player.getId(),locationExpandingTo);
+        BuildActionResult result = buildController.buildTiger(buildAction);
+        if ( !result.successful ) {
+            logger.writeInvalidMoveAttempted(player.getId(),result.errorMessage);
+        }
+        return result.successful;
     }
 
     public boolean totoroOrTigerPlaced(PlayerID pID){
