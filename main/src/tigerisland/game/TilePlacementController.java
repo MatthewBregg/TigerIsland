@@ -52,7 +52,7 @@ public class TilePlacementController {
         try {
             tilePlacerChain.placeTile(tile, boardLocation);
         } catch (TilePlacementException e) {
-            System.out.println("Error placing tile");
+            System.out.println("Error placing tile " + e);
 //            e.printStackTrace();
             validPlacement = false;
             //TODO Come back and decide what to do with stackTrace
