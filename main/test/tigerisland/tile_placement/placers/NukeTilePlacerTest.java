@@ -184,7 +184,6 @@ public class NukeTilePlacerTest {
         this.nukeTilePlacer.placeTile(tile, referenceLocation);
     }
 
-    // This test should fail until rules are clarified.
     @Test(expected = NukeTigerRuleException.class)
     public void test_ShouldThrowExceptionWhenNukeNonNukingAndThereIsATiger() throws TilePlacementException{
         // Arrange
@@ -296,10 +295,9 @@ public class NukeTilePlacerTest {
 
         Player player = new Player();
         Piece villager = new Villager();
-        Piece tiger = new Tiger();
         pieceBoard.addPiece(villager, referenceLocation, player.getId());
         pieceBoard.addPiece(villager, southEastLocation, player.getId());
-        pieceBoard.addPiece(tiger, southWestLocation, player.getId());
+        pieceBoard.addPiece(villager, southWestLocation, player.getId());
 
         Location eastOfReferenceLocation = referenceLocation.getAdjacent(Orientation.getEast());
         pieceBoard.addPiece(villager, eastOfReferenceLocation, player.getId());

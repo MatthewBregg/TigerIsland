@@ -23,14 +23,12 @@ public class TestingBoardMaker {
         this.fileName = fileName;
         this.getHexInfoFromFile();
     }
+
     public TestingBoardMaker(String [] fuckCucumber, ArrayList<Player> players) {
         this.hexLocationsAndLevels = new HashMap<>();
         this.players = players;
-//        this.fileName = fileName;
         setupFromStringArray(fuckCucumber);
-}
-
-
+    }
 
     public Map<Location, List<Object>> getHexMap() {
         return hexLocationsAndLevels;
@@ -48,6 +46,7 @@ public class TestingBoardMaker {
         }
         return toReturn;
     }
+
     public PieceBoard getPieces() {
         PieceBoard toReturn = new PieceBoardImpl();
         Piece piece;
