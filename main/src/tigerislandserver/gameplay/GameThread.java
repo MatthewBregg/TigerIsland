@@ -270,7 +270,6 @@ public class GameThread extends Thread{
         OutputAdapter.sendEndGameMessage(tournamentPlayer, otherPlayer(tournamentPlayer), gameID, "FORFEITED", "WIN");
         gameNotEnded=false;
         ArrayList<TournamentPlayer> players = generatePlayerToReturnToScoreboard(tournamentPlayer);
-
         scoreboard.playerMadeInvalidBuild(players);
     }
 
