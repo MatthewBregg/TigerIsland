@@ -105,6 +105,7 @@ public class SettlementBuildValidation implements En {
            Location existingSettlementLocation = new Location (1, -1, 0);
            PieceBoard placedPieces = manager.getPieceBoard();
            Assert.assertTrue(placedPieces.getPiece(existingSettlementLocation, player1.getId()) instanceof Villager);
+           previousVillagerCount = player1.getVillagerCount();
         });
         When("^Player expands the settlement$", () -> {
            Assert.assertTrue(manager.expandSettlement(new Location(1,-1,0), Lake.getInstance(), player1));
@@ -123,6 +124,9 @@ public class SettlementBuildValidation implements En {
             board = testBoardMaker.getBoard();
             SettlementExpansionUtility expander = new SettlementExpansionUtility(board, pieces, settlementBoard);
             Set<Location> expansionLocations = expander.getExpandableHexes(data.build());
+
+            villagersRequired = expander.getVillagersNeededToExpand(data.build());
+
             expansionLocations.add(existingSettlementLocation);
 
             board = manager.getHexBoard();
@@ -138,9 +142,7 @@ public class SettlementBuildValidation implements En {
 
         });
         And("^player’s villagers are decremented by an amount equal to the number of villagers placed$", () -> {
-            player1.getVillagerCount();
-
-
+            Assert.assertTrue(player1.getVillagerCount()==previousVillagerCount-villagersRequired);
         });
     }
 
