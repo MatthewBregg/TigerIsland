@@ -228,7 +228,7 @@ public class GameManagerTest {
         debugBoard = new TestingBoardMaker("/resources/GameManagerTigerPassTestBoard.txt", players);
         HexBoard hexBoard = debugBoard.getBoard();
         PieceBoard pieces = debugBoard.getPieces();
-        manager = GameManager.injectStuffOnlyForTesting(hexBoard,players,pieces);
+        manager = GameManager.injectStuffOnlyForTesting(hexBoard,players,pieces, new TestLogger());
     }
 
     @Test
@@ -243,7 +243,7 @@ public class GameManagerTest {
         debugBoard = new TestingBoardMaker("/resources/GameManagerTigerFailTestBoard.txt", players);
         HexBoard hexBoard = debugBoard.getBoard();
         PieceBoard pieces = debugBoard.getPieces();
-        manager = GameManager.injectStuffOnlyForTesting(hexBoard,players,pieces);
+        manager = GameManager.injectStuffOnlyForTesting(hexBoard,players,pieces, new TestLogger());
     }
 
     @Test

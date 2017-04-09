@@ -14,3 +14,5 @@ main/bin/
 
 # git file
 *.orig
+
+moves/

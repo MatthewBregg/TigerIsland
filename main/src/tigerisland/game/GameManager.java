@@ -56,8 +56,9 @@ public class GameManager {
     }
 
 
-    public static GameManager injectStuffOnlyForTesting(HexBoard hexBoard, ArrayList<Player> players, PieceBoard pieces){
-       return new GameManager(players, hexBoard, pieces);
+    public static GameManager injectStuffOnlyForTesting(HexBoard hexBoard, ArrayList<Player> players, PieceBoard pieces,
+                                                        DataLogger logger){
+       return new GameManager(players, hexBoard, pieces, logger);
     }
 
 
@@ -88,21 +89,24 @@ public class GameManager {
     }
 
     private void placeStartingHexes() {
+        int startingTileId = -2;
+
         Location centerLocation = new Location(0,0,0);
-        Hex startingVolcano = new Hex(Volcano.getInstance());
+        Hex startingVolcano = new Hex(startingTileId,Volcano.getInstance());
+
 
         gameBoard.placeHex(centerLocation, startingVolcano);
 
-        Hex startingJungle = new Hex(Jungle.getInstance());
+        Hex startingJungle = new Hex(startingTileId,Jungle.getInstance());
         gameBoard.placeHex(centerLocation.getAdjacent(Orientation.getNorthWest()), startingJungle);
 
-        Hex startingLake = new Hex(Lake.getInstance());
+        Hex startingLake = new Hex(startingTileId,Lake.getInstance());
         gameBoard.placeHex(centerLocation.getAdjacent(Orientation.getNorthEast()), startingLake);
 
-        Hex startingGrassland = new Hex(Grassland.getInstance());
+        Hex startingGrassland = new Hex(startingTileId,Grassland.getInstance());
         gameBoard.placeHex(centerLocation.getAdjacent(Orientation.getSouthEast()), startingGrassland);
 
-        Hex startingRocky = new Hex(Rocky.getInstance());
+        Hex startingRocky = new Hex(startingTileId,Rocky.getInstance());
         gameBoard.placeHex(centerLocation.getAdjacent(Orientation.getSouthWest()), startingRocky);
     }
 
@@ -221,7 +225,8 @@ public class GameManager {
         return scoreKeeper;
     }
 
-    private GameManager(ArrayList<Player> players , HexBoard hexboard, PieceBoard pieces){
+    private GameManager(ArrayList<Player> players , HexBoard hexboard, PieceBoard pieces, DataLogger logger){
+        this.logger = logger;
         if (players.size() != 2)
         {
             throw new IllegalArgumentException("Exactly two players required");

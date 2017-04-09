@@ -2,6 +2,7 @@ package tigerisland.cucumbertest.steppers;
 
 import cucumber.api.java8.En;
 import org.junit.Assert;
+import tigerisland.TestLogger;
 import tigerisland.board.HexBoard;
 import tigerisland.board.Location;
 import tigerisland.build_moves.SettlementExpansionUtility;
@@ -189,7 +190,7 @@ public class SettlementBuildValidation implements En {
 
         board = testBoardMaker.getBoard();
         pieces = testBoardMaker.getPieces();
-        manager = GameManager.injectStuffOnlyForTesting(board,players,pieces);
+        manager = GameManager.injectStuffOnlyForTesting(board,players,pieces, new TestLogger());
         settlementBoard = new LazySettlementBoard(pieces);
 
     }

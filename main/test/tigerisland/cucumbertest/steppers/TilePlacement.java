@@ -30,10 +30,11 @@ public class TilePlacement implements En {
     public TilePlacement() {
         Given("^The board is not empty, and there is one tile placed somewhere$", () -> {
             initializePlayers();
-            Assert.assertTrue(manager.placeTile(new Tile(), volcanoLocation));
+            // Need to place tile on board for this
+            throw new PendingException();
         });
         When("^A player attempts to place a tile on top of said tile$", () -> {
-            result = manager.placeTile(new Tile(), volcanoLocation);
+            throw new PendingException();
         });
         Then("^Failure occurs$", () -> {
             Assert.assertFalse(result);
