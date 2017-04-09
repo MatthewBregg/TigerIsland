@@ -2,7 +2,6 @@ package tigerislandserver.adapter;
 
 import tigerisland.board.Location;
 import tigerisland.game.GameManager;
-import tigerisland.hex.Hex;
 import tigerisland.player.Player;
 import tigerisland.terrains.*;
 import tigerisland.tile.Orientation;
@@ -12,7 +11,8 @@ import tigerislandserver.server.TournamentPlayer;
 
 public class GameInputAdapter
 {
-    public static void makeMove(GameThread game, TournamentPlayer tournamentPlayer, String input, char gid, int moveNumber, Tile tile)
+    public static void makeMove(GameThread game, TournamentPlayer tournamentPlayer, String input,
+                                char gid, int moveNumber, Tile tile)
     {
         System.out.println("CLIENT: " + input);
 
@@ -31,6 +31,7 @@ public class GameInputAdapter
                     OutputAdapter.sendIllegalTilePlacementMessage(game.getPlayersInGame(), tournamentPlayer, inputTokens);
                     return;
                 }
+
 
                 if(isFoundSettlementCommand(inputTokens))
                 {
@@ -61,6 +62,8 @@ public class GameInputAdapter
             }
         }
     }
+
+
 
     private static boolean isValidTilePlacementCommand(String[] inputTokens)
     {

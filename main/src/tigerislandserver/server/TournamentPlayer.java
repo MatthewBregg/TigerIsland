@@ -58,11 +58,6 @@ public class TournamentPlayer implements Runnable
         }
     }
 
-    public PlayerID getPlayerID()
-    {
-        return pID;
-    }
-
     public void run()
     {
         authenticate();

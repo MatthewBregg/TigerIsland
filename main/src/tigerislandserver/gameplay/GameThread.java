@@ -1,5 +1,7 @@
 package tigerislandserver.gameplay;
 
+import tigerisland.datalogger.DataLogger;
+import tigerisland.datalogger.LoggerFactory;
 import tigerisland.game.GameManager;
 import tigerisland.player.PlayerID;
 import tigerisland.player.Player;
@@ -40,8 +42,8 @@ public class GameThread extends Thread{
         {
             gamePlayers.add(new Player(tp.getID()));
         }
-
-        gameManager = new GameManager(gamePlayers);
+        DataLogger logger = LoggerFactory.getLogger(gameID,0);
+        gameManager = new GameManager(gamePlayers, logger );
     }
 
     public ScoreManager getScoreManager(){
@@ -50,7 +52,7 @@ public class GameThread extends Thread{
 
     public int getPlayerFinalScore(int playerIndex){
         TournamentPlayer player1 = playersInGame.get(playerIndex);
-        PlayerID pID = player1.getPlayerID();
+        PlayerID pID = player1.getID();
 
         return gameManager.getScoreManager().getPlayerScore(pID);
     }
@@ -71,7 +73,7 @@ public class GameThread extends Thread{
     }
 
     public TournamentScoreboardData makeTournamentScoreboardData(int playerIndex){
-        Player player = getPlayerFromPID(playersInGame.get(playerIndex).getPlayerID());
+        Player player = getPlayerFromPID(playersInGame.get(playerIndex).getID());
 
         int finalScore = getPlayerFinalScore(playerIndex);
 
@@ -180,7 +182,7 @@ public class GameThread extends Thread{
         // Player has only one type of piece left
         // Player wins tie
         TournamentPlayer player = playersInGame.get(activePlayerIndex);
-        PlayerID pID = player.getPlayerID();
+        PlayerID pID = player.getID();
 
         boolean usedAllOfTwo = playerUsedAllOfTwoTiles(pID);
         boolean allTilesDrawn = noMoreTilesAreLeftToPlace();
@@ -203,11 +205,11 @@ public class GameThread extends Thread{
         TournamentPlayer secondPlayer =playersInGame.get(1);
 
 
-        if (player.getPlayerID() == firstPlayer.getPlayerID()){
+        if (player.getID() == firstPlayer.getID()){
             players.add(firstPlayer);
             players.add(secondPlayer);
         }
-        else if(player.getPlayerID() == secondPlayer.getPlayerID()){
+        else if(player.getID() == secondPlayer.getID()){
             players.add(secondPlayer);
             players.add(firstPlayer);
         }
@@ -246,7 +248,7 @@ public class GameThread extends Thread{
         gameNotEnded=false;
         ArrayList<TournamentPlayer> players = generatePlayerToReturnToScoreboard(tournamentPlayer);
 
-        boolean didTheyPlaceTigerOrTotoro = gameManager.totoroOrTigerPlaced(tournamentPlayer.getPlayerID());
+        boolean didTheyPlaceTigerOrTotoro = gameManager.totoroOrTigerPlaced(tournamentPlayer.getID());
 
         if (didTheyPlaceTigerOrTotoro){
             scoreboard.playerWasUnableToBuildAndPlacedSpecialPiece(players);
@@ -272,7 +274,6 @@ public class GameThread extends Thread{
         OutputAdapter.sendEndGameMessage(otherPlayer(tournamentPlayer), tournamentPlayer, gameID, "FORFEITED", "WIN");
         gameNotEnded=false;
         ArrayList<TournamentPlayer> players = generatePlayerToReturnToScoreboard(tournamentPlayer);
-
         scoreboard.playerMadeInvalidBuild(players);
     }
 

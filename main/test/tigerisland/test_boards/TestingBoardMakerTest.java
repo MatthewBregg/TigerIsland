@@ -13,7 +13,7 @@ import java.util.Set;
 
 public class TestingBoardMakerTest {
 
-    private TestingBoardMaker debug = new TestingBoardMaker("/tigerisland/test_boards/DebugBoard.txt", new ArrayList<Player>());
+    private TestingBoardMaker debug = new TestingBoardMaker("/main/resources/DebugBoard.txt", new ArrayList<Player>());
 
 
     @Before

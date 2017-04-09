@@ -118,32 +118,32 @@ public class SQLiteLogger implements DataLogger {
     }
 
     @Override
-    public void writePlacedTotoro(PlayerID pid, Location loc) {
+    public void writePlacedTotoroMove(PlayerID pid, Location loc) {
         writeToBuildActions(pid, loc, "Placed totoro");
     }
 
     @Override
-    public void writeFoundedSettlement(PlayerID pid, Location loc) {
+    public void writeFoundedSettlementMove(PlayerID pid, Location loc) {
         writeToBuildActions(pid,loc,"Founded settlement");
     }
 
     @Override
-    public void writeExpandedSettlement(PlayerID pid, Location loc, String terrain) {
+    public void writeExpandedSettlementMove(PlayerID pid, Location loc, String terrain) {
         writeToBuildActions(pid,loc,"ExpandedSettlementToTerrainType:"+terrain);
     }
 
     @Override
-    public void writePlacedTiger(PlayerID pid, Location loc) {
+    public void writePlacedTigerMove(PlayerID pid, Location loc) {
         writeToBuildActions(pid,loc,"Placed Tiger");
     }
 
     @Override
-    public void writePlacedTile(PlayerID pid, Location loc, Orientation orientation, String tileTerrains) {
+    public void writePlacedTileMove(PlayerID pid, Location loc, Orientation orientation, String tileTerrains) {
         writeToTilesPlaced(pid,loc,orientation,tileTerrains);
     }
 
     @Override
-    public void writeInvalidMove(PlayerID pid, String message) {
+    public void writeInvalidMoveAttempted(PlayerID pid, String message) {
         writeToInvalidMoves(pid,message);
     }
 
@@ -179,7 +179,6 @@ public class SQLiteLogger implements DataLogger {
         ++turnNumber;
     }
 
-    @Override
     public void newGame(int gameId, int challengeID) {
         this.gameId = gameId;
         this.challengeId = challengeID;

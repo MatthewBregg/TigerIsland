@@ -5,11 +5,6 @@ import tigerisland.board.Location;
 import tigerisland.player.PlayerID;
 import tigerisland.tile.Orientation;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
-
 import static org.junit.Assert.*;
 
 public class SQLiteLoggerTest {
@@ -48,32 +43,32 @@ public class SQLiteLoggerTest {
 
     @Test
     public void writePlacedTotoro() throws Exception {
-        logger.writePlacedTotoro(new PlayerID(), new Location(0,0,0));
+        logger.writePlacedTotoroMove(new PlayerID(), new Location(0,0,0));
     }
 
     @Test
     public void writeFoundedSettlement() throws Exception {
-        logger.writeFoundedSettlement(new PlayerID(), new Location(0,0,0));
+        logger.writeFoundedSettlementMove(new PlayerID(), new Location(0,0,0));
     }
 
     @Test
     public void writeExpandedSettlement() throws Exception {
-        logger.writeExpandedSettlement(new PlayerID(), new Location(0,0,0), "FooTerrain");
+        logger.writeExpandedSettlementMove(new PlayerID(), new Location(0,0,0), "FooTerrain");
     }
 
     @Test
     public void writePlacedTiger() throws Exception {
-        logger.writePlacedTiger(new PlayerID(), new Location(0,0,0));
+        logger.writePlacedTigerMove(new PlayerID(), new Location(0,0,0));
     }
 
     @Test
     public void writePlacedTile() throws Exception {
-        logger.writePlacedTile(new PlayerID(), new Location(0,0,0), new Orientation(0), "foo");
+        logger.writePlacedTileMove(new PlayerID(), new Location(0,0,0), new Orientation(0), "foo");
     }
 
     @Test
     public void writeMovedWasInvalid() throws Exception {
-        logger.writeInvalidMove(new PlayerID(), "boo!");
+        logger.writeInvalidMoveAttempted(new PlayerID(), "boo!");
     }
 
     @Test

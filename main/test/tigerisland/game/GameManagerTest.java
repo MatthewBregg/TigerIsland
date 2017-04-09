@@ -3,6 +3,7 @@ package tigerisland.game;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import tigerisland.TestLogger;
 import tigerisland.board.HexBoard;
 import tigerisland.board.Location;
 import tigerisland.piece.PieceBoard;
@@ -38,7 +39,7 @@ public class GameManagerTest {
         players.add(playerOne);
         players.add(new Player());
 
-        manager = new GameManager(players);
+        manager = new GameManager(players, new TestLogger());
     }
 
     @Test
@@ -70,7 +71,7 @@ public class GameManagerTest {
 
         //test with other possible orientation
         //arrange
-        manager= new GameManager(players);
+        manager= new GameManager(players, new TestLogger());
 
         tile.setOrientation((Orientation.getSouthEast()));
 
@@ -224,7 +225,7 @@ public class GameManagerTest {
 
 
     private void createTestBoardForTiger() {
-        debugBoard = new TestingBoardMaker("/tigerisland/test_boards/GameManagerTigerPassTestBoard.txt", players);
+        debugBoard = new TestingBoardMaker("/resources/GameManagerTigerPassTestBoard.txt", players);
         HexBoard hexBoard = debugBoard.getBoard();
         PieceBoard pieces = debugBoard.getPieces();
         manager = GameManager.injectStuffOnlyForTesting(hexBoard,players,pieces);
@@ -239,7 +240,7 @@ public class GameManagerTest {
     }
 
     private void createInvalidTestBoardForTiger() {
-        debugBoard = new TestingBoardMaker("/tigerisland/test_boards/GameManagerTigerFailTestBoard.txt", players);
+        debugBoard = new TestingBoardMaker("/resources/GameManagerTigerFailTestBoard.txt", players);
         HexBoard hexBoard = debugBoard.getBoard();
         PieceBoard pieces = debugBoard.getPieces();
         manager = GameManager.injectStuffOnlyForTesting(hexBoard,players,pieces);
