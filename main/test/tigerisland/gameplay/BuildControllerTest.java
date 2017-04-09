@@ -1,6 +1,7 @@
 package tigerisland.gameplay;
 
 import org.junit.*;
+import tigerisland.TestLogger;
 import tigerisland.board.HexBoard;
 import tigerisland.board.Location;
 import tigerisland.build_moves.SettlementExpansionUtility;
@@ -51,7 +52,7 @@ public class BuildControllerTest {
         players.add(new Player());
         players.add(new Player());
 
-        gameManager = new GameManager(players);
+        gameManager = new GameManager(players, new TestLogger());
         buildController = new BuildController(gameManager.getHexBoard(),
                 gameManager.getPieceBoard(),
                 new LazySettlementBoard(gameManager.getPieceBoard()),
