@@ -1,20 +1,28 @@
 package tigerislandserver.adapter;
 
 import tigerisland.board.Location;
+import tigerisland.datalogger.DataLogger;
+import tigerisland.datalogger.LoggerFactory;
 import tigerisland.game.GameManager;
 import tigerisland.hex.Hex;
 import tigerisland.player.Player;
+import tigerisland.player.PlayerID;
 import tigerisland.terrains.*;
 import tigerisland.tile.Orientation;
 import tigerisland.tile.Tile;
 import tigerislandserver.gameplay.GameThread;
 import tigerislandserver.server.TournamentPlayer;
 
+import java.util.function.Consumer;
+
 public class GameInputAdapter
 {
     public static void makeMove(GameThread game, TournamentPlayer tournamentPlayer, String input, char gid, int moveNumber, Tile tile)
     {
+
         String[] inputTokens = input.split("\\s+");
+
+
 
         if(isValidGameMoveCommand(inputTokens)
                 && isCorrectGame(inputTokens, gid)
@@ -59,6 +67,8 @@ public class GameInputAdapter
             }
         }
     }
+
+
 
     private static boolean isValidTilePlacementCommand(String[] inputTokens)
     {

@@ -13,8 +13,8 @@ public class ConsoleLogger implements DataLogger {
     private int turnNumber = 0;
 
     public ConsoleLogger(int challengeId, int gameId) {
-        challengeId = challengeId;
-        gameId = gameId;
+        this.challengeId = challengeId;
+        this.gameId = gameId;
     }
 
     private void printMessageHeader() {
