@@ -22,7 +22,7 @@ public class DebugBoardMakerTest {
     }
 
     @Test
-    @Ignore
+    @Ignore("Fix file path. It will be machine specfic")
     public void testFirstRow() {
 
         Set<Location> locations = new HashSet<>();
