@@ -14,6 +14,8 @@ public class GameInputAdapter
 {
     public static void makeMove(GameThread game, TournamentPlayer tournamentPlayer, String input, char gid, int moveNumber, Tile tile)
     {
+        System.out.println("CLIENT: " + input);
+
         String[] inputTokens = input.split("\\s+");
 
         if(isValidGameMoveCommand(inputTokens)
@@ -82,7 +84,7 @@ public class GameInputAdapter
             return false;
         }
 
-        String[] terrains = inputTokens[7].split("\\+");
+        String[] terrains = inputTokens[5].split("\\+");
 
         Terrain bottomRight = getTerrain(terrains[0]);
         Terrain bottomLeft = getTerrain(terrains[1]);
@@ -122,6 +124,13 @@ public class GameInputAdapter
 
         GameManager gm = game.getGameManager();
         Player p = gm.getPlayer(tournamentPlayer.getID());
+        try
+        {
+            Thread.sleep(500);
+        } catch (InterruptedException e)
+        {
+            e.printStackTrace();
+        }
         if(gm.foundSettlement(loc, p))
         {
             OutputAdapter.sendFoundedSettlementMessage(game.getPlayersInGame(), tournamentPlayer, inputTokens);

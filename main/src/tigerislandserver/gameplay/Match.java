@@ -26,6 +26,24 @@ public class Match extends Thread {
     public void startGames(){
         game1.start();
         game2.start();
+
+        while(true)
+        {
+            if(game1.isAlive() && game2.isAlive())
+            {
+                break;
+            }
+            else
+            {
+                try
+                {
+                    Thread.sleep(100);
+                } catch (InterruptedException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     public void run(){

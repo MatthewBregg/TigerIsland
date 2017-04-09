@@ -229,8 +229,9 @@ public class GameThread extends Thread{
 
     public void timeout(TournamentPlayer tournamentPlayer)
     {
-        //TODO The message for turn is already sent so the client when this is called.
         OutputAdapter.sendEndGameMessage(tournamentPlayer, otherPlayer(tournamentPlayer), gameID, "FORFEITED", "WIN");
+        OutputAdapter.sendEndGameMessage(otherPlayer(tournamentPlayer), tournamentPlayer, gameID, "FORFEITED", "WIN");
+
         gameNotEnded=false;
         ArrayList<TournamentPlayer> players = generatePlayerToReturnToScoreboard(tournamentPlayer);
 
@@ -239,8 +240,9 @@ public class GameThread extends Thread{
 
     public void unableToBuild(TournamentPlayer tournamentPlayer)
     {
-        //TODO
         OutputAdapter.sendEndGameMessage(tournamentPlayer, otherPlayer(tournamentPlayer), gameID, "FORFEITED", "WIN");
+        OutputAdapter.sendEndGameMessage(otherPlayer(tournamentPlayer), tournamentPlayer, gameID, "FORFEITED", "WIN");
+
         gameNotEnded=false;
         ArrayList<TournamentPlayer> players = generatePlayerToReturnToScoreboard(tournamentPlayer);
 
@@ -256,8 +258,8 @@ public class GameThread extends Thread{
 
     public void invalidTilePlacement(TournamentPlayer tournamentPlayer)
     {
-        //TODO
         OutputAdapter.sendEndGameMessage(tournamentPlayer, otherPlayer(tournamentPlayer), gameID, "FORFEITED", "WIN");
+        OutputAdapter.sendEndGameMessage(otherPlayer(tournamentPlayer), tournamentPlayer, gameID, "FORFEITED", "WIN");
         gameNotEnded=false;
         ArrayList<TournamentPlayer> players = generatePlayerToReturnToScoreboard(tournamentPlayer);
 
@@ -266,8 +268,8 @@ public class GameThread extends Thread{
 
     public void invalidBuild(TournamentPlayer tournamentPlayer)
     {
-        //TODO
         OutputAdapter.sendEndGameMessage(tournamentPlayer, otherPlayer(tournamentPlayer), gameID, "FORFEITED", "WIN");
+        OutputAdapter.sendEndGameMessage(otherPlayer(tournamentPlayer), tournamentPlayer, gameID, "FORFEITED", "WIN");
         gameNotEnded=false;
         ArrayList<TournamentPlayer> players = generatePlayerToReturnToScoreboard(tournamentPlayer);
 

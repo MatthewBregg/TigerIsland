@@ -32,12 +32,15 @@ public class TournamentPlayer implements Runnable
         username ="Unknown/Unauthenticated";
 
         try {
-            outputToClient = new PrintWriter(clientSocket.getOutputStream());
+            outputToClient = new PrintWriter(clientSocket.getOutputStream(), true);
             inputFromClient = new BufferedReader(
                     new InputStreamReader(clientSocket.getInputStream()));
+
         } catch (IOException e) {
             System.out.println("Error reading from connection");
         }
+
+        OutputAdapter.sendWelcomeMessage(this);
 
         try {
             Thread.sleep(1800); //1.8s allowed to authenticate
@@ -45,8 +48,10 @@ public class TournamentPlayer implements Runnable
             e.printStackTrace();
         }
         try {
+
             if (inputFromClient.ready()) {
-                canEnterTournament = InputAdapter.canEnterTournament(inputFromClient.readLine());
+                String message= inputFromClient.readLine();
+                canEnterTournament = InputAdapter.canEnterTournament(message);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -61,7 +66,6 @@ public class TournamentPlayer implements Runnable
     public void run()
     {
         authenticate();
-        OutputAdapter.sendWaitForTournamentMessage(this);
     }
 
     private void authenticate()
@@ -116,6 +120,7 @@ public class TournamentPlayer implements Runnable
 
     public synchronized void sendMessage(String message)
     {
+        System.out.println("SENDING MESSAGE: \"" + message+"\"");
         outputToClient.println(message);
     }
 
