@@ -48,14 +48,6 @@ public class Challenge {
 
         for(Match m : currentRoundMatches)
             m.start();
-        if(getRoundsRemaining() == 0)
-        {
-            OutputAdapter.sendEndOfAllRoundMessage(playerList, roundNumber, getTotalChallengeRounds());
-        }
-        else
-        {
-            OutputAdapter.sendEndRoundMessage(playerList, roundNumber, getTotalChallengeRounds());
-        }
     }
 
     private boolean isRoundOver()
@@ -85,6 +77,15 @@ public class Challenge {
                 {
                     e.printStackTrace();
                 }
+            }
+
+            if(getRoundsRemaining() == 0)
+            {
+                OutputAdapter.sendEndOfAllRoundMessage(playerList, roundNumber, getTotalChallengeRounds());
+            }
+            else
+            {
+                OutputAdapter.sendEndRoundMessage(playerList, roundNumber, getTotalChallengeRounds());
             }
         }
     }

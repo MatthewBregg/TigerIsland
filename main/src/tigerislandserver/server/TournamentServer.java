@@ -103,6 +103,7 @@ public class TournamentServer {
                 }
                 catch (SocketTimeoutException e)
                 {
+                    System.out.println("END LISTENING");
                     listening=false;
                 }
                 catch (IOException e)

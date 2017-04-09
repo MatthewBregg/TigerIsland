@@ -12,16 +12,19 @@ public class InputAdapter
 
     private static HashMap<String, String> getUserNamesAndPasswords()
     {
-        return new TextFileReader(TournamentVariables.getInstance().getUsernamePasswordFileName()).getUsernameAndPasswordCombos();
+        return new HashMap<>();
+        //return new TextFileReader(TournamentVariables.getInstance().getUsernamePasswordFileName()).getUsernameAndPasswordCombos();
     }
 
     public static boolean canEnterTournament(String input)
     {
+        System.out.println("CLIENT: " + input);
         return isEnterTournamentCommand(input) && verifyTournamentPassword(input);
     }
 
     public static boolean authenticate(TournamentPlayer tournamentPlayer, String input)
     {
+        System.out.println("CLIENT: " + input);
         boolean success = isIdentificationCommand(input) && verifyUsernameAndPassword(input);
 
         String[] inputTokens = input.split("\\s+");
@@ -45,7 +48,7 @@ public class InputAdapter
     private static boolean verifyTournamentPassword(String input)
     {
         String[] inputTokens = input.split("\\s+");
-        String password = inputTokens[3];
+        String password = inputTokens[2];
 
         return password.equals(TournamentVariables.getInstance().getTournamentPassword());
     }
@@ -68,7 +71,8 @@ public class InputAdapter
 
         synchronized (unusedUsernames)
         {
-            return unusedUsernames.remove(username, password);
+            return true;
+            //return unusedUsernames.remove(username, password);
         }
     }
 }

@@ -171,7 +171,7 @@ public class OutputAdapter extends Thread
 
     public static void sendNewChallengeMessage(ArrayList<TournamentPlayer> players, int cid, int numRounds)
     {
-        String message ="NEW CHALLENGE  " + cid + " YOU WILL PLAY " + numRounds;
+        String message ="NEW CHALLENGE " + cid + " YOU WILL PLAY " + numRounds;
         if(numRounds == 1)
         {
             message += " MATCH";
@@ -217,7 +217,7 @@ public class OutputAdapter extends Thread
         player2.sendMessage("NEW MATCH BEGINNING NOW YOUR OPPONENT IS PLAYER " + player1.getID().getId());
     }
 
-    public static void sendEndGameMessage(TournamentPlayer player1, TournamentPlayer player2, int gid, String p1Score, String p2Score)
+    public static void sendEndGameMessage(TournamentPlayer player1, TournamentPlayer player2, char gid, String p1Score, String p2Score)
     {
         String message = "GAME "+gid;
         message += " OVER";
@@ -226,5 +226,10 @@ public class OutputAdapter extends Thread
 
         player1.sendMessage(message);
         player2.sendMessage(message);
+    }
+
+    public static void sendWelcomeMessage(TournamentPlayer player)
+    {
+        player.sendMessage("WELCOME TO ANOTHER EDITION OF THUNDERDOME!");
     }
 }
