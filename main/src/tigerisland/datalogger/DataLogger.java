@@ -20,5 +20,4 @@ public interface DataLogger {
 
     void nextTurn();
 
-    void newGame(int gameId, int challengeID);
 }
