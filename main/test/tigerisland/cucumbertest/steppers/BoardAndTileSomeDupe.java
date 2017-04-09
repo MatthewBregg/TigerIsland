@@ -10,11 +10,10 @@ import tigerisland.board.Location;
 import tigerisland.hex.Hex;
 import tigerisland.terrains.Grassland;
 import tigerisland.terrains.Rocky;
-import tigerisland.terrains.Volcano;
 import tigerisland.tile.Orientation;
 import tigerisland.tile.Tile;
 import tigerisland.tile_placement.placers.AdjacentToBoardTilePlacer;
-import tigerisland.tile_placement.placers.FirstTilePlacer;
+import tigerisland.FirstTilePlacer;
 import tigerisland.tile_placement.placers.InvalidTilePlacer;
 import tigerisland.tile_placement.placers.TilePlacement;
 
