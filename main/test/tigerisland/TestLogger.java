@@ -56,8 +56,7 @@ public class TestLogger implements DataLogger {
     public void nextTurn() {
 
     }
-
-    @Override
+    
     public void newGame(int gameId, int challengeID) {
 
     }

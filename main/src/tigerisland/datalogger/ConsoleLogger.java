@@ -89,7 +89,6 @@ public class ConsoleLogger implements DataLogger {
         turnNumber++;
     }
 
-    @Override
     synchronized public void newGame(int gameId, int challengeID) {
         System.out.println("Starting a new game!");
         this.gameId = gameId;

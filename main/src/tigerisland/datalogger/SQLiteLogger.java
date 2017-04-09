@@ -179,7 +179,6 @@ public class SQLiteLogger implements DataLogger {
         ++turnNumber;
     }
 
-    @Override
     public void newGame(int gameId, int challengeID) {
         this.gameId = gameId;
         this.challengeId = challengeID;
