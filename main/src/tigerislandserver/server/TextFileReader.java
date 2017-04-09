@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class TextFileReader
 {
-    HashMap<String, String> usernameAndPasswords;
+    HashMap<String, String> usernameAndPasswords = null;
     String usernameAndPasswordFileName;
 
     public TextFileReader(String fileName)
@@ -20,7 +20,7 @@ public class TextFileReader
     {
         if (usernameAndPasswords == null)
         {
-            synchronized (usernameAndPasswords)
+            synchronized (TextFileReader.class)
             {
                 if (usernameAndPasswords != null)
                 {

@@ -23,23 +23,33 @@ public class TestingBoardMaker {
         this.fileName = fileName;
         this.getHexInfoFromFile();
     }
+    public TestingBoardMaker(String [] fuckCucumber, ArrayList<Player> players) {
+        this.hexLocationsAndLevels = new HashMap<>();
+        this.players = players;
+//        this.fileName = fileName;
+        setupFromStringArray(fuckCucumber);
+}
+
+
 
     public Map<Location, List<Object>> getHexMap() {
         return hexLocationsAndLevels;
     }
 
     public HexBoard getBoard() {
+        HexBoard toReturn = new HexBoard();
         for (Location location : hexLocationsAndLevels.keySet()) {
             Integer level = (Integer) hexLocationsAndLevels.get(location).get(0);
             Integer tileID = (Integer) hexLocationsAndLevels.get(location).get(1);
             Terrain terrain = (Terrain) hexLocationsAndLevels.get(location).get(2);
             Hex hex = new Hex(tileID.intValue(), level.intValue(), terrain);
             hex.setLevel(level.intValue());
-            board.placeHex(location, hex);
+            toReturn.placeHex(location, hex);
         }
-        return board;
+        return toReturn;
     }
     public PieceBoard getPieces() {
+        PieceBoard toReturn = new PieceBoardImpl();
         Piece piece;
         Player player;
         for (Location location : hexLocationsAndLevels.keySet()) {
@@ -47,9 +57,9 @@ public class TestingBoardMaker {
             if (piece instanceof NullPiece)
                 continue;
             player = (Player) hexLocationsAndLevels.get(location).get(4);
-            pieces.addPiece(piece, location, player.getId());
+            toReturn.addPiece(piece, location, player.getId());
         }
-        return pieces;
+        return toReturn;
     }
 
     private void getHexInfoFromFile() {
@@ -70,6 +80,17 @@ public class TestingBoardMaker {
             System.out.println("Did not find  Testing Board file");
         }
     }
+
+    private void setupFromStringArray(String fuckCucumber []){
+        for (String hex : fuckCucumber){
+            String[] hexInfoSplit = hex.split(" ");
+            Location location = getLocation(hexInfoSplit);
+            List<Object> levelAndTerrainInfo = getLevel(hexInfoSplit);
+
+            hexLocationsAndLevels.put(location, levelAndTerrainInfo);
+        }
+    }
+
 
     private Location getLocation(String[] hexInfo) {
         int x = Integer.parseInt(hexInfo[0]);
