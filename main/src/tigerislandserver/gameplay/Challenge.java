@@ -37,7 +37,7 @@ public class Challenge {
         schedule.setTournamentType(matchmaker);
     }
 
-    public void playNextRound(){
+    private void playNextRound(){
         if(!(getRoundsRemaining() > 0))
             return;
 
@@ -55,6 +55,37 @@ public class Challenge {
         else
         {
             OutputAdapter.sendEndRoundMessage(playerList, roundNumber, getTotalChallengeRounds());
+        }
+    }
+
+    private boolean isRoundOver()
+    {
+        for(Match m : currentRoundMatches)
+        {
+            if(m.isAlive())
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public void play()
+    {
+        while(getRoundsRemaining()>0)
+        {
+            playNextRound();
+            while (!isRoundOver())
+            {
+                try
+                {
+                    Thread.sleep(100);
+                } catch (InterruptedException e)
+                {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 

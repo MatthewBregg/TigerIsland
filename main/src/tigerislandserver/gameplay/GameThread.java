@@ -139,15 +139,9 @@ public class GameThread extends Thread{
                 scoreboard.updateTournamentScoresForValidWin(playerData);
                 endGame();
             }
-            // enter the check for valid move and then call gameEnded()
 
             moveNumber++;
             activePlayerIndex = (activePlayerIndex + 1) % playersInGame.size();
-
-            if(isGameDone())
-            {
-                gameNotEnded = false;
-            }
         }
 
 
@@ -221,12 +215,14 @@ public class GameThread extends Thread{
         return players;
     }
 
-    public boolean isGameDone(){
+    public boolean isGameDone()
+    {
         return gameNotEnded;
     }
 
-    public void endGame(){
-        gameNotEnded = !gameNotEnded;
+    public void endGame()
+    {
+        gameNotEnded = false;
     }
 
     // pass botht the players so you can immediately add in the score

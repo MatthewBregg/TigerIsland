@@ -37,7 +37,7 @@ public class NewSettlementBuild implements En {
 
 
     private void setUp(){
-        //todo possibly run this with tile placement if necessary
+        //todo possibly getClients this with tile placement if necessary
         player = new Player(20,3,2, new PlayerID());
 
         initialVillagerCount = player.getVillagerCount();

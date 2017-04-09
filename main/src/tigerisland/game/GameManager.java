@@ -50,8 +50,10 @@ public class GameManager {
         tilePlacer = new TilePlacementController(gameBoard, settlements, pieces);
         buildController = new BuildController(gameBoard, pieces, settlements, scoreKeeper);
     }
-    public void injectHexBoardOnlyForTesting(HexBoard hexBoard){
-        this.gameBoard = hexBoard;
+
+
+    public static GameManager injectStuffOnlyForTesting(HexBoard hexBoard, ArrayList<Player> players, PieceBoard pieces){
+       return new GameManager(players, hexBoard, pieces);
     }
 
 
@@ -188,18 +190,28 @@ public class GameManager {
         return null;
     }
 
-    public boolean isGameDone(){
-
-        return false;
-    }
-
-    public GameResults returnResults(){
-        GameResults results = new GameResults();
-        return results;
-    }
-
     public ScoreManager getScoreManager()
     {
         return scoreKeeper;
     }
+
+    private GameManager(ArrayList<Player> players , HexBoard hexboard, PieceBoard pieces){
+        if (players.size() != 2)
+        {
+            throw new IllegalArgumentException("Exactly two players required");
+        }
+
+        this.gameBoard = hexboard;
+        this.pieces = pieces;
+        this.settlements = new LazySettlementBoard(pieces);
+        this.players = players;
+
+        tilesDrawn = 0;
+
+        initializeScoreKeeper();
+
+        tilePlacer = new TilePlacementController(gameBoard, settlements, pieces);
+        buildController = new BuildController(gameBoard, pieces, settlements, scoreKeeper);
+    }
+
 }

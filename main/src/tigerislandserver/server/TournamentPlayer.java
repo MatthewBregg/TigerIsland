@@ -14,24 +14,23 @@ import java.io.PrintWriter;
 import java.net.*;
 
 
-public class TournamentPlayer implements Runnable{
+public class TournamentPlayer implements Runnable
+{
     private Socket clientSocket;
     private PrintWriter outputToClient;
     private BufferedReader inputFromClient;
+    private boolean canEnterTournament;
     private boolean authenticated;
     private PlayerID pID;
+    private String username;
 
-    public TournamentPlayer(Socket newClientSocket){
+    public TournamentPlayer(Socket newClientSocket)
+    {
         clientSocket = newClientSocket;
         authenticated = false;
         pID = new PlayerID();
-    }
+        username ="Unknown/Unauthenticated";
 
-    public PlayerID getPlayerID(){
-        return pID;
-    }
-
-    public void run(){
         try {
             outputToClient = new PrintWriter(clientSocket.getOutputStream());
             inputFromClient = new BufferedReader(
@@ -40,36 +39,49 @@ public class TournamentPlayer implements Runnable{
             System.out.println("Error reading from connection");
         }
 
+        try {
+            Thread.sleep(1800); //1.8s allowed to authenticate
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        try {
+            if (inputFromClient.ready()) {
+                canEnterTournament = InputAdapter.canEnterTournament(inputFromClient.readLine());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public PlayerID getPlayerID()
+    {
+        return pID;
+    }
+
+    public void run()
+    {
         authenticate();
         OutputAdapter.sendWaitForTournamentMessage(this);
     }
 
-    private void authenticate() {
+    private void authenticate()
+    {
         OutputAdapter.requestAuthentication(this);
 
-        int timeInMilliseconds = 0;
-        while(timeInMilliseconds < 30000) //3 minutes allowed to authenticate
-        {
-            try {
-                if(inputFromClient.ready())
-                {
-                    if(InputAdapter.authenticate(inputFromClient.readLine()))
-                    {
-                        authenticated = true;
-                        break;
-                    }
+        try {
+            Thread.sleep(1800); //1.8s allowed to authenticate
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        try {
+            if (inputFromClient.ready()) {
+                if (InputAdapter.authenticate(this, inputFromClient.readLine())) {
+                    authenticated = true;
+                    OutputAdapter.sendWaitForTournamentMessage(this);
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
             }
-
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-            timeInMilliseconds+=100;
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -77,31 +89,15 @@ public class TournamentPlayer implements Runnable{
     {
         OutputAdapter.sendMoveRequestMessage(this, gid, moveNumber, tile);
 
-        int timeInMilliseconds = 0;
-        while(timeInMilliseconds < 1800)
-        {
-            try {
-                if(inputFromClient.ready())
-                {
-                    break;
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-            timeInMilliseconds+=100;
+        try {
+            Thread.sleep(1800);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
 
         try {
-            if(!inputFromClient.ready())
-            {
-                OutputAdapter.sendTimeoutMessage(game.getPlayersInGame(), this, new String[]{"GAME", ""+gid, "MOVE", ""+moveNumber});
+            if (!inputFromClient.ready()) {
+                OutputAdapter.sendTimeoutMessage(game.getPlayersInGame(), this, new String[]{"GAME", "" + gid, "MOVE", "" + moveNumber});
                 game.timeout(this);
                 return;
             }
@@ -113,7 +109,7 @@ public class TournamentPlayer implements Runnable{
             GameInputAdapter.makeMove(game, this, inputFromClient.readLine(), gid, moveNumber, tile);
         } catch (IOException e) {
             e.printStackTrace();
-            OutputAdapter.sendTimeoutMessage(game.getPlayersInGame(), this, new String[]{"GAME", ""+gid, "MOVE", ""+moveNumber});
+            OutputAdapter.sendTimeoutMessage(game.getPlayersInGame(), this, new String[]{"GAME", "" + gid, "MOVE", "" + moveNumber});
             game.timeout(this);
         }
     }
@@ -126,5 +122,25 @@ public class TournamentPlayer implements Runnable{
     public PlayerID getID()
     {
         return pID;
+    }
+
+    public boolean isAuthenticated()
+    {
+        return authenticated;
+    }
+
+    public void setUsername(String username)
+    {
+        this.username = username;
+    }
+
+    public String getUsername()
+    {
+        return username;
+    }
+
+    public boolean canEnterTournament()
+    {
+        return canEnterTournament;
     }
 }

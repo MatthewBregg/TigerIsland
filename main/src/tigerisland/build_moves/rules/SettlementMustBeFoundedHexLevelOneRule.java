@@ -24,6 +24,7 @@ public class SettlementMustBeFoundedHexLevelOneRule implements BuildActionRule {
 
     private boolean isHexAtLocationLevelOne(Location hexLocation) {
        Hex boardHex = board.getHex(hexLocation);
+       int level = boardHex.getLevel();
        return boardHex.getLevel() == 1;
     }
 }
