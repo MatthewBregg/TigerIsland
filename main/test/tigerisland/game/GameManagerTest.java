@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 import tigerisland.board.HexBoard;
 import tigerisland.board.Location;
+import tigerisland.piece.PieceBoard;
 import tigerisland.player.Player;
 import tigerisland.terrains.Jungle;
 import tigerisland.terrains.Lake;
@@ -219,7 +220,7 @@ public class GameManagerTest {
         Assert.assertTrue(manager.foundSettlement(settlement, playerOne));
 
         Location tiger = new Location(2,-1,-1);
-        Assert.assertTrue(manager.buildTiger(tiger, playerOne));
+//        Assert.assertTrue(manager.buildTiger(tiger, playerOne));
 
     }
 
@@ -227,9 +228,10 @@ public class GameManagerTest {
     private void createTestBoardForTiger() {
 
 
-        debugBoard = new DebugBoardMaker("./main/test/tigerisland/game/GameManagerTestBoard.txt");
+        debugBoard = new DebugBoardMaker("./main/test/tigerisland/game/GameManagerTestBoard.txt", players);
         HexBoard hexBoard = debugBoard.getBoard();
-        manager = GameManager.injectHexBoardOnlyForTesting(hexBoard);
+        PieceBoard pieces = debugBoard.getPieces();
+        manager = GameManager.injectStuffOnlyForTesting(hexBoard,players,pieces);
 
 
 

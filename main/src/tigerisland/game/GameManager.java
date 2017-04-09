@@ -52,13 +52,8 @@ public class GameManager {
     }
 
 
-    public static GameManager injectHexBoardOnlyForTesting(HexBoard hexBoard){
-        ArrayList<Player> players = new ArrayList<>();
-
-        players.add(new Player());
-        players.add(new Player());
-
-       return new GameManager(players, hexBoard);
+    public static GameManager injectStuffOnlyForTesting(HexBoard hexBoard, ArrayList<Player> players, PieceBoard pieces){
+       return new GameManager(players, hexBoard, pieces);
     }
 
 
@@ -210,20 +205,21 @@ public class GameManager {
         return scoreKeeper;
     }
 
-    private GameManager(ArrayList<Player> players , HexBoard hexboard){
+    private GameManager(ArrayList<Player> players , HexBoard hexboard, PieceBoard pieces){
         if (players.size() != 2)
         {
             throw new IllegalArgumentException("Exactly two players required");
         }
 
-        gameBoard = hexboard;
+        this.gameBoard = hexboard;
+        this.pieces = pieces;
         this.players=players;
 
         tilesDrawn = 0;
 
         initializeScoreKeeper();
         initializeSettlementBoard();
-        placeStartingHexes();
+//        placeStartingHexes();
 
         tilePlacer = new TilePlacementController(gameBoard, settlements, pieces);
         buildController = new BuildController(gameBoard, pieces, settlements, scoreKeeper);
