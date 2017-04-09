@@ -190,16 +190,6 @@ public class GameManager {
         return null;
     }
 
-    public boolean isGameDone(){
-
-        return false;
-    }
-
-    public GameResults returnResults(){
-        GameResults results = new GameResults();
-        return results;
-    }
-
     public ScoreManager getScoreManager()
     {
         return scoreKeeper;
@@ -216,24 +206,9 @@ public class GameManager {
         this.settlements = new LazySettlementBoard(pieces);
         this.players = players;
 
-
-//        private ArrayList<Player> players;
-//        private int playerIndex;
-//        private HexBoard gameBoard;
-//        private ScoreManager scoreKeeper;
-//        private PieceBoard pieces;
-//        private SettlementBoard settlements;
-//        private TilePlacementController tilePlacer;
-//        private BuildController buildController;
-//        private int tilesDrawn;
-
-
-
         tilesDrawn = 0;
 
         initializeScoreKeeper();
-//        initializeSettlementBoard();
-//        placeStartingHexes();
 
         tilePlacer = new TilePlacementController(gameBoard, settlements, pieces);
         buildController = new BuildController(gameBoard, pieces, settlements, scoreKeeper);

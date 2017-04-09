@@ -1,17 +1,37 @@
 package tigerislandserver.adapter;
 
+import tigerislandserver.TournamentVariables;
+import tigerislandserver.server.TextFileReader;
 import tigerislandserver.server.TournamentPlayer;
+
+import java.util.HashMap;
 
 public class InputAdapter
 {
+    private static HashMap<String, String> unusedUsernames = getUserNamesAndPasswords();
+
+    private static HashMap<String, String> getUserNamesAndPasswords()
+    {
+        return new TextFileReader(TournamentVariables.getInstance().getUsernamePasswordFileName()).getUsernameAndPasswordCombos();
+    }
+
     public static boolean canEnterTournament(String input)
     {
         return isEnterTournamentCommand(input) && verifyTournamentPassword(input);
     }
 
-    public static boolean authenticate(String input)
+    public static boolean authenticate(TournamentPlayer tournamentPlayer, String input)
     {
-       return isIdentificationComand(input) && verifyUsernameAndPassword(input);
+        boolean success = isIdentificationCommand(input) && verifyUsernameAndPassword(input);
+
+        String[] inputTokens = input.split("\\s+");
+
+        if(success)
+        {
+            tournamentPlayer.setUsername(inputTokens[2]);
+        }
+
+        return success;
     }
 
     private static boolean isEnterTournamentCommand(String input)
@@ -27,11 +47,10 @@ public class InputAdapter
         String[] inputTokens = input.split("\\s+");
         String password = inputTokens[3];
 
-        //TODO
-        return password.equals("password");
+        return password.equals(TournamentVariables.getInstance().getTournamentPassword());
     }
 
-    private static boolean isIdentificationComand(String input)
+    private static boolean isIdentificationCommand(String input)
     {
         String[] inputTokens = input.split("\\s+");
 
@@ -47,8 +66,9 @@ public class InputAdapter
         String username = inputTokens[2];
         String password = inputTokens[3];
 
-        //TODO
-        return username.equals("username")
-                && password.equals("password");
+        synchronized (unusedUsernames)
+        {
+            return unusedUsernames.remove(username, password);
+        }
     }
 }
