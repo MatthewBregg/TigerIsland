@@ -46,14 +46,8 @@ Feature: Building Settlements
     And player’s villagers are decremented by an amount equal to the number of villagers placed
 
 
-#  Scenario (See Villater_SettlementBuilds....feature)
-#
-#  Expanding a settlement with insufficient villagers
-#    Given
-#    Player has an existing settlement
-#  Player has level villagers than sum of each hex level in terrain of expansion squared
-#    When
-#    Player chooses to expand a settlement to one of the adjacent terrain types
-#    Then
-#    Invalid build action
+  Scenario: Expanding a settlement with insufficient villagers
+    Given Player has an existing settlement Scenario insufficient villagers
+    When Player chooses to expand a settlement to one of the adjacent terrain types
+    Then Invalid build action
 

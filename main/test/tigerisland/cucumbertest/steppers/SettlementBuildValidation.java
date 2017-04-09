@@ -25,7 +25,6 @@ import tigerisland.terrains.Terrain;
 import tigerisland.test_boards.TestingBoardMaker;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 
@@ -54,10 +53,6 @@ public class SettlementBuildValidation implements En {
     private SettlementBoard settlementBoard;
     int previousVillagerCount;
     int villagersRequired;
-
-
-
-
 
     private String testBoard [];
 
@@ -197,25 +192,5 @@ public class SettlementBuildValidation implements En {
         manager = GameManager.injectStuffOnlyForTesting(board,players,pieces);
         settlementBoard = new LazySettlementBoard(pieces);
 
-    }
-    private void getConnectedUnoccupiedHexesOfSameTerrainImpl(Location loc, Set<Location> visited) {
-        if (visited.contains(loc) || pieces.isLocationOccupied(loc)) {
-            return;
-        }
-        visited.add(loc);
-
-        List<Location> adjacentLocations = loc.getSurroundingLocations();
-        for (Location adjLoc : adjacentLocations) {
-            if ( locationsTerrainMatchp(loc,adjLoc) && !pieces.isLocationOccupied(adjLoc) ) {
-                getConnectedUnoccupiedHexesOfSameTerrainImpl(adjLoc,visited);
-            }
-        }
-
-    }
-    private boolean locationsTerrainMatchp(Location locA, Location locB ) {
-        if( !board.isLocationUsed(locA) || !board.isLocationUsed(locB)){
-            return false;
-        }
-        return board.getHex(locA).getTerrain().equals(board.getHex(locB).getTerrain());
     }
 }
