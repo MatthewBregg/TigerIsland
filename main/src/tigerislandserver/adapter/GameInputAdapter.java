@@ -27,8 +27,8 @@ public class GameInputAdapter
             {
                 if(!placeTile(game, tournamentPlayer, inputTokens))
                 {
-                    game.invalidTilePlacement(tournamentPlayer);
                     OutputAdapter.sendIllegalTilePlacementMessage(game.getPlayersInGame(), tournamentPlayer, inputTokens);
+                    game.invalidTilePlacement(tournamentPlayer);
                     return;
                 }
 
@@ -141,6 +141,7 @@ public class GameInputAdapter
         else
         {
             OutputAdapter.sendIllegalBuildMessage(game.getPlayersInGame(), tournamentPlayer, inputTokens);
+            game.invalidBuild(tournamentPlayer);
         }
     }
 
@@ -178,6 +179,7 @@ public class GameInputAdapter
         else
         {
             OutputAdapter.sendIllegalBuildMessage(game.getPlayersInGame(), tournamentPlayer, inputTokens);
+            game.invalidBuild(tournamentPlayer);
         }
     }
 
@@ -214,6 +216,7 @@ public class GameInputAdapter
         else
         {
             OutputAdapter.sendIllegalBuildMessage(game.getPlayersInGame(), tournamentPlayer, inputTokens);
+            game.invalidBuild(tournamentPlayer);
         }
     }
 
@@ -250,6 +253,7 @@ public class GameInputAdapter
         else
         {
             OutputAdapter.sendIllegalBuildMessage(game.getPlayersInGame(), tournamentPlayer, inputTokens);
+            game.invalidBuild(tournamentPlayer);
         }
     }
 
@@ -262,8 +266,8 @@ public class GameInputAdapter
 
     private static void failToBuild(GameThread game, TournamentPlayer tournamentPlayer, String[] inputTokens)
     {
-        game.unableToBuild(tournamentPlayer);
         OutputAdapter.sendUnableToBuildMessage(game.getPlayersInGame(), tournamentPlayer, inputTokens);
+        game.unableToBuild(tournamentPlayer);
     }
 
     private static void rotateTile(Tile tile, String orientation)
