@@ -15,12 +15,7 @@ import tigerisland.settlement.SettlementBoard;
 import tigerisland.terrains.*;
 import tigerisland.tile.Orientation;
 import tigerisland.tile.Tile;
-import tigerisland.tile.TileUnpacker;
 import tigerisland.tile_placement.exceptions.*;
-import tigerisland.tile_placement.placers.FirstTilePlacer;
-import tigerisland.tile_placement.placers.InvalidTilePlacer;
-import tigerisland.tile_placement.placers.NukeTilePlacer;
-import tigerisland.tile_placement.placers.TilePlacement;
 import tigerisland.tile_placement.rules.*;
 
 public class NukeTilePlacerTest {
@@ -162,7 +157,7 @@ public class NukeTilePlacerTest {
     }
 
     @Test(expected = NukeTotoroRuleException.class)
-    public void test_ShouldThrowExceptionWhenNukeNonNukeablePieceRuleIsApplied() throws TilePlacementException{
+    public void test_ShouldThrowExceptionWhenNukeNonNukingAndThereIsATotoro() throws TilePlacementException{
         // Arrange
         Hex volcanoHex = new Hex(1, Volcano.getInstance()); volcanoHex.setLevel(1);
         Hex grasslandHex = new Hex(2, Grassland.getInstance()); grasslandHex.setLevel(1);
@@ -179,6 +174,35 @@ public class NukeTilePlacerTest {
         Player player = new Player();
         Piece totoro = new Totoro();
         pieceBoard.addPiece(totoro, referenceLocation, player.getId());
+
+        int secondTileId = 3;
+        Tile tile = new Tile(secondTileId, Lake.getInstance(), Jungle.getInstance());
+        Orientation tileOrientation = new Orientation(Orientation.EAST);
+        tile.setOrientation(tileOrientation);
+
+        // Act
+        this.nukeTilePlacer.placeTile(tile, referenceLocation);
+    }
+
+    // This test should fail until rules are clarified.
+    @Test(expected = NukeTigerRuleException.class)
+    public void test_ShouldThrowExceptionWhenNukeNonNukingAndThereIsATiger() throws TilePlacementException{
+        // Arrange
+        Hex volcanoHex = new Hex(1, Volcano.getInstance()); volcanoHex.setLevel(1);
+        Hex grasslandHex = new Hex(2, Grassland.getInstance()); grasslandHex.setLevel(1);
+        Hex rockyHex = new Hex(2, Rocky.getInstance()); rockyHex.setLevel(1);
+
+        Location referenceLocation = new Location(0, 0, 0);
+        Location southEastLocation = referenceLocation.getAdjacent(Orientation.getSouthEast());
+        Location southWestLocation = referenceLocation.getAdjacent(Orientation.getSouthWest());
+
+        board.placeHex(referenceLocation, volcanoHex);
+        board.placeHex(southEastLocation, grasslandHex);
+        board.placeHex(southWestLocation, rockyHex);
+
+        Player player = new Player();
+        Piece tiger = new Tiger();
+        pieceBoard.addPiece(tiger, referenceLocation, player.getId());
 
         int secondTileId = 3;
         Tile tile = new Tile(secondTileId, Lake.getInstance(), Jungle.getInstance());
@@ -272,9 +296,10 @@ public class NukeTilePlacerTest {
 
         Player player = new Player();
         Piece villager = new Villager();
+        Piece tiger = new Tiger();
         pieceBoard.addPiece(villager, referenceLocation, player.getId());
         pieceBoard.addPiece(villager, southEastLocation, player.getId());
-        pieceBoard.addPiece(villager, southWestLocation, player.getId());
+        pieceBoard.addPiece(tiger, southWestLocation, player.getId());
 
         Location eastOfReferenceLocation = referenceLocation.getAdjacent(Orientation.getEast());
         pieceBoard.addPiece(villager, eastOfReferenceLocation, player.getId());
@@ -294,5 +319,4 @@ public class NukeTilePlacerTest {
         Settlement leftOverSettlement = settlementBoard.getSettlement(eastOfReferenceLocation, player.getId());
         Assert.assertEquals(1, leftOverSettlement.settlementSize());
     }
-
 }

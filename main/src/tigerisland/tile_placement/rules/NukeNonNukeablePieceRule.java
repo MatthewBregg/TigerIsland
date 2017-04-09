@@ -57,9 +57,9 @@ public class NukeNonNukeablePieceRule implements NukePlacementRule {
             pieces.getPiece(location).accept(pieceVisitor);
 
         }
-        if (pieceVisitor.getHasTiger()) {
-            throw new NukeTigerRuleException();
-        }
+//        if (pieceVisitor.getHasTiger()) {
+//            throw new NukeTigerRuleException();
+//        }
         if (pieceVisitor.getHasTotoro()) {
             throw new NukeTotoroRuleException();
         }
