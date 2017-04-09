@@ -56,7 +56,7 @@ public class TestLogger implements DataLogger {
     public void nextTurn() {
 
     }
-    
+
     public void newGame(int gameId, int challengeID) {
 
     }

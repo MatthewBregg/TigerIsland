@@ -1,8 +1,7 @@
 package tigerislandserver.gameplay;
 
-import org.apache.log4j.spi.LoggerFactory;
 import tigerisland.datalogger.DataLogger;
-import tigerisland.datalogger.LoggerStore;
+import tigerisland.datalogger.LoggerFactory;
 import tigerisland.game.GameManager;
 import tigerisland.player.PlayerID;
 import tigerisland.player.Player;
@@ -43,7 +42,7 @@ public class GameThread extends Thread{
         {
             gamePlayers.add(new Player(tp.getID()));
         }
-        DataLogger logger = LoggerStore.getLogger(gameID,0);
+        DataLogger logger = LoggerFactory.getLogger(gameID,0);
         gameManager = new GameManager(gamePlayers, logger );
     }
 

@@ -7,9 +7,7 @@ import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
 
-/**
- * Created by pgallen on 3/26/2017.
- */
+
 public class TournamentServer {
     private ServerSocket serverSocket;
     private ArrayList<TournamentPlayer> clientConnections = new ArrayList<>();
