@@ -115,6 +115,7 @@ public class GameManager {
         logger.writePlacedTileMove(new PlayerID(), location, tile.getOrientation(), tile.toString());
         // TODO : mbregg
         boolean result = tilePlacer.placeTile(tile, location);
+        logger.writeMoveResult("Tile placement " + location + " " + result + " , " + tile);
         if ( !result ) {
             logger.writeInvalidMoveAttempted(new PlayerID(),"Failed to place tile!");
         }
@@ -128,6 +129,7 @@ public class GameManager {
                 .build();
         logger.writeFoundedSettlementMove(player.getId(),location);
         BuildActionResult result = buildController.foundSettlement(buildAction);
+        logger.writeMoveResult("FoundSettlement " + location + " " + result.successful + " " + result.errorMessage);
         if ( !result.successful ) {
             logger.writeInvalidMoveAttempted(player.getId(),result.errorMessage);
         }
@@ -142,6 +144,7 @@ public class GameManager {
                 .build();
         logger.writeExpandedSettlementMove(player.getId(),locationExpandingFrom,terrainToExpandTo.toString());
         BuildActionResult result = buildController.expandSettlement(buildAction);
+        logger.writeMoveResult("Expand Settlement " + result.successful + " " + result.errorMessage);
         if ( !result.successful ) {
             logger.writeInvalidMoveAttempted(player.getId(),result.errorMessage);
         }
@@ -155,6 +158,7 @@ public class GameManager {
                 .build();
         logger.writePlacedTotoroMove(player.getId(),locationExpandingTo);
         BuildActionResult result = buildController.buildTotoro(buildAction);
+        logger.writeMoveResult("Totoroplacement " + locationExpandingTo + " " + result.successful + " " + result.errorMessage);
         if ( !result.successful ) {
             logger.writeInvalidMoveAttempted(player.getId(),result.errorMessage);
         }
@@ -168,6 +172,7 @@ public class GameManager {
                 .build();
         logger.writePlacedTigerMove(player.getId(),locationExpandingTo);
         BuildActionResult result = buildController.buildTiger(buildAction);
+        logger.writeMoveResult("Tigerplacement " + locationExpandingTo + " " + result.successful + " " + result.errorMessage);
         if ( !result.successful ) {
             logger.writeInvalidMoveAttempted(player.getId(),result.errorMessage);
         }

@@ -147,6 +147,11 @@ public class SQLiteLogger implements DataLogger {
         writeToInvalidMoves(pid,message);
     }
 
+    @Override
+    public void writeMoveResult(String message) {
+
+    }
+
     private void writeToInvalidMoves(PlayerID pid, String message) {
         String query = "INSERT INTO invalid_moves(challenge_id,game_id,turn_number,p_id,message) VALUES(?,?,?,?,?)";
             try {

@@ -13,6 +13,7 @@ public interface DataLogger {
     void writePlacedTigerMove(PlayerID pid, Location loc);
     void writePlacedTileMove(PlayerID pid, Location loc, Orientation orientation, String tileTerrains);
     void writeInvalidMoveAttempted(PlayerID pid, String message);
+    void writeMoveResult(String message);
 
     void writeGameEnded(PlayerID winner, PlayerID loser);
     void writeGameStarted(PlayerID p1, PlayerID p2);

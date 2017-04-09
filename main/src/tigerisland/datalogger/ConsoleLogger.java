@@ -64,6 +64,12 @@ public class ConsoleLogger implements DataLogger {
         this.writeMovedWasInvalid(message);
     }
 
+    @Override
+    public void writeMoveResult(String message) {
+        printMessageHeader();
+        System.out.println(message);
+    }
+
 
     private void writeMovedWasInvalid(String message) {
         printMessageHeader();

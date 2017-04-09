@@ -43,6 +43,11 @@ public class TestLogger implements DataLogger {
     }
 
     @Override
+    public void writeMoveResult(String message) {
+
+    }
+
+    @Override
     public void writeGameEnded(PlayerID winner, PlayerID loser) {
 
     }
