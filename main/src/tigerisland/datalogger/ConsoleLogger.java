@@ -18,7 +18,7 @@ public class ConsoleLogger implements DataLogger {
     }
 
     private void printMessageHeader() {
-        System.out.print("Game Id: " + gameId + " Challenge Id: " + challengeId + " Turn Number " + turnNumber + " ::");
+        System.out.print("Logger: Game Id: " + gameId + " Challenge Id: " + challengeId + " Turn Number " + turnNumber + " ::");
     }
 
 
