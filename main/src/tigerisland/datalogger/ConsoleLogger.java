@@ -61,13 +61,13 @@ public class ConsoleLogger implements DataLogger {
 
     @Override
     synchronized public void writeInvalidMoveAttempted(PlayerID pid, String message) {
-        this.writeMovedWasInvalid();
+        this.writeMovedWasInvalid(message);
     }
 
 
-    private void writeMovedWasInvalid() {
+    private void writeMovedWasInvalid(String message) {
         printMessageHeader();
-        System.out.println("Error, move was invalid!!");
+        System.out.println("Error, move was invalid!! " + message);
     }
 
     @Override
