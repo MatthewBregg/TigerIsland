@@ -224,7 +224,7 @@ public class GameManagerTest {
 
 
     private void createTestBoardForTiger() {
-        debugBoard = new TestingBoardMaker("/tigerisland/test_boards/GameManagerTigerPassTestBoard.txt", players);
+        debugBoard = new TestingBoardMaker("/resources/GameManagerTigerPassTestBoard.txt", players);
         HexBoard hexBoard = debugBoard.getBoard();
         PieceBoard pieces = debugBoard.getPieces();
         manager = GameManager.injectStuffOnlyForTesting(hexBoard,players,pieces);
@@ -239,7 +239,7 @@ public class GameManagerTest {
     }
 
     private void createInvalidTestBoardForTiger() {
-        debugBoard = new TestingBoardMaker("/tigerisland/test_boards/GameManagerTigerFailTestBoard.txt", players);
+        debugBoard = new TestingBoardMaker("/resources/GameManagerTigerFailTestBoard.txt", players);
         HexBoard hexBoard = debugBoard.getBoard();
         PieceBoard pieces = debugBoard.getPieces();
         manager = GameManager.injectStuffOnlyForTesting(hexBoard,players,pieces);
