@@ -1,4 +1,4 @@
-package tigerisland.game;
+package tigerisland.test_boards;
 
 import tigerisland.board.HexBoard;
 import tigerisland.board.Location;
@@ -7,28 +7,17 @@ import tigerisland.piece.*;
 import tigerisland.player.Player;
 import tigerisland.terrains.*;
 
-import java.io.IOException;
-import java.nio.file.FileSystems;
-import java.nio.file.Path;
 import java.util.*;
 
-public class DebugBoardMaker {
+public class TestingBoardMaker {
     private Map<Location, List<Object>> hexLocationsAndLevels;
     private String fileName;
     private HexBoard board = new HexBoard();
     private PieceBoard pieces = new PieceBoardImpl();
     private ArrayList<Player> players;
 
-//    public DebugBoardMaker(int [][], int j){
-//        for (int i = 0; I
-//
-//
-//
-//
-//    }
 
-
-    public DebugBoardMaker(String fileName, ArrayList<Player> players) {
+    public TestingBoardMaker(String fileName, ArrayList<Player> players) {
         this.hexLocationsAndLevels = new HashMap<>();
         this.players = players;
         this.fileName = fileName;
@@ -64,9 +53,8 @@ public class DebugBoardMaker {
     }
 
     private void getHexInfoFromFile() {
-        Path filePath = FileSystems.getDefault().getPath(fileName);
         try {
-            Scanner scan = new Scanner(filePath);
+            Scanner scan = new Scanner(getClass().getResourceAsStream(this.fileName));
             while (scan.hasNextLine()) {
                 String hexInfo = scan.nextLine();
 
@@ -78,8 +66,8 @@ public class DebugBoardMaker {
                 hexLocationsAndLevels.put(location, levelAndTerrainInfo);
             }
 
-        } catch (IOException ioexception) {
-            System.out.println("Did not find file, looked in:" + filePath.toAbsolutePath());
+        } catch (Exception e) {
+            System.out.println("Did not find  Testing Board file");
         }
     }
 

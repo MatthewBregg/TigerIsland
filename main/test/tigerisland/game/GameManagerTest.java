@@ -2,7 +2,6 @@ package tigerisland.game;
 
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import tigerisland.board.HexBoard;
 import tigerisland.board.Location;
@@ -11,6 +10,7 @@ import tigerisland.player.Player;
 import tigerisland.terrains.Jungle;
 import tigerisland.terrains.Lake;
 import tigerisland.terrains.Rocky;
+import tigerisland.test_boards.TestingBoardMaker;
 import tigerisland.tile.Orientation;
 import tigerisland.tile.Tile;
 import tigerisland.tile.TileDeck;
@@ -19,7 +19,7 @@ import tigerisland.tile_placement.exceptions.InvalidTilePlacementException;
 import java.util.ArrayList;
 import java.util.List;
 
-@Ignore("Fix the path GameManagerTigerFailTestBoard.txt . It is machine specific")
+//@Ignore("Fix the path GameManagerTigerFailTestBoard.txt . It is machine specific")
 public class GameManagerTest {
     private GameManager manager;
     private ArrayList<Player> players;
@@ -27,7 +27,7 @@ public class GameManagerTest {
 
     private Player playerOne;
 
-    private DebugBoardMaker debugBoard;
+    private TestingBoardMaker debugBoard;
 
 
     @Before
@@ -224,7 +224,7 @@ public class GameManagerTest {
 
 
     private void createTestBoardForTiger() {
-        debugBoard = new DebugBoardMaker("./main/test/tigerisland/game/GameManagerTigerPassTestBoard.txt", players);
+        debugBoard = new TestingBoardMaker("/tigerisland/test_boards/GameManagerTigerPassTestBoard.txt", players);
         HexBoard hexBoard = debugBoard.getBoard();
         PieceBoard pieces = debugBoard.getPieces();
         manager = GameManager.injectStuffOnlyForTesting(hexBoard,players,pieces);
@@ -239,7 +239,7 @@ public class GameManagerTest {
     }
 
     private void createInvalidTestBoardForTiger() {
-        debugBoard = new DebugBoardMaker("./main/test/tigerisland/game/GameManagerTigerFailTestBoard.txt", players);
+        debugBoard = new TestingBoardMaker("/tigerisland/test_boards/GameManagerTigerFailTestBoard.txt", players);
         HexBoard hexBoard = debugBoard.getBoard();
         PieceBoard pieces = debugBoard.getPieces();
         manager = GameManager.injectStuffOnlyForTesting(hexBoard,players,pieces);
