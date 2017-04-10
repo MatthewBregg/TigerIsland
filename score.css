@@ -1,0 +1,31 @@
+body {
+    background-image: url("tiger.png");
+    background-repeat: repeat-y;
+}
+
+table {
+    #background : white;
+    border : 1;
+    width : 100%;
+    margin: 0px;
+}
+
+th {
+    font-size: 230%;
+    font-family: 'Bilbo Swash Caps', cursive;
+}
+
+td {
+    text-align : center;
+    font-size: 170%;
+    font-family: 'Cinzel', serif;
+-webkit-text-fill-color: white;
+    -webkit-text-stroke-width: 1px;
+   -webkit-text-stroke-color: black;
+}
+
+		
+
+background {
+    opacitiy : .5;
+}
