@@ -16,6 +16,7 @@ import java.net.*;
 
 public class TournamentPlayer implements Runnable
 {
+    private final Object lock = new Object();
     private Socket clientSocket;
     private PrintWriter outputToClient;
     private BufferedReader inputFromClient;
@@ -113,10 +114,13 @@ public class TournamentPlayer implements Runnable
         }
     }
 
-    public synchronized void sendMessage(String message)
+    public void sendMessage(String message)
     {
-        System.out.println("SENDING MESSAGE TO " + getID().getId() +": \"" + message+"\"");
-        outputToClient.println(message);
+        synchronized (lock)
+        {
+            System.out.println("SENDING MESSAGE TO " + getID().getId() + ": \"" + message + "\"");
+            outputToClient.println(message);
+        }
     }
 
     public PlayerID getID()

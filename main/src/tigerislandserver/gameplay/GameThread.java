@@ -140,14 +140,12 @@ public class GameThread extends Thread{
                 ArrayList<TournamentScoreboardData> playerData = makeTournamentScoreboardDataList();
                 scoreboard.updateTournamentScoresForValidWin(playerData);
                 endGame();
+                sendEndGameMessage();
             }
 
             moveNumber++;
             activePlayerIndex = (activePlayerIndex + 1) % playersInGame.size();
         }
-
-
-        sendEndGameMessage();
     }
 
     public boolean playerUsedAllOfTwoTiles(PlayerID pID){
