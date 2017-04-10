@@ -21,21 +21,31 @@ public class TextFileReaderTest {
     @Test
     public void isHashMapRightSize(){
         usernamesAndPasswords = tfr.getUsernameAndPasswordCombos();
-        Assert.assertTrue(usernamesAndPasswords.size() == 2);
+        System.out.println(usernamesAndPasswords.size());
+
+        Assert.assertTrue(usernamesAndPasswords.size() == 4);
     }
 
     @Test
     public void correctlyReadInFirstUserPassword(){
         usernamesAndPasswords = tfr.getUsernameAndPasswordCombos();
-        String firstUsername = "phil";
-        Assert.assertTrue(usernamesAndPasswords.get(firstUsername).equals("allen"));
+        String firstUsername = "a";
+        Assert.assertTrue(usernamesAndPasswords.get(firstUsername).equals("A"));
     }
 
     @Test
     public void correctlyReadInSecondUserPassword(){
         usernamesAndPasswords = tfr.getUsernameAndPasswordCombos();
-        String firstUsername = "christine";
-        Assert.assertTrue(usernamesAndPasswords.get(firstUsername).equals("moore"));
+        String secondPlayer = "b";
+        Assert.assertTrue(usernamesAndPasswords.get(secondPlayer).equals("B"));
+    }
+
+    @Test
+    public void shouldNotReadInUserPassword()
+    {
+        usernamesAndPasswords = tfr.getUsernameAndPasswordCombos();
+        String secondPlayer = "b";
+        Assert.assertFalse(usernamesAndPasswords.get(secondPlayer).equals("b"));
     }
 
 
