@@ -29,7 +29,7 @@ public class Match extends Thread {
 
         while(true)
         {
-            if(game1.isAlive() && game2.isAlive())
+            if(game1.isGameDone() && game2.isGameDone())
             {
                 break;
             }
