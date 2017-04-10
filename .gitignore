@@ -11,6 +11,8 @@ main/bin/
 
 # Output file
 *out/
+*.db
+*.html
 
 # git file
 *.orig

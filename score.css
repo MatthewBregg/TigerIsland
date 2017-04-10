@@ -19,7 +19,7 @@ td {
     text-align : center;
     font-size: 200%;
     font-family: 'Cinzel', serif;
--webkit-text-fill-color: white;
+-webkit-text-fill-color: black;
     -webkit-text-stroke-width: 1.5px;
    -webkit-text-stroke-color: black;
 }

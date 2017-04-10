@@ -105,6 +105,19 @@ public class OutputAdapter extends Thread
         }
     }
 
+    public static void sendIllegalFormatedMessageMessage(ArrayList<TournamentPlayer> players, TournamentPlayer tournamentPlayer, String[] inputTokens)
+    {
+        for(TournamentPlayer tp: players)
+        {
+            String message = "";
+            message += appendBetween(inputTokens, 0, 3);
+            message += " PLAYER " + tournamentPlayer.getID().getId();
+            message += " FORFEITED: MALFORMED MOVE";
+
+            tp.sendMessage(message);
+        }
+    }
+
     public static void sendTimeoutMessage(ArrayList<TournamentPlayer> players, TournamentPlayer tournamentPlayer, String[] inputTokens)
     {
         for(TournamentPlayer tp: players)
