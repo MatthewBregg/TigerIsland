@@ -72,8 +72,8 @@ public class ConsoleLogger implements DataLogger {
     }
 
     @Override
-    synchronized public void writeGameEnded(PlayerID winner, PlayerID loser) {
-        System.out.println(getMessageHeader() + "Winner " + winner + " Loser " + loser);
+    synchronized public void writeGameEnded(PlayerID winner, PlayerID loser,  String matchEndCondition) {
+        System.out.println(getMessageHeader() +  matchEndCondition +  " Winner " + winner + " Loser " + loser);
     }
 
     @Override

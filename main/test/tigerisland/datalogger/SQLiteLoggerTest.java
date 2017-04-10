@@ -74,7 +74,7 @@ public class SQLiteLoggerTest {
 
     @Test
     public void writeGameEnded() throws Exception {
-        logger.writeGameEnded(new PlayerID(), new PlayerID());
+        logger.writeGameEnded(new PlayerID(), new PlayerID(),"fooadf");
     }
 
     @Test

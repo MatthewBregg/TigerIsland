@@ -15,7 +15,7 @@ public interface DataLogger {
     void writeInvalidMoveAttempted(PlayerID pid, String message);
     void writeMoveResult(String message);
 
-    void writeGameEnded(PlayerID winner, PlayerID loser);
+    void writeGameEnded(PlayerID winner, PlayerID loser, String matchEndCondition);
     void writeGameStarted(PlayerID p1, PlayerID p2);
     void writeRawRequest(long timeStamp, String message);
 

@@ -151,7 +151,7 @@ public class GameThread extends Thread{
             logger.nextTurn();
             activePlayerIndex = (activePlayerIndex + 1) % playersInGame.size();
         }
-        logger.writeGameEnded(playersInGame.get(0).getID(), playersInGame.get(1).getID());
+        logger.writeGameEnded(playersInGame.get(0).getID(), playersInGame.get(1).getID(), "HenryWasMad");
     }
 
     public boolean playerUsedAllOfTwoTiles(PlayerID pID){

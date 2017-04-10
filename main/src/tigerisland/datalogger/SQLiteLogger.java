@@ -177,8 +177,8 @@ public class SQLiteLogger implements DataLogger {
 
 
     @Override
-    public void writeGameEnded(PlayerID winner, PlayerID loser) {
-        writeToMatches(winner,loser,"Game-over-Winner:" + pidToInt(winner));
+    public void writeGameEnded(PlayerID winner, PlayerID loser, String matchEndCondition) {
+        writeToMatches(winner,loser, matchEndCondition+"-WinnerIs:" + pidToInt(winner));
     }
 
     @Override

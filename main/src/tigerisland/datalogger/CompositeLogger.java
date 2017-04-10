@@ -63,9 +63,9 @@ public class CompositeLogger implements DataLogger {
     }
 
     @Override
-    public void writeGameEnded(PlayerID winner, PlayerID loser) {
+    public void writeGameEnded(PlayerID winner, PlayerID loser,  String matchEndCondition) {
         for ( DataLogger logger : dataLoggerList ) {
-            logger.writeGameEnded(winner,loser);
+            logger.writeGameEnded(winner,loser, matchEndCondition);
         }
     }
 

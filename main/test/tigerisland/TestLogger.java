@@ -48,7 +48,7 @@ public class TestLogger implements DataLogger {
     }
 
     @Override
-    public void writeGameEnded(PlayerID winner, PlayerID loser) {
+    public void writeGameEnded(PlayerID winner, PlayerID loser,  String matchEndCondition) {
 
     }
 

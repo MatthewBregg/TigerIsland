@@ -50,10 +50,10 @@ public class TournamentScoreboardTest {
         //playerList.add(player5);
 
         // instantiate the challenge object
-        tourneyRepresentation = new Challenge(tourneyPlayers);
+        tourneyRepresentation = new Challenge(tourneyPlayers,0);
 
         tournamentScoreboard = new TournamentScoreboard();
-        tourneyRepresentation = new Challenge(tourneyPlayers);
+        tourneyRepresentation = new Challenge(tourneyPlayers,0);
         tournamentPlayerScores = new HashMap<>();
         gameManager = new GameManager(playerList, new TestLogger());
 
