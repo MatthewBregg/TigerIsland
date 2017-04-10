@@ -25,7 +25,7 @@ public class GameThread extends Thread{
     private GameManager gameManager;
     private String endGameMessage;
 
-    public GameThread(TournamentPlayer player1, TournamentPlayer player2, ArrayList<Tile> tiles, char gameLetter, int roundNumber, TournamentScoreboard scoreboard){
+    public GameThread(TournamentPlayer player1, TournamentPlayer player2, ArrayList<Tile> tiles, char gameLetter, int cid, TournamentScoreboard scoreboard){
         playersInGame = new ArrayList<TournamentPlayer>();
         playersInGame.add(player1);
         playersInGame.add(player2);
@@ -44,7 +44,7 @@ public class GameThread extends Thread{
         {
             gamePlayers.add(new Player(tp.getID()));
         }
-        logger = LoggerFactory.getLogger(((gameLetter == 'A') ? 0 : 1),roundNumber);
+        logger = LoggerFactory.getLogger(((gameLetter == 'A') ? 0 : 1), cid);
         gameManager = new GameManager(gamePlayers, logger );
     }
 
@@ -139,7 +139,7 @@ public class GameThread extends Thread{
             Tile tile = gameTiles.get(moveNumber);
 
             playersInGame.get(activePlayerIndex).requestMove(this, gameID, playerTurnNumber, tile);
-            System.out.println("PLAYER "+getId());
+
             if (gameEndedWithValidWin()){
                 ArrayList<TournamentScoreboardData> playerData = makeTournamentScoreboardDataList();
                 scoreboard.updateTournamentScoresForValidWin(playerData);

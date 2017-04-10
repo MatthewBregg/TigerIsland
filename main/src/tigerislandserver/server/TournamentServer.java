@@ -54,7 +54,7 @@ public class TournamentServer {
                 OutputAdapter.sendWaitForChallengeMessage(clientConnections);
             }
 
-            Challenge challenge=new Challenge(clientConnections);
+            Challenge challenge=new Challenge(clientConnections, i);
             OutputAdapter.sendNewChallengeMessage(clientConnections, i, challenge.getTotalChallengeRounds());
             challenge.play();
         }

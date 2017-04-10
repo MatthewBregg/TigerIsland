@@ -24,7 +24,7 @@ public class InputAdapter
 
     public static boolean authenticate(TournamentPlayer tournamentPlayer, String input)
     {
-        System.out.println("CLIENT: " + input);
+        System.out.println("CLIENT " + tournamentPlayer.getID().getId() + ":" + input);
         boolean success = isIdentificationCommand(input) && verifyUsernameAndPassword(input);
 
         String[] inputTokens = input.split("\\s+");
