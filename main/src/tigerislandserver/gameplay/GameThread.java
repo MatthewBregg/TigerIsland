@@ -25,7 +25,7 @@ public class GameThread extends Thread{
     private GameManager gameManager;
     private String endGameMessage;
 
-    public GameThread(TournamentPlayer player1, TournamentPlayer player2, ArrayList<Tile> tiles, char gameLetter, int cid, TournamentScoreboard scoreboard){
+    public GameThread(TournamentPlayer player1, TournamentPlayer player2, ArrayList<Tile> tiles, char gameLetter, int cid, TournamentScoreboard scoreboard, long matchID){
         playersInGame = new ArrayList<TournamentPlayer>();
         playersInGame.add(player1);
         playersInGame.add(player2);
@@ -44,7 +44,7 @@ public class GameThread extends Thread{
         {
             gamePlayers.add(new Player(tp.getID()));
         }
-        int matchId = (int)Math.random()*4256;
+        int matchId = (int)matchID;
         logger = LoggerFactory.getLogger(((gameLetter == 'A') ? 0 : 1), cid, matchId);
         gameManager = new GameManager(gamePlayers, logger );
     }
