@@ -75,12 +75,13 @@ public class SQLiteLogger implements DataLogger {
         }
     }
 
-    private void writeToOverallScore(int p_id, int score) {
-        String query = "INSERT OR REPLACE INTO overall_score(player_id,score) VALUES(?,?)";
+    private void writeToOverallScore(int cid, int p_id, int score) {
+        String query = "INSERT OR REPLACE INTO overall_score(challenge_id,player_id,score) VALUES(?,?,?)";
         try {
             PreparedStatement prstmnt = connection.prepareStatement(query);
-            prstmnt.setInt(1, p_id);
-            prstmnt.setInt(2, score);
+            prstmnt.setInt(1, cid);
+            prstmnt.setInt(2, p_id);
+            prstmnt.setInt(3, score);
             prstmnt.executeUpdate();
         } catch (SQLException sqlException) {
             System.err.println(sqlException);
@@ -210,8 +211,8 @@ public class SQLiteLogger implements DataLogger {
         turnNumber = 0;
     }
 
-    public void setPlayerScore(PlayerID pid, int score) {
-        writeToOverallScore(pid.getId(),score);
+    public void setPlayerScore(int cid, PlayerID pid, int score) {
+        writeToOverallScore(cid, pid.getId(),score);
     }
 
 
@@ -222,7 +223,7 @@ public class SQLiteLogger implements DataLogger {
                 "CREATE TABLE IF NOT EXISTS build_action (challenge_id integer not null, game_id integer not null, match_id integer not null, turn_number integer not null, p_id integer not null, loc_x integer not null, loc_y integer not null, loc_z integer not null, move_description text not null, primary key(challenge_id, game_id, match_id, turn_number) );",
                 "CREATE TABLE IF NOT EXISTS invalid_moves (challenge_id integer not null, game_id integer not null, match_id integer not null, turn_number integer not null, p_id integer not null, message string not null, primary key(challenge_id, game_id, match_id, turn_number) );",
                 "create table IF NOT EXISTS raw_requests ( time_stamp integer primary key, request text not null);",
-                "create table if not exists overall_score (player_id integer primary key, score integer not null);",
+                "create table if not exists overall_score (challenge_id integer, player_id integer not null, score integer not null);",
         };
 
         try {

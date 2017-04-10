@@ -14,6 +14,7 @@ import tigerislandserver.server.TournamentPlayer;
 import java.util.ArrayList;
 
 public class GameThread extends Thread{
+    private int cid;
     private DataLogger logger;
     private ArrayList<Tile> gameTiles;
     private ArrayList<TournamentPlayer> playersInGame;
@@ -34,7 +35,7 @@ public class GameThread extends Thread{
         activePlayerIndex = 0;
         gameTiles = tiles;
         gameID = gameLetter;
-
+        this.cid=cid;
         this.scoreboard=scoreboard;
 
         gameNotEnded = true;
@@ -148,8 +149,8 @@ public class GameThread extends Thread{
                 PlayerID player2ID = playersInGame.get(1).getID();
 
                 SQLiteLogger sqlLogger = LoggerFactory.getSQLLogger(-1,-1,-1);
-                sqlLogger.setPlayerScore(player1ID, scoreboard.getPlayerScore(player1ID));
-                sqlLogger.setPlayerScore(player2ID, scoreboard.getPlayerScore(player2ID));
+                sqlLogger.setPlayerScore(cid, player1ID, scoreboard.getPlayerScore(player1ID));
+                sqlLogger.setPlayerScore(cid, player2ID, scoreboard.getPlayerScore(player2ID));
 
                 endGame();
                 generateEndGameMessage();
@@ -163,8 +164,8 @@ public class GameThread extends Thread{
         PlayerID player1ID = playersInGame.get(0).getID();
         PlayerID player2ID = playersInGame.get(1).getID();
         SQLiteLogger sqlLogger = LoggerFactory.getSQLLogger(-1,-1,-1);
-        sqlLogger.setPlayerScore(player1ID, scoreboard.getPlayerScore(player1ID));
-        sqlLogger.setPlayerScore(player2ID, scoreboard.getPlayerScore(player2ID));
+        sqlLogger.setPlayerScore(cid, player1ID, scoreboard.getPlayerScore(player1ID));
+        sqlLogger.setPlayerScore(cid, player2ID, scoreboard.getPlayerScore(player2ID));
         logger.writeGameEnded(playersInGame.get(0).getID(), playersInGame.get(1).getID(), endGameMessage);
     }
 
