@@ -24,13 +24,13 @@ public class SQLiteLogger implements DataLogger {
     public void clearError() {
         hasError = false;
     }
-    public SQLiteLogger(int challengeId, int gameId, int matchId, String url) {
+    public SQLiteLogger(int challengeId, int gameId, int matchId, Connection connection) {
         this.matchId = matchId;
         this.challengeId = challengeId;
         this.gameId = gameId;
-        this.url = url; //"jdbc:sqlite:tigersssss.db"; For example
-        openDatabaseConnection();;
+        this.connection = connection;
     }
+
 
     private void writeToBuildActions(PlayerID pid, Location loc, String move_description) {
         String query = "INSERT INTO build_action(challenge_id,game_id,match_id,turn_number,p_id,loc_x,loc_y,loc_z,move_description) VALUES(?,?,?,?,?,?,?,?,?)";
@@ -45,7 +45,9 @@ public class SQLiteLogger implements DataLogger {
             prstmnt.setInt(7,loc.getY());
             prstmnt.setInt(8,loc.getZ());
             prstmnt.setString(9,move_description);
-            prstmnt.executeUpdate();
+            synchronized (connection ) {
+                prstmnt.executeUpdate();
+            }
         } catch (SQLException sqlException) {
             System.err.println(sqlException);
             hasError = true;
@@ -59,7 +61,6 @@ public class SQLiteLogger implements DataLogger {
 
     private void writeToMatches(PlayerID p1, PlayerID p2, String status) {
         String query = "INSERT OR REPLACE INTO matches(challenge_id, game_id, match_id, p1_id, p2_id, status) VALUES(?,?,?,?,?,?)";
-        System.out.println("Scoreboard : P1 " + p1 + " P2 " + p2 + " " + status);
         try {
             PreparedStatement prstmnt = connection.prepareStatement(query);
             prstmnt.setInt(1, challengeId);
@@ -68,7 +69,9 @@ public class SQLiteLogger implements DataLogger {
             prstmnt.setInt(4, pidToInt(p1));
             prstmnt.setInt(5, pidToInt(p2));
             prstmnt.setString(6,status);
-            prstmnt.executeUpdate();
+            synchronized (connection ) {
+                prstmnt.executeUpdate();
+            }
         } catch (SQLException sqlException) {
             System.err.println(sqlException);
             hasError = true;
@@ -81,7 +84,9 @@ public class SQLiteLogger implements DataLogger {
             PreparedStatement prstmnt = connection.prepareStatement(query);
             prstmnt.setInt(1, p_id);
             prstmnt.setInt(2, score);
-            prstmnt.executeUpdate();
+            synchronized (connection) {
+                prstmnt.executeUpdate();
+            }
         } catch (SQLException sqlException) {
             System.err.println(sqlException);
             hasError = true;
@@ -94,7 +99,9 @@ public class SQLiteLogger implements DataLogger {
             PreparedStatement prstmnt = connection.prepareStatement(query);
             prstmnt.setInt(1, (int)timestamp);
             prstmnt.setString(2, message);
-            prstmnt.executeUpdate();
+            synchronized (connection) {
+                prstmnt.executeUpdate();
+            }
         } catch (SQLException sqlException) {
             System.err.println(sqlException);
             hasError = true;
@@ -115,20 +122,16 @@ public class SQLiteLogger implements DataLogger {
             prstmnt.setInt(8,loc.getZ());
             prstmnt.setInt(9,orientation.getAngle());
             prstmnt.setString(10,tileTerrains);
-            prstmnt.executeUpdate();
+            synchronized (connection) {
+                prstmnt.executeUpdate();
+            }
         } catch (SQLException sqlException) {
             System.err.println(sqlException);
             hasError = true;
         }
     }
 
-    private void openDatabaseConnection() {
-            try {
-                connection = DriverManager.getConnection(url);
-            } catch (SQLException e) {
-                System.err.println(e.getMessage());
-            }
-    }
+
 
 
     @Override
@@ -181,7 +184,9 @@ public class SQLiteLogger implements DataLogger {
             prstmnt.setInt(4, turnNumber);
             prstmnt.setInt(5,pidToInt(pid));
             prstmnt.setString(6,message);
-            prstmnt.executeUpdate();
+            synchronized (connection) {
+                prstmnt.executeUpdate();
+            }
         } catch (SQLException sqlException) {
             System.err.println(sqlException);
             hasError = true;
@@ -200,7 +205,7 @@ public class SQLiteLogger implements DataLogger {
     }
 
     @Override
-    public void nextTurn() {
+    synchronized public void nextTurn() {
         ++turnNumber;
     }
 
@@ -214,24 +219,4 @@ public class SQLiteLogger implements DataLogger {
         writeToOverallScore(pid.getId(),score);
     }
 
-
-    public void createTables() {
-        final String[] queries = new String[]{
-                "CREATE TABLE IF NOT EXISTS matches (challenge_id integer not null, game_id integer not null, match_id integer not null, p1_id integer not null, p2_id integer not null, status string, primary key(challenge_id, game_id, match_id) );",
-                "CREATE TABLE IF NOT EXISTS tiles_placed (challenge_id integer not null, game_id integer not null, match_id integer not null, turn_number integer not null, p_id integer not null, loc_x integer not null, loc_y integer not null, loc_z integer not null, orientation integer not null, tile text not null, primary key(challenge_id, game_id, match_id, turn_number) );",
-                "CREATE TABLE IF NOT EXISTS build_action (challenge_id integer not null, game_id integer not null, match_id integer not null, turn_number integer not null, p_id integer not null, loc_x integer not null, loc_y integer not null, loc_z integer not null, move_description text not null, primary key(challenge_id, game_id, match_id, turn_number) );",
-                "CREATE TABLE IF NOT EXISTS invalid_moves (challenge_id integer not null, game_id integer not null, match_id integer not null, turn_number integer not null, p_id integer not null, message string not null, primary key(challenge_id, game_id, match_id, turn_number) );",
-                "create table IF NOT EXISTS raw_requests ( time_stamp integer primary key, request text not null);",
-                "create table if not exists overall_score (player_id integer primary key, score integer not null);",
-        };
-
-        try {
-            for ( String query : queries ) {
-                Statement stmt = connection.createStatement();
-                stmt.execute(query);
-            }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
 }

@@ -11,7 +11,7 @@ import static java.lang.Thread.sleep;
 public class ScoreBoardMain {
     private final static String FILENAME = "./ScoreBoard.html";
     public static void main(String[] args) {
-        LoggerFactory.getLogger(0,0, 0);
+        LoggerFactory.createTables();
         while(true) {
             GenerateScoreBoard scoreBoardGenerator = new GenerateScoreBoard(LoggerFactory.getDataBaseUrl());
             String scoreboard = (scoreBoardGenerator.getScoreBoard());
