@@ -24,7 +24,7 @@ public class GameThread extends Thread{
     private boolean gameNotEnded;
     private GameManager gameManager;
 
-    public GameThread(TournamentPlayer player1, TournamentPlayer player2, ArrayList<Tile> tiles, char gameLetter, TournamentScoreboard scoreboard){
+    public GameThread(TournamentPlayer player1, TournamentPlayer player2, ArrayList<Tile> tiles, char gameLetter, int roundNumber, TournamentScoreboard scoreboard){
         playersInGame = new ArrayList<TournamentPlayer>();
         playersInGame.add(player1);
         playersInGame.add(player2);
@@ -43,7 +43,7 @@ public class GameThread extends Thread{
         {
             gamePlayers.add(new Player(tp.getID()));
         }
-        logger = LoggerFactory.getLogger(gameID,0);
+        logger = LoggerFactory.getLogger(((gameLetter == 'A') ? 0 : 1),roundNumber);
         gameManager = new GameManager(gamePlayers, logger );
     }
 
