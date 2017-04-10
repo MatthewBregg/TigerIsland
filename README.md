@@ -32,15 +32,20 @@ To do this, create a run configuration for the RunTournamentServer.java. You can
 
 ![alt tag](https://github.com/MatthewBregg/TigerIsland/blob/master/ServerRunConfiguration.png)
 
-It uses the following Parameters:
+___
+## Server Run Configuration Parameters:
 
-# challenges tournament password path to teampasswords.txt file time delay for accepting users port seed for deck
+*Format:*
 
-Example
+**challenges** || **tournaments** || **password path** || **time** **delay** || **port** || **seed for deck**
+
+*Example:*
+
 3 heygang passwords.txt 20 6969 123456789
 
-Run it from the run menu. 
-
+*Note*
+***Run it from the run menu.***
+___
 
 
 
