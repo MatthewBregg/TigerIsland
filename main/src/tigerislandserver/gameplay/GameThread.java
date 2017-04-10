@@ -117,7 +117,7 @@ public class GameThread extends Thread{
         TournamentPlayer p2 = playersInGame.get(1);
         ScoreManager sm =gameManager.getScoreManager();
         OutputAdapter.sendEndGameMessage(p1, p2, gameID, ""+sm.getPlayerScore(p1.getID()), ""+sm.getPlayerScore(p2.getID()));
-        logger.writeGameStarted(playersInGame.get(0).getID(), playersInGame.get(1).getID());
+        logger.writeGameEnded(playersInGame.get(0).getID(), playersInGame.get(1).getID());
         gameNotEnded=false;
     }
 
