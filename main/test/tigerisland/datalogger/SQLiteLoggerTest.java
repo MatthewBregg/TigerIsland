@@ -11,12 +11,13 @@ public class SQLiteLoggerTest {
     private static SQLiteLogger logger = null;
     private static int ChallengeId = 1;
     private static int GameId = 1;
+    private static int match_id = 1;
     private static String url = null;
 
     @BeforeClass
     public static void setUpStatic() {
        url =  "jdbc:sqlite::memory:";
-       logger = new SQLiteLogger(ChallengeId,GameId,url);
+       logger = new SQLiteLogger(ChallengeId,GameId,match_id,url);
        createTables();
        Assert.assertFalse(logger.hasErrored());
     }

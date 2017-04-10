@@ -14,16 +14,18 @@ public class GenerateScoreBoard {
     }
 
     class MatchRow {
+        private int match_id;
         private int p1_id;
         private int p2_id;
         private int game_id;
         private int challenge_id;
         private String status;
 
-        public MatchRow(int p1_id, int p2_id, int game_id, int challenge_id, String status) {
+        public MatchRow(int p1_id, int p2_id, int game_id, int challenge_id, int match_id, String status) {
             this.p1_id = p1_id;
             this.p2_id = p2_id;
             this.game_id = game_id;
+            this.match_id = match_id;
 
             this.challenge_id = challenge_id;
             this.status = status;
@@ -47,6 +49,10 @@ public class GenerateScoreBoard {
 
         public int getP1_id() {
             return p1_id;
+        }
+
+        public int getMatch_id() {
+            return match_id;
         }
     }
     final String lineSeparator = System.getProperty("line.separator");
@@ -77,6 +83,7 @@ public class GenerateScoreBoard {
                          "<tr>" + lineSeparator +
                                  "<th>Challenge ID</th>" + lineSeparator +
                                  "<th>Game ID</th>" + lineSeparator +
+                                 "<th>Match ID</th>" + lineSeparator +
                                  "<th> Player 1 ID</th>" + lineSeparator +
                                  "<th> Player 2 ID</th>" + lineSeparator +
                                  "<th> Result </th>" + lineSeparator +
@@ -104,6 +111,7 @@ public class GenerateScoreBoard {
     private String getTableRowFromMatchRow(MatchRow matchRow) {
         return "<tr>" +  getTableEntry(matchRow.getChallenge_id())
                 + getTableEntry(matchRow.getGame_id())
+                + getTableEntry(matchRow.getMatch_id())
                 + getTableEntry(matchRow.p1_id) + getTableEntry(matchRow.getP2_id())
                 + getTableEntry(matchRow.getStatus())
         + "</tr>";
@@ -140,8 +148,9 @@ public class GenerateScoreBoard {
            int p2_id = rs.getInt("p2_id");
            int game_id = rs.getInt("game_id");
            int challenge_id = rs.getInt("challenge_id");
+           int match_id = rs.getInt("match_id");
            String status = rs.getString("status");
-           matches.add(new MatchRow(p1_id,p2_id,game_id,challenge_id, status));
+           matches.add(new MatchRow(p1_id,p2_id,game_id,challenge_id, match_id, status));
        }
     }
 

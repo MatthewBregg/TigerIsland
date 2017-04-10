@@ -44,7 +44,8 @@ public class GameThread extends Thread{
         {
             gamePlayers.add(new Player(tp.getID()));
         }
-        logger = LoggerFactory.getLogger(((gameLetter == 'A') ? 0 : 1), cid);
+        int matchId = (int)Math.random()*4256;
+        logger = LoggerFactory.getLogger(((gameLetter == 'A') ? 0 : 1), cid, matchId);
         gameManager = new GameManager(gamePlayers, logger );
     }
 

@@ -11,14 +11,16 @@ public class ConsoleLogger implements DataLogger {
     private int challengeId;
     private int gameId;
     private int turnNumber = 0;
+    private int matchId = 0;
 
-    public ConsoleLogger(int challengeId, int gameId) {
+    public ConsoleLogger(int challengeId, int gameId, int matchId) {
         this.challengeId = challengeId;
+        this.matchId = matchId;
         this.gameId = gameId;
     }
 
     private String getMessageHeader() {
-        return ("Logger: Game Id: " + gameId + " Challenge Id: " + challengeId + " Turn Number " + turnNumber + " ::");
+        return ("Logger: Game Id: " + gameId + " Challenge Id: " + challengeId + " Match ID : " + matchId + " Turn Number " + turnNumber + " ::");
     }
 
 
