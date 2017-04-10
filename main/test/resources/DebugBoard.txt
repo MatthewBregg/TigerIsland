@@ -1,1 +1,1 @@
-0 0 0 3 0 volcano null 0
+0 0 0 3 -1 volcano null 0
