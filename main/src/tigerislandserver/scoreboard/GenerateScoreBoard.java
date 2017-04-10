@@ -30,18 +30,21 @@ public class GenerateScoreBoard {
 
         builder.append(getScoreTableHeader());
 
-        for ( Map.Entry<Integer, Integer> kv : this.getScore().entrySet() ) {
-            builder.append("<tr>" + "<td>" + kv.getKey() + "</td>" + "<td>" + kv.getValue() + "</td>" + "</th>");
-            builder.append(lineSeparator);
+        for ( Map.Entry<Integer, Map<Integer, Integer>> kv1 : this.getScore().entrySet() )
+        {
+            for (Map.Entry<Integer, Integer> kv : kv1.getValue().entrySet())
+            {
+                builder.append("<tr>" + "<td>" + kv1.getKey() + "</td>" + "<td>" + kv.getKey() + "</td>" + "<td>" + kv.getValue() + "</td>" + "</th>");
+                builder.append(lineSeparator);
+            }
         }
-
         builder.append(getScoreTableFooter());
 
         return builder.toString();
     }
 
     private String getScoreTableHeader() {
-         return lineSeparator + "<table>" + lineSeparator + "<tr> <th> PlayerID </th> <th> Score </th> </tr>" + lineSeparator ;
+         return lineSeparator + "<table>" + lineSeparator + "<tr> <th> ChallengeID </th> <th> PlayerID </th> <th> Score </th> </tr>" + lineSeparator ;
     }
 
     private String getScoreTableFooter() {
@@ -49,8 +52,8 @@ public class GenerateScoreBoard {
     }
 
 
-    private Map<Integer,Integer> getScore() {
-        Map<Integer,Integer> scores = new HashMap<Integer,Integer>();
+    private Map<Integer, Map<Integer,Integer>> getScore() {
+        Map<Integer, Map<Integer,Integer>> scores = new HashMap<>();
         try {
             connection = DriverManager.getConnection(url);
         } catch (SQLException e) {
@@ -66,11 +69,22 @@ public class GenerateScoreBoard {
         return scores;
     }
 
-    private void putResultSetToScoreRows(ResultSet rs, Map<Integer, Integer> scores) throws SQLException {
+    private void putResultSetToScoreRows(ResultSet rs, Map<Integer, Map<Integer,Integer>> scores) throws SQLException {
         while(rs.next()) {
+            int cid = rs.getInt("challenge_id");
             int p_id = rs.getInt("player_id");
             int score = rs.getInt("score");
-            scores.put(p_id,score);
+
+            if(scores.get(cid) == null)
+            {
+                HashMap<Integer,Integer> map=new HashMap<>();
+                map.put(p_id, score);
+                scores.put(cid, map);
+            }
+            else
+            {
+                scores.get(cid).put(p_id, score);
+            }
         }
     }
 

@@ -42,7 +42,7 @@ public class LoggerFactory {
                 "CREATE TABLE IF NOT EXISTS build_action (challenge_id integer not null, game_id integer not null, match_id integer not null, turn_number integer not null, p_id integer not null, loc_x integer not null, loc_y integer not null, loc_z integer not null, move_description text not null, primary key(challenge_id, game_id, match_id, turn_number) );",
                 "CREATE TABLE IF NOT EXISTS invalid_moves (challenge_id integer not null, game_id integer not null, match_id integer not null, turn_number integer not null, p_id integer not null, message string not null, primary key(challenge_id, game_id, match_id, turn_number) );",
                 "create table IF NOT EXISTS raw_requests ( time_stamp integer primary key, request text not null);",
-                "create table if not exists overall_score (player_id integer primary key, score integer not null);",
+                "create table if not exists overall_score (challenge_id integer, player_id integer not null, score integer not null)",
         };
 
         try {

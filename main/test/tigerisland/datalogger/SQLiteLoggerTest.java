@@ -90,7 +90,7 @@ public class SQLiteLoggerTest {
 
     @Test
     public void setPlayerScore() throws Exception {
-        logger.setPlayerScore(new PlayerID(),120);
+        logger.setPlayerScore(0, new PlayerID(),120);
     }
     class ConcurrentWriteTester implements Runnable {
 

@@ -1,0 +1,5 @@
+0 0 0 1 -1 volcano null 0
+1 0 -1 1 -1 lake null 1
+0 1 -1 1 -1 jungle null 1
+-1 0 1 1 -1 rocky null 1
+0 -1 1 1 -1 grassland null 0

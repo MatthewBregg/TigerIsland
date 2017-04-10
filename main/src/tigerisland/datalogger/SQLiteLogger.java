@@ -12,7 +12,7 @@ public class SQLiteLogger implements DataLogger {
     private int turnNumber = 0;
     private int matchId;
 
-    private Connection connection = null;
+    private final Connection connection;
     private String url = null;
 
     private boolean hasError = false;
@@ -78,13 +78,14 @@ public class SQLiteLogger implements DataLogger {
         }
     }
 
-    private void writeToOverallScore(int p_id, int score) {
-        String query = "INSERT OR REPLACE INTO overall_score(player_id,score) VALUES(?,?)";
+    private void writeToOverallScore(int cid, int p_id, int score) {
+        String query = "INSERT OR REPLACE INTO overall_score(challenge_id,player_id,score) VALUES(?,?,?)";
         try {
             PreparedStatement prstmnt = connection.prepareStatement(query);
-            prstmnt.setInt(1, p_id);
-            prstmnt.setInt(2, score);
-            synchronized (connection) {
+            prstmnt.setInt(1, cid);
+            prstmnt.setInt(2, p_id);
+            prstmnt.setInt(3, score);
+            synchronized ( connection ) {
                 prstmnt.executeUpdate();
             }
         } catch (SQLException sqlException) {
@@ -215,8 +216,7 @@ public class SQLiteLogger implements DataLogger {
         turnNumber = 0;
     }
 
-    public void setPlayerScore(PlayerID pid, int score) {
-        writeToOverallScore(pid.getId(),score);
+    public void setPlayerScore(int cid, PlayerID pid, int score) {
+        writeToOverallScore(cid, pid.getId(),score);
     }
-
 }

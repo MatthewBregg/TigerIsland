@@ -1,8 +1,8 @@
-0 0 0 3 0 volcano null 0
-1 0 -1 3 0 lake null 1
-0 1 -1 3 0 jungle null 1
--1 0 1 3 0 rocky null 1
-0 -1 1 3 0 grassland null 0
+0 0 0 3 -1 volcano null 0
+1 0 -1 3 -1 lake null 1
+0 1 -1 3 -1 jungle null 1
+-1 0 1 3 -1 rocky null 1
+0 -1 1 3 -1 grassland null 0
 1 -1 0 2 1 lake villager 0
 2 -2 0 2 1 volcano null 1
 2 -1 -1 2 1 lake null 1

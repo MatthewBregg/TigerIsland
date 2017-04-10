@@ -2,7 +2,6 @@ package tigerisland.game;
 
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import tigerisland.TestLogger;
 import tigerisland.board.HexBoard;
@@ -97,8 +96,15 @@ public class GameManagerTest {
         Assert.assertTrue(manager.foundSettlement(location, playerOne));
     }
 
-    @Test @Ignore
+    @Test
     public void test_FoundSettlementShouldReturnFalseForFoundingOnLevelGreaterThanOne(){
+        //tiger test board has tiles all at level 3
+        debugBoard = new TestingBoardMaker("/resources/GameManagerTigerPassTestBoard.txt", players);
+        HexBoard hexBoard = debugBoard.getBoard();
+        PieceBoard pieces = debugBoard.getPieces();
+        manager = GameManager.injectStuffOnlyForTesting(hexBoard,players,pieces, new TestLogger());
+        Location settlement = new Location(1,0 -1);
+        Assert.assertFalse(manager.foundSettlement(settlement, playerOne));
     }
 
     @Test
