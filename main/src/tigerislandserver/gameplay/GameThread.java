@@ -119,7 +119,6 @@ public class GameThread extends Thread{
         TournamentPlayer p2 = playersInGame.get(1);
         ScoreManager sm =gameManager.getScoreManager();
         endGameMessage = OutputAdapter.returnEndGameMessage(p1, p2, gameID, ""+sm.getPlayerScore(p1.getID()), ""+sm.getPlayerScore(p2.getID()));
-        logger.writeGameEnded(playersInGame.get(0).getID(), playersInGame.get(1).getID());
         gameNotEnded=false;
     }
 
@@ -152,6 +151,7 @@ public class GameThread extends Thread{
             logger.nextTurn();
             activePlayerIndex = (activePlayerIndex + 1) % playersInGame.size();
         }
+        logger.writeGameEnded(playersInGame.get(0).getID(), playersInGame.get(1).getID());
     }
 
     public boolean playerUsedAllOfTwoTiles(PlayerID pID){
