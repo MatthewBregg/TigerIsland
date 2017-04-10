@@ -10,6 +10,7 @@ import tigerislandserver.server.TournamentServer;
 import java.util.ArrayList;
 
 public class Challenge {
+    private final int cid;
     private Scheduler schedule;
     private ArrayList<TournamentPlayer> playerList;
     private long challengeID;
@@ -20,13 +21,14 @@ public class Challenge {
     private static int challengeNumber = 0;
 
 
-    public Challenge(ArrayList<TournamentPlayer> participants){
+    public Challenge(ArrayList<TournamentPlayer> participants, int cid){
         playerList = participants;
         challengeID = ChallengeID.getID();
         scoreboard = new TournamentScoreboard();
         schedule = new Scheduler(playerList.size());
         currentRoundMatches = new ArrayList<>();
         roundNumber = 0;
+        this.cid=cid;
     }
 
     public ArrayList<Match> getCurrentRoundMatches(){
@@ -97,7 +99,7 @@ public class Challenge {
         ArrayList<ArrayList<TournamentPlayer>> roundMatchups = getPlayerMatchups(roundNumber);
 
         for(ArrayList<TournamentPlayer> matchup : roundMatchups){
-            Match newMatch = new Match(matchup, roundTiles, scoreboard, roundNumber);
+            Match newMatch = new Match(matchup, roundTiles, scoreboard, cid);
             currentRoundMatches.add(newMatch);
         }
     }
