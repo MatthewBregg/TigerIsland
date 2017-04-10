@@ -28,7 +28,7 @@ public class ChallengeTest {
 
     @Before
     public void testSetup() throws Exception {
-        tourneyChallenge = new Challenge(players);
+        tourneyChallenge = new Challenge(players, 0);
     }
 
     @Test

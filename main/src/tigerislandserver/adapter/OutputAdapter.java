@@ -217,19 +217,26 @@ public class OutputAdapter extends Thread
         player2.sendMessage("NEW MATCH BEGINNING NOW YOUR OPPONENT IS PLAYER " + player1.getID().getId());
     }
 
-    public static void sendEndGameMessage(TournamentPlayer player1, TournamentPlayer player2, char gid, String p1Score, String p2Score)
+    public static String returnEndGameMessage(TournamentPlayer player1, TournamentPlayer player2, char gid, String p1Score, String p2Score)
     {
         String message = "GAME "+gid;
         message += " OVER";
         message += " PLAYER " + player1.getID().getId() + " " + p1Score;
         message += " PLAYER " + player2.getID().getId() + " " + p2Score;
 
-        player1.sendMessage(message);
-        player2.sendMessage(message);
+        return message;
     }
 
     public static void sendWelcomeMessage(TournamentPlayer player)
     {
         player.sendMessage("WELCOME TO ANOTHER EDITION OF THUNDERDOME!");
+    }
+
+    public static void sendMessage(ArrayList<TournamentPlayer> players, String endGameMessage)
+    {
+        for(TournamentPlayer tournamentPlayer: players)
+        {
+            tournamentPlayer.sendMessage(endGameMessage);
+        }
     }
 }

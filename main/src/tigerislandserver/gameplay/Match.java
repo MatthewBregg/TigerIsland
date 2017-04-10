@@ -15,12 +15,12 @@ public class Match extends Thread {
     private ArrayList<TournamentPlayer> players;
     private long matchID;
 
-    public Match(ArrayList<TournamentPlayer> playerList, ArrayList<Tile> tiles, TournamentScoreboard scoreboard, int roundNumber){
+    public Match(ArrayList<TournamentPlayer> playerList, ArrayList<Tile> tiles, TournamentScoreboard scoreboard, int cid){
         players = playerList;
         gameTiles = tiles;
         matchID = MatchID.getID();
-        game1 = new GameThread(players.get(0), players.get(1), gameTiles, 'A', roundNumber, scoreboard);
-        game2 = new GameThread(players.get(1), players.get(0), gameTiles, 'B', roundNumber, scoreboard);
+        game1 = new GameThread(players.get(0), players.get(1), gameTiles, 'A', cid, scoreboard);
+        game2 = new GameThread(players.get(1), players.get(0), gameTiles, 'B', cid, scoreboard);
     }
 
     public void startGames(){
@@ -29,7 +29,7 @@ public class Match extends Thread {
 
         while(true)
         {
-            if(game1.isAlive() && game2.isAlive())
+            if(!game1.isAlive() && !game2.isAlive())
             {
                 break;
             }
@@ -44,6 +44,9 @@ public class Match extends Thread {
                 }
             }
         }
+
+        game1.sendEndGameMessage();
+        game2.sendEndGameMessage();
     }
 
     public void run(){

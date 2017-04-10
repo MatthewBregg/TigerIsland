@@ -23,8 +23,9 @@ public class GameThread extends Thread{
     private TournamentScoreboardData tourneyDataPlayer2;
     private boolean gameNotEnded;
     private GameManager gameManager;
+    private String endGameMessage;
 
-    public GameThread(TournamentPlayer player1, TournamentPlayer player2, ArrayList<Tile> tiles, char gameLetter, int roundNumber, TournamentScoreboard scoreboard){
+    public GameThread(TournamentPlayer player1, TournamentPlayer player2, ArrayList<Tile> tiles, char gameLetter, int cid, TournamentScoreboard scoreboard){
         playersInGame = new ArrayList<TournamentPlayer>();
         playersInGame.add(player1);
         playersInGame.add(player2);
@@ -43,7 +44,7 @@ public class GameThread extends Thread{
         {
             gamePlayers.add(new Player(tp.getID()));
         }
-        logger = LoggerFactory.getLogger(((gameLetter == 'A') ? 0 : 1),roundNumber);
+        logger = LoggerFactory.getLogger(((gameLetter == 'A') ? 0 : 1), cid);
         gameManager = new GameManager(gamePlayers, logger );
     }
 
@@ -112,11 +113,11 @@ public class GameThread extends Thread{
     }
 
 
-    public void sendEndGameMessage(){
+    public void generateEndGameMessage(){
         TournamentPlayer p1 = playersInGame.get(0);
         TournamentPlayer p2 = playersInGame.get(1);
         ScoreManager sm =gameManager.getScoreManager();
-        OutputAdapter.sendEndGameMessage(p1, p2, gameID, ""+sm.getPlayerScore(p1.getID()), ""+sm.getPlayerScore(p2.getID()));
+        endGameMessage = OutputAdapter.returnEndGameMessage(p1, p2, gameID, ""+sm.getPlayerScore(p1.getID()), ""+sm.getPlayerScore(p2.getID()));
         logger.writeGameEnded(playersInGame.get(0).getID(), playersInGame.get(1).getID());
         gameNotEnded=false;
     }
@@ -143,15 +144,13 @@ public class GameThread extends Thread{
                 ArrayList<TournamentScoreboardData> playerData = makeTournamentScoreboardDataList();
                 scoreboard.updateTournamentScoresForValidWin(playerData);
                 endGame();
+                generateEndGameMessage();
             }
 
             moveNumber++;
             logger.nextTurn();
             activePlayerIndex = (activePlayerIndex + 1) % playersInGame.size();
         }
-
-
-        sendEndGameMessage();
     }
 
     public boolean playerUsedAllOfTwoTiles(PlayerID pID){
@@ -223,7 +222,7 @@ public class GameThread extends Thread{
 
     public boolean isGameDone()
     {
-        return gameNotEnded;
+        return !gameNotEnded;
     }
 
     public void endGame()
@@ -235,8 +234,8 @@ public class GameThread extends Thread{
 
     public void timeout(TournamentPlayer tournamentPlayer)
     {
-        OutputAdapter.sendEndGameMessage(tournamentPlayer, otherPlayer(tournamentPlayer), gameID, "FORFEITED", "WIN");
-   //     OutputAdapter.sendEndGameMessage(otherPlayer(tournamentPlayer), tournamentPlayer, gameID, "WIN", "FORFEITED");
+        endGameMessage = OutputAdapter.returnEndGameMessage(tournamentPlayer, otherPlayer(tournamentPlayer), gameID, "FORFEITED", "WIN");
+   //     OutputAdapter.returnEndGameMessage(otherPlayer(tournamentPlayer), tournamentPlayer, gameID, "WIN", "FORFEITED");
 
         gameNotEnded=false;
         ArrayList<TournamentPlayer> players = generatePlayerToReturnToScoreboard(tournamentPlayer);
@@ -246,8 +245,8 @@ public class GameThread extends Thread{
 
     public void unableToBuild(TournamentPlayer tournamentPlayer)
     {
-        OutputAdapter.sendEndGameMessage(tournamentPlayer, otherPlayer(tournamentPlayer), gameID, "FORFEITED", "WIN");
- //       OutputAdapter.sendEndGameMessage(otherPlayer(tournamentPlayer), tournamentPlayer, gameID, "WIN", "FORFEITED");
+        endGameMessage = OutputAdapter.returnEndGameMessage(tournamentPlayer, otherPlayer(tournamentPlayer), gameID, "FORFEITED", "WIN");
+ //       OutputAdapter.returnEndGameMessage(otherPlayer(tournamentPlayer), tournamentPlayer, gameID, "WIN", "FORFEITED");
 
         gameNotEnded=false;
         ArrayList<TournamentPlayer> players = generatePlayerToReturnToScoreboard(tournamentPlayer);
@@ -264,8 +263,8 @@ public class GameThread extends Thread{
 
     public void invalidTilePlacement(TournamentPlayer tournamentPlayer)
     {
-        OutputAdapter.sendEndGameMessage(tournamentPlayer, otherPlayer(tournamentPlayer), gameID, "FORFEITED", "WIN");
-   //     OutputAdapter.sendEndGameMessage(otherPlayer(tournamentPlayer), tournamentPlayer, gameID, "WIN", "FORFEITED");
+        endGameMessage = OutputAdapter.returnEndGameMessage(tournamentPlayer, otherPlayer(tournamentPlayer), gameID, "FORFEITED", "WIN");
+   //     OutputAdapter.returnEndGameMessage(otherPlayer(tournamentPlayer), tournamentPlayer, gameID, "WIN", "FORFEITED");
         gameNotEnded=false;
         ArrayList<TournamentPlayer> players = generatePlayerToReturnToScoreboard(tournamentPlayer);
 
@@ -274,8 +273,8 @@ public class GameThread extends Thread{
 
     public void invalidBuild(TournamentPlayer tournamentPlayer)
     {
-        OutputAdapter.sendEndGameMessage(tournamentPlayer, otherPlayer(tournamentPlayer), gameID, "FORFEITED", "WIN");
- //       OutputAdapter.sendEndGameMessage(otherPlayer(tournamentPlayer), tournamentPlayer, gameID, "WIN", "FORFEITED");
+        endGameMessage = OutputAdapter.returnEndGameMessage(tournamentPlayer, otherPlayer(tournamentPlayer), gameID, "FORFEITED", "WIN");
+ //       OutputAdapter.returnEndGameMessage(otherPlayer(tournamentPlayer), tournamentPlayer, gameID, "WIN", "FORFEITED");
         gameNotEnded=false;
         ArrayList<TournamentPlayer> players = generatePlayerToReturnToScoreboard(tournamentPlayer);
         scoreboard.playerMadeInvalidBuild(players);
@@ -295,5 +294,9 @@ public class GameThread extends Thread{
     {
         return playersInGame.get((playersInGame.indexOf(tp)+1)%2);
     }
-    // what
+
+    public void sendEndGameMessage()
+    {
+        OutputAdapter.sendMessage(playersInGame, endGameMessage);
+    }
 }

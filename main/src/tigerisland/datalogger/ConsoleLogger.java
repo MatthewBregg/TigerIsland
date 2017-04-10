@@ -17,45 +17,40 @@ public class ConsoleLogger implements DataLogger {
         this.gameId = gameId;
     }
 
-    private void printMessageHeader() {
-        System.out.print("Logger: Game Id: " + gameId + " Challenge Id: " + challengeId + " Turn Number " + turnNumber + " ::");
+    private String getMessageHeader() {
+        return ("Logger: Game Id: " + gameId + " Challenge Id: " + challengeId + " Turn Number " + turnNumber + " ::");
     }
 
 
     @Override
     synchronized public void writeRawRequest(long timeStamp, String message) {
-        printMessageHeader();
-        System.out.println(message);
+
+        System.out.println(getMessageHeader() + message);
     }
 
     @Override
     synchronized public void writePlacedTotoroMove(PlayerID pid, Location loc) {
-        printMessageHeader();
-        System.out.println("Player " + pid + "placed a totoro in location " + loc);
+        System.out.println(getMessageHeader() + "Player " + pid + "placed a totoro in location " + loc);
     }
 
     @Override
     synchronized public void writeFoundedSettlementMove(PlayerID pid, Location loc) {
-        printMessageHeader();
-        System.out.println("Player " + pid + "founded a settlement in location " + loc);
+        System.out.println(getMessageHeader() + "Player " + pid + "founded a settlement in location " + loc);
     }
 
     @Override
     synchronized public void writeExpandedSettlementMove(PlayerID pid, Location loc, String terrain) {
-        printMessageHeader();
-        System.out.println("Player " + pid + " expanded settlement at " + loc + " to cover terrain of " + terrain);
+        System.out.println(getMessageHeader() + "Player " + pid + " expanded settlement at " + loc + " to cover terrain of " + terrain);
     }
 
     @Override
     synchronized public void writePlacedTigerMove(PlayerID pid, Location loc) {
-        printMessageHeader();
-        System.out.println("Player " + pid + "placed a tiger in location " + loc);
+        System.out.println(getMessageHeader() + "Player " + pid + "placed a tiger in location " + loc);
     }
 
     @Override
     synchronized public void writePlacedTileMove(PlayerID pid, Location loc, Orientation orientation, String tileTerrains) {
-        printMessageHeader();
-        System.out.println( " placed a tile in location " + loc +
+        System.out.println(getMessageHeader() +  " placed a tile in location " + loc +
                 " with the follow terrain " + tileTerrains + " at orientation " + orientation);
     }
 
@@ -66,32 +61,27 @@ public class ConsoleLogger implements DataLogger {
 
     @Override
     public void writeMoveResult(String message) {
-        printMessageHeader();
-        System.out.println(message);
+        System.out.println(getMessageHeader() + message);
     }
 
 
     private void writeMovedWasInvalid(String message) {
-        printMessageHeader();
-        System.out.println("Error, move was invalid!! " + message);
+        System.out.println(getMessageHeader() + "Error, move was invalid!! " + message);
     }
 
     @Override
     synchronized public void writeGameEnded(PlayerID winner, PlayerID loser) {
-        printMessageHeader();
-        System.out.println("Winner " + winner + " Loser " + loser);
+        System.out.println(getMessageHeader() + "Winner " + winner + " Loser " + loser);
     }
 
     @Override
     synchronized public void writeGameStarted(PlayerID p1, PlayerID p2) {
-        printMessageHeader();
-        System.out.println("p1 " + p1 + " p2 " + p2);
+        System.out.println(getMessageHeader() + "p1 " + p1 + " p2 " + p2);
     }
 
     @Override
     synchronized public void nextTurn() {
-        printMessageHeader();
-        System.out.println(" Turn has ended");
+        System.out.println(getMessageHeader() + " Turn has ended");
         turnNumber++;
     }
 

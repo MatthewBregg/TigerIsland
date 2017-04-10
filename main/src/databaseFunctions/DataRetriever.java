@@ -2,8 +2,9 @@ package databaseFunctions;
 
 import tigerislandserver.gameplay.identifiers.ChallengeID;
 import tigerislandserver.gameplay.identifiers.GameID;
-import javax.xml.transform.Result;
+
 import java.sql.*;
+import java.util.List;
 
 /**
  * created by Christine on 4/2/2017
@@ -32,6 +33,7 @@ public class DataRetriever {
         }
     }
 
+
     public static void getNumberOfMovesByGameID(ChallengeID challengeID, GameID gameID){
         String query = "SELECT turn_number FROM tiles_placed WHERE challenge_id = " + challengeID + " and game_id = " + gameID;
 
@@ -50,6 +52,7 @@ public class DataRetriever {
             }
         }
     }
+
 
     // room for any other queries we would want to make
 

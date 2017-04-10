@@ -115,7 +115,7 @@ public class GameManager {
         logger.writePlacedTileMove(new PlayerID(), location, tile.getOrientation(), tile.toString());
         // TODO : mbregg
         boolean result = tilePlacer.placeTile(tile, location);
-        logger.writeMoveResult("Tile placement " + location + " " + result + " , " + tile);
+        logger.writeMoveResult("Tile placement " + location + " " + result + " , " + tile + " SIZE OF BOARD IS " + gameBoard.getSize());
         if ( !result ) {
             logger.writeInvalidMoveAttempted(new PlayerID(),"Failed to place tile!");
         }
