@@ -95,7 +95,7 @@ public class GameInputAdapter
         Location loc=new Location(x, y, z);
         Tile tile = new Tile(0, bottomLeft, bottomRight);
 
-        rotateTile(tile, inputTokens[12]);
+        rotateTile(tile, inputTokens[10]);
 
         GameManager gm = game.getGameManager();
 
@@ -127,13 +127,7 @@ public class GameInputAdapter
 
         GameManager gm = game.getGameManager();
         Player p = gm.getPlayer(tournamentPlayer.getID());
-        try
-        {
-            Thread.sleep(500);
-        } catch (InterruptedException e)
-        {
-            e.printStackTrace();
-        }
+
         if(gm.foundSettlement(loc, p))
         {
             OutputAdapter.sendFoundedSettlementMessage(game.getPlayersInGame(), tournamentPlayer, inputTokens);

@@ -115,7 +115,7 @@ public class TournamentPlayer implements Runnable
 
     public synchronized void sendMessage(String message)
     {
-        System.out.println("SENDING MESSAGE: \"" + message+"\"");
+        System.out.println("SENDING MESSAGE TO " + getID().getId() +": \"" + message+"\"");
         outputToClient.println(message);
     }
 
