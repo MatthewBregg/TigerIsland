@@ -143,6 +143,11 @@ public class GameThread extends Thread{
             if (gameEndedWithValidWin()){
                 ArrayList<TournamentScoreboardData> playerData = makeTournamentScoreboardDataList();
                 scoreboard.updateTournamentScoresForValidWin(playerData);
+                PlayerID player1ID = playersInGame.get(0).getID();
+                PlayerID player2ID = playersInGame.get(1).getID();
+
+                LoggerFactory.getSQLLogger(-1, -1,-1).setPlayerScore(player1ID, scoreboard.getPlayerScore(player1ID));
+                LoggerFactory.getSQLLogger(-1, -1,-1).setPlayerScore(player2ID, scoreboard.getPlayerScore(player2ID));
                 endGame();
                 generateEndGameMessage();
             }
