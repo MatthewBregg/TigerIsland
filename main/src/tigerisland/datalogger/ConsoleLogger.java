@@ -55,7 +55,7 @@ public class ConsoleLogger implements DataLogger {
     @Override
     synchronized public void writePlacedTileMove(PlayerID pid, Location loc, Orientation orientation, String tileTerrains) {
         printMessageHeader();
-        System.out.println("Player " + pid + "placed a tile in location " + loc +
+        System.out.println( " placed a tile in location " + loc +
                 " with the follow terrain " + tileTerrains + " at orientation " + orientation);
     }
 

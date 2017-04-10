@@ -292,6 +292,9 @@ public class GameInputAdapter
             case "6":
                 tile.setOrientation(Orientation.getSouthWest());
                 break;
+            default :
+                System.err.println("Error, default rotation case hit!");
+                break;
         }
     }
 

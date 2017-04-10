@@ -13,6 +13,7 @@ import tigerislandserver.server.TournamentPlayer;
 import java.util.ArrayList;
 
 public class GameThread extends Thread{
+    private DataLogger logger;
     private ArrayList<Tile> gameTiles;
     private ArrayList<TournamentPlayer> playersInGame;
     private int activePlayerIndex;
@@ -42,7 +43,7 @@ public class GameThread extends Thread{
         {
             gamePlayers.add(new Player(tp.getID()));
         }
-        DataLogger logger = LoggerFactory.getLogger(gameID,0);
+        logger = LoggerFactory.getLogger(gameID,0);
         gameManager = new GameManager(gamePlayers, logger );
     }
 
@@ -143,6 +144,7 @@ public class GameThread extends Thread{
             }
 
             moveNumber++;
+            logger.nextTurn();
             activePlayerIndex = (activePlayerIndex + 1) % playersInGame.size();
         }
 
