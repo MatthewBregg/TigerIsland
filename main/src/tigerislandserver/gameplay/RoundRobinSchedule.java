@@ -22,7 +22,7 @@ public class RoundRobinSchedule extends ScheduleType {
     private int[] getRoundArray(int round) {
         // if round < 1, returns array for first round
 
-        int specialNbr = round < 1 ? 1 : (round % numOfParticipants);
+        int specialNbr = round < 1 ? 1 : ((round - 1) % numOfParticipants) + 1;
         boolean odd = ((numOfParticipants % 2) == 1);
 
         int[] baseArray = new int[numOfParticipants];
@@ -43,6 +43,12 @@ public class RoundRobinSchedule extends ScheduleType {
                 continue;
             }
             int workingIdx = specialNbrTrigger ? i - 1 : i;
+
+            if(workingIdx>= workingArray.length || i >= baseArray.length)
+            {
+                System.out.println("Uh OH!");
+            }
+
             workingArray[workingIdx] = baseArray[i];
         }
 

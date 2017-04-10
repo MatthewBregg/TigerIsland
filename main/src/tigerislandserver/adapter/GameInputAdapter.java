@@ -14,7 +14,7 @@ public class GameInputAdapter
     public static void makeMove(GameThread game, TournamentPlayer tournamentPlayer, String input,
                                 char gid, int moveNumber, Tile tile)
     {
-        System.out.println("CLIENT: " + input);
+        System.out.println("CLIENT "+ tournamentPlayer.getID().getId()+": " + input);
 
         String[] inputTokens = input.split("\\s+");
 
