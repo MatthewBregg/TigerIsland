@@ -59,7 +59,7 @@ public class GameThread extends Thread{
     }
 
     // to hold the data the tournament scoreboard needs
-    // there is a new class taht has been made
+    // there is a new class that has been made
     public ArrayList<TournamentScoreboardData> makeTournamentScoreboardDataList(){
         int player1Index = 0;
         int player2Index = 1;
@@ -117,7 +117,7 @@ public class GameThread extends Thread{
         TournamentPlayer p2 = playersInGame.get(1);
         ScoreManager sm =gameManager.getScoreManager();
         OutputAdapter.sendEndGameMessage(p1, p2, gameID, ""+sm.getPlayerScore(p1.getID()), ""+sm.getPlayerScore(p2.getID()));
-        logger.writeGameStarted(playersInGame.get(0).getID(), playersInGame.get(1).getID());
+        logger.writeGameEnded(playersInGame.get(0).getID(), playersInGame.get(1).getID());
         gameNotEnded=false;
     }
 
@@ -221,7 +221,7 @@ public class GameThread extends Thread{
 
     public boolean isGameDone()
     {
-        return gameNotEnded;
+        return !gameNotEnded;
     }
 
     public void endGame()
