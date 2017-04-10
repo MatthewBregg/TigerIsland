@@ -21,32 +21,30 @@ public class RoundRobinSchedule extends ScheduleType {
 
     private int[] getRoundArray(int round) {
         // if round < 1, returns array for first round
-
-        int specialNbr = round < 1 ? 1 : (round % numOfParticipants);
+        round = round < 1 ? 1 : round;
         boolean odd = ((numOfParticipants % 2) == 1);
 
-        int[] baseArray = new int[numOfParticipants];
-        for(int i = 0; i < numOfParticipants; ++i){
+        int finalArrayLength = odd ? (numOfParticipants + 1) : numOfParticipants;
+
+        int[] baseArray = new int[finalArrayLength];
+        for(int i = 0; i < finalArrayLength; ++i){
             baseArray[i] = (i + 1);
         }
 
-        int rotations = round < 0 ? 0 : round - 1;
-        baseArray = rotate(baseArray, rotations);
-
-        int workingArraySize = odd ? numOfParticipants - 1 : numOfParticipants;
-        int[] workingArray = new int[workingArraySize];
-
-        boolean specialNbrTrigger = false;
-        for(int i = 0; i < numOfParticipants; ++i){
-            if(odd && (baseArray[i] == specialNbr)){
-                specialNbrTrigger = true;
-                continue;
-            }
-            int workingIdx = specialNbrTrigger ? i - 1 : i;
-            workingArray[workingIdx] = baseArray[i];
+        int[] workingArray = new int[finalArrayLength - 1];
+        for(int i = 1; i < finalArrayLength; ++i){
+            workingArray[i - 1] = baseArray[i];
         }
 
-        return workingArray;
+        workingArray = rotate(workingArray, (round - 1));
+
+        int[] finalArray = new int[finalArrayLength];
+        finalArray[0] = 1;
+
+        for(int idx = 0; idx < workingArray.length; ++idx){
+            finalArray[idx + 1] = workingArray[idx];
+        }
+        return finalArray;
     }
 
     private int[] rotate(int[] array, int rotations){
@@ -73,8 +71,13 @@ public class RoundRobinSchedule extends ScheduleType {
         for(int i = 0; i < (arrayLength / 2); ++i){
             int player1Index = array[i] - 1;
             int player2Index = array[arrayLength - (i + 1)] - 1;
-            Matchup tempMatchup = new Matchup(player1Index, player2Index);
-            newMatchupArray.add(tempMatchup);
+            if(player1Index >= numOfParticipants || player2Index >= numOfParticipants) {
+                continue;
+            }
+            else {
+                Matchup tempMatchup = new Matchup(player1Index, player2Index);
+                newMatchupArray.add(tempMatchup);
+            }
         }
 
         return newMatchupArray;

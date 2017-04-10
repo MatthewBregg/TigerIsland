@@ -59,7 +59,7 @@ public class GameThread extends Thread{
     }
 
     // to hold the data the tournament scoreboard needs
-    // there is a new class taht has been made
+    // there is a new class that has been made
     public ArrayList<TournamentScoreboardData> makeTournamentScoreboardDataList(){
         int player1Index = 0;
         int player2Index = 1;
