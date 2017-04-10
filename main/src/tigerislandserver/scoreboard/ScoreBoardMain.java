@@ -1,5 +1,7 @@
 package tigerislandserver.scoreboard;
 
+import tigerisland.datalogger.LoggerFactory;
+
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -10,7 +12,7 @@ public class ScoreBoardMain {
     private final static String FILENAME = "./ScoreBoard.html";
     public static void main(String[] args) {
         while(true) {
-            GenerateScoreBoard scoreBoardGenerator = new GenerateScoreBoard("jdbc:sqlite:tigersssss.db");
+            GenerateScoreBoard scoreBoardGenerator = new GenerateScoreBoard(LoggerFactory.getDataBaseUrl());
             String scoreboard = (scoreBoardGenerator.getScoreBoard());
             BufferedWriter bufferedWriter = null;
             FileWriter fileWriter = null;
