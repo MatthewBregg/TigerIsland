@@ -13,7 +13,7 @@ public class SQLiteLoggerTest {
 
     private static SQLiteLogger logger = null;
     private static int ChallengeId = 1;
-    private static int GameId = 1;
+    private static char GameId = 'A';
     private static int match_id = 1;
     private static String url = null;
     private static AtomicLong currTime;

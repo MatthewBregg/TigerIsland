@@ -47,7 +47,7 @@ public class GameThread extends Thread{
             gamePlayers.add(new Player(tp.getID()));
         }
         int matchId = (int)matchID;
-        logger = LoggerFactory.getLogger(((gameLetter == 'A') ? 0 : 1), cid, matchId);
+        logger = LoggerFactory.getLogger(gameLetter, cid, matchId);
         gameManager = new GameManager(gamePlayers, logger );
     }
 
@@ -148,7 +148,7 @@ public class GameThread extends Thread{
                 PlayerID player1ID = playersInGame.get(0).getID();
                 PlayerID player2ID = playersInGame.get(1).getID();
 
-                SQLiteLogger sqlLogger = LoggerFactory.getSQLLogger(-1,-1,-1);
+                SQLiteLogger sqlLogger = LoggerFactory.getSQLLogger('Z',-1,-1);
                 sqlLogger.setPlayerScore(cid, player1ID, scoreboard.getPlayerScore(player1ID));
                 sqlLogger.setPlayerScore(cid, player2ID, scoreboard.getPlayerScore(player2ID));
 
@@ -163,7 +163,7 @@ public class GameThread extends Thread{
         
         PlayerID player1ID = playersInGame.get(0).getID();
         PlayerID player2ID = playersInGame.get(1).getID();
-        SQLiteLogger sqlLogger = LoggerFactory.getSQLLogger(-1,-1,-1);
+        SQLiteLogger sqlLogger = LoggerFactory.getSQLLogger('Z',-1,-1);
         sqlLogger.setPlayerScore(cid, player1ID, scoreboard.getPlayerScore(player1ID));
         sqlLogger.setPlayerScore(cid, player2ID, scoreboard.getPlayerScore(player2ID));
         logger.writeGameEnded(playersInGame.get(0).getID(), playersInGame.get(1).getID(), endGameMessage);

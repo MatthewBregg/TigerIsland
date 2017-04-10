@@ -8,12 +8,11 @@ import java.sql.*;
 
 public class SQLiteLogger implements DataLogger {
     private int challengeId;
-    private int gameId;
+    private char gameId;
     private int turnNumber = 0;
     private int matchId;
 
     private final Connection connection;
-    private String url = null;
 
     private boolean hasError = false;
 
@@ -24,7 +23,7 @@ public class SQLiteLogger implements DataLogger {
     public void clearError() {
         hasError = false;
     }
-    public SQLiteLogger(int challengeId, int gameId, int matchId, Connection connection) {
+    public SQLiteLogger(int challengeId, char gameId, int matchId, Connection connection) {
         this.matchId = matchId;
         this.challengeId = challengeId;
         this.gameId = gameId;
@@ -37,7 +36,7 @@ public class SQLiteLogger implements DataLogger {
         try {
             PreparedStatement prstmnt = connection.prepareStatement(query);
             prstmnt.setInt(1, challengeId);
-            prstmnt.setInt(2, gameId);
+            prstmnt.setString(2,String.valueOf(gameId));
             prstmnt.setInt(3,matchId);
             prstmnt.setInt(4, turnNumber);
             prstmnt.setInt(5,pidToInt(pid));
@@ -64,7 +63,7 @@ public class SQLiteLogger implements DataLogger {
         try {
             PreparedStatement prstmnt = connection.prepareStatement(query);
             prstmnt.setInt(1, challengeId);
-            prstmnt.setInt(2, gameId);
+            prstmnt.setString(2,String.valueOf(gameId));
             prstmnt.setInt(3,matchId);
             prstmnt.setInt(4, pidToInt(p1));
             prstmnt.setInt(5, pidToInt(p2));
@@ -114,7 +113,7 @@ public class SQLiteLogger implements DataLogger {
         try {
             PreparedStatement prstmnt = connection.prepareStatement(query);
             prstmnt.setInt(1, challengeId);
-            prstmnt.setInt(2, gameId);
+            prstmnt.setString(2,String.valueOf(gameId));
             prstmnt.setInt(3,matchId);
             prstmnt.setInt(4, turnNumber);
             prstmnt.setInt(5,pidToInt(pid));
@@ -180,7 +179,7 @@ public class SQLiteLogger implements DataLogger {
             try {
             PreparedStatement prstmnt = connection.prepareStatement(query);
             prstmnt.setInt(1, challengeId);
-            prstmnt.setInt(2, gameId);
+            prstmnt.setString(2,String.valueOf(gameId));
             prstmnt.setInt(3, matchId);
             prstmnt.setInt(4, turnNumber);
             prstmnt.setInt(5,pidToInt(pid));
@@ -210,7 +209,7 @@ public class SQLiteLogger implements DataLogger {
         ++turnNumber;
     }
 
-    public void newGame(int gameId, int challengeID) {
+    public void newGame(char gameId, int challengeID) {
         this.gameId = gameId;
         this.challengeId = challengeID;
         turnNumber = 0;
