@@ -2,6 +2,7 @@ package tigerislandserver.gameplay;
 
 import tigerisland.tile.Tile;
 import tigerisland.tile.TileDeck;
+import tigerislandserver.TournamentVariables;
 import tigerislandserver.adapter.OutputAdapter;
 import tigerislandserver.gameplay.identifiers.ChallengeID;
 import tigerislandserver.server.TournamentPlayer;
@@ -121,9 +122,7 @@ public class Challenge {
     }
 
     private long generateSeed(){
-        long randomSeed;
-        randomSeed = Math.round(Math.random());
-        return randomSeed;
+        return TournamentVariables.getInstance().getRandomSeed() + cid;
     }
 
     public ArrayList<ArrayList<TournamentPlayer>> getPlayerMatchups(int round){

@@ -55,15 +55,17 @@ public class GameInputAdapter
                 }
                 else
                 {
-                    OutputAdapter.sendTimeoutMessage(game.getPlayersInGame(), tournamentPlayer, inputTokens);
-                    game.timeout(tournamentPlayer);
+                    OutputAdapter.sendIllegalFormatedMessageMessage(game.getPlayersInGame(), tournamentPlayer, inputTokens);
                 }
+            }
+            else
+            {
+                OutputAdapter.sendIllegalFormatedMessageMessage(game.getPlayersInGame(), tournamentPlayer, inputTokens);
             }
         }
         else
         {
-            OutputAdapter.sendTimeoutMessage(game.getPlayersInGame(), tournamentPlayer, inputTokens);
-            game.timeout(tournamentPlayer);
+            OutputAdapter.sendIllegalFormatedMessageMessage(game.getPlayersInGame(), tournamentPlayer, inputTokens);
         }
     }
 
