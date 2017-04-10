@@ -36,6 +36,9 @@ public class LoggerFactory {
     }
 
     public static void createTables() {
+        if ( connection == null ) {
+            openDatabaseConnection();
+        }
         final String[] queries = new String[]{
                 "CREATE TABLE IF NOT EXISTS matches (challenge_id integer not null, game_id charint not null, match_id integer not null, p1_id integer not null, p2_id integer not null, status string, primary key(challenge_id, game_id, match_id) );",
                 "CREATE TABLE IF NOT EXISTS tiles_placed (challenge_id integer not null, game_id charint not null, match_id integer not null, turn_number integer not null, p_id integer not null, loc_x integer not null, loc_y integer not null, loc_z integer not null, orientation integer not null, tile text not null, primary key(challenge_id, game_id, match_id, turn_number) );",
@@ -58,6 +61,9 @@ public class LoggerFactory {
     }
 
     public static void clearTables() {
+        if (connection == null ) {
+            openDatabaseConnection();
+        }
         final String[] queries = new String[]{
                 "DELETE FROM matches;",
                 "DELETE FROM tiles_placed;",

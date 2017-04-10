@@ -14,6 +14,7 @@ public class SQLiteLogger implements DataLogger {
 
     private final Connection connection;
 
+
     private boolean hasError = false;
 
     public boolean hasErrored() {
@@ -23,6 +24,7 @@ public class SQLiteLogger implements DataLogger {
     public void clearError() {
         hasError = false;
     }
+
     public SQLiteLogger(int challengeId, char gameId, int matchId, Connection connection) {
         this.matchId = matchId;
         this.challengeId = challengeId;

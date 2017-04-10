@@ -92,11 +92,11 @@ public class GenerateScoreBoard {
         private int match_id;
         private int p1_id;
         private int p2_id;
-        private int game_id;
+        private char game_id;
         private int challenge_id;
         private String status;
 
-        public MatchRow(int p1_id, int p2_id, int game_id, int challenge_id, int match_id, String status) {
+        public MatchRow(int p1_id, int p2_id, char game_id, int challenge_id, int match_id, String status) {
             this.p1_id = p1_id;
             this.p2_id = p2_id;
             this.game_id = game_id;
@@ -114,7 +114,7 @@ public class GenerateScoreBoard {
             return status;
         }
 
-        public int getGame_id() {
+        public char getGame_id() {
             return game_id;
         }
 
@@ -195,6 +195,10 @@ public class GenerateScoreBoard {
         return "<td>" + val + "</td>";
     }
 
+    private String getMatchTableEntry(char val) {
+        return "<td>" + val + "</td>";
+    }
+
     private String getMatchTableEntry(String val) {
         return "<td>" + val + "</td>";
     }
@@ -220,7 +224,7 @@ public class GenerateScoreBoard {
        while(rs.next()) {
            int p1_id = rs.getInt("p1_id");
            int p2_id = rs.getInt("p2_id");
-           int game_id = rs.getInt("game_id");
+           char game_id = rs.getString("game_id").charAt(0);
            int challenge_id = rs.getInt("challenge_id");
            int match_id = rs.getInt("match_id");
            String status = rs.getString("status");
