@@ -12,8 +12,8 @@ public class InputAdapter
 
     private static HashMap<String, String> getUserNamesAndPasswords()
     {
-        return new HashMap<>();
-        //return new TextFileReader(TournamentVariables.getInstance().getUsernamePasswordFileName()).getUsernameAndPasswordCombos();
+        //return new HashMap<>();
+        return new TextFileReader(TournamentVariables.getInstance().getUsernamePasswordFileName()).getUsernameAndPasswordCombos();
     }
 
     public static boolean canEnterTournament(String input)
@@ -71,8 +71,8 @@ public class InputAdapter
 
         synchronized (unusedUsernames)
         {
-            return true;
-            //return unusedUsernames.remove(username, password);
+            //return true;
+            return unusedUsernames.remove(username, password);
         }
     }
 }
