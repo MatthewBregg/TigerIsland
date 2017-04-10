@@ -236,11 +236,6 @@ public class GameThread extends Thread{
         return players;
     }
 
-    public boolean isGameDone()
-    {
-        return !gameNotEnded;
-    }
-
     public void endGame()
     {
         gameNotEnded = false;

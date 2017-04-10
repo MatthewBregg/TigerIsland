@@ -27,7 +27,7 @@ public class GameInputAdapter
             {
                 if(!placeTile(game, tournamentPlayer, inputTokens))
                 {
-                    OutputAdapter.sendIllegalTilePlacementMessage(game.getPlayersInGame(), tournamentPlayer, inputTokens);
+                    OutputAdapter.sendLaterIllegalTilePlacementMessage(game.getPlayersInGame(), tournamentPlayer, inputTokens);
                     game.invalidTilePlacement(tournamentPlayer);
                     return;
                 }
@@ -55,17 +55,17 @@ public class GameInputAdapter
                 }
                 else
                 {
-                    OutputAdapter.sendIllegalFormatedMessageMessage(game.getPlayersInGame(), tournamentPlayer, inputTokens);
+                    OutputAdapter.sendLaterIllegalFormatedMessageMessage(game.getPlayersInGame(), tournamentPlayer, inputTokens);
                 }
             }
             else
             {
-                OutputAdapter.sendIllegalFormatedMessageMessage(game.getPlayersInGame(), tournamentPlayer, inputTokens);
+                OutputAdapter.sendLaterIllegalFormatedMessageMessage(game.getPlayersInGame(), tournamentPlayer, inputTokens);
             }
         }
         else
         {
-            OutputAdapter.sendIllegalFormatedMessageMessage(game.getPlayersInGame(), tournamentPlayer, inputTokens);
+            OutputAdapter.sendLaterIllegalFormatedMessageMessage(game.getPlayersInGame(), tournamentPlayer, inputTokens);
         }
     }
 
@@ -136,11 +136,11 @@ public class GameInputAdapter
 
         if(gm.foundSettlement(loc, p))
         {
-            OutputAdapter.sendFoundedSettlementMessage(game.getPlayersInGame(), tournamentPlayer, inputTokens);
+            OutputAdapter.sendLaterFoundedSettlementMessage(game.getPlayersInGame(), tournamentPlayer, inputTokens);
         }
         else
         {
-            OutputAdapter.sendIllegalBuildMessage(game.getPlayersInGame(), tournamentPlayer, inputTokens);
+            OutputAdapter.sendLaterIllegalBuildMessage(game.getPlayersInGame(), tournamentPlayer, inputTokens);
             game.invalidBuild(tournamentPlayer);
         }
     }
@@ -174,11 +174,11 @@ public class GameInputAdapter
         Player p = gm.getPlayer(tournamentPlayer.getID());
         if(gm.expandSettlement(loc, t, p))
         {
-            OutputAdapter.sendExpandedSettlementMessage(game.getPlayersInGame(), tournamentPlayer, inputTokens);
+            OutputAdapter.sendLaterExpandedSettlementMessage(game.getPlayersInGame(), tournamentPlayer, inputTokens);
         }
         else
         {
-            OutputAdapter.sendIllegalBuildMessage(game.getPlayersInGame(), tournamentPlayer, inputTokens);
+            OutputAdapter.sendLaterIllegalBuildMessage(game.getPlayersInGame(), tournamentPlayer, inputTokens);
             game.invalidBuild(tournamentPlayer);
         }
     }
@@ -211,11 +211,11 @@ public class GameInputAdapter
         Player p = gm.getPlayer(tournamentPlayer.getID());
         if(gm.buildTotoro(loc, p))
         {
-            OutputAdapter.sendBuiltTotoroMessage(game.getPlayersInGame(), tournamentPlayer, inputTokens);
+            OutputAdapter.sendLaterBuiltTotoroMessage(game.getPlayersInGame(), tournamentPlayer, inputTokens);
         }
         else
         {
-            OutputAdapter.sendIllegalBuildMessage(game.getPlayersInGame(), tournamentPlayer, inputTokens);
+            OutputAdapter.sendLaterIllegalBuildMessage(game.getPlayersInGame(), tournamentPlayer, inputTokens);
             game.invalidBuild(tournamentPlayer);
         }
     }
@@ -248,11 +248,11 @@ public class GameInputAdapter
         Player p = gm.getPlayer(tournamentPlayer.getID());
         if(gm.buildTiger(loc, p))
         {
-            OutputAdapter.sendBuiltTigerMessage(game.getPlayersInGame(), tournamentPlayer, inputTokens);
+            OutputAdapter.sendLaterBuiltTigerMessage(game.getPlayersInGame(), tournamentPlayer, inputTokens);
         }
         else
         {
-            OutputAdapter.sendIllegalBuildMessage(game.getPlayersInGame(), tournamentPlayer, inputTokens);
+            OutputAdapter.sendLaterIllegalBuildMessage(game.getPlayersInGame(), tournamentPlayer, inputTokens);
             game.invalidBuild(tournamentPlayer);
         }
     }
@@ -266,7 +266,7 @@ public class GameInputAdapter
 
     private static void failToBuild(GameThread game, TournamentPlayer tournamentPlayer, String[] inputTokens)
     {
-        OutputAdapter.sendUnableToBuildMessage(game.getPlayersInGame(), tournamentPlayer, inputTokens);
+        OutputAdapter.sendLaterUnableToBuildMessage(game.getPlayersInGame(), tournamentPlayer, inputTokens);
         game.unableToBuild(tournamentPlayer);
     }
 

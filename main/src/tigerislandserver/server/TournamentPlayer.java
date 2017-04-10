@@ -14,8 +14,7 @@ import java.io.PrintWriter;
 import java.net.*;
 
 
-public class TournamentPlayer implements Runnable
-{
+public class TournamentPlayer implements Runnable {
     private final Object lock = new Object();
     private Socket clientSocket;
     private PrintWriter outputToClient;
@@ -25,97 +24,118 @@ public class TournamentPlayer implements Runnable
     private PlayerID pID;
     private String username;
 
-    public TournamentPlayer(Socket newClientSocket)
-    {
+    public TournamentPlayer(Socket newClientSocket) {
         clientSocket = newClientSocket;
         authenticated = false;
         pID = new PlayerID();
-        username ="Unknown/Unauthenticated";
+        username = "Unknown/Unauthenticated";
 
-        try {
+        try
+        {
             outputToClient = new PrintWriter(clientSocket.getOutputStream(), true);
             inputFromClient = new BufferedReader(
                     new InputStreamReader(clientSocket.getInputStream()));
 
-        } catch (IOException e) {
+        } catch (IOException e)
+        {
             System.out.println("Error reading from connection");
         }
 
         OutputAdapter.sendWelcomeMessage(this);
 
-        try {
-            Thread.sleep(1800); //1.8s allowed to authenticate
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        try {
+        try
+        {
+            for (int i = 0; i < 32; i++)
+            {
+                if (!inputFromClient.ready())
+                {
+                    Thread.sleep(50); //1.6s allowed to authenticate
+                }
+            }
 
-            if (inputFromClient.ready()) {
-                String message= inputFromClient.readLine();
+
+            if (inputFromClient.ready())
+            {
+                String message = inputFromClient.readLine();
                 canEnterTournament = InputAdapter.canEnterTournament(message);
             }
-        } catch (IOException e) {
+        } catch (InterruptedException e)
+        {
             e.printStackTrace();
+        } catch (IOException e)
+        {
+            System.out.println("Error reading from connection");
         }
     }
 
-    public void run()
-    {
+    public void run() {
         authenticate();
     }
 
-    private void authenticate()
-    {
+    private void authenticate() {
         OutputAdapter.requestAuthentication(this);
 
-        try {
-            Thread.sleep(1800); //1.8s allowed to authenticate
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        try {
-            if (inputFromClient.ready()) {
-                if (InputAdapter.authenticate(this, inputFromClient.readLine())) {
+        try
+        {
+            for (int i = 0; i < 32; i++)
+            {
+                if (!inputFromClient.ready())
+                {
+                    Thread.sleep(50); //1.6s allowed to authenticate
+                }
+            }
+
+
+            if (inputFromClient.ready())
+            {
+                if (InputAdapter.authenticate(this, inputFromClient.readLine()))
+                {
                     authenticated = true;
                     OutputAdapter.sendWaitForTournamentMessage(this);
                 }
             }
-        } catch (IOException e) {
+        } catch (InterruptedException e)
+        {
             e.printStackTrace();
+        } catch (IOException e)
+        {
+            System.out.println("Error reading from connection");
         }
     }
 
-    public synchronized void requestMove(GameThread game, char gid, int moveNumber, Tile tile)
-    {
+    public synchronized void requestMove(GameThread game, char gid, int moveNumber, Tile tile) {
         OutputAdapter.sendMoveRequestMessage(this, gid, moveNumber, tile);
 
-        try {
-            Thread.sleep(1800);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        try
+        {
+            for (int i = 0; i < 32; i++)
+            {
+                if (!inputFromClient.ready())
+                {
+                    Thread.sleep(50); //1.6s allowed to authenticate
+                }
+            }
 
-        try {
-            if (!inputFromClient.ready()) {
-                OutputAdapter.sendTimeoutMessage(game.getPlayersInGame(), this, new String[]{"GAME", "" + gid, "MOVE", "" + moveNumber});
+            if (!inputFromClient.ready())
+            {
+                OutputAdapter.sendLaterTimeoutMessage(game.getPlayersInGame(), this, new String[]{"GAME", "" + gid, "MOVE", "" + moveNumber});
                 game.timeout(this);
                 return;
             }
-        } catch (IOException e) {
+            else
+            {
+                GameInputAdapter.makeMove(game, this, inputFromClient.readLine(), gid, moveNumber, tile);
+            }
+        } catch (InterruptedException e)
+        {
             e.printStackTrace();
-        }
-
-        try {
-            GameInputAdapter.makeMove(game, this, inputFromClient.readLine(), gid, moveNumber, tile);
-        } catch (IOException e) {
-            e.printStackTrace();
-            OutputAdapter.sendTimeoutMessage(game.getPlayersInGame(), this, new String[]{"GAME", "" + gid, "MOVE", "" + moveNumber});
-            game.timeout(this);
+        } catch (IOException e)
+        {
+            System.out.println("Error reading from connection");
         }
     }
 
-    public void sendMessage(String message)
-    {
+    public void sendMessage(String message) {
         synchronized (lock)
         {
             System.out.println("SENDING MESSAGE TO " + getID().getId() + ": \"" + message + "\"");
@@ -123,28 +143,23 @@ public class TournamentPlayer implements Runnable
         }
     }
 
-    public PlayerID getID()
-    {
+    public PlayerID getID() {
         return pID;
     }
 
-    public boolean isAuthenticated()
-    {
+    public boolean isAuthenticated() {
         return authenticated;
     }
 
-    public void setUsername(String username)
-    {
+    public void setUsername(String username) {
         this.username = username;
     }
 
-    public String getUsername()
-    {
+    public String getUsername() {
         return username;
     }
 
-    public boolean canEnterTournament()
-    {
+    public boolean canEnterTournament() {
         return canEnterTournament;
     }
 }
