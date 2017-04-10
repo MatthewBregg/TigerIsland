@@ -17,4 +17,8 @@ public class PlayerID
     {
         return id;
     }
+
+    public String toString(){
+        return ""+id;
+    }
 }
