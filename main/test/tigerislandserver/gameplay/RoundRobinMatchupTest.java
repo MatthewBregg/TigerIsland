@@ -20,7 +20,7 @@ public class RoundRobinMatchupTest {
 
     @Test
     public void getMatchups() throws Exception {
-        ArrayList<Matchup> newMatchups = matchmaker.getMatchups(3);
+        ArrayList<Matchup> newMatchups = matchmaker.getMatchups(7);
         assertEquals(4, newMatchups.size());
 
         Matchup firstMatchup, thirdMatchup;
@@ -28,10 +28,10 @@ public class RoundRobinMatchupTest {
         firstMatchup = newMatchups.get(0);
         thirdMatchup = newMatchups.get(2);
 
-        assertEquals(7, firstMatchup.getPlayer1Index());
-        assertEquals(6, firstMatchup.getPlayer2Index());
-        assertEquals(0, thirdMatchup.getPlayer1Index());
-        assertEquals(4, thirdMatchup.getPlayer2Index());
+        assertEquals(0, firstMatchup.getPlayer1Index());
+        assertEquals(3, firstMatchup.getPlayer2Index());
+        assertEquals(5, thirdMatchup.getPlayer1Index());
+        assertEquals(1, thirdMatchup.getPlayer2Index());
     }
 
     @Test
