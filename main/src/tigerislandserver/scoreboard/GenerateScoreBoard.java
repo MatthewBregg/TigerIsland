@@ -2,15 +2,76 @@ package tigerislandserver.scoreboard;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class GenerateScoreBoard {
     private final String url;
-    private final String queryString = "SELECT * FROM MATCHES";
+    private final String queryMatchString = "SELECT * FROM MATCHES";
     private Connection connection;
+    private final String queryScoreString = "SELECT * FROM OVERALL_SCORE";
 
     public GenerateScoreBoard(String url) {
         this.url = url;
+    }
+
+    public String getScoreBoard() {
+        StringBuilder builder = new StringBuilder();
+        builder.append(this.getHTMLHeader());
+        builder.append(getScoreTable());
+        builder.append(getMatchTable());
+        builder.append(getHTMLFooter());
+        return builder.toString();
+    }
+
+    public String getScoreTable() {
+        StringBuilder builder = new StringBuilder();
+
+        builder.append(getScoreTableHeader());
+
+        for ( Map.Entry<Integer, Integer> kv : this.getScore().entrySet() ) {
+            builder.append("<tr>" + "<td>" + kv.getKey() + "</td>" + "<td>" + kv.getValue() + "</td>" + "</th>");
+            builder.append(lineSeparator);
+        }
+
+        builder.append(getScoreTableFooter());
+
+        return builder.toString();
+    }
+
+    private String getScoreTableHeader() {
+         return lineSeparator + "<table>" + lineSeparator + "<tr> <th> PlayerID </th> <th> Score </th> </tr>" + lineSeparator ;
+    }
+
+    private String getScoreTableFooter() {
+        return "</table>" + lineSeparator;
+    }
+
+
+    private Map<Integer,Integer> getScore() {
+        Map<Integer,Integer> scores = new HashMap<Integer,Integer>();
+        try {
+            connection = DriverManager.getConnection(url);
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(queryScoreString);
+            putResultSetToScoreRows(rs,scores);
+        } catch(SQLException sqlException) {
+            System.out.println(sqlException);
+        }
+        return scores;
+    }
+
+    private void putResultSetToScoreRows(ResultSet rs, Map<Integer, Integer> scores) throws SQLException {
+        while(rs.next()) {
+            int p_id = rs.getInt("player_id");
+            int score = rs.getInt("score");
+            scores.put(p_id,score);
+        }
     }
 
     class MatchRow {
@@ -56,29 +117,28 @@ public class GenerateScoreBoard {
         }
     }
     final String lineSeparator = System.getProperty("line.separator");
-    public String getScoreBoard() {
+
+    public String getMatchTable() {
         StringBuilder builder = new StringBuilder();
-        builder.append(this.getHTMLHeader());
-        builder.append(this.getTableHeader());
-        for (String tableRow : this.getTableBody() ) {
+        builder.append(this.getMatchTableHeader());
+        for (String tableRow : this.getMatchTableBody() ) {
             builder.append(tableRow);
             builder.append(lineSeparator );
         }
-        builder.append(this.getTableFooter());
-        builder.append(this.getScoreBoardFooter());
+        builder.append(this.getMatchTableFooter());
 
         return builder.toString();
     }
 
-    private String getScoreBoardFooter() {
+    private String getHTMLFooter() {
         return "</body>" + lineSeparator + "</html>" + lineSeparator;
     }
 
-    private String getTableFooter() {
+    private String getMatchTableFooter() {
         return "</table>" + lineSeparator;
     }
 
-    private String getTableHeader() {
+    private String getMatchTableHeader() {
       return   "<table>" + lineSeparator +
                          "<tr>" + lineSeparator +
                                  "<th>Challenge ID</th>" + lineSeparator +
@@ -100,28 +160,28 @@ public class GenerateScoreBoard {
 
     }
 
-    private List<String> getTableBody() {
+    private List<String> getMatchTableBody() {
         List<String> table = new ArrayList<>();
         for ( MatchRow row : this.getMatches() ) {
-            table.add(this.getTableRowFromMatchRow(row));
+            table.add(this.getMatchTableRowFromMatchRow(row));
         }
         return table;
     }
 
-    private String getTableRowFromMatchRow(MatchRow matchRow) {
-        return "<tr>" +  getTableEntry(matchRow.getChallenge_id())
-                + getTableEntry(matchRow.getGame_id())
-                + getTableEntry(matchRow.getMatch_id())
-                + getTableEntry(matchRow.p1_id) + getTableEntry(matchRow.getP2_id())
-                + getTableEntry(matchRow.getStatus())
+    private String getMatchTableRowFromMatchRow(MatchRow matchRow) {
+        return "<tr>" +  getMatchTableEntry(matchRow.getChallenge_id())
+                + getMatchTableEntry(matchRow.getGame_id())
+                + getMatchTableEntry(matchRow.getMatch_id())
+                + getMatchTableEntry(matchRow.p1_id) + getMatchTableEntry(matchRow.getP2_id())
+                + getMatchTableEntry(matchRow.getStatus())
         + "</tr>";
     }
 
-    private String getTableEntry(int val) {
+    private String getMatchTableEntry(int val) {
         return "<td>" + val + "</td>";
     }
 
-    private String getTableEntry(String val) {
+    private String getMatchTableEntry(String val) {
         return "<td>" + val + "</td>";
     }
 
@@ -134,7 +194,7 @@ public class GenerateScoreBoard {
         }
         try {
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery(queryString);
+            ResultSet rs = stmt.executeQuery(queryMatchString);
             putResultSetToMatchRows(rs,matches);
         } catch(SQLException sqlException) {
             System.out.println(sqlException);

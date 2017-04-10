@@ -38,7 +38,7 @@ public class ScoreBoardMain {
             }
 
             try {
-                sleep(50000);
+                sleep(5000);
             } catch (Exception ex) {
                 System.out.print(ex);
             }
