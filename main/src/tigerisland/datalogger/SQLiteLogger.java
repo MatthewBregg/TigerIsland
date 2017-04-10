@@ -75,6 +75,19 @@ public class SQLiteLogger implements DataLogger {
         }
     }
 
+    private void writeToOverallScore(int p_id, int score) {
+        String query = "INSERT OR REPLACE INTO overall_score(player_id,score) VALUES(?,?)";
+        try {
+            PreparedStatement prstmnt = connection.prepareStatement(query);
+            prstmnt.setInt(1, p_id);
+            prstmnt.setInt(2, score);
+            prstmnt.executeUpdate();
+        } catch (SQLException sqlException) {
+            System.err.println(sqlException);
+            hasError = true;
+        }
+    }
+
     private void writeToRawRequest(long timestamp, String message) {
         String query = "INSERT INTO raw_requests (time_stamp, request) VALUES(?,?)";
         try {
@@ -197,6 +210,10 @@ public class SQLiteLogger implements DataLogger {
         turnNumber = 0;
     }
 
+    public void setPlayerScore(PlayerID pid, int score) {
+        writeToOverallScore(pid.getId(),score);
+    }
+
 
     public void createTables() {
         final String[] queries = new String[]{
@@ -204,7 +221,8 @@ public class SQLiteLogger implements DataLogger {
                 "CREATE TABLE IF NOT EXISTS tiles_placed (challenge_id integer not null, game_id integer not null, match_id integer not null, turn_number integer not null, p_id integer not null, loc_x integer not null, loc_y integer not null, loc_z integer not null, orientation integer not null, tile text not null, primary key(challenge_id, game_id, match_id, turn_number) );",
                 "CREATE TABLE IF NOT EXISTS build_action (challenge_id integer not null, game_id integer not null, match_id integer not null, turn_number integer not null, p_id integer not null, loc_x integer not null, loc_y integer not null, loc_z integer not null, move_description text not null, primary key(challenge_id, game_id, match_id, turn_number) );",
                 "CREATE TABLE IF NOT EXISTS invalid_moves (challenge_id integer not null, game_id integer not null, match_id integer not null, turn_number integer not null, p_id integer not null, message string not null, primary key(challenge_id, game_id, match_id, turn_number) );",
-                "create table IF NOT EXISTS raw_requests ( time_stamp integer primary key, request text not null);"
+                "create table IF NOT EXISTS raw_requests ( time_stamp integer primary key, request text not null);",
+                "create table if not exists overall_score (player_id integer primary key, score integer not null);",
         };
 
         try {

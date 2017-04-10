@@ -8,6 +8,7 @@ import tigerisland.tile.Orientation;
 import static org.junit.Assert.*;
 
 public class SQLiteLoggerTest {
+
     private static SQLiteLogger logger = null;
     private static int ChallengeId = 1;
     private static int GameId = 1;
@@ -21,6 +22,8 @@ public class SQLiteLoggerTest {
        createTables();
        Assert.assertFalse(logger.hasErrored());
     }
+
+
 
     @Before
     public void setUp() {
@@ -80,5 +83,10 @@ public class SQLiteLoggerTest {
     @Test
     public void writeGameStarted() throws Exception {
         logger.writeGameStarted(new PlayerID(), new PlayerID());
+    }
+
+    @Test
+    public void setPlayerScore() throws Exception {
+        logger.setPlayerScore(new PlayerID(),120);
     }
 }
