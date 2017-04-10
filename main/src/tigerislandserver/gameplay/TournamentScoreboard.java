@@ -2,10 +2,8 @@ package tigerislandserver.gameplay;
 
 import tigerisland.player.Player;
 import tigerisland.player.PlayerID;
-import tigerisland.score.ScoreManager;
 import tigerislandserver.server.TournamentPlayer;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -44,6 +42,10 @@ public class TournamentScoreboard {
         return 0;
     }
 
+    public void addNewPlayer(PlayerID pID){
+        tournamentPlayerScores.put(pID, 0);
+    }
+
     public void resetPlayerScore(PlayerID pID){
         tournamentPlayerScores.put(pID, 0);
     }
@@ -62,8 +64,6 @@ public class TournamentScoreboard {
             ArrayList<TournamentPlayer> playerMatchup = allPlayerMatchups.get(i);
             TournamentPlayer player1 = playerMatchup.get(0);
             TournamentPlayer player2 = playerMatchup.get(1);
-
-
         }
         return false;
     }
@@ -235,26 +235,26 @@ public class TournamentScoreboard {
         int winningPlayerIndex = -1;
 
 
-        if (player1.getTotoroCount() > player2.getTotoroCount()){
+        if (player1.getTotoroCount() < player2.getTotoroCount()){
             winningPlayerIndex = 0;
         }
-        else if(player2.getTotoroCount() > player1.getTotoroCount()){
+        else if(player2.getTotoroCount() < player1.getTotoroCount()){
             winningPlayerIndex = 1;
         }
         else {
             // totoros coutns are tied
-            if(player1.getTigerCount() > player2.getTigerCount()){
+            if(player1.getTigerCount() < player2.getTigerCount()){
                 winningPlayerIndex = 0;
             }
-            else if(player2.getTigerCount() > player1.getTigerCount()){
+            else if(player2.getTigerCount() < player1.getTigerCount()){
                 winningPlayerIndex = 1;
             }
             else{
                 //tiger counts are tied
-                if (player1.getVillagerCount() > player2.getVillagerCount()){
+                if (player1.getVillagerCount() < player2.getVillagerCount()){
                     winningPlayerIndex = 0;
                 }
-                else if(player2.getVillagerCount() > player1.getVillagerCount()){
+                else if(player2.getVillagerCount() < player1.getVillagerCount()){
                     winningPlayerIndex = 1;
                 }
             }
