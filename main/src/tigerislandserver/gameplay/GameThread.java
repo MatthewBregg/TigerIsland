@@ -13,6 +13,7 @@ import tigerislandserver.server.TournamentPlayer;
 import java.util.ArrayList;
 
 public class GameThread extends Thread{
+    private DataLogger logger;
     private ArrayList<Tile> gameTiles;
     private ArrayList<TournamentPlayer> playersInGame;
     private int activePlayerIndex;
@@ -23,7 +24,7 @@ public class GameThread extends Thread{
     private boolean gameNotEnded;
     private GameManager gameManager;
 
-    public GameThread(TournamentPlayer player1, TournamentPlayer player2, ArrayList<Tile> tiles, char gameLetter, TournamentScoreboard scoreboard){
+    public GameThread(TournamentPlayer player1, TournamentPlayer player2, ArrayList<Tile> tiles, char gameLetter, int roundNumber, TournamentScoreboard scoreboard){
         playersInGame = new ArrayList<TournamentPlayer>();
         playersInGame.add(player1);
         playersInGame.add(player2);
@@ -42,7 +43,7 @@ public class GameThread extends Thread{
         {
             gamePlayers.add(new Player(tp.getID()));
         }
-        DataLogger logger = LoggerFactory.getLogger(gameID,0);
+        logger = LoggerFactory.getLogger(((gameLetter == 'A') ? 0 : 1),roundNumber);
         gameManager = new GameManager(gamePlayers, logger );
     }
 
@@ -92,6 +93,7 @@ public class GameThread extends Thread{
         // needs to utilize the commands int he connection classes
         //player1
         //player2
+        logger.writeGameStarted(playersInGame.get(0).getID(), playersInGame.get(1).getID());
     }
 
     public int getActivePlayerIndex(){
@@ -115,6 +117,7 @@ public class GameThread extends Thread{
         TournamentPlayer p2 = playersInGame.get(1);
         ScoreManager sm =gameManager.getScoreManager();
         OutputAdapter.sendEndGameMessage(p1, p2, gameID, ""+sm.getPlayerScore(p1.getID()), ""+sm.getPlayerScore(p2.getID()));
+        logger.writeGameStarted(playersInGame.get(0).getID(), playersInGame.get(1).getID());
         gameNotEnded=false;
     }
 
@@ -144,6 +147,7 @@ public class GameThread extends Thread{
             }
 
             moveNumber++;
+            logger.nextTurn();
             activePlayerIndex = (activePlayerIndex + 1) % playersInGame.size();
         }
     }

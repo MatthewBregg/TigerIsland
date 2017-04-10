@@ -15,12 +15,8 @@ import tigerisland.settlement.SettlementBoard;
 import tigerisland.terrains.*;
 import tigerisland.tile.Orientation;
 import tigerisland.tile.Tile;
-import tigerisland.tile.TileUnpacker;
 import tigerisland.tile_placement.exceptions.*;
-import tigerisland.tile_placement.placers.FirstTilePlacer;
-import tigerisland.tile_placement.placers.InvalidTilePlacer;
-import tigerisland.tile_placement.placers.NukeTilePlacer;
-import tigerisland.tile_placement.placers.TilePlacement;
+import tigerisland.FirstTilePlacer;
 import tigerisland.tile_placement.rules.*;
 
 public class NukeTilePlacerTest {

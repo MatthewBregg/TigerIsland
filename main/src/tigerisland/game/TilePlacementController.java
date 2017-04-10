@@ -32,18 +32,19 @@ public class TilePlacementController {
         AdjacentToBoardTilePlacer adjacentPlacer = new AdjacentToBoardTilePlacer(gameBoard);
         adjacentPlacer.setNextTilePlacement(nukePlacer);
 
-        FirstTilePlacer firstPlacer = new FirstTilePlacer(gameBoard);
-        firstPlacer.setNextTilePlacement(adjacentPlacer);
-
-        return firstPlacer;
+        return adjacentPlacer;
     }
 
     private NukeTilePlacer initializeNukePlacer(){
-        NukeTilePlacer nukePlacer = new NukeTilePlacer(gameBoard, pieces, new NukeCoverHexesLevelRule(gameBoard),
-                new NukeHexesOfDifferentTilesRule(gameBoard), new NukeNonNukeablePieceRule(pieces),
-                new NukeSettlementEradicationRule(settlements), new NukeVolcanoHexRule(gameBoard),
-                new NukeVolcanoHexRule(gameBoard), new NukeVolcanoOnVolcanoRule(gameBoard));
-
+        NukeTilePlacer nukePlacer = new NukeTilePlacer(gameBoard,
+                pieces,
+                new NukeCoverHexesLevelRule(gameBoard),
+                new NukeHexesOfDifferentTilesRule(gameBoard),
+                new NukeNonNukeablePieceRule(pieces),
+                new NukeSettlementEradicationRule(settlements),
+                new NukeVolcanoHexRule(gameBoard),
+                new NukeVolcanoHexRule(gameBoard),
+                new NukeVolcanoOnVolcanoRule(gameBoard));
         return nukePlacer;
     }
 

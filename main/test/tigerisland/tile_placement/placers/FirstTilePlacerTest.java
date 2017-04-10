@@ -8,9 +8,7 @@ import tigerisland.board.HexBoard;
 import tigerisland.board.Location;
 import tigerisland.hex.Hex;
 import tigerisland.tile.Tile;
-import tigerisland.tile_placement.placers.FirstTilePlacer;
-import tigerisland.tile_placement.placers.InvalidTilePlacer;
-import tigerisland.tile_placement.placers.TilePlacement;
+import tigerisland.FirstTilePlacer;
 import tigerisland.tile_placement.exceptions.InvalidTilePlacementException;
 
 public class FirstTilePlacerTest {

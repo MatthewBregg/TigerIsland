@@ -11,10 +11,7 @@ import tigerisland.tile.Orientation;
 import tigerisland.tile.Tile;
 import tigerisland.tile_placement.exceptions.InvalidTilePlacementException;
 import tigerisland.tile_placement.exceptions.TilePlacementException;
-import tigerisland.tile_placement.placers.AdjacentToBoardTilePlacer;
-import tigerisland.tile_placement.placers.FirstTilePlacer;
-import tigerisland.tile_placement.placers.InvalidTilePlacer;
-import tigerisland.tile_placement.placers.TilePlacement;
+import tigerisland.FirstTilePlacer;
 
 public class AdjacentToBoardTilePlacerTest {
 

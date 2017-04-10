@@ -2,6 +2,7 @@ package tigerisland.game;
 
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import tigerisland.TestLogger;
 import tigerisland.board.HexBoard;
@@ -43,22 +44,6 @@ public class GameManagerTest {
     }
 
     @Test
-    public void test_PlaceTileShouldBeTrueNukingStartingHex() {
-
-        //arrange
-        //starting tile initialized by GameManager
-
-        Location location = new Location(0,0,0);
-
-        Tile toPlace = deck.drawTile();
-        toPlace.setOrientation(Orientation.getEast());
-
-        //act/assert
-        Assert.assertTrue(manager.placeTile(toPlace, location));
-
-    }
-
-    @Test
     public void test_PlaceTileShouldBeTruePlacingNextToStartingHex() {
         //arrange
 
@@ -80,7 +65,6 @@ public class GameManagerTest {
     }
 
     @Test
-
     public void test_PlaceTileShouldReturnFalsePlacingOnNonAdjacentLocation(){
         //arrange
 
@@ -106,8 +90,6 @@ public class GameManagerTest {
 
     }
 
-
-
     @Test
     public void test_FoundSettlementShouldReturnTrueForFoundingSettlementOnLevelOne(){
 
@@ -115,24 +97,8 @@ public class GameManagerTest {
         Assert.assertTrue(manager.foundSettlement(location, playerOne));
     }
 
-    @Test
+    @Test @Ignore
     public void test_FoundSettlementShouldReturnFalseForFoundingOnLevelGreaterThanOne(){
-
-        //arrange
-
-        Location location = new Location(0,0,0);
-
-        Tile toPlace = deck.drawTile();
-        toPlace.setOrientation(Orientation.getEast());
-
-        //placing on starting tile yields level 2
-        Assert.assertTrue(manager.placeTile(toPlace,location));
-
-        Location settleLocation = new Location(0,-1,1);
-
-        //assert
-
-        Assert.assertFalse(manager.foundSettlement(settleLocation,playerOne));
     }
 
     @Test
@@ -154,7 +120,6 @@ public class GameManagerTest {
     }
 
     @Test
-
     public void test_ExpandSettlementShouldReturnFalseForInvalidSettlementExpansionTerrain() {
 
         Location found = new Location(0,0,0).getAdjacent(Orientation.getNorthEast());
@@ -166,7 +131,6 @@ public class GameManagerTest {
     }
 
     @Test
-
     public void test_BuildTotoroShouldReturnTrueForValidTotoroBuild(){
 
         createTestBoardForTotoro();
@@ -215,7 +179,6 @@ public class GameManagerTest {
     }
 
     @Test
-
     public void test_BuildTigerShouldReturnTrueForValidTigerBuild(){
         createTestBoardForTiger();
         Location tiger = new Location(2,-1,-1);
@@ -232,7 +195,6 @@ public class GameManagerTest {
     }
 
     @Test
-
     public void test_BuildTigerShouldReturnFalseForInvalidTigerBuild(){
         createInvalidTestBoardForTiger();
         Location tiger = new Location(2,-1,-1);
@@ -256,5 +218,4 @@ public class GameManagerTest {
         //TODO
 
     }
-
 }

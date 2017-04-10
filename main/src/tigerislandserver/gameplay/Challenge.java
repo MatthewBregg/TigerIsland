@@ -97,7 +97,7 @@ public class Challenge {
         ArrayList<ArrayList<TournamentPlayer>> roundMatchups = getPlayerMatchups(roundNumber);
 
         for(ArrayList<TournamentPlayer> matchup : roundMatchups){
-            Match newMatch = new Match(matchup, roundTiles, scoreboard);
+            Match newMatch = new Match(matchup, roundTiles, scoreboard, roundNumber);
             currentRoundMatches.add(newMatch);
         }
     }

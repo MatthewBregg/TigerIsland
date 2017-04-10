@@ -1,4 +1,4 @@
-package tigerisland.tile_placement.placers;
+package tigerisland;
 
 import tigerisland.board.Board;
 import tigerisland.board.Location;
@@ -6,6 +6,8 @@ import tigerisland.hex.Hex;
 import tigerisland.tile.Tile;
 import tigerisland.tile.TileUnpacker;
 import tigerisland.tile_placement.exceptions.TilePlacementException;
+import tigerisland.tile_placement.placers.TilePlacement;
+import tigerisland.tile_placement.placers.TilePlacementChain;
 
 import java.util.Map;
 

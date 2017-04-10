@@ -15,12 +15,12 @@ public class Match extends Thread {
     private ArrayList<TournamentPlayer> players;
     private long matchID;
 
-    public Match(ArrayList<TournamentPlayer> playerList, ArrayList<Tile> tiles, TournamentScoreboard scoreboard){
+    public Match(ArrayList<TournamentPlayer> playerList, ArrayList<Tile> tiles, TournamentScoreboard scoreboard, int roundNumber){
         players = playerList;
         gameTiles = tiles;
         matchID = MatchID.getID();
-        game1 = new GameThread(players.get(0), players.get(1), gameTiles, 'A', scoreboard);
-        game2 = new GameThread(players.get(1), players.get(0), gameTiles, 'B', scoreboard);
+        game1 = new GameThread(players.get(0), players.get(1), gameTiles, 'A', roundNumber, scoreboard);
+        game2 = new GameThread(players.get(1), players.get(0), gameTiles, 'B', roundNumber, scoreboard);
     }
 
     public void startGames(){
