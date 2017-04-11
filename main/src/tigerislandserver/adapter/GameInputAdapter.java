@@ -81,9 +81,7 @@ public class GameInputAdapter
     }
 
     private static boolean containsNumbersForTilePlacementLocation(String[] inputTokens) {
-            return isValidNumber(inputTokens[7])
-                && isValidNumber(inputTokens[8])
-                && isValidNumber(inputTokens[9]);
+            return checkInputTokensForValidNumberAtIndexes(inputTokens,7,8,9);
     }
 
     private static boolean placeTile(GameThread game, TournamentPlayer tournamentPlayer, String[] inputTokens)
@@ -118,9 +116,7 @@ public class GameInputAdapter
     }
 
     private static boolean containsNumbersForBuildActionLocation(String[] inputTokens) {
-        return  isValidNumber(inputTokens[14])
-                && isValidNumber(inputTokens[15])
-                && isValidNumber(inputTokens[16]);
+        return checkInputTokensForValidNumberAtIndexes(inputTokens,14,15,16);
     }
 
     private static void foundSettlement(GameThread game, TournamentPlayer tournamentPlayer, String[] inputTokens)
@@ -216,9 +212,7 @@ public class GameInputAdapter
     }
 
     private static boolean containsNumbersForBigPieceLocation(String[] inputTokens) {
-                return isValidNumber(inputTokens[15])
-                && isValidNumber(inputTokens[16])
-                && isValidNumber(inputTokens[17]);
+                return checkInputTokensForValidNumberAtIndexes(inputTokens,15,16,17);
     }
 
     private static void buildTiger(GameThread game, TournamentPlayer tournamentPlayer, String[] inputTokens)
@@ -384,7 +378,7 @@ public class GameInputAdapter
                 && inputTokens[0].equals("GAME")
                 && isValidGameId(inputTokens[1])
                 && inputTokens[2].equals("MOVE")
-                && isValidNumber(inputTokens[3]);
+                && checkInputTokensForValidNumberAtIndex(inputTokens,3);
     }
 
     private static boolean isCorrectTile(String[] inputTokens, Tile tile)
