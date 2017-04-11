@@ -85,19 +85,44 @@ public class TournamentPlayer implements Runnable
         }
     }
 
+    private boolean inputFromClientReady() {
+        try {
+            return inputFromClient.ready();
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     public synchronized void requestMove(GameThread game, char gid, int moveNumber, Tile tile)
     {
         OutputAdapter.sendMoveRequestMessage(this, gid, moveNumber, tile);
 
         // Replace sleep 1800 with busy loop on turn is ready
-        game.enableTurnWaiting();
-        while(game.hasTurnWaiting()) {
+        int timeoutCounter = 0;
+
+        int timeOutMaxIncrements = 16;
+        long sleepDuration = 100;
+        // Max timeout = sleepDuration * timeoutMaxIncrements in ms.
+        while(!inputFromClientReady() && timeoutCounter < timeOutMaxIncrements) {
             try {
-                game.sleep(100);
+                game.sleep(sleepDuration);
+                ++timeoutCounter;
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
+
+        game.enableTurnWaiting();
+        while(game.hasTurnWaiting() && timeoutCounter < timeOutMaxIncrements) {
+            try {
+                game.sleep(sleepDuration);
+                ++timeoutCounter;
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
 
         try {
             if (!inputFromClient.ready()) {
