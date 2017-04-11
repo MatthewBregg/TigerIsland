@@ -20,6 +20,7 @@ import tigerisland.tile.Tile;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.atomic.AtomicLong;
 
 public class GameManager {
 
@@ -32,6 +33,7 @@ public class GameManager {
     private SettlementBoard settlements;
     private TilePlacementController tilePlacer;
     private BuildController buildController;
+    private int tileID = 1;
     private int tilesDrawn;
 
     public GameManager(ArrayList<Player> players, DataLogger logger){
@@ -250,4 +252,8 @@ public class GameManager {
         buildController = new BuildController(gameBoard, pieces, settlements, scoreKeeper);
     }
 
+    synchronized public int getTileId() {
+        ++tileID;
+        return tileID;
+    }
 }

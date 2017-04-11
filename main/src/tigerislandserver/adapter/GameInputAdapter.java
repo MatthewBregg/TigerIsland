@@ -99,11 +99,12 @@ public class GameInputAdapter
         Terrain bottomLeft = getTerrain(terrains[1]);
 
         Location loc=new Location(x, y, z);
-        Tile tile = new Tile(0, bottomLeft, bottomRight);
-
-        rotateTile(tile, inputTokens[10]);
 
         GameManager gm = game.getGameManager();
+
+        Tile tile = new Tile(gm.getTileId(), bottomLeft, bottomRight);
+
+        rotateTile(tile, inputTokens[10]);
 
         return gm.placeTile(tile, loc);
     }
