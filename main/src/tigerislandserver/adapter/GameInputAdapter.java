@@ -124,6 +124,7 @@ public class GameInputAdapter
         Location loc = parseBuildLocationFromInputTokens(inputTokens);
         if ( loc == null ) {
             game.invalidBuild(tournamentPlayer);
+            return;
         }
 
         GameManager gm = game.getGameManager();
@@ -155,6 +156,7 @@ public class GameInputAdapter
         if(loc == null)
         {
             game.invalidBuild(tournamentPlayer);
+            return;
         }
 
         Terrain t=getTerrain(inputTokens[17]);
@@ -187,6 +189,7 @@ public class GameInputAdapter
 
         if(loc == null)  {
             game.invalidBuild(tournamentPlayer);
+            return;
         }
 
         GameManager gm = game.getGameManager();
@@ -221,8 +224,8 @@ public class GameInputAdapter
 
         if (loc == null) {
             game.invalidBuild(tournamentPlayer);
+            return;
         }
-
 
         GameManager gm = game.getGameManager();
         Player p = gm.getPlayer(tournamentPlayer.getID());
