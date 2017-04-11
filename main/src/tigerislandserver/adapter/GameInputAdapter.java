@@ -84,11 +84,8 @@ public class GameInputAdapter
 
     private static boolean placeTile(GameThread game, TournamentPlayer tournamentPlayer, String[] inputTokens)
     {
-        int x = Integer.parseInt(inputTokens[7]);
-        int y = Integer.parseInt(inputTokens[8]);
-        int z = Integer.parseInt(inputTokens[9]);
-
-        if(x+y+z != 0)
+        Location loc = parseTileLocationFromInputToken(inputTokens);
+        if(loc == null)
         {
             return false;
         }
@@ -98,8 +95,6 @@ public class GameInputAdapter
         Terrain bottomRight = getTerrain(terrains[0]);
         Terrain bottomLeft = getTerrain(terrains[1]);
 
-        Location loc=new Location(x, y, z);
-
         GameManager gm = game.getGameManager();
 
         Tile tile = new Tile(gm.getTileId(), bottomLeft, bottomRight);
@@ -108,6 +103,7 @@ public class GameInputAdapter
 
         return gm.placeTile(tile, loc);
     }
+
 
     private static boolean isFoundSettlementCommand(String[] inputTokens)
     {
@@ -236,6 +232,20 @@ public class GameInputAdapter
         {
             OutputAdapter.sendIllegalBuildMessage(game.getPlayersInGame(), tournamentPlayer, inputTokens);
             game.invalidBuild(tournamentPlayer);
+        }
+    }
+
+    private static Location parseTileLocationFromInputToken(String[] inputTokens) {
+        final int xIndex = 7;
+        final int yIndex = 8;
+        final int zIndex = 9;
+        int x = Integer.parseInt(inputTokens[xIndex]);
+        int y = Integer.parseInt(inputTokens[yIndex]);
+        int z = Integer.parseInt(inputTokens[zIndex]);
+        if ( validLocation(x,y,z) ) {
+            return new Location(x,y,z);
+        } else {
+            return null;
         }
     }
 
