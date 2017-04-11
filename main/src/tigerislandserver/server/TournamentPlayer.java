@@ -114,10 +114,9 @@ public class TournamentPlayer implements Runnable
         }
 
         game.enableTurnWaiting();
-        while(game.hasTurnWaiting() && timeoutCounter < timeOutMaxIncrements) {
+        while(game.hasTurnWaiting()) {
             try {
                 game.sleep(sleepDuration);
-                ++timeoutCounter;
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
