@@ -121,7 +121,7 @@ public class GameInputAdapter
 
     private static void foundSettlement(GameThread game, TournamentPlayer tournamentPlayer, String[] inputTokens)
     {
-        Location loc = parseBuildLocationFromInputTokens(inputTokens);
+        Location loc = parseBuildSettlementLocationFromInputTokens(inputTokens);
         if ( loc == null ) {
             game.invalidBuild(tournamentPlayer);
             return;
@@ -152,7 +152,7 @@ public class GameInputAdapter
 
     private static void expandSettlement(GameThread game, TournamentPlayer tournamentPlayer, String[] inputTokens)
     {
-        Location loc = parseBuildLocationFromInputTokens(inputTokens);
+        Location loc = parseBuildSettlementLocationFromInputTokens(inputTokens);
         if(loc == null)
         {
             game.invalidBuild(tournamentPlayer);
@@ -185,7 +185,7 @@ public class GameInputAdapter
 
     private static void buildTotoro(GameThread game, TournamentPlayer tournamentPlayer, String[] inputTokens)
     {
-        Location loc = parseBuildLocationFromInputTokens(inputTokens);
+        Location loc = parseBuildBigCatLocationFromInputTokens(inputTokens);
 
         if(loc == null)  {
             game.invalidBuild(tournamentPlayer);
@@ -220,7 +220,7 @@ public class GameInputAdapter
 
     private static void buildTiger(GameThread game, TournamentPlayer tournamentPlayer, String[] inputTokens)
     {
-        Location loc = parseBuildLocationFromInputTokens(inputTokens);
+        Location loc = parseBuildBigCatLocationFromInputTokens(inputTokens);
 
         if (loc == null) {
             game.invalidBuild(tournamentPlayer);
@@ -248,7 +248,14 @@ public class GameInputAdapter
     }
 
 
-    private static Location parseBuildLocationFromInputTokens(String[] inputTokens) {
+    private static Location parseBuildSettlementLocationFromInputTokens(String[] inputTokens) {
+        final int xIndex = 14;
+        final int yIndex = 15;
+        final int zIndex = 16;
+        return parseLocationFromInputTokenAndIndexes(inputTokens,xIndex,yIndex,zIndex);
+    }
+
+    private static Location parseBuildBigCatLocationFromInputTokens(String[] inputTokens) {
         final int xIndex = 15;
         final int yIndex = 16;
         final int zIndex = 17;
