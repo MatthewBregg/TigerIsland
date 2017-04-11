@@ -239,20 +239,18 @@ public class GameInputAdapter
         final int xIndex = 7;
         final int yIndex = 8;
         final int zIndex = 9;
-        int x = Integer.parseInt(inputTokens[xIndex]);
-        int y = Integer.parseInt(inputTokens[yIndex]);
-        int z = Integer.parseInt(inputTokens[zIndex]);
-        if ( validLocation(x,y,z) ) {
-            return new Location(x,y,z);
-        } else {
-            return null;
-        }
+        return parseLocationFromInputTokenAndIndexes(inputTokens,xIndex,yIndex,zIndex);
     }
+
 
     private static Location parseBuildLocationFromInputTokens(String[] inputTokens) {
         final int xIndex = 15;
         final int yIndex = 16;
         final int zIndex = 17;
+        return parseLocationFromInputTokenAndIndexes(inputTokens,xIndex,yIndex,zIndex);
+    }
+
+    private static Location parseLocationFromInputTokenAndIndexes(String[] inputTokens, int xIndex, int yIndex, int zIndex) {
         int x = Integer.parseInt(inputTokens[xIndex]);
         int y = Integer.parseInt(inputTokens[yIndex]);
         int z = Integer.parseInt(inputTokens[zIndex]);
