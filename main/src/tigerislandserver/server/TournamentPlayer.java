@@ -89,10 +89,14 @@ public class TournamentPlayer implements Runnable
     {
         OutputAdapter.sendMoveRequestMessage(this, gid, moveNumber, tile);
 
-        try {
-            Thread.sleep(1800);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        // Replace sleep 1800 with busy loop on turn is ready
+        game.enableTurnWaiting();
+        while(game.hasTurnWaiting()) {
+            try {
+                game.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
 
         try {
