@@ -186,7 +186,7 @@ public class GenerateScoreBoard {
         return "<tr>" +  getMatchTableEntry(matchRow.getChallenge_id())
                 + getMatchTableEntry(matchRow.getGame_id())
                 + getMatchTableEntry(matchRow.getMatch_id())
-                + getMatchTableEntry(matchRow.p1_id) + getMatchTableEntry(matchRow.getP2_id())
+                + getMatchTableEntry(matchRow.getP1_id()) + getMatchTableEntry(matchRow.getP2_id())
                 + getMatchTableEntry(matchRow.getStatus())
         + "</tr>";
     }
