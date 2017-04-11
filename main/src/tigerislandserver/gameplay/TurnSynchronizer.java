@@ -5,7 +5,7 @@ import java.util.List;
 
 public class TurnSynchronizer {
     List<GameThread> games = new ArrayList<>();
-    public void addGame(GameThread game) {
+    synchronized public void addGame(GameThread game) {
         games.add(game);
     }
 
