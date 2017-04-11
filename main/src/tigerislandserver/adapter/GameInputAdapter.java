@@ -76,10 +76,14 @@ public class GameInputAdapter
         return inputTokens[4].equals("PLACE")
                 && isValidTile(inputTokens[5])
                 && inputTokens[6].equals("AT")
-                && isValidNumber(inputTokens[7])
-                && isValidNumber(inputTokens[8])
-                && isValidNumber(inputTokens[9])
+                && containsNumbersForTilePlacementLocation(inputTokens)
                 && isValidOrientation(inputTokens[10]);
+    }
+
+    private static boolean containsNumbersForTilePlacementLocation(String[] inputTokens) {
+            return isValidNumber(inputTokens[7])
+                && isValidNumber(inputTokens[8])
+                && isValidNumber(inputTokens[9]);
     }
 
     private static boolean placeTile(GameThread game, TournamentPlayer tournamentPlayer, String[] inputTokens)
@@ -110,7 +114,11 @@ public class GameInputAdapter
         return inputTokens[11].equals("FOUND")
                 && inputTokens[12].equals("SETTLEMENT")
                 && inputTokens[13].equals("AT")
-                && isValidNumber(inputTokens[14])
+                && containsNumbersForBuildActionLocation(inputTokens);
+    }
+
+    private static boolean containsNumbersForBuildActionLocation(String[] inputTokens) {
+        return  isValidNumber(inputTokens[14])
                 && isValidNumber(inputTokens[15])
                 && isValidNumber(inputTokens[16]);
     }
@@ -141,9 +149,7 @@ public class GameInputAdapter
         return inputTokens[11].equals("EXPAND")
                 && inputTokens[12].equals("SETTLEMENT")
                 && inputTokens[13].equals("AT")
-                && isValidNumber(inputTokens[14])
-                && isValidNumber(inputTokens[15])
-                && isValidNumber(inputTokens[16])
+                && containsNumbersForBuildActionLocation(inputTokens)
                 && isValidTerrain(inputTokens[17]);
     }
 
@@ -176,9 +182,7 @@ public class GameInputAdapter
                 && inputTokens[12].equals("TOTORO")
                 && inputTokens[13].equals("SANCTUARY")
                 && inputTokens[14].equals("AT")
-                && isValidNumber(inputTokens[15])
-                && isValidNumber(inputTokens[16])
-                && isValidNumber(inputTokens[17]);
+                && containsNumbersForBigPieceLocation(inputTokens);
     }
 
     private static void buildTotoro(GameThread game, TournamentPlayer tournamentPlayer, String[] inputTokens)
@@ -208,7 +212,11 @@ public class GameInputAdapter
                 && inputTokens[12].equals("TIGER")
                 && inputTokens[13].equals("PLAYGROUND")
                 && inputTokens[14].equals("AT")
-                && isValidNumber(inputTokens[15])
+                && containsNumbersForBigPieceLocation(inputTokens);
+    }
+
+    private static boolean containsNumbersForBigPieceLocation(String[] inputTokens) {
+                return isValidNumber(inputTokens[15])
                 && isValidNumber(inputTokens[16])
                 && isValidNumber(inputTokens[17]);
     }
@@ -349,6 +357,19 @@ public class GameInputAdapter
     private static boolean isValidNumber(String inputToken)
     {
         return inputToken.matches("^(\\+|-)?\\d+$");
+    }
+
+    // True if all indexes contain a number
+    private static boolean checkInputTokensForValidNumberAtIndexes(String[] inputToken, int ... indexes) {
+        for ( int i : indexes ) {
+            if ( checkInputTokensForValidNumberAtIndex(inputToken, i) == false ) {
+                return false;
+            }
+        }
+        return true;
+    }
+    private static boolean checkInputTokensForValidNumberAtIndex(String[] inputToken, int index) {
+        return isValidNumber(inputToken[index]);
     }
 
     private static boolean isValidGameId(String s)
