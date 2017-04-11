@@ -104,6 +104,7 @@ public class TournamentPlayer implements Runnable
         int timeOutMaxIncrements = 16;
         long sleepDuration = 100;
         // Max timeout = sleepDuration * timeoutMaxIncrements in ms.
+        // If we want to be super strict on timeout, then set a bool timeout reached here, but I don't think we should.
         while(!inputFromClientReady() && timeoutCounter < timeOutMaxIncrements) {
             try {
                 game.sleep(sleepDuration);
