@@ -1,0 +1,52 @@
+body {
+    background-image: url("../tiger-background.png");
+    background-repeat: repeat-y;
+}
+
+table {
+    #background : white;
+    border : 1;
+    width : 100%;
+    margin: 0px;
+}
+
+th {
+    font-size: 150%;
+    font-family: 'PT Sans Narrow', sans-serif;
+    color: white;
+}
+
+.special-font{
+	font-family: 'Macondo', cursive;
+	font-size: 60px;
+}
+
+.header-font{
+    font-family: 'Macondo', cursive;
+    font-size: 40px;
+    color: white;
+}
+
+h3 {
+	font-family: 'Macondo', cursive;
+    color: white;
+}
+
+.icon{
+    height: 50px;
+    width: 50px;
+}
+
+td {
+    text-align : center;
+    color:  #C8C8C8;
+    font-size: 200%;
+    font-family: 'PT Sans Narrow', sans-serif;
+    -webkit-text-stroke-width: 1.5px;
+}
+
+		
+
+background {
+    opacitiy : .5;
+}
