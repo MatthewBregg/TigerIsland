@@ -121,16 +121,10 @@ public class GameInputAdapter
 
     private static void foundSettlement(GameThread game, TournamentPlayer tournamentPlayer, String[] inputTokens)
     {
-        int x = Integer.parseInt(inputTokens[14]);
-        int y = Integer.parseInt(inputTokens[15]);
-        int z = Integer.parseInt(inputTokens[16]);
-
-        if(x+y+z != 0)
-        {
+        Location loc = parseBuildLocationFromInputTokens(inputTokens);
+        if ( loc == null ) {
             game.invalidBuild(tournamentPlayer);
         }
-
-        Location loc=new Location(x, y, z);
 
         GameManager gm = game.getGameManager();
         Player p = gm.getPlayer(tournamentPlayer.getID());
@@ -159,16 +153,12 @@ public class GameInputAdapter
 
     private static void expandSettlement(GameThread game, TournamentPlayer tournamentPlayer, String[] inputTokens)
     {
-        int x = Integer.parseInt(inputTokens[14]);
-        int y = Integer.parseInt(inputTokens[15]);
-        int z = Integer.parseInt(inputTokens[16]);
-
-        if(x+y+z != 0)
+        Location loc = parseBuildLocationFromInputTokens(inputTokens);
+        if(loc == null)
         {
             game.invalidBuild(tournamentPlayer);
         }
 
-        Location loc=new Location(x, y, z);
         Terrain t=getTerrain(inputTokens[17]);
 
         GameManager gm = game.getGameManager();
@@ -197,16 +187,11 @@ public class GameInputAdapter
 
     private static void buildTotoro(GameThread game, TournamentPlayer tournamentPlayer, String[] inputTokens)
     {
-        int x = Integer.parseInt(inputTokens[15]);
-        int y = Integer.parseInt(inputTokens[16]);
-        int z = Integer.parseInt(inputTokens[17]);
+        Location loc = parseBuildLocationFromInputTokens(inputTokens);
 
-        if(x+y+z != 0)
-        {
+        if(loc == null)  {
             game.invalidBuild(tournamentPlayer);
         }
-
-        Location loc=new Location(x, y, z);
 
         GameManager gm = game.getGameManager();
         Player p = gm.getPlayer(tournamentPlayer.getID());
@@ -234,16 +219,12 @@ public class GameInputAdapter
 
     private static void buildTiger(GameThread game, TournamentPlayer tournamentPlayer, String[] inputTokens)
     {
-        int x = Integer.parseInt(inputTokens[15]);
-        int y = Integer.parseInt(inputTokens[16]);
-        int z = Integer.parseInt(inputTokens[17]);
+        Location loc = parseBuildLocationFromInputTokens(inputTokens);
 
-        if(x+y+z != 0)
-        {
+        if (loc == null) {
             game.invalidBuild(tournamentPlayer);
         }
 
-        Location loc=new Location(x, y, z);
 
         GameManager gm = game.getGameManager();
         Player p = gm.getPlayer(tournamentPlayer.getID());
@@ -257,6 +238,25 @@ public class GameInputAdapter
             game.invalidBuild(tournamentPlayer);
         }
     }
+
+    private static Location parseBuildLocationFromInputTokens(String[] inputTokens) {
+        final int xIndex = 15;
+        final int yIndex = 16;
+        final int zIndex = 17;
+        int x = Integer.parseInt(inputTokens[xIndex]);
+        int y = Integer.parseInt(inputTokens[yIndex]);
+        int z = Integer.parseInt(inputTokens[zIndex]);
+        if ( validLocation(x,y,z) ) {
+            return new Location(x,y,z);
+        } else {
+            return null;
+        }
+    }
+
+    private static boolean validLocation(int x, int y, int z) {
+       return (x + y + z == 0);
+    }
+
 
     private static boolean isUnableToBuild(String[] inputTokens)
     {
