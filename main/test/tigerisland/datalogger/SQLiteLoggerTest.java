@@ -32,12 +32,14 @@ public class SQLiteLoggerTest {
 
         logger.clearError();
         logger.nextTurn();
+        LoggerFactory.clearTables();
         assertFalse(logger.hasErrored());
     }
 
     @After
     public void teardown() {
         assertFalse(logger.hasErrored());
+        LoggerFactory.clearTables();
         logger.nextTurn();
     }
 
@@ -102,21 +104,14 @@ public class SQLiteLoggerTest {
 
         @Override
         public void run() {
-            for (int i = 0; i != 10; ++i) {
-                try {
-                    Thread.sleep(100);
-                } catch (Exception e) {
-                    System.out.println(e);
-                }
-                logger.writeRawRequest(i, "aldskfj;lsadkjf");
-            }
+                logger.writeRawRequest(this.i, "aldskfj;lsadkjf");
         }
     };
 
     @Test
     public void runWritesInParallel() throws Exception {
 
-        for (int i = 0; i != 40; ++i ) {
+        for (int i = 0; i != 100; ++i ) {
             new Thread(new ConcurrentWriteTester(i)).start();
         }
     }
