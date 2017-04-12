@@ -50,6 +50,9 @@ public class LoggerFactory {
                 "CREATE TABLE IF NOT EXISTS invalid_moves (challenge_id integer not null, game_id char not null, match_id integer not null, turn_number integer not null, p_id string not null, message string not null, primary key(challenge_id, game_id, match_id, turn_number) );",
                 "create table IF NOT EXISTS raw_requests ( time_stamp integer primary key, request text not null);",
                 "create table if not exists overall_score (challenge_id integer, player_id string not null, score integer not null)",
+
+                "create table if not exists tournament_score (player_id string not null, score integer not null)",
+                "create table if not exists game_turn_score (challenge_id integer, player_id string not null, game_id char not null, move_id int not null, score integer not null)",
         };
 
         try {
@@ -75,6 +78,8 @@ public class LoggerFactory {
                 "DELETE FROM invalid_moves;",
                 "DELETE FROM raw_requests;",
                 "DELETE FROM overall_score;",
+                "DELETE FROM tournament_score;",
+                "DELETE FROM game_turn_score;",
         };
 
         try {

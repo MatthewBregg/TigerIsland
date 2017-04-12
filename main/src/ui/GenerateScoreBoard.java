@@ -16,15 +16,24 @@ public class GenerateScoreBoard {
         this.dataReader = dataReader;
     }
 
+
     public String getScoreBoard() {
         StringBuilder builder = new StringBuilder();
         builder.append(this.getHTMLHeader());
-        builder.append(getRoundNumberSection());
         //builder.append(getScoreTable());
-        builder.append(getMatchTable());
+        builder.append(getIDBoxContainerStart());
+        builder.append(getChallengeIDBox());
+        builder.append(getMatchIDBox());
+        builder.append(getTurnIDBox());
+        builder.append(getIDBoxContainerEnd());
+        builder.append(getDivider());
+        //builder.append(getMatchTable());
+        builder.append(getTournamentScoreTableHeader());
+        builder.append(getTournamentScoreTableFooter());
         builder.append(getHTMLFooter());
         return builder.toString();
     }
+
 
     public String getMatchTable() {
         StringBuilder builder = new StringBuilder();
@@ -109,7 +118,103 @@ public class GenerateScoreBoard {
         return "<td>" + val + "</td>";
     }
 
+    private String getMatchTableEntry(char val) {
+        return "<td>" + val + "</td>";
+    }
+
     private String getMatchTableEntry(String val) {
         return "<td>" + val + "</td>";
     }
+
+    private String getTurnIDBox(){
+        return
+                "<div class = 'col-md-3 col-md-offset-1 panel' style = 'background-color: #f7931e; padding-bottom: 10px; padding-top: 10px' height = '30px'>" + lineSeparator +
+                        "<div class = 'panel-font row' >" + lineSeparator +
+                            "<center>" +
+                                "TURN " +
+                            "</center>" + lineSeparator +
+                        "</div>" + lineSeparator +
+                        "<div class = 'panel-font row' >" + lineSeparator +
+                            "<div class = 'col-lg-4'>" +
+                                "TURN " +
+                            "</div>" + lineSeparator +
+                        "</div>" + lineSeparator +
+                    "</div>" + lineSeparator;
+    }
+
+    private String getChallengeIDBox(){
+        return
+                "<div class = 'col-md-3 col-md-offset-1 panel' style = 'background-color: #f7931e; padding-bottom: 10px; padding-top: 10px' height = '30px'>" + lineSeparator +
+                        "<div class = 'panel-font row' >" + lineSeparator +
+                            "<center>" +
+                                    "CHALLENGE " +
+                            "</center>" + lineSeparator +
+                        "</div>" + lineSeparator +
+                        "<div class = 'panel-font row' >" + lineSeparator +
+                            "<div class = 'col-lg-4'>" +
+                                "CHALLENGE " +
+                            "</div>" + lineSeparator +
+                        "</div>" + lineSeparator +
+                "</div>" + lineSeparator;
+    }
+
+    private String getMatchIDBox(){
+        return
+                "<div class = 'col-md-3 panel col-md-offset-1' style = 'background-color: #f7931e; padding-bottom: 10px; padding-top: 10px' height = '30px'>" + lineSeparator +
+                        "<div class = 'panel-font row' >" + lineSeparator +
+                            "<center>" +
+                                "MATCH " +
+                            "</center>" + lineSeparator +
+                        "</div>" + lineSeparator +
+                        "<div class = 'panel-font row' >" + lineSeparator +
+                            "<div class = 'col-lg-4'>" +
+                                "CHALLENGE " +
+                            "</div>" + lineSeparator +
+                        "</div>" + lineSeparator +
+                    "</div>" + lineSeparator;
+    }
+
+    private String getIDBoxContainerStart(){
+        return
+                "<div class = 'container'>" + lineSeparator;
+    }
+
+    private String getIDBoxContainerEnd(){
+        return
+                "</div>" +lineSeparator;
+    }
+
+    private String getDivider(){
+        return "<hr>" + lineSeparator;
+    }
+
+    private String getTournamentScoreTableFooter() {
+        return "</table>" + lineSeparator + "</div>" + lineSeparator;
+    }
+
+    private String getTournamentScoreTableHeader() {
+        return   "<div class = 'container'>" + lineSeparator +
+                "<table border = '1'>" + lineSeparator +
+                "<tr>" + lineSeparator +
+                    "<th></th>" + lineSeparator +
+                    "<th colspan='2'><center>Tournament Points </center></th>" + lineSeparator +
+                    "<th colspan='3'> <center>Current Match</center> </th>" + lineSeparator +
+                "</tr>" + lineSeparator +
+                "<tr>" + lineSeparator +
+                    "<th></th>" + lineSeparator +
+                    "<th><center>Overall In</center></th>" + lineSeparator +
+                    "<th><center>In Current</center></th>" + lineSeparator +
+                    "<th colspan='3'> <center>For This Turn</center></th>" + lineSeparator +
+                "</tr>" + lineSeparator +
+                "<tr>" + lineSeparator +
+                    "<th><center>Team Name</center></th>" + lineSeparator +
+                    "<th><center>Tourney</center></th>" + lineSeparator +
+                    "<th><center>Challenge</center></th>" + lineSeparator +
+                    "<th> <center>Opponent</center></th>" + lineSeparator +
+                    "<th> <center>Game A</center></th>" + lineSeparator +
+                    "<th> <center>Game B</center></th>" + lineSeparator +
+                "</tr>" + lineSeparator;
+
+    }
+
 }

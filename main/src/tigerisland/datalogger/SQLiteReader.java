@@ -1,5 +1,7 @@
 package tigerisland.datalogger;
 
+import tigerisland.player.PlayerID;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,8 +15,9 @@ public class SQLiteReader implements DataReader{
 
     private Connection connection;
 
+    private final  String getTournamentScoresQuery = "SELECT * FROM TOURNAMENT_SCORE";
+    private final  String getTournamentPlayersQuery = "SELECT player_id FROM TOURNAMENT_SCORE ";
     private final String queryMatchString = "SELECT * FROM MATCHES";
-
     private final String overallScoreQuery = "SELECT * FROM OVERALL_SCORE";
 
     public SQLiteReader(Connection dbConnection) {
@@ -45,6 +48,74 @@ public class SQLiteReader implements DataReader{
             System.out.println(sqlException);
         }
         return scores;
+    }
+
+    @Override
+    public Map<String, Integer> getTournamentScores() {
+        Map<String, Integer> scores = new HashMap<>();
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(getTournamentScoresQuery);
+            scores = getTournamentScores(rs);
+        } catch(SQLException sqlException) {
+            System.out.println(sqlException);
+        }
+        return scores;
+    }
+
+    private Map<String,Integer> getTournamentScores(ResultSet rs) throws SQLException {
+        Map<String, Integer> scores = new HashMap<>();
+        while(rs.next()) {
+           String playerUserName = rs.getString("player_id");
+           int score = rs.getInt("score");
+           scores.put(playerUserName, score);
+       }
+       return scores;
+    }
+
+    @Override
+    public List<String> getTeamNames() {
+        List<String> userNames = new ArrayList<>();
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(getTournamentPlayersQuery);
+            userNames = getTournamentPlayers(rs);
+        } catch(SQLException sqlException) {
+            System.out.println(sqlException);
+        }
+        return userNames;
+    }
+
+    private List<String> getTournamentPlayers(ResultSet rs) throws SQLException {
+        List<String> userNames = new ArrayList<>();
+        while(rs.next()) {
+           String playerUserName = rs.getString("player_id");
+           userNames.add(playerUserName);
+       }
+       return userNames;
+    }
+
+    @Override
+    public int getScoreForPlayerTurn(PlayerID pid, int turnId) {
+        return 0;
+    }
+
+    @Override
+    public int getTurnNumber() {
+       String query = "SELECT MAX(move_id) FROM GAME_TURN_SCORE";
+        int move_id = -1;
+        try {
+
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            if (rs.next()) {
+                move_id = rs.getInt("move_id");
+            }
+
+        } catch(SQLException sqlException) {
+            System.out.println(sqlException);
+        }
+        return move_id;
     }
 
     private void addResultSetToMatchRows(ResultSet rs, List<MatchRow> matches) throws SQLException {
