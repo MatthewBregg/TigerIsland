@@ -14,6 +14,7 @@ import tigerislandserver.server.TournamentPlayer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class GameThread extends Thread{
 
@@ -31,7 +32,7 @@ public class GameThread extends Thread{
     private boolean gameNotEnded;
     private GameManager gameManager;
     private String endGameMessage;
-    private boolean hasturnWaitingp = false;
+    private AtomicBoolean hasturnWaitingp = new AtomicBoolean(false);
 
     public GameThread(TournamentPlayer player1, TournamentPlayer player2, ArrayList<Tile> tiles, char gameLetter, int cid, TournamentScoreboard scoreboard, long matchID){
         playersInGame = new ArrayList<TournamentPlayer>();
@@ -329,15 +330,15 @@ public class GameThread extends Thread{
 
     public boolean hasTurnWaiting() {
 
-        return hasturnWaitingp;
+        return hasturnWaitingp.get();
     }
 
     public void makeMove() {
-        hasturnWaitingp = false;
+        hasturnWaitingp.set(false);
     }
 
     public void enableTurnWaiting() {
         // This should only be called by requestMove in tourny player, bad bad interface atm!!
-        hasturnWaitingp = true;
+        hasturnWaitingp.set(true);
     }
 }
