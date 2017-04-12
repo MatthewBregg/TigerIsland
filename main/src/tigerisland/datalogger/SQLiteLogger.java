@@ -7,23 +7,14 @@ import tigerisland.tile.Orientation;
 import java.sql.*;
 
 public class SQLiteLogger implements DataLogger {
+
     private int challengeId;
     private char gameId;
     private int turnNumber = 0;
     private int matchId;
-
     private final Connection connection;
-
-
     private boolean hasError = false;
 
-    public boolean hasErrored() {
-        return hasError;
-    }
-
-    public void clearError() {
-        hasError = false;
-    }
 
     public SQLiteLogger(int challengeId, char gameId, int matchId, Connection connection) {
         this.matchId = matchId;
@@ -32,6 +23,13 @@ public class SQLiteLogger implements DataLogger {
         this.connection = connection;
     }
 
+    public boolean hasErrored() {
+        return hasError;
+    }
+
+    public void clearError() {
+        hasError = false;
+    }
 
     private void writeToBuildActions(PlayerID pid, Location loc, String move_description) {
         String query = "INSERT INTO build_action(challenge_id,game_id,match_id,turn_number,p_id,loc_x,loc_y,loc_z,move_description) VALUES(?,?,?,?,?,?,?,?,?)";
@@ -133,9 +131,6 @@ public class SQLiteLogger implements DataLogger {
         }
     }
 
-
-
-
     @Override
     public void writeRawRequest(long timeStamp, String message) {
         writeToRawRequest(timeStamp, message);
@@ -194,7 +189,6 @@ public class SQLiteLogger implements DataLogger {
             hasError = true;
         }
     }
-
 
     @Override
     public void writeGameEnded(PlayerID winner, PlayerID loser, String matchEndCondition) {

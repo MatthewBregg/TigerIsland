@@ -7,6 +7,6 @@ public interface DataReader {
 
     List<MatchRow> getAllMatches();
 
-    public Map<Integer, Map<Integer,Integer>> getPlayersScorePerChallenges();
+    public Map<Integer, Map<Integer,Integer>> getPlayersScoresPerChallenge();
 
 }

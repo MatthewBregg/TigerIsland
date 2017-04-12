@@ -35,7 +35,7 @@ public class SQLiteReader implements DataReader{
     }
 
     @Override
-    public Map<Integer, Map<Integer, Integer>> getPlayersScorePerChallenges() {
+    public Map<Integer, Map<Integer, Integer>> getPlayersScoresPerChallenge() {
         Map<Integer, Map<Integer,Integer>> scores = new HashMap<>();
         try {
             Statement stmt = connection.createStatement();

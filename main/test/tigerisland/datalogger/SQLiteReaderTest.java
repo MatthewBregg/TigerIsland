@@ -5,6 +5,7 @@ import tigerisland.player.Player;
 import tigerisland.player.PlayerID;
 
 import java.sql.Connection;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -51,7 +52,7 @@ public class SQLiteReaderTest {
     }
 
     @Test
-    public void test_ShouldRetrievePlayersChallengesScores() throws Exception {
+    public void test_ShouldRetrievePlayersChallengesScoresFromDB() throws Exception {
 
        // Arrange
         int challengeId = 1;
@@ -64,11 +65,29 @@ public class SQLiteReaderTest {
         logger.setPlayerScore(challengeId, player2.getId(), player2Score);
 
        // Act
-        Map<Integer, Map<Integer, Integer>> scores = reader.getPlayersScorePerChallenges();
+        Map<Integer, Map<Integer, Integer>> scores = reader.getPlayersScoresPerChallenge();
 
        // Assert
        assertEquals(1, scores.size());
        assertEquals(2, scores.get(challengeId).size());
     }
 
+    @Test
+    public void test_ShouldRetrieveAllMatchesFromDB() {
+
+        // Arrange
+        Player player1 = new Player( new PlayerID());
+        Player player2 = new Player( new PlayerID());
+        logger.writeGameEnded(player1.getId(), player2.getId(), "");
+
+        // Act
+        List<MatchRow> matches =  reader.getAllMatches();
+
+        // Assert
+        Assert.assertEquals(1, matches.size());
+
+        MatchRow matchRow = matches.get(0);
+        Assert.assertEquals(player1.getId().getId(), matchRow.getP1_id());
+        Assert.assertEquals(player2.getId().getId(), matchRow.getP2_id());
+    }
 }
