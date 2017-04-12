@@ -10,14 +10,9 @@ import tigerisland.hex.Hex;
 import tigerisland.terrains.Grassland;
 import tigerisland.terrains.Rocky;
 import tigerisland.terrains.Volcano;
-import tigerisland.tile.Orientation;
 import tigerisland.tile.Tile;
 import tigerisland.tile.TileUnpacker;
-import tigerisland.tile_placement.exceptions.NukeVolcanoHexRuleException;
 import tigerisland.tile_placement.exceptions.NukeVolcanoOnVolcanoRuleException;
-import tigerisland.tile_placement.rules.NukePlacementRule;
-import tigerisland.tile_placement.rules.NukeVolcanoHexRule;
-import tigerisland.tile_placement.rules.NukeVolcanoOnVolcanoRule;
 
 import java.util.Map;
 

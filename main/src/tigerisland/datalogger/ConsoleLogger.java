@@ -9,11 +9,11 @@ import java.util.Set;
 public class ConsoleLogger implements DataLogger {
 
     private int challengeId;
-    private int gameId;
+    private char gameId;
     private int turnNumber = 0;
     private int matchId = 0;
 
-    public ConsoleLogger(int challengeId, int gameId, int matchId) {
+    public ConsoleLogger(int challengeId, char gameId, int matchId) {
         this.challengeId = challengeId;
         this.matchId = matchId;
         this.gameId = gameId;
@@ -87,7 +87,7 @@ public class ConsoleLogger implements DataLogger {
         turnNumber++;
     }
 
-    synchronized public void newGame(int gameId, int challengeID) {
+    synchronized public void newGame(char gameId, int challengeID) {
         System.out.println("Starting a new game!");
         this.gameId = gameId;
         this.challengeId = challengeID;

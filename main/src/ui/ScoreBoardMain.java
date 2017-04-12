@@ -1,6 +1,8 @@
-package tigerislandserver.scoreboard;
+package ui;
 
 import tigerisland.datalogger.LoggerFactory;
+import ui.GenerateOverallScoreboard;
+import ui.GenerateScoreBoard;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
