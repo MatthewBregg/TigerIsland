@@ -89,7 +89,7 @@ public class SQLiteReaderTest {
         Assert.assertEquals(1, matches.size());
 
         MatchRow matchRow = matches.get(0);
-        Assert.assertEquals(player1.getId().getId(), matchRow.getP1_id());
-        Assert.assertEquals(player2.getId().getId(), matchRow.getP2_id());
+        Assert.assertEquals( String.valueOf(player1.getId().getId()), matchRow.getP1_id());
+        Assert.assertEquals( String.valueOf(player2.getId().getId()), matchRow.getP2_id());
     }
 }

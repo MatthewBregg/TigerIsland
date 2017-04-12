@@ -200,8 +200,8 @@ public class GenerateOverallScoreboard {
 
     private void putResultSetToMatchRows(ResultSet rs, List<MatchRow> matches) throws SQLException {
         while(rs.next()) {
-            int p1_id = rs.getInt("p1_id");
-            int p2_id = rs.getInt("p2_id");
+            String p1_id = rs.getString("p1_id");
+            String p2_id = rs.getString("p2_id");
             int game_id = rs.getInt("game_id");
             int challenge_id = rs.getInt("challenge_id");
             int match_id = rs.getInt("match_id");

@@ -49,8 +49,8 @@ public class SQLiteReader implements DataReader{
 
     private void addResultSetToMatchRows(ResultSet rs, List<MatchRow> matches) throws SQLException {
        while(rs.next()) {
-           int p1_id = rs.getInt("p1_id");
-           int p2_id = rs.getInt("p2_id");
+           String p1_id = rs.getString("p1_id");
+           String p2_id = rs.getString("p2_id");
            char game_id = rs.getString("game_id").charAt(0);
            int challenge_id = rs.getInt("challenge_id");
            int match_id = rs.getInt("match_id");
