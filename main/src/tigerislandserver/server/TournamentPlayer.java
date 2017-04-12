@@ -172,7 +172,7 @@ public class TournamentPlayer implements Runnable
         OutputAdapter.sendMoveRequestMessage(this, gid, moveNumber, tile);
 
         long sleepDuration = 100;
-        long timeoutInMs = 1500;
+        long timeoutInMs = 1501;
         // Max timeout = sleepDuration * timeoutMaxIncrements in ms.
         // If we want to be super strict on timeout, then set a bool timeout reached here, but I don't think we should.
         long startedWaiting = System.currentTimeMillis();
