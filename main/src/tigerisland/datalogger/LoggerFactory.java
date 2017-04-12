@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Map;
 
 public class LoggerFactory {
 
@@ -12,18 +13,21 @@ public class LoggerFactory {
 
     private static Connection connection = null;
 
-    synchronized public static DataLogger getLogger(char gameid, int challengeid, int matchid) {
-            DataLogger consoleLogger = new ConsoleLogger(challengeid,gameid,matchid);
-            SQLiteLogger sqlLogger = LoggerFactory.getSQLLogger(gameid,challengeid,matchid);
+    synchronized public static DataLogger getLogger(char gameid, int challengeid,
+                                                    int matchid, Map<Integer, String> playersIdToUserName) {
+
+            DataLogger consoleLogger = new ConsoleLogger(challengeid,gameid,matchid, playersIdToUserName);
+            SQLiteLogger sqlLogger = LoggerFactory.getSQLLogger(gameid, challengeid, matchid, playersIdToUserName);
             return new CompositeLogger(sqlLogger,consoleLogger);
     }
 
-    synchronized public static SQLiteLogger getSQLLogger(char gameid, int challengeid, int matchid) {
+    synchronized public static SQLiteLogger getSQLLogger(char gameid, int challengeid,
+                                                         int matchid, Map<Integer, String> playersIdToUserName) {
         if ( connection == null ) {
             openDatabaseConnection();
             createTables();
         }
-        SQLiteLogger sqlLogger = new SQLiteLogger(challengeid,gameid,matchid, connection);
+        SQLiteLogger sqlLogger = new SQLiteLogger(challengeid,gameid,matchid, playersIdToUserName, connection);
         return sqlLogger;
     }
 

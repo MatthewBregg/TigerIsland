@@ -12,6 +12,8 @@ import tigerislandserver.adapter.OutputAdapter;
 import tigerislandserver.server.TournamentPlayer;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class GameThread extends Thread{
     private int cid;
@@ -47,7 +49,12 @@ public class GameThread extends Thread{
             gamePlayers.add(new Player(tp.getID()));
         }
         int matchId = (int)matchID;
-        logger = LoggerFactory.getLogger(gameLetter, cid, matchId);
+
+        Map<Integer, String> playerIdToUserName = new HashMap<>();
+        playerIdToUserName.put(player1.getID().getId(), player1.getUsername());
+        playerIdToUserName.put(player2.getID().getId(), player2.getUsername());
+        logger = LoggerFactory.getLogger(gameLetter, cid, matchId, playerIdToUserName);
+
         gameManager = new GameManager(gamePlayers, logger );
     }
 
