@@ -42,8 +42,6 @@ public class TilePlacementController {
                 new NukeHexesOfDifferentTilesRule(gameBoard),
                 new NukeNonNukeablePieceRule(pieces),
                 new NukeSettlementEradicationRule(settlements),
-                new NukeVolcanoHexRule(gameBoard),
-                new NukeVolcanoHexRule(gameBoard),
                 new NukeVolcanoOnVolcanoRule(gameBoard));
         return nukePlacer;
     }
