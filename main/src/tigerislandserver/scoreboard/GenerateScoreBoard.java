@@ -6,11 +6,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
+//cid <pid, score>
+
 public class GenerateScoreBoard {
     private final String url;
     private final String queryMatchString = "SELECT * FROM MATCHES";
     private Connection connection;
     private final String queryScoreString = "SELECT * FROM OVERALL_SCORE";
+    private final String hi = "";
+    private final String queryHighestChallenge = "SELECT MAX(challenge_id) FROM OVERALL_SCORE";
 
     public GenerateScoreBoard(String url) {
         this.url = url;
@@ -27,6 +32,8 @@ public class GenerateScoreBoard {
         builder.append(getIDBoxContainerEnd());
         builder.append(getDivider());
         builder.append(getMatchTable());
+        builder.append(getTournamentScoreTableHeader());
+        builder.append(getTournamentScoreTableFooter());
         builder.append(getHTMLFooter());
         return builder.toString();
     }
@@ -59,6 +66,23 @@ public class GenerateScoreBoard {
 
 
     private Map<Integer, Map<Integer,Integer>> getScore() {
+        Map<Integer, Map<Integer,Integer>> scores = new HashMap<>();
+        try {
+            connection = DriverManager.getConnection(url);
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(queryScoreString);
+            putResultSetToScoreRows(rs,scores);
+        } catch(SQLException sqlException) {
+            System.out.println(sqlException);
+        }
+        return scores;
+    }
+
+    private Map<Integer, Map<Integer,Integer>> getChallengeID() {
         Map<Integer, Map<Integer,Integer>> scores = new HashMap<>();
         try {
             connection = DriverManager.getConnection(url);
@@ -255,6 +279,35 @@ public class GenerateScoreBoard {
     private String getIDBoxContainerEnd(){
         return
                 "</div>" +lineSeparator;
+    }
+
+    private String getTournamentScoreTableFooter() {
+        return "</table>" + lineSeparator + "</div>" + lineSeparator;
+    }
+
+    private String getTournamentScoreTableHeader() {
+        return   "<div class = 'container'>" + lineSeparator +
+                "<table border = '1'>" + lineSeparator +
+                "<tr>" + lineSeparator +
+                    "<th></th>" + lineSeparator +
+                    "<th colspan='2'><center>Tournament Points </center></th>" + lineSeparator +
+                    "<th colspan='3'> <center>Current Match</center> </th>" + lineSeparator +
+                "</tr>" + lineSeparator +
+                "<tr>" + lineSeparator +
+                    "<th></th>" + lineSeparator +
+                    "<th><center>Overall In</center></th>" + lineSeparator +
+                    "<th><center>In Current</center></th>" + lineSeparator +
+                    "<th colspan='3'> <center>For This Turn</center></th>" + lineSeparator +
+                "</tr>" + lineSeparator +
+                "<tr>" + lineSeparator +
+                    "<th><center>Team Name</center></th>" + lineSeparator +
+                    "<th><center>Tourney</center></th>" + lineSeparator +
+                    "<th><center>Challenge</center></th>" + lineSeparator +
+                    "<th> <center>Opponent</center></th>" + lineSeparator +
+                    "<th> <center>Game A</center></th>" + lineSeparator +
+                    "<th> <center>Game B</center></th>" + lineSeparator +
+                "</tr>" + lineSeparator;
+
     }
 
     private String getRoundNumberSection(){

@@ -79,6 +79,7 @@ public class SQLiteLogger implements DataLogger {
         }
     }
 
+    // OVERALL SCORE IS ACTUALLY JUST THE CHALLENGE SCORE
     private void writeToOverallScore(int cid, int p_id, int score) {
         String query = "INSERT OR REPLACE INTO overall_score(challenge_id,player_id,score) VALUES(?,?,?)";
         try {
@@ -90,6 +91,19 @@ public class SQLiteLogger implements DataLogger {
                 prstmnt.executeUpdate();
             }
         } catch (SQLException sqlException) {
+            System.err.println(sqlException);
+            hasError = true;
+        }
+    }
+
+    private void writeToChallengeScore(int cid, int pid, int score){
+        String query = "INSERT OR REPLACE INTO challenge_score(challenge_id, player_id, score) VALUES(?,?,?)";
+        try{
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, cid);
+            preparedStatement.setInt(2, pid);
+            preparedStatement.setInt(3, score);
+        }catch(SQLException sqlException){
             System.err.println(sqlException);
             hasError = true;
         }
