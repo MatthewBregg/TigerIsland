@@ -25,6 +25,9 @@ public class TournamentPlayer implements Runnable
     private PlayerID pID;
     private String username;
 
+
+    public TournamentPlayer(){};
+
     public TournamentPlayer(Socket newClientSocket)
     {
         clientSocket = newClientSocket;

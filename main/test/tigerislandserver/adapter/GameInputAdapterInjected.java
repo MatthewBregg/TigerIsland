@@ -103,7 +103,7 @@ public class GameInputAdapterInjected extends GameInputAdapter{
         rotateTile(tile, inputTokens[10]);
 
         boolean place =gm.placeTile(tile, loc);
-        debug.setGm(gm);
+        debug.setInitialGM(gm);
         return place;
     }
 
@@ -122,6 +122,7 @@ public class GameInputAdapterInjected extends GameInputAdapter{
 
     private static void foundSettlement(GameThread game, TournamentPlayer tournamentPlayer, String[] inputTokens, InputAdapterDebugObject debug)
     {
+
         Location loc = parseBuildSettlementLocationFromInputTokens(inputTokens);
         if ( loc == null ) {
             game.invalidBuild(tournamentPlayer);
@@ -134,7 +135,7 @@ public class GameInputAdapterInjected extends GameInputAdapter{
         if(gm.foundSettlement(loc, p))
         {
             OutputAdapter.sendFoundedSettlementMessage(game.getPlayersInGame(), tournamentPlayer, inputTokens);
-            debug.setGm(gm);
+            debug.setInitialGM(gm);
         }
         else
         {
@@ -234,7 +235,7 @@ public class GameInputAdapterInjected extends GameInputAdapter{
         if(gm.buildTiger(loc, p))
         {
             OutputAdapter.sendBuiltTigerMessage(game.getPlayersInGame(), tournamentPlayer, inputTokens);
-            debug.setGm(gm);
+            debug.setInitialGM(gm);
         }
         else
         {

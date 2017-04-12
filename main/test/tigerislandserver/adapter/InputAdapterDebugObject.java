@@ -5,24 +5,32 @@ import tigerisland.game.GameManager;
 public class InputAdapterDebugObject {
 
 
-    private GameManager gm;
+    private GameManager initialGM;
+
+    private GameManager currentGM;
 
     public void setTest(String test) {
-        this.test = test;
+        this.move = test;
     }
 
     public String getTest() {
-        return test;
+        return move;
     }
 
-    private String test;
+    private String move;
 
 
-    public GameManager getGm() {
-        return gm;
+    public void setInitialGM(GameManager initialGM) {
+        this.initialGM = initialGM;
     }
-    public void setGm(GameManager gm) {
-        this.gm = gm;
+    public void setCurrentGM(GameManager currentGM) {
+        this.currentGM = currentGM;    }
+
+    public GameManager getCurrentGM() {
+        return currentGM;
+    }
+    public GameManager getInitialGM() {
+        return initialGM;
     }
 
 

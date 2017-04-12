@@ -3,6 +3,9 @@ package tigerislandserver.adapter;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import tigerisland.game.GameManager;
+import tigerisland.terrains.Lake;
+import tigerisland.terrains.Rocky;
 import tigerisland.tile.Tile;
 import tigerisland.tile.TileDeck;
 import tigerislandserver.gameplay.GameThread;
@@ -27,7 +30,7 @@ public class GameInputAdapterTest {
 
         InputAdapterDebugObject debug = new InputAdapterDebugObject();
 
-        String clientMove = "GAME A MOVE 0 PLACE LAKE+ROCK AT 0 -2 2 4 FOUND SETTLEMENT AT -1 -2 3";
+        String clientMove = "GAME A MOVE 0 PLACE ROCK+LAKE AT 0 -2 2 4 FOUND SETTLEMENT AT -1 -2 3";
 
 
         Socket socket1 = mock(Socket.class);
@@ -42,11 +45,14 @@ public class GameInputAdapterTest {
 
         GameThread thread = new GameThread(playerOne, playerTwo, tiles, 'A', 0 ,scoreBoard, 0);
 
-        Tile tile = new Tile();
+        Tile tile = new Tile(4, Lake.getInstance(),Rocky.getInstance());
 
-        GameInputAdapter.makeMove(thread, playerOne, clientMove, 'A', 0, tile);
+        GameInputAdapterInjected.makeMove(thread, playerOne, clientMove, 'A', 0, tile, debug);
 
-//        Assert.assert(debug.getInfo()...)
+        GameManager manager = debug.getInitialGM();
+
+//        Assert.assert(manager.)
+
 
     }
 
