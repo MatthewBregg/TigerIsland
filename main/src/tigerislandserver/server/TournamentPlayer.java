@@ -65,7 +65,7 @@ public class TournamentPlayer implements Runnable
 
         if (tokens[1].contentEquals("A")) {
             gameA.add(input);
-        } else if (tokens[1].contentEquals("A")) {
+        } else if (tokens[1].contentEquals("B")) {
             gameB.add(input);
         } else {
             System.err.println("Invalid GAME ID from this.readline()");
@@ -75,6 +75,8 @@ public class TournamentPlayer implements Runnable
 
     public TournamentPlayer(Socket newClientSocket)
     {
+        gameA = new ConcurrentLinkedQueue<>();
+        gameB = new ConcurrentLinkedQueue<>();
         clientSocket = newClientSocket;
         authenticated = false;
         pID = new PlayerID();
