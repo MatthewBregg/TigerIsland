@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 public class GenerateScoreBoard {
+
     private final String url;
     private final String queryMatchString = "SELECT * FROM MATCHES";
     private Connection connection;
@@ -56,7 +57,6 @@ public class GenerateScoreBoard {
     private String getScoreTableFooter() {
         return "</table>" + lineSeparator;
     }
-
 
     private Map<Integer, Map<Integer,Integer>> getScore() {
         Map<Integer, Map<Integer,Integer>> scores = new HashMap<>();
@@ -175,8 +175,6 @@ public class GenerateScoreBoard {
                          "</tr>" + lineSeparator;
 
     }
-
-
 
     private String getHTMLHeader() {
         return

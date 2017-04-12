@@ -53,8 +53,11 @@ public class Challenge {
 
         OutputAdapter.sendStartRoundMessage(playerList, roundNumber, getTotalChallengeRounds());
 
-        for(Match m : currentRoundMatches)
+        TurnSynchronizer synchronizer = new TurnSynchronizer();
+        for(Match m : currentRoundMatches) {
+            m.addSynchronizer(synchronizer);
             m.start();
+        }
     }
 
     private boolean isRoundOver()

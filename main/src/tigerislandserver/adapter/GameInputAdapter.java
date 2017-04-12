@@ -76,19 +76,18 @@ public class GameInputAdapter
         return inputTokens[4].equals("PLACE")
                 && isValidTile(inputTokens[5])
                 && inputTokens[6].equals("AT")
-                && isValidNumber(inputTokens[7])
-                && isValidNumber(inputTokens[8])
-                && isValidNumber(inputTokens[9])
+                && containsNumbersForTilePlacementLocation(inputTokens)
                 && isValidOrientation(inputTokens[10]);
+    }
+
+    private static boolean containsNumbersForTilePlacementLocation(String[] inputTokens) {
+            return checkInputTokensForValidNumberAtIndexes(inputTokens,7,8,9);
     }
 
     private static boolean placeTile(GameThread game, TournamentPlayer tournamentPlayer, String[] inputTokens)
     {
-        int x = Integer.parseInt(inputTokens[7]);
-        int y = Integer.parseInt(inputTokens[8]);
-        int z = Integer.parseInt(inputTokens[9]);
-
-        if(x+y+z != 0)
+        Location loc = parseTileLocationFromInputToken(inputTokens);
+        if(loc == null)
         {
             return false;
         }
@@ -97,8 +96,6 @@ public class GameInputAdapter
 
         Terrain bottomRight = getTerrain(terrains[0]);
         Terrain bottomLeft = getTerrain(terrains[1]);
-
-        Location loc=new Location(x, y, z);
 
         GameManager gm = game.getGameManager();
 
@@ -109,28 +106,26 @@ public class GameInputAdapter
         return gm.placeTile(tile, loc);
     }
 
+
     private static boolean isFoundSettlementCommand(String[] inputTokens)
     {
         return inputTokens[11].equals("FOUND")
                 && inputTokens[12].equals("SETTLEMENT")
                 && inputTokens[13].equals("AT")
-                && isValidNumber(inputTokens[14])
-                && isValidNumber(inputTokens[15])
-                && isValidNumber(inputTokens[16]);
+                && containsNumbersForBuildActionLocation(inputTokens);
+    }
+
+    private static boolean containsNumbersForBuildActionLocation(String[] inputTokens) {
+        return checkInputTokensForValidNumberAtIndexes(inputTokens,14,15,16);
     }
 
     private static void foundSettlement(GameThread game, TournamentPlayer tournamentPlayer, String[] inputTokens)
     {
-        int x = Integer.parseInt(inputTokens[14]);
-        int y = Integer.parseInt(inputTokens[15]);
-        int z = Integer.parseInt(inputTokens[16]);
-
-        if(x+y+z != 0)
-        {
+        Location loc = parseBuildSettlementLocationFromInputTokens(inputTokens);
+        if ( loc == null ) {
             game.invalidBuild(tournamentPlayer);
+            return;
         }
-
-        Location loc=new Location(x, y, z);
 
         GameManager gm = game.getGameManager();
         Player p = gm.getPlayer(tournamentPlayer.getID());
@@ -151,24 +146,19 @@ public class GameInputAdapter
         return inputTokens[11].equals("EXPAND")
                 && inputTokens[12].equals("SETTLEMENT")
                 && inputTokens[13].equals("AT")
-                && isValidNumber(inputTokens[14])
-                && isValidNumber(inputTokens[15])
-                && isValidNumber(inputTokens[16])
+                && containsNumbersForBuildActionLocation(inputTokens)
                 && isValidTerrain(inputTokens[17]);
     }
 
     private static void expandSettlement(GameThread game, TournamentPlayer tournamentPlayer, String[] inputTokens)
     {
-        int x = Integer.parseInt(inputTokens[14]);
-        int y = Integer.parseInt(inputTokens[15]);
-        int z = Integer.parseInt(inputTokens[16]);
-
-        if(x+y+z != 0)
+        Location loc = parseBuildSettlementLocationFromInputTokens(inputTokens);
+        if(loc == null)
         {
             game.invalidBuild(tournamentPlayer);
+            return;
         }
 
-        Location loc=new Location(x, y, z);
         Terrain t=getTerrain(inputTokens[17]);
 
         GameManager gm = game.getGameManager();
@@ -190,23 +180,17 @@ public class GameInputAdapter
                 && inputTokens[12].equals("TOTORO")
                 && inputTokens[13].equals("SANCTUARY")
                 && inputTokens[14].equals("AT")
-                && isValidNumber(inputTokens[15])
-                && isValidNumber(inputTokens[16])
-                && isValidNumber(inputTokens[17]);
+                && containsNumbersForBigPieceLocation(inputTokens);
     }
 
     private static void buildTotoro(GameThread game, TournamentPlayer tournamentPlayer, String[] inputTokens)
     {
-        int x = Integer.parseInt(inputTokens[15]);
-        int y = Integer.parseInt(inputTokens[16]);
-        int z = Integer.parseInt(inputTokens[17]);
+        Location loc = parseBuildBigCatLocationFromInputTokens(inputTokens);
 
-        if(x+y+z != 0)
-        {
+        if(loc == null)  {
             game.invalidBuild(tournamentPlayer);
+            return;
         }
-
-        Location loc=new Location(x, y, z);
 
         GameManager gm = game.getGameManager();
         Player p = gm.getPlayer(tournamentPlayer.getID());
@@ -227,23 +211,21 @@ public class GameInputAdapter
                 && inputTokens[12].equals("TIGER")
                 && inputTokens[13].equals("PLAYGROUND")
                 && inputTokens[14].equals("AT")
-                && isValidNumber(inputTokens[15])
-                && isValidNumber(inputTokens[16])
-                && isValidNumber(inputTokens[17]);
+                && containsNumbersForBigPieceLocation(inputTokens);
+    }
+
+    private static boolean containsNumbersForBigPieceLocation(String[] inputTokens) {
+                return checkInputTokensForValidNumberAtIndexes(inputTokens,15,16,17);
     }
 
     private static void buildTiger(GameThread game, TournamentPlayer tournamentPlayer, String[] inputTokens)
     {
-        int x = Integer.parseInt(inputTokens[15]);
-        int y = Integer.parseInt(inputTokens[16]);
-        int z = Integer.parseInt(inputTokens[17]);
+        Location loc = parseBuildBigCatLocationFromInputTokens(inputTokens);
 
-        if(x+y+z != 0)
-        {
+        if (loc == null) {
             game.invalidBuild(tournamentPlayer);
+            return;
         }
-
-        Location loc=new Location(x, y, z);
 
         GameManager gm = game.getGameManager();
         Player p = gm.getPlayer(tournamentPlayer.getID());
@@ -257,6 +239,44 @@ public class GameInputAdapter
             game.invalidBuild(tournamentPlayer);
         }
     }
+
+    private static Location parseTileLocationFromInputToken(String[] inputTokens) {
+        final int xIndex = 7;
+        final int yIndex = 8;
+        final int zIndex = 9;
+        return parseLocationFromInputTokenAndIndexes(inputTokens,xIndex,yIndex,zIndex);
+    }
+
+
+    private static Location parseBuildSettlementLocationFromInputTokens(String[] inputTokens) {
+        final int xIndex = 14;
+        final int yIndex = 15;
+        final int zIndex = 16;
+        return parseLocationFromInputTokenAndIndexes(inputTokens,xIndex,yIndex,zIndex);
+    }
+
+    private static Location parseBuildBigCatLocationFromInputTokens(String[] inputTokens) {
+        final int xIndex = 15;
+        final int yIndex = 16;
+        final int zIndex = 17;
+        return parseLocationFromInputTokenAndIndexes(inputTokens,xIndex,yIndex,zIndex);
+    }
+
+    private static Location parseLocationFromInputTokenAndIndexes(String[] inputTokens, int xIndex, int yIndex, int zIndex) {
+        int x = Integer.parseInt(inputTokens[xIndex]);
+        int y = Integer.parseInt(inputTokens[yIndex]);
+        int z = Integer.parseInt(inputTokens[zIndex]);
+        if ( validLocation(x,y,z) ) {
+            return new Location(x,y,z);
+        } else {
+            return null;
+        }
+    }
+
+    private static boolean validLocation(int x, int y, int z) {
+       return (x + y + z == 0);
+    }
+
 
     private static boolean isUnableToBuild(String[] inputTokens)
     {
@@ -343,6 +363,19 @@ public class GameInputAdapter
         return inputToken.matches("^(\\+|-)?\\d+$");
     }
 
+    // True if all indexes contain a number
+    private static boolean checkInputTokensForValidNumberAtIndexes(String[] inputToken, int ... indexes) {
+        for ( int i : indexes ) {
+            if ( checkInputTokensForValidNumberAtIndex(inputToken, i) == false ) {
+                return false;
+            }
+        }
+        return true;
+    }
+    private static boolean checkInputTokensForValidNumberAtIndex(String[] inputToken, int index) {
+        return isValidNumber(inputToken[index]);
+    }
+
     private static boolean isValidGameId(String s)
     {
         return s.equals("A") || s.equals("B");
@@ -355,7 +388,7 @@ public class GameInputAdapter
                 && inputTokens[0].equals("GAME")
                 && isValidGameId(inputTokens[1])
                 && inputTokens[2].equals("MOVE")
-                && isValidNumber(inputTokens[3]);
+                && checkInputTokensForValidNumberAtIndex(inputTokens,3);
     }
 
     private static boolean isCorrectTile(String[] inputTokens, Tile tile)
