@@ -139,6 +139,9 @@ public class GameThread extends Thread{
         return gameID;
     }
 
+
+    // CHRISTINE this is where we log the individual game scores as well, gross but its gonna be here
+    // grab the game scoremanager from the game manager and grab those scores
     public void run(){
         sendStartGameMessage();
 
@@ -168,10 +171,15 @@ public class GameThread extends Thread{
             }
 
             moveNumber++;
+
+            // CHRISTINE this is where we would get the score of the game at the end of the turn
+            // and the move number
+
             logger.nextTurn();
             activePlayerIndex = (activePlayerIndex + 1) % playersInGame.size();
         }
-        
+
+        // if this is triggered its because the game did not end with a valid win
         PlayerID player1ID = playersInGame.get(0).getID();
         PlayerID player2ID = playersInGame.get(1).getID();
         SQLiteLogger sqlLogger = LoggerFactory.getSQLLogger('Z',-1,-1, playersIdToUserName);

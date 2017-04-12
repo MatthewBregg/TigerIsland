@@ -3,10 +3,19 @@ package ui;
 import tigerisland.datalogger.DataReader;
 import tigerisland.datalogger.MatchRow;
 
+import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 
 public class GenerateScoreBoard {
+
+    Connection connection = null;
+    private final String queryMatchString = "SELECT * FROM MATCHES";
+    private final String queryScoreString = "SELECT * FROM OVERALL_SCORE";
+    private final String queryHighestChallenge = "SELECT MAX(challenge_id) FROM OVERALL_SCORE";
 
     private DataReader dataReader;
 
@@ -15,7 +24,6 @@ public class GenerateScoreBoard {
     public GenerateScoreBoard(DataReader dataReader) {
         this.dataReader = dataReader;
     }
-
 
     public String getScoreBoard() {
         StringBuilder builder = new StringBuilder();
@@ -27,13 +35,61 @@ public class GenerateScoreBoard {
         builder.append(getTurnIDBox());
         builder.append(getIDBoxContainerEnd());
         builder.append(getDivider());
-        //builder.append(getMatchTable());
+        //  builder.append(getMatchTable());
         builder.append(getTournamentScoreTableHeader());
         builder.append(getTournamentScoreTableFooter());
         builder.append(getHTMLFooter());
         return builder.toString();
     }
 
+    public String getScoreTable() {
+        StringBuilder builder = new StringBuilder();
+
+        builder.append(getScoreTableHeader());
+
+        for ( Map.Entry<Integer, Map<Integer, Integer>> kv1 : this.getScore().entrySet() )
+        {
+            for (Map.Entry<Integer, Integer> kv : kv1.getValue().entrySet())
+            {
+                builder.append("<tr>" + "<td>" + kv1.getKey() + "</td>" + "<td>" + kv.getKey() + "</td>" + "<td>" + kv.getValue() + "</td>" + "</th>");
+                builder.append(lineSeparator);
+            }
+        }
+        builder.append(getScoreTableFooter());
+
+        return builder.toString();
+    }
+
+    private String getScoreTableHeader() {
+         return lineSeparator + "<table>" + lineSeparator + "<tr> <th> ChallengeID </th> <th> PlayerID </th> <th> Score </th> </tr>" + lineSeparator ;
+    }
+
+    private String getScoreTableFooter() {
+        return "</table>" + lineSeparator;
+    }
+
+    private Map<Integer, Map<Integer,Integer>> getScore() {
+        return  dataReader.getPlayersScoresPerChallenge();
+    }
+
+    private void putResultSetToScoreRows(ResultSet rs, Map<Integer, Map<Integer,Integer>> scores) throws SQLException {
+        while(rs.next()) {
+            int cid = rs.getInt("challenge_id");
+            int p_id = rs.getInt("player_id");
+            int score = rs.getInt("score");
+
+            if(scores.get(cid) == null)
+            {
+                HashMap<Integer,Integer> map=new HashMap<>();
+                map.put(p_id, score);
+                scores.put(cid, map);
+            }
+            else
+            {
+                scores.get(cid).put(p_id, score);
+            }
+        }
+    }
 
     public String getMatchTable() {
         StringBuilder builder = new StringBuilder();
@@ -90,32 +146,12 @@ public class GenerateScoreBoard {
                     "</head>" + lineSeparator;
     }
 
-    private String getRoundNumberSection(){
-        return
-                "<body>" + lineSeparator +
-                "<h3 class= 'header-font'><center> Round 5 out of 20 </center></h3>" + lineSeparator +
-                "<hr>" + lineSeparator;
-    }
-
     private List<String> getMatchTableBody() {
         List<String> table = new ArrayList<>();
         for ( MatchRow row : dataReader.getAllMatches() ) {
             table.add(this.getMatchTableRowFromMatchRow(row));
         }
         return table;
-    }
-
-    private String getMatchTableRowFromMatchRow(MatchRow matchRow) {
-        return "<tr>" +  getMatchTableEntry(matchRow.getChallenge_id())
-                + getMatchTableEntry(matchRow.getGame_id())
-                + getMatchTableEntry(matchRow.getMatch_id())
-                + getMatchTableEntry(matchRow.getP1_id()) + getMatchTableEntry(matchRow.getP2_id())
-                + getMatchTableEntry(matchRow.getStatus())
-        + "</tr>";
-    }
-
-    private String getMatchTableEntry(int val) {
-        return "<td>" + val + "</td>";
     }
 
     private String getMatchTableEntry(char val) {
@@ -184,9 +220,30 @@ public class GenerateScoreBoard {
                 "</div>" +lineSeparator;
     }
 
-    private String getDivider(){
+    private String getDivider() {
         return "<hr>" + lineSeparator;
     }
+
+    private String getRoundNumberSection(){
+        return
+                "<body>" + lineSeparator +
+                "<h3 class= 'header-font'><center> Challenge 5 out of 20 </center></h3>" + lineSeparator +
+                "<hr>" + lineSeparator;
+    }
+
+    private String getMatchTableRowFromMatchRow(MatchRow matchRow) {
+        return "<tr>" +  getMatchTableEntry(matchRow.getChallenge_id())
+                + getMatchTableEntry(matchRow.getGame_id())
+                + getMatchTableEntry(matchRow.getMatch_id())
+                + getMatchTableEntry(matchRow.getP1_id()) + getMatchTableEntry(matchRow.getP2_id())
+                + getMatchTableEntry(matchRow.getStatus())
+        + "</tr>";
+    }
+
+    private String getMatchTableEntry(int val) {
+        return "<td>" + val + "</td>";
+    }
+
 
     private String getTournamentScoreTableFooter() {
         return "</table>" + lineSeparator + "</div>" + lineSeparator;

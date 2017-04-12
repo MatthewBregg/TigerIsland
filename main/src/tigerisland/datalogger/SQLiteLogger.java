@@ -112,6 +112,19 @@ public class SQLiteLogger implements DataLogger {
         }
     }
 
+    private void writeToChallengeScore(int cid, int pid, int score){
+        String query = "INSERT OR REPLACE INTO challenge_score(challenge_id, player_id, score) VALUES(?,?,?)";
+        try{
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, cid);
+            preparedStatement.setInt(2, pid);
+            preparedStatement.setInt(3, score);
+        }catch(SQLException sqlException){
+            System.err.println(sqlException);
+            hasError = true;
+        }
+    }
+
     private void writeToRawRequest(long timestamp, String message) {
         String query = "INSERT INTO raw_requests (time_stamp, request) VALUES(?,?)";
         try {
