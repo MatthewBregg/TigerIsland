@@ -171,17 +171,14 @@ public class TournamentPlayer implements Runnable
     {
         OutputAdapter.sendMoveRequestMessage(this, gid, moveNumber, tile);
 
-        // Replace sleep 1800 with busy loop on turn is ready
-        int timeoutCounter = 0;
-
-        int timeOutMaxIncrements = 16;
         long sleepDuration = 100;
+        long timeoutInMs = 1501;
         // Max timeout = sleepDuration * timeoutMaxIncrements in ms.
         // If we want to be super strict on timeout, then set a bool timeout reached here, but I don't think we should.
-        while(!inputFromClientReady(gid) && timeoutCounter < timeOutMaxIncrements) {
+        long startedWaiting = System.currentTimeMillis();
+        while(!inputFromClientReady(gid) && (System.currentTimeMillis() - startedWaiting) < timeoutInMs) {
             try {
                 game.sleep(sleepDuration);
-                ++timeoutCounter;
                 processInputFromClientIntoGameQueues();
             } catch (InterruptedException e) {
                 e.printStackTrace();

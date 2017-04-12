@@ -4,12 +4,13 @@ import tigerisland.build_moves.NearbySettlementsUtility;
 import tigerisland.build_moves.builds.BuildActionData;
 import tigerisland.build_moves.builds.BuildActionResult;
 import tigerisland.piece.PieceBoard;
+import tigerisland.piece.TotoroCounter;
 import tigerisland.settlement.Settlement;
 import tigerisland.settlement.SettlementBoard;
 
 import java.util.List;
 
-public class TotoroBuildHexAdjacentToSettlementSizeFiveRule implements BuildActionRule{
+public class TotoroBuildHexAdjacentToSettlementSizeFiveRuleAndDoesNotHaveTotoro implements BuildActionRule{
 
 
     private PieceBoard pieceBoard;
@@ -21,7 +22,7 @@ public class TotoroBuildHexAdjacentToSettlementSizeFiveRule implements BuildActi
     private SettlementLocationAdjacentToHexLocationRule adjacent = null;
 
 
-    public TotoroBuildHexAdjacentToSettlementSizeFiveRule(SettlementBoard board){
+    public TotoroBuildHexAdjacentToSettlementSizeFiveRuleAndDoesNotHaveTotoro(SettlementBoard board){
        this.settlementBoard = board;
     }
 
@@ -39,9 +40,14 @@ public class TotoroBuildHexAdjacentToSettlementSizeFiveRule implements BuildActi
             return false;
 
         for (Settlement settlement :adjacentSettlements){
-            if (settlement.settlementSize()<5)
-                return false;
+            if (settlement.settlementSize()>=5 && buildData.getPlayer().getId() == settlement.getPlayerID()) {
+                TotoroCounter tc = new TotoroCounter();
+                settlement.acceptVisitor(tc);
+                if ( tc.getCount() == 0 ) {
+                    return true;
+                }
+            }
         }
-        return true;
+        return false;
     }
 }
