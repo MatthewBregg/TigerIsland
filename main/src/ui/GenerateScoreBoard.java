@@ -52,7 +52,6 @@ public class GenerateScoreBoard {
         return "</table>" + lineSeparator;
     }
 
-
     private Map<Integer, Map<Integer,Integer>> getScore() {
         Map<Integer, Map<Integer,Integer>> scores = new HashMap<>();
         try {

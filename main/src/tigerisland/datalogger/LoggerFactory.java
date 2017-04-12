@@ -90,4 +90,8 @@ public class LoggerFactory {
     }
 
     public static void setDataBaseUrl(String url) { dataBaseUrl = url; }
+
+    public static Connection getDbConnection() {
+        return connection;
+    }
 }
