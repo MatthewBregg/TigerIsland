@@ -1,6 +1,5 @@
 package tigerisland.datalogger;
 
-import tigerisland.player.PlayerID;
 
 import java.util.List;
 import java.util.Map;
@@ -15,7 +14,9 @@ public interface DataReader {
 
     List<String> getTeamNames();
 
-    int getScoreForPlayerTurn(PlayerID pid, int turnId);
+    int getMostRecentChallengeScore(String userName);
+
+    int getScoreForPlayerTurn(String userName, int turnId);
 
     int getCurrentTurnNumber();
 }

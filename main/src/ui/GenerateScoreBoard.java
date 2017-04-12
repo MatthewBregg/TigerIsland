@@ -35,9 +35,9 @@ public class GenerateScoreBoard {
         builder.append(getTurnIDBox());
         builder.append(getIDBoxContainerEnd());
         builder.append(getDivider());
-         builder.append(getMatchTable());
-        //builder.append(getTournamentScoreTableHeader());
-        //builder.append(getTeamNameRows());
+        // builder.append(getMatchTable());
+        builder.append(getTournamentScoreTableHeader());
+        builder.append(getTeamNameRows());
         builder.append(getTournamentScoreTableFooter());
         builder.append(getHTMLFooter());
         return builder.toString();
@@ -253,7 +253,21 @@ public class GenerateScoreBoard {
 
     private String makeDataRow(String name, int tournamentScore, int challengeScore, String opponent, int gameAScore, int gameBScore) {
 
-        return "";
+        String nameRows = "";
+        List<String> names = dataReader.getTeamNames();
+        Map<String, Integer> tournamentScores =  dataReader.getTournamentScores();
+        Map<Integer, Map<Integer, Integer>> playerScoresPerChallenge = dataReader.getPlayersScoresPerChallenge();
+        //  MatchRow match = dataReader.getOpponents(challengeId, gameId, matchId);
+        //  dataReader.getScoreForPlayerTurn()
+
+        for (String currentName: names){
+            Integer playerScore = tournamentScores.get(currentName);
+
+
+            nameRows += "<tr> <td>" + currentName+ " </td>";
+        }
+        nameRows += "</tr>";
+        return nameRows;
     }
 
     private String getMatchTableEntry(int val) {
