@@ -19,8 +19,13 @@ public class GenerateScoreBoard {
     public String getScoreBoard() {
         StringBuilder builder = new StringBuilder();
         builder.append(this.getHTMLHeader());
-        builder.append(getRoundNumberSection());
         //builder.append(getScoreTable());
+        builder.append(getIDBoxContainerStart());
+        builder.append(getChallengeIDBox());
+        builder.append(getMatchIDBox());
+        builder.append(getTurnIDBox());
+        builder.append(getIDBoxContainerEnd());
+        builder.append(getDivider());
         builder.append(getMatchTable());
         builder.append(getHTMLFooter());
         return builder.toString();
@@ -149,6 +154,10 @@ public class GenerateScoreBoard {
         return "</body>" + lineSeparator + "</html>" + lineSeparator;
     }
 
+    private String getDivider(){
+        return "<hr>" + lineSeparator;
+    }
+
     private String getMatchTableFooter() {
         return "</table>" + lineSeparator + "</div>" + lineSeparator;
     }
@@ -166,6 +175,8 @@ public class GenerateScoreBoard {
                          "</tr>" + lineSeparator;
 
     }
+
+
 
     private String getHTMLHeader() {
         return
@@ -188,10 +199,53 @@ public class GenerateScoreBoard {
                     "</head>" + lineSeparator;
     }
 
+    private String getChallengeIDBox(){
+        return
+                "<div class = 'col-lg-4'>" + lineSeparator +
+                        "<div class = 'panel' style = 'background-color: #f7931e; padding-bottom: 15px; padding-top: 15px' height = '50px'>" + lineSeparator +
+                        "<div class = 'header-font'>" +
+                        "CHALLENGE " +
+                        "</div>" + lineSeparator +
+                        "</div>" + lineSeparator +
+                    "</div>" + lineSeparator;
+    }
+
+    private String getMatchIDBox(){
+        return
+                "<div class = 'col-lg-4'>" + lineSeparator +
+                        "<div class = 'panel' style = 'background-color: #f7931e; padding-bottom: 15px; padding-top: 15px' height = '50px'>" + lineSeparator +
+                        "<div class = 'header-font'>" +
+                        "MATCH " +
+                        "</div>" + lineSeparator +
+                        "</div>" + lineSeparator +
+                        "</div>" + lineSeparator;
+    }
+
+    private String getTurnIDBox(){
+        return
+                "<div class = 'col-lg-4'>" + lineSeparator +
+                        "<div class = 'panel' style = 'background-color: #f7931e; padding-bottom: 15px; padding-top: 15px' height = '50px'>" + lineSeparator +
+                        "<div class = 'header-font'>" +
+                        "TURN " +
+                        "</div>" + lineSeparator +
+                        "</div>" + lineSeparator +
+                        "</div>" + lineSeparator;
+    }
+
+    private String getIDBoxContainerStart(){
+        return
+                "<div class = 'container'>" + lineSeparator;
+    }
+
+    private String getIDBoxContainerEnd(){
+        return
+                "</div>" +lineSeparator;
+    }
+
     private String getRoundNumberSection(){
         return
                 "<body>" + lineSeparator +
-                "<h3 class= 'header-font'><center> Round 5 out of 20 </center></h3>" + lineSeparator +
+                "<h3 class= 'header-font'><center> Challenge 5 out of 20 </center></h3>" + lineSeparator +
                 "<hr>" + lineSeparator;
     }
 

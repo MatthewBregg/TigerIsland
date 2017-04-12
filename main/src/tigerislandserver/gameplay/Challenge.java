@@ -40,6 +40,10 @@ public class Challenge {
         schedule.setTournamentType(matchmaker);
     }
 
+    public TournamentScoreboard getScoreboard(){
+        return scoreboard;
+    }
+
     private void playNextRound(){
         if(!(getRoundsRemaining() > 0))
             return;
