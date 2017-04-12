@@ -14,6 +14,7 @@ public class Match extends Thread {
     private GameThread game1, game2;
     private ArrayList<TournamentPlayer> players;
     private long matchID;
+    private TurnSynchronizer synchronizer;
 
     public Match(ArrayList<TournamentPlayer> playerList, ArrayList<Tile> tiles, TournamentScoreboard scoreboard, int cid){
         players = playerList;
@@ -24,6 +25,8 @@ public class Match extends Thread {
     }
 
     public void startGames(){
+        synchronizer.addGame(game1);
+        synchronizer.addGame(game2);
         game1.start();
         game2.start();
 
@@ -43,6 +46,7 @@ public class Match extends Thread {
                     e.printStackTrace();
                 }
             }
+            synchronizer.checkGamesReadyToMove();
         }
 
         game1.sendEndGameMessage();
@@ -56,5 +60,9 @@ public class Match extends Thread {
 
     public long getMatchID(){
         return matchID;
+    }
+
+    public void addSynchronizer(TurnSynchronizer synchronizer) {
+        this.synchronizer = synchronizer;
     }
 }

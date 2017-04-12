@@ -85,15 +85,44 @@ public class TournamentPlayer implements Runnable
         }
     }
 
+    private boolean inputFromClientReady() {
+        try {
+            return inputFromClient.ready();
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     public synchronized void requestMove(GameThread game, char gid, int moveNumber, Tile tile)
     {
         OutputAdapter.sendMoveRequestMessage(this, gid, moveNumber, tile);
 
-        try {
-            Thread.sleep(1800);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        // Replace sleep 1800 with busy loop on turn is ready
+        int timeoutCounter = 0;
+
+        int timeOutMaxIncrements = 16;
+        long sleepDuration = 100;
+        // Max timeout = sleepDuration * timeoutMaxIncrements in ms.
+        // If we want to be super strict on timeout, then set a bool timeout reached here, but I don't think we should.
+        while(!inputFromClientReady() && timeoutCounter < timeOutMaxIncrements) {
+            try {
+                game.sleep(sleepDuration);
+                ++timeoutCounter;
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
+
+        game.enableTurnWaiting();
+        while(game.hasTurnWaiting()) {
+            try {
+                game.sleep(sleepDuration);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
 
         try {
             if (!inputFromClient.ready()) {
@@ -119,6 +148,13 @@ public class TournamentPlayer implements Runnable
         synchronized (lock)
         {
             System.out.println("SENDING MESSAGE TO " + getID().getId() + ": \"" + message + "\"");
+            try {
+                if(inputFromClient.ready()){
+                    inputFromClient.readLine();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             outputToClient.println(message);
         }
     }
