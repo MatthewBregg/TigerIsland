@@ -17,5 +17,5 @@ public interface DataReader {
 
     int getScoreForPlayerTurn(PlayerID pid, int turnId);
 
-    int getTurnNumber();
+    int getCurrentTurnNumber();
 }

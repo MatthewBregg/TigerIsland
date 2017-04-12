@@ -63,16 +63,6 @@ public class SQLiteReader implements DataReader{
         return scores;
     }
 
-    private Map<String,Integer> getTournamentScores(ResultSet rs) throws SQLException {
-        Map<String, Integer> scores = new HashMap<>();
-        while(rs.next()) {
-           String playerUserName = rs.getString("player_id");
-           int score = rs.getInt("score");
-           scores.put(playerUserName, score);
-       }
-       return scores;
-    }
-
     @Override
     public List<String> getTeamNames() {
         List<String> userNames = new ArrayList<>();
@@ -86,22 +76,13 @@ public class SQLiteReader implements DataReader{
         return userNames;
     }
 
-    private List<String> getTournamentPlayers(ResultSet rs) throws SQLException {
-        List<String> userNames = new ArrayList<>();
-        while(rs.next()) {
-           String playerUserName = rs.getString("player_id");
-           userNames.add(playerUserName);
-       }
-       return userNames;
-    }
-
     @Override
     public int getScoreForPlayerTurn(PlayerID pid, int turnId) {
         return 0;
     }
 
     @Override
-    public int getTurnNumber() {
+    public int getCurrentTurnNumber() {
        String query = "SELECT MAX(move_id) FROM GAME_TURN_SCORE";
         int move_id = -1;
         try {
@@ -147,6 +128,25 @@ public class SQLiteReader implements DataReader{
                 scores.get(cid).put(p_id, score);
             }
         }
+    }
+
+    private Map<String,Integer> getTournamentScores(ResultSet rs) throws SQLException {
+        Map<String, Integer> scores = new HashMap<>();
+        while(rs.next()) {
+           String playerUserName = rs.getString("player_id");
+           int score = rs.getInt("score");
+           scores.put(playerUserName, score);
+       }
+       return scores;
+    }
+
+    private List<String> getTournamentPlayers(ResultSet rs) throws SQLException {
+        List<String> userNames = new ArrayList<>();
+        while(rs.next()) {
+           String playerUserName = rs.getString("player_id");
+           userNames.add(playerUserName);
+       }
+       return userNames;
     }
 
 }
