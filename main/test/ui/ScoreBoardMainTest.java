@@ -30,7 +30,8 @@ public class ScoreBoardMainTest {
        url =  "jdbc:sqlite:tigersssss.db";
        LoggerFactory.setDataBaseUrl(url);
 
-       logger = LoggerFactory.getSQLLogger(GameId, ChallengeId, match_id);
+       Map<Integer, String> playersIdToUsername = new HashMap<>();
+       logger = LoggerFactory.getSQLLogger(GameId, ChallengeId, match_id, playersIdToUsername);
        sqliteDataReader = new SQLiteReader(LoggerFactory.getDbConnection());
        scoreBoardGenerator = new GenerateScoreBoard(sqliteDataReader);
 

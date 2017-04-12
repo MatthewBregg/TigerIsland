@@ -5,6 +5,7 @@ import tigerisland.player.Player;
 import tigerisland.player.PlayerID;
 
 import java.sql.Connection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
@@ -27,7 +28,8 @@ public class SQLiteReaderTest {
        url =  "jdbc:sqlite::memory:";
 
         LoggerFactory.setDataBaseUrl(url);
-       logger = LoggerFactory.getSQLLogger(GameId,ChallengeId,match_id);
+        Map<Integer, String>  playersIdToUsername = new HashMap<>();
+       logger = LoggerFactory.getSQLLogger(GameId,ChallengeId,match_id, playersIdToUsername);
        Connection connection = LoggerFactory.getDbConnection();
        reader = new SQLiteReader(connection);
 
