@@ -28,17 +28,17 @@ public class GenerateScoreBoard {
     public String getScoreBoard() {
         StringBuilder builder = new StringBuilder();
         builder.append(this.getHTMLHeader());
-        //builder.append(getScoreTable());
+        builder.append(getScoreTable());
         builder.append(getIDBoxContainerStart());
         builder.append(getChallengeIDBox());
         builder.append(getMatchIDBox());
         builder.append(getTurnIDBox());
         builder.append(getIDBoxContainerEnd());
         builder.append(getDivider());
-        // builder.append(getMatchTable());
-        builder.append(getTournamentScoreTableHeader());
-        builder.append(getTeamNameRows());
-        builder.append(getTournamentScoreTableFooter());
+         builder.append(getMatchTable());
+        //builder.append(getTournamentScoreTableHeader());
+        //builder.append(getTeamNameRows());
+        //builder.append(getTournamentScoreTableFooter());
         builder.append(getHTMLFooter());
         return builder.toString();
     }
