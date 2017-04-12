@@ -28,6 +28,12 @@ th {
     color: white;
 }
 
+.panel-font{
+    font-family: 'Macondo', cursive;
+    font-size: 30px;
+    color: white;
+}
+
 h3 {
 	font-family: 'Macondo', cursive;
     color: white;
