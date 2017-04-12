@@ -30,30 +30,47 @@ public class TournamentPlayer implements Runnable
 
     private boolean gameAReady() {
         processInputFromClientIntoGameQueues();
+        return gameA.size() > 0;
     }
 
     private boolean gameBReady() {
         processInputFromClientIntoGameQueues();
+        return gameB.size() > 0;
     }
 
     private String popGameAMessage() {
         processInputFromClientIntoGameQueues();
+        return gameA.poll();
     }
 
     private String popGameBMessage() {
         processInputFromClientIntoGameQueues();
+        return gameB.poll();
     }
 
     private void processInputFromClientIntoGameQueues() {
-       /* try {
-            return inputFromClientFoo.ready();
+        try {
+            if(inputFromClientFoo.ready()){
+                String input = inputFromClientFoo.readLine();
+                pushMessageToGameQueues(input);
+            }
         } catch(IOException e) {
             e.printStackTrace();
+            System.out.println("Error reading from input!");
         }
-        return false;
-        */
     }
 
+    private void pushMessageToGameQueues(String input){
+        String[] tokens = input.split("\\s+");
+
+        if (tokens[1].contentEquals("A")) {
+            gameA.add(input);
+        } else if (tokens[1].contentEquals("A")) {
+            gameB.add(input);
+        } else {
+            System.err.println("Invalid GAME ID from this.readline()");
+        }
+    }
 
 
     public TournamentPlayer(Socket newClientSocket)
@@ -118,11 +135,12 @@ public class TournamentPlayer implements Runnable
 
     private boolean inputFromClientReady(char gameid) {
         if ( gameid == 'A') {
-            return gameA.size() > 0;
+            return gameAReady();
         } else if ( gameid == 'B') {
-            return gameB.size() > 0;
+            return gameBReady();
         } else {
             System.err.println("Invalid GAME ID in inputFromClientReady()");
+            return false;
         }
     }
 
@@ -133,8 +151,8 @@ public class TournamentPlayer implements Runnable
             return popGameBMessage();
         } else {
             System.err.println("Invalid GAME ID in readLineFromGameInput()");
+            return null;
         }
-
     }
 
     public void clearQueue(char gameId) {
@@ -162,6 +180,7 @@ public class TournamentPlayer implements Runnable
             try {
                 game.sleep(sleepDuration);
                 ++timeoutCounter;
+                processInputFromClientIntoGameQueues();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -184,13 +203,7 @@ public class TournamentPlayer implements Runnable
         }
 
 
-        try {
             GameInputAdapter.makeMove(game, this, readLineFromGameInput(gid), gid, moveNumber, tile);
-        } catch (IOException e) {
-            e.printStackTrace();
-            OutputAdapter.sendTimeoutMessage(game.getPlayersInGame(), this, new String[]{"GAME", "" + gid, "MOVE", "" + moveNumber});
-            game.timeout(this);
-        }
     }
 
 
