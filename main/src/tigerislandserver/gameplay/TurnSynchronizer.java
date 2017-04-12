@@ -11,7 +11,10 @@ public class TurnSynchronizer {
 
     synchronized public void checkGamesReadyToMove() {
         for (GameThread game : games ) {
-            if ( !game.hasTurnWaiting() ) {
+            if (game.isAlive() && !game.hasTurnWaiting() ) {
+                // If a game is dead, then no point waiting on it.
+                // Once all living games have a turn waiting,
+                // Then we can tell them to make that turn in one batch.
                 return;
             }
         }
