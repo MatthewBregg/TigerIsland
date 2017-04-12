@@ -5,6 +5,8 @@ import tigerisland.board.Location;
 import tigerisland.player.PlayerID;
 import tigerisland.tile.Orientation;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
 import static org.junit.Assert.*;
@@ -22,7 +24,8 @@ public class SQLiteLoggerTest {
     public static void setUpStatic() {
        url =  "jdbc:sqlite::memory:";
        LoggerFactory.setDataBaseUrl(url);
-       logger = LoggerFactory.getSQLLogger(GameId,ChallengeId,match_id);
+        Map<Integer, String> playersIdToUsername = new HashMap<>();
+       logger = LoggerFactory.getSQLLogger(GameId,ChallengeId,match_id, playersIdToUsername);
        Assert.assertFalse(logger.hasErrored());
        currTime = new AtomicLong(1);
     }
@@ -94,6 +97,7 @@ public class SQLiteLoggerTest {
     public void setPlayerScore() throws Exception {
         logger.setPlayerScore(0, new PlayerID(),120);
     }
+
     class ConcurrentWriteTester implements Runnable {
 
         private int i = 0;

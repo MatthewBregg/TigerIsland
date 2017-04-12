@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.*;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 
 public class TournamentPlayer implements Runnable
@@ -19,14 +20,63 @@ public class TournamentPlayer implements Runnable
     private final Object lock = new Object();
     private Socket clientSocket;
     private PrintWriter outputToClient;
-    private BufferedReader inputFromClient;
+    private BufferedReader inputFromClientFoo;
+    private ConcurrentLinkedQueue<String> gameA;
+    private ConcurrentLinkedQueue<String> gameB;
     private boolean canEnterTournament;
     private boolean authenticated;
     private PlayerID pID;
     private String username;
 
+    private boolean gameAReady() {
+        processInputFromClientIntoGameQueues();
+        return gameA.size() > 0;
+    }
+
+    private boolean gameBReady() {
+        processInputFromClientIntoGameQueues();
+        return gameB.size() > 0;
+    }
+
+    private String popGameAMessage() {
+        processInputFromClientIntoGameQueues();
+        return gameA.poll();
+    }
+
+    private String popGameBMessage() {
+        processInputFromClientIntoGameQueues();
+        return gameB.poll();
+    }
+
+    private void processInputFromClientIntoGameQueues() {
+        try {
+            if(inputFromClientFoo.ready()){
+                String input = inputFromClientFoo.readLine();
+                pushMessageToGameQueues(input);
+            }
+        } catch(IOException e) {
+            e.printStackTrace();
+            System.out.println("Error reading from input!");
+        }
+    }
+
+    private void pushMessageToGameQueues(String input){
+        String[] tokens = input.split("\\s+");
+
+        if (tokens[1].contentEquals("A")) {
+            gameA.add(input);
+        } else if (tokens[1].contentEquals("B")) {
+            gameB.add(input);
+        } else {
+            System.err.println("Invalid GAME ID from this.readline()");
+        }
+    }
+
+
     public TournamentPlayer(Socket newClientSocket)
     {
+        gameA = new ConcurrentLinkedQueue<>();
+        gameB = new ConcurrentLinkedQueue<>();
         clientSocket = newClientSocket;
         authenticated = false;
         pID = new PlayerID();
@@ -34,7 +84,7 @@ public class TournamentPlayer implements Runnable
 
         try {
             outputToClient = new PrintWriter(clientSocket.getOutputStream(), true);
-            inputFromClient = new BufferedReader(
+            inputFromClientFoo = new BufferedReader(
                     new InputStreamReader(clientSocket.getInputStream()));
 
         } catch (IOException e) {
@@ -50,8 +100,8 @@ public class TournamentPlayer implements Runnable
         }
         try {
 
-            if (inputFromClient.ready()) {
-                String message= inputFromClient.readLine();
+            if (inputFromClientFoo.ready()) {
+                String message= inputFromClientFoo.readLine();
                 canEnterTournament = InputAdapter.canEnterTournament(message);
             }
         } catch (IOException e) {
@@ -74,8 +124,8 @@ public class TournamentPlayer implements Runnable
             e.printStackTrace();
         }
         try {
-            if (inputFromClient.ready()) {
-                if (InputAdapter.authenticate(this, inputFromClient.readLine())) {
+            if (inputFromClientFoo.ready()) {
+                if (InputAdapter.authenticate(this, inputFromClientFoo.readLine())) {
                     authenticated = true;
                     OutputAdapter.sendWaitForTournamentMessage(this);
                 }
@@ -85,34 +135,77 @@ public class TournamentPlayer implements Runnable
         }
     }
 
+    private boolean inputFromClientReady(char gameid) {
+        if ( gameid == 'A') {
+            return gameAReady();
+        } else if ( gameid == 'B') {
+            return gameBReady();
+        } else {
+            System.err.println("Invalid GAME ID in inputFromClientReady()");
+            return false;
+        }
+    }
+
+    private String readLineFromGameInput(char gameid) {
+        if ( gameid == 'A') {
+            return popGameAMessage();
+        } else if ( gameid == 'B') {
+            return popGameBMessage();
+        } else {
+            System.err.println("Invalid GAME ID in readLineFromGameInput()");
+            return null;
+        }
+    }
+
+    public void clearQueue(char gameId) {
+        if ( gameId == 'A') {
+            gameA.clear();
+        } else if ( gameId == 'B') {
+            gameB.clear();;
+        } else {
+            System.err.println("Invalid GAME ID in clearQueue()");
+        }
+    }
+
     public synchronized void requestMove(GameThread game, char gid, int moveNumber, Tile tile)
     {
         OutputAdapter.sendMoveRequestMessage(this, gid, moveNumber, tile);
 
-        try {
-            Thread.sleep(1800);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            if (!inputFromClient.ready()) {
-                OutputAdapter.sendTimeoutMessage(game.getPlayersInGame(), this, new String[]{"GAME", "" + gid, "MOVE", "" + moveNumber});
-                game.timeout(this);
-                return;
+        long sleepDuration = 100;
+        long timeoutInMs = 1501;
+        // Max timeout = sleepDuration * timeoutMaxIncrements in ms.
+        // If we want to be super strict on timeout, then set a bool timeout reached here, but I don't think we should.
+        long startedWaiting = System.currentTimeMillis();
+        while(!inputFromClientReady(gid) && (System.currentTimeMillis() - startedWaiting) < timeoutInMs) {
+            try {
+                game.sleep(sleepDuration);
+                processInputFromClientIntoGameQueues();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
 
-        try {
-            GameInputAdapter.makeMove(game, this, inputFromClient.readLine(), gid, moveNumber, tile);
-        } catch (IOException e) {
-            e.printStackTrace();
+        game.enableTurnWaiting();
+        while(game.hasTurnWaiting()) {
+            try {
+                game.sleep(sleepDuration);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+        if (!inputFromClientReady(gid)) {
             OutputAdapter.sendTimeoutMessage(game.getPlayersInGame(), this, new String[]{"GAME", "" + gid, "MOVE", "" + moveNumber});
             game.timeout(this);
+            return;
         }
+
+
+            GameInputAdapter.makeMove(game, this, readLineFromGameInput(gid), gid, moveNumber, tile);
     }
+
+
 
     public void sendMessage(String message)
     {

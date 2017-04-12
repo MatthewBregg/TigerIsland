@@ -12,8 +12,14 @@ import tigerislandserver.adapter.OutputAdapter;
 import tigerislandserver.server.TournamentPlayer;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class GameThread extends Thread{
+
+
+    Map<Integer, String> playersIdToUserName;
     private int cid;
     private DataLogger logger;
     private ArrayList<Tile> gameTiles;
@@ -26,6 +32,7 @@ public class GameThread extends Thread{
     private boolean gameNotEnded;
     private GameManager gameManager;
     private String endGameMessage;
+    private AtomicBoolean hasturnWaitingp = new AtomicBoolean(false);
 
     public GameThread(TournamentPlayer player1, TournamentPlayer player2, ArrayList<Tile> tiles, char gameLetter, int cid, TournamentScoreboard scoreboard, long matchID){
         playersInGame = new ArrayList<TournamentPlayer>();
@@ -47,7 +54,12 @@ public class GameThread extends Thread{
             gamePlayers.add(new Player(tp.getID()));
         }
         int matchId = (int)matchID;
-        logger = LoggerFactory.getLogger(gameLetter, cid, matchId);
+
+        playersIdToUserName = new HashMap<>();
+        playersIdToUserName.put(player1.getID().getId(), player1.getUsername());
+        playersIdToUserName.put(player2.getID().getId(), player2.getUsername());
+        logger = LoggerFactory.getLogger(gameLetter, cid, matchId, playersIdToUserName);
+
         gameManager = new GameManager(gamePlayers, logger );
     }
 
@@ -148,7 +160,7 @@ public class GameThread extends Thread{
                 PlayerID player1ID = playersInGame.get(0).getID();
                 PlayerID player2ID = playersInGame.get(1).getID();
 
-                SQLiteLogger sqlLogger = LoggerFactory.getSQLLogger('Z',-1,-1);
+                SQLiteLogger sqlLogger = LoggerFactory.getSQLLogger('Z',-1,-1, playersIdToUserName);
                 sqlLogger.setPlayerScore(cid, player1ID, scoreboard.getPlayerScore(player1ID));
                 sqlLogger.setPlayerScore(cid, player2ID, scoreboard.getPlayerScore(player2ID));
 
@@ -163,7 +175,7 @@ public class GameThread extends Thread{
         
         PlayerID player1ID = playersInGame.get(0).getID();
         PlayerID player2ID = playersInGame.get(1).getID();
-        SQLiteLogger sqlLogger = LoggerFactory.getSQLLogger('Z',-1,-1);
+        SQLiteLogger sqlLogger = LoggerFactory.getSQLLogger('Z',-1,-1, playersIdToUserName);
         sqlLogger.setPlayerScore(cid, player1ID, scoreboard.getPlayerScore(player1ID));
         sqlLogger.setPlayerScore(cid, player2ID, scoreboard.getPlayerScore(player2ID));
         logger.writeGameEnded(playersInGame.get(0).getID(), playersInGame.get(1).getID(), endGameMessage);
@@ -314,5 +326,19 @@ public class GameThread extends Thread{
     public void sendEndGameMessage()
     {
         OutputAdapter.sendMessage(playersInGame, endGameMessage);
+    }
+
+    public boolean hasTurnWaiting() {
+
+        return hasturnWaitingp.get();
+    }
+
+    public void makeMove() {
+        hasturnWaitingp.set(false);
+    }
+
+    public void enableTurnWaiting() {
+        // This should only be called by requestMove in tourny player, bad bad interface atm!!
+        hasturnWaitingp.set(true);
     }
 }

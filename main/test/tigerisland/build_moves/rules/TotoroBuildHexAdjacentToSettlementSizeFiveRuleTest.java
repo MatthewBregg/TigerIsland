@@ -5,7 +5,6 @@ import org.junit.Test;
 import tigerisland.board.Location;
 import tigerisland.build_moves.builds.BuildActionData;
 import tigerisland.build_moves.builds.BuildActionResult;
-import tigerisland.build_moves.rules.TotoroBuildHexAdjacentToSettlementSizeFiveRule;
 import tigerisland.piece.PieceBoard;
 import tigerisland.piece.PieceBoardImpl;
 import tigerisland.piece.Villager;
@@ -16,7 +15,7 @@ import tigerisland.tile.Orientation;
 
 public class TotoroBuildHexAdjacentToSettlementSizeFiveRuleTest {
 
-    private TotoroBuildHexAdjacentToSettlementSizeFiveRule rule = null;
+    private TotoroBuildHexAdjacentToSettlementSizeFiveRuleAndDoesNotHaveTotoro rule = null;
     private SettlementBoard board = null;
     private Player player1 = new Player();
     private Player player2 = new Player();
@@ -43,7 +42,7 @@ public class TotoroBuildHexAdjacentToSettlementSizeFiveRuleTest {
         }
 
         board = new LazySettlementBoard(pieces);
-        rule = new TotoroBuildHexAdjacentToSettlementSizeFiveRule(board);
+        rule = new TotoroBuildHexAdjacentToSettlementSizeFiveRuleAndDoesNotHaveTotoro(board);
 
         BuildActionData.Builder builder = new BuildActionData.Builder();
         builder.withHexLocation(start.getAdjacent(Orientation.getWest()));
@@ -79,7 +78,7 @@ public class TotoroBuildHexAdjacentToSettlementSizeFiveRuleTest {
         }
 
         board = new LazySettlementBoard(pieces);
-        rule = new TotoroBuildHexAdjacentToSettlementSizeFiveRule(board);
+        rule = new TotoroBuildHexAdjacentToSettlementSizeFiveRuleAndDoesNotHaveTotoro(board);
 
         BuildActionData.Builder builder = new BuildActionData.Builder();
         builder.withHexLocation(start.getAdjacent(Orientation.getWest()));

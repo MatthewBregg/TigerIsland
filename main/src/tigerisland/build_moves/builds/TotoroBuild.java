@@ -33,8 +33,7 @@ public class TotoroBuild extends BuildAction {
         rules.add( new PlayerMustHaveATotoroToBuildRule());
         rules.add( new EmptyHexRule(pieceBoard));
         rules.add( new CannotBuildOnVolcanoRule(board));
-        rules.add( new TotoroBuildHexAdjacentToSettlementSizeFiveRule(settlementBoard));
-        rules.add( new SettlementAlreadyContainsTotoroRule(settlementBoard));
+        rules.add( new TotoroBuildHexAdjacentToSettlementSizeFiveRuleAndDoesNotHaveTotoro(settlementBoard));
         return rules;
     }
 

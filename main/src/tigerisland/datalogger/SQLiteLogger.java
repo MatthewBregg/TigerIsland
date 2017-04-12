@@ -5,18 +5,28 @@ import tigerisland.player.PlayerID;
 import tigerisland.tile.Orientation;
 
 import java.sql.*;
+import java.util.Map;
+import java.util.StringJoiner;
 
 public class SQLiteLogger implements DataLogger {
+
+    private final Map<Integer, String> playersIdToUserName;
     private int challengeId;
     private char gameId;
     private int turnNumber = 0;
     private int matchId;
-
     private final Connection connection;
-
-
     private boolean hasError = false;
 
+
+    public SQLiteLogger(int challengeId, char gameId, int matchId, Map<Integer, String> playersIdToUserName,
+                                                                                Connection connection) {
+        this.matchId = matchId;
+        this.challengeId = challengeId;
+        this.gameId = gameId;
+        this.playersIdToUserName = playersIdToUserName;
+        this.connection = connection;
+    }
     public boolean hasErrored() {
         return hasError;
     }
@@ -25,15 +35,8 @@ public class SQLiteLogger implements DataLogger {
         hasError = false;
     }
 
-    public SQLiteLogger(int challengeId, char gameId, int matchId, Connection connection) {
-        this.matchId = matchId;
-        this.challengeId = challengeId;
-        this.gameId = gameId;
-        this.connection = connection;
-    }
-
-
     private void writeToBuildActions(PlayerID pid, Location loc, String move_description) {
+
         String query = "INSERT INTO build_action(challenge_id,game_id,match_id,turn_number,p_id,loc_x,loc_y,loc_z,move_description) VALUES(?,?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement prstmnt = connection.prepareStatement(query);
@@ -41,7 +44,7 @@ public class SQLiteLogger implements DataLogger {
             prstmnt.setString(2,String.valueOf(gameId));
             prstmnt.setInt(3,matchId);
             prstmnt.setInt(4, turnNumber);
-            prstmnt.setInt(5,pidToInt(pid));
+            prstmnt.setString(5, getUserName(pid));
             prstmnt.setInt(6,loc.getX());
             prstmnt.setInt(7,loc.getY());
             prstmnt.setInt(8,loc.getZ());
@@ -67,8 +70,12 @@ public class SQLiteLogger implements DataLogger {
             prstmnt.setInt(1, challengeId);
             prstmnt.setString(2,String.valueOf(gameId));
             prstmnt.setInt(3,matchId);
-            prstmnt.setInt(4, pidToInt(p1));
-            prstmnt.setInt(5, pidToInt(p2));
+
+            String player1UserName = getUserName(p1);
+            String player2UserName = getUserName(p2);
+            prstmnt.setString(4, player1UserName);
+            prstmnt.setString(5, player2UserName);
+
             prstmnt.setString(6,status);
             synchronized (connection ) {
                 prstmnt.executeUpdate();
@@ -79,12 +86,22 @@ public class SQLiteLogger implements DataLogger {
         }
     }
 
+    private String getUserName(PlayerID p1) {
+        String userName = this.playersIdToUserName.get(p1.getId());
+        return  userName == null ? String.valueOf(p1.getId()) : userName;
+    }
+
+    private String getUserName(int p1) {
+        String userName = this.playersIdToUserName.get(p1);
+        return  userName == null ? String.valueOf(p1) : userName;
+    }
+
     private void writeToOverallScore(int cid, int p_id, int score) {
         String query = "INSERT OR REPLACE INTO overall_score(challenge_id,player_id,score) VALUES(?,?,?)";
         try {
             PreparedStatement prstmnt = connection.prepareStatement(query);
             prstmnt.setInt(1, cid);
-            prstmnt.setInt(2, p_id);
+            prstmnt.setString(2, getUserName(p_id));
             prstmnt.setInt(3, score);
             synchronized ( connection ) {
                 prstmnt.executeUpdate();
@@ -118,7 +135,7 @@ public class SQLiteLogger implements DataLogger {
             prstmnt.setString(2,String.valueOf(gameId));
             prstmnt.setInt(3,matchId);
             prstmnt.setInt(4, turnNumber);
-            prstmnt.setInt(5,pidToInt(pid));
+            prstmnt.setString(5, getUserName(pid));
             prstmnt.setInt(6,loc.getX());
             prstmnt.setInt(7,loc.getY());
             prstmnt.setInt(8,loc.getZ());
@@ -132,9 +149,6 @@ public class SQLiteLogger implements DataLogger {
             hasError = true;
         }
     }
-
-
-
 
     @Override
     public void writeRawRequest(long timeStamp, String message) {
@@ -184,7 +198,7 @@ public class SQLiteLogger implements DataLogger {
             prstmnt.setString(2,String.valueOf(gameId));
             prstmnt.setInt(3, matchId);
             prstmnt.setInt(4, turnNumber);
-            prstmnt.setInt(5,pidToInt(pid));
+            prstmnt.setString(5, getUserName(pid));
             prstmnt.setString(6,message);
             synchronized (connection) {
                 prstmnt.executeUpdate();
@@ -194,7 +208,6 @@ public class SQLiteLogger implements DataLogger {
             hasError = true;
         }
     }
-
 
     @Override
     public void writeGameEnded(PlayerID winner, PlayerID loser, String matchEndCondition) {
