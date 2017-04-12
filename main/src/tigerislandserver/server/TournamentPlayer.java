@@ -148,6 +148,13 @@ public class TournamentPlayer implements Runnable
         synchronized (lock)
         {
             System.out.println("SENDING MESSAGE TO " + getID().getId() + ": \"" + message + "\"");
+            try {
+                if(inputFromClient.ready()){
+                    inputFromClient.readLine();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             outputToClient.println(message);
         }
     }
