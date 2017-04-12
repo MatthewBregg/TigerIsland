@@ -31,6 +31,7 @@ public class GameThread extends Thread{
     private boolean gameNotEnded;
     private GameManager gameManager;
     private String endGameMessage;
+    private boolean hasturnWaitingp = false;
 
     public GameThread(TournamentPlayer player1, TournamentPlayer player2, ArrayList<Tile> tiles, char gameLetter, int cid, TournamentScoreboard scoreboard, long matchID){
         playersInGame = new ArrayList<TournamentPlayer>();
@@ -324,5 +325,19 @@ public class GameThread extends Thread{
     public void sendEndGameMessage()
     {
         OutputAdapter.sendMessage(playersInGame, endGameMessage);
+    }
+
+    public boolean hasTurnWaiting() {
+
+        return hasturnWaitingp;
+    }
+
+    public void makeMove() {
+        hasturnWaitingp = false;
+    }
+
+    public void enableTurnWaiting() {
+        // This should only be called by requestMove in tourny player, bad bad interface atm!!
+        hasturnWaitingp = true;
     }
 }

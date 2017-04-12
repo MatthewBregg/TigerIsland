@@ -10,11 +10,11 @@ public class ConsoleLogger implements DataLogger {
 
     private final Map<Integer, String> playersIdToUsername;
     private int challengeId;
-    private int gameId;
+    private char gameId;
     private int turnNumber = 0;
     private int matchId = 0;
 
-    public ConsoleLogger(int challengeId, int gameId, int matchId, Map<Integer, String> playersIdToUsername) {
+    public ConsoleLogger(int challengeId, char gameId, int matchId, Map<Integer, String> playersIdToUsername) {
         this.challengeId = challengeId;
         this.matchId = matchId;
         this.gameId = gameId;
@@ -89,7 +89,7 @@ public class ConsoleLogger implements DataLogger {
         turnNumber++;
     }
 
-    synchronized public void newGame(int gameId, int challengeID) {
+    synchronized public void newGame(char gameId, int challengeID) {
         System.out.println("Starting a new game!");
         this.gameId = gameId;
         this.challengeId = challengeID;
