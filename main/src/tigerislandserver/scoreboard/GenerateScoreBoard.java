@@ -201,35 +201,50 @@ public class GenerateScoreBoard {
 
     private String getChallengeIDBox(){
         return
-                "<div class = 'col-lg-4'>" + lineSeparator +
-                        "<div class = 'panel' style = 'background-color: #f7931e; padding-bottom: 15px; padding-top: 15px' height = '50px'>" + lineSeparator +
-                        "<div class = 'header-font'>" +
-                        "CHALLENGE " +
+                "<div class = 'col-md-3 col-md-offset-1 panel' style = 'background-color: #f7931e; padding-bottom: 10px; padding-top: 10px' height = '30px'>" + lineSeparator +
+                        "<div class = 'panel-font row' >" + lineSeparator +
+                            "<center>" +
+                                    "CHALLENGE " +
+                            "</center>" + lineSeparator +
                         "</div>" + lineSeparator +
+                        "<div class = 'panel-font row' >" + lineSeparator +
+                            "<div class = 'col-lg-4'>" +
+                                "CHALLENGE " +
+                            "</div>" + lineSeparator +
                         "</div>" + lineSeparator +
-                    "</div>" + lineSeparator;
+                "</div>" + lineSeparator;
     }
 
     private String getMatchIDBox(){
         return
-                "<div class = 'col-lg-4'>" + lineSeparator +
-                        "<div class = 'panel' style = 'background-color: #f7931e; padding-bottom: 15px; padding-top: 15px' height = '50px'>" + lineSeparator +
-                        "<div class = 'header-font'>" +
-                        "MATCH " +
+                "<div class = 'col-md-3 panel col-md-offset-1' style = 'background-color: #f7931e; padding-bottom: 10px; padding-top: 10px' height = '30px'>" + lineSeparator +
+                        "<div class = 'panel-font row' >" + lineSeparator +
+                            "<center>" +
+                                "MATCH " +
+                            "</center>" + lineSeparator +
                         "</div>" + lineSeparator +
+                        "<div class = 'panel-font row' >" + lineSeparator +
+                            "<div class = 'col-lg-4'>" +
+                                "CHALLENGE " +
+                            "</div>" + lineSeparator +
                         "</div>" + lineSeparator +
-                        "</div>" + lineSeparator;
+                    "</div>" + lineSeparator;
     }
 
     private String getTurnIDBox(){
         return
-                "<div class = 'col-lg-4'>" + lineSeparator +
-                        "<div class = 'panel' style = 'background-color: #f7931e; padding-bottom: 15px; padding-top: 15px' height = '50px'>" + lineSeparator +
-                        "<div class = 'header-font'>" +
-                        "TURN " +
+                "<div class = 'col-md-3 col-md-offset-1 panel' style = 'background-color: #f7931e; padding-bottom: 10px; padding-top: 10px' height = '30px'>" + lineSeparator +
+                        "<div class = 'panel-font row' >" + lineSeparator +
+                            "<center>" +
+                                "TURN " +
+                            "</center>" + lineSeparator +
                         "</div>" + lineSeparator +
+                        "<div class = 'panel-font row' >" + lineSeparator +
+                            "<div class = 'col-lg-4'>" +
+                                "TURN " +
+                            "</div>" + lineSeparator +
                         "</div>" + lineSeparator +
-                        "</div>" + lineSeparator;
+                    "</div>" + lineSeparator;
     }
 
     private String getIDBoxContainerStart(){
