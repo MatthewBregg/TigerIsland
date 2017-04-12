@@ -44,10 +44,10 @@ public class LoggerFactory {
             openDatabaseConnection();
         }
         final String[] queries = new String[]{
-                "CREATE TABLE IF NOT EXISTS matches (challenge_id integer not null, game_id charint not null, match_id integer not null, p1_id string not null, p2_id string not null, status string, primary key(challenge_id, game_id, match_id) );",
-                "CREATE TABLE IF NOT EXISTS tiles_placed (challenge_id integer not null, game_id charint not null, match_id integer not null, turn_number integer not null, p_id string not null, loc_x integer not null, loc_y integer not null, loc_z integer not null, orientation integer not null, tile text not null, primary key(challenge_id, game_id, match_id, turn_number) );",
-                "CREATE TABLE IF NOT EXISTS build_action (challenge_id integer not null, game_id charint not null, match_id integer not null, turn_number integer not null, p_id string not null, loc_x integer not null, loc_y integer not null, loc_z integer not null, move_description text not null, primary key(challenge_id, game_id, match_id, turn_number) );",
-                "CREATE TABLE IF NOT EXISTS invalid_moves (challenge_id integer not null, game_id charint not null, match_id integer not null, turn_number integer not null, p_id string not null, message string not null, primary key(challenge_id, game_id, match_id, turn_number) );",
+                "CREATE TABLE IF NOT EXISTS matches (challenge_id integer not null, game_id char not null, match_id integer not null, p1_id string not null, p2_id string not null, status string, primary key(challenge_id, game_id, match_id) );",
+                "CREATE TABLE IF NOT EXISTS tiles_placed (challenge_id integer not null, game_id char not null, match_id integer not null, turn_number integer not null, p_id string not null, loc_x integer not null, loc_y integer not null, loc_z integer not null, orientation integer not null, tile text not null, primary key(challenge_id, game_id, match_id, turn_number) );",
+                "CREATE TABLE IF NOT EXISTS build_action (challenge_id integer not null, game_id char not null, match_id integer not null, turn_number integer not null, p_id string not null, loc_x integer not null, loc_y integer not null, loc_z integer not null, move_description text not null, primary key(challenge_id, game_id, match_id, turn_number) );",
+                "CREATE TABLE IF NOT EXISTS invalid_moves (challenge_id integer not null, game_id char not null, match_id integer not null, turn_number integer not null, p_id string not null, message string not null, primary key(challenge_id, game_id, match_id, turn_number) );",
                 "create table IF NOT EXISTS raw_requests ( time_stamp integer primary key, request text not null);",
                 "create table if not exists overall_score (challenge_id integer, player_id string not null, score integer not null)",
         };
