@@ -51,6 +51,7 @@ public class Match extends Thread {
 
         game1.sendEndGameMessage();
         game2.sendEndGameMessage();
+        
     }
 
     public void run(){
