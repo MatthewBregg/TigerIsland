@@ -1,5 +1,6 @@
 package tigerisland.datalogger;
-class MatchRow {
+
+public class MatchRow {
 
     private int match_id;
     private int p1_id;

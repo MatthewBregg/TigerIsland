@@ -1,6 +1,8 @@
 package ui;
 
+import tigerisland.datalogger.DataReader;
 import tigerisland.datalogger.LoggerFactory;
+import tigerisland.datalogger.SQLiteReader;
 import ui.GenerateOverallScoreboard;
 import ui.GenerateScoreBoard;
 
@@ -16,7 +18,9 @@ public class ScoreBoardMain {
     public static void main(String[] args) {
         LoggerFactory.createTables();
         while(true) {
-            GenerateScoreBoard scoreBoardGenerator = new GenerateScoreBoard(LoggerFactory.getDataBaseUrl());
+
+            DataReader sqliteDataReader = new SQLiteReader(LoggerFactory.getDbConnection());
+            GenerateScoreBoard scoreBoardGenerator = new GenerateScoreBoard(sqliteDataReader);
             GenerateOverallScoreboard overallScoreboardGenerator = new GenerateOverallScoreboard(LoggerFactory.getDataBaseUrl());
 
             String overallScoreboard = (overallScoreboardGenerator.getScoreBoard());

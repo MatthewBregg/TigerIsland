@@ -1,6 +1,8 @@
 package ui;
 
 
+import tigerisland.datalogger.MatchRow;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
