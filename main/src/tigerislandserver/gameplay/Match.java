@@ -18,6 +18,8 @@ public class Match extends Thread {
 
     public Match(ArrayList<TournamentPlayer> playerList, ArrayList<Tile> tiles, TournamentScoreboard scoreboard, int cid){
         players = playerList;
+        clearPlayerMsgQueues();
+
         gameTiles = tiles;
         matchID = MatchID.getID();
         game1 = new GameThread(players.get(0), players.get(1), gameTiles, 'A', cid, scoreboard, matchID);
@@ -51,7 +53,14 @@ public class Match extends Thread {
 
         game1.sendEndGameMessage();
         game2.sendEndGameMessage();
-        
+        clearPlayerMsgQueues();
+    }
+
+    private void clearPlayerMsgQueues(){
+        for(TournamentPlayer player: players){
+            player.clearQueue('A');
+            player.clearQueue('B');
+        }
     }
 
     public void run(){
