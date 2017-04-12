@@ -192,7 +192,6 @@ public class GameManagerTest {
 
     }
 
-
     private void createTestBoardForTiger() {
         debugBoard = new TestingBoardMaker("/resources/GameManagerTigerPassTestBoard.txt", players);
         HexBoard hexBoard = debugBoard.getBoard();

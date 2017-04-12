@@ -1,0 +1,74 @@
+package tigerisland.datalogger;
+
+import org.junit.*;
+import tigerisland.player.Player;
+import tigerisland.player.PlayerID;
+
+import java.sql.Connection;
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicLong;
+
+import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertFalse;
+
+public class SQLiteReaderTest {
+
+    private static SQLiteLogger logger = null;
+    private static SQLiteReader reader = null;
+    private static int ChallengeId = 1;
+    private static char GameId = 'A';
+    private static int match_id = 1;
+    private static String url = null;
+    private static AtomicLong currTime;
+
+    @BeforeClass
+    public static void setUpStatic() {
+       url =  "jdbc:sqlite::memory:";
+
+        LoggerFactory.setDataBaseUrl(url);
+       logger = LoggerFactory.getSQLLogger(GameId,ChallengeId,match_id);
+       Connection connection = LoggerFactory.getDbConnection();
+       reader = new SQLiteReader(connection);
+
+       Assert.assertFalse(logger.hasErrored());
+       currTime = new AtomicLong(1);
+    }
+
+    @Before
+    public void setUp() {
+
+        logger.clearError();
+        logger.nextTurn();
+        LoggerFactory.clearTables();
+        assertFalse(logger.hasErrored());
+    }
+
+    @After
+    public void teardown() {
+        assertFalse(logger.hasErrored());
+        LoggerFactory.clearTables();
+        logger.nextTurn();
+    }
+
+    @Test
+    public void test_ShouldRetrievePlayersChallengesScores() throws Exception {
+
+       // Arrange
+        int challengeId = 1;
+        Player player1 = new Player( new PlayerID());
+        int player1Score = 120;
+        Player player2 = new Player( new PlayerID());
+        int player2Score = 200;
+
+        logger.setPlayerScore(challengeId, player1.getId(), player1Score);
+        logger.setPlayerScore(challengeId, player2.getId(), player2Score);
+
+       // Act
+        Map<Integer, Map<Integer, Integer>> scores = reader.getPlayersScorePerChallenges();
+
+       // Assert
+       assertEquals(1, scores.size());
+       assertEquals(2, scores.get(challengeId).size());
+    }
+
+}
