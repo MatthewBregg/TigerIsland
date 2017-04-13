@@ -211,18 +211,63 @@ public class SQLiteReader implements DataReader{
     }
 
     @Override
-    public int getVillagersForGame(int currentChallenge, String s, int currentMatchInChallenge, char a) {
-        return -1;
+    public int getVillagersForGame(int currentChallenge, String teamName, int currentMatchInChallenge, char a) {
+        String query = "SELECT MAX(move_id) FROM GAME_TURN_SCORE";
+        int totoro = 0;
+        try {
+
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            if (rs.next()) {
+                totoro = rs.getInt("count(*)");
+            }
+
+        } catch(SQLException sqlException) {
+            System.out.println(sqlException);
+        }
+        return  totoro;
     }
 
     @Override
-    public int getTotoroForGame(int currentChallenge, String s, int currentMatchInChallenge, char a) {
-        return -1;
+    public int getTotoroForGame(int currentChallenge, String teamName, int currentMatchInChallenge, char a) {
+        String query = String.format("select count(*) from build_action " +
+                "where challenge_id='%s' and p_id='%s' and match_id='%s' move_description='Placed totoro'", currentChallenge, teamName, currentMatchInChallenge);
+        int totoro = 0;
+        try {
+
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            if (rs.next()) {
+                totoro = rs.getInt("count(*)");
+            }
+
+        } catch(SQLException sqlException) {
+            System.out.println(sqlException);
+        }
+        return  totoro;
     }
 
     @Override
-    public int getTigerForGame(int currentChallenge, String s, int currentMatchInChallenge, char a) {
-        return -1;
+    public int getTigerForGame(int currentChallenge, String teamName, int currentMatchInChallenge, char a) {
+        String query = String.format("select count(*) from build_action " +
+                "where challenge_id='%s' and p_id='%s' and match_id='%s' move_description='Placed Tiger'",
+                currentChallenge, teamName, currentMatchInChallenge);
+
+        int tiger = 0;
+        try {
+
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+
+            if (rs.next()) {
+                tiger = rs.getInt("count(*)");
+            }
+
+        } catch(SQLException sqlException) {
+            System.out.println(sqlException);
+        }
+
+        return  tiger;
     }
 
     @Override
