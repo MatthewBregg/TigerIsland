@@ -19,6 +19,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class GameThread extends Thread{
 
 
+
     Map<Integer, String> playersIdToUserName;
     private int cid;
     private DataLogger logger;
@@ -230,7 +231,7 @@ public class GameThread extends Thread{
     }
 
     public boolean noMoreTilesAreLeftToPlace(){
-        if(gameManager.getTilesDrawn() == 48){
+        if(gameManager.getTilesDrawn() == gameManager.NUMTILESINGAME()){
             return true;
         }
 

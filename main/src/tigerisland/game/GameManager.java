@@ -256,4 +256,8 @@ public class GameManager {
         ++tileID;
         return tileID;
     }
+
+    public int NUMTILESINGAME() {
+        return 48;
+    }
 }
