@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+@Ignore
 public class TestingBoardMakerTest {
 
     private TestingBoardMaker debug = new TestingBoardMaker("/main/resources/DebugBoard.txt", new ArrayList<Player>());
@@ -23,7 +24,6 @@ public class TestingBoardMakerTest {
     }
 
     @Test
-   @Ignore("Will fix this insignificant non part of game feature that is a testing thingy if there's time")
     public void testFirstRow() {
 
         Set<Location> locations = new HashSet<>();
