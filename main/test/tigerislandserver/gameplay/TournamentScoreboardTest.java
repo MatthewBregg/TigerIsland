@@ -163,7 +163,7 @@ public class TournamentScoreboardTest {
         playerData.add(player2Data);
 
         boolean success = tournamentScoreboard.updateTournamentScoresForValidWin(playerData);
-        
+
         Assert.assertTrue(success);
         boolean result = false;
         if (success){

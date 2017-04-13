@@ -160,24 +160,9 @@ public class BuildControllerTest {
         ScoreTotoroOnHex totoroScorer = buildController.getTotoroScorer();
         ScoreTigerOnHex tigerScorer = buildController.getTigerScorer();
 
-        boolean villageCheck = false;
-        boolean totoroCheck = false;
-        boolean tigerCheck = false;
-
-        if (villageScorer != null) {
-            villageCheck = true;
-        }
-
-        if (totoroScorer != null) {
-            totoroCheck = true;
-        }
-
-        if (tigerScorer != null) {
-            tigerCheck = true;
-        }
-
-        Assert.assertTrue(villageCheck && totoroCheck && tigerCheck);
-
+        Assert.assertNotNull(villageScorer);
+        Assert.assertNotNull(totoroScorer);
+        Assert.assertNotNull(tigerScorer);
     }
 
     @Test
