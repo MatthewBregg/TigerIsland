@@ -8,6 +8,7 @@ import tigerisland.settlement.Settlement;
 import tigerisland.settlement.SettlementBoard;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -28,7 +29,7 @@ public class NearbySettlementsUtility {
 
     public List<Settlement> getPossibleSettlementsForBuild(){
         List<Location> locations = location.getSurroundingLocations();
-        Set<Settlement> settlements = new ArrayList<>();
+        Set<Settlement> settlements = new HashSet<>();
 
         for ( Location loc : locations ) {
             Settlement settlement = board.getSettlement(loc, player.getId());
