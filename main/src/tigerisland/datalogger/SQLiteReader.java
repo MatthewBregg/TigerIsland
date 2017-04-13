@@ -1,6 +1,5 @@
 package tigerisland.datalogger;
 
-import tigerisland.player.PlayerID;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -110,6 +109,25 @@ public class SQLiteReader implements DataReader{
             System.out.println(sqlException);
         }
         return score;
+    }
+
+    @Override
+    public int getCurrentMatchForChallenge(int challengeId) {
+        String query = String.format("select max(match_id) from matches " +
+               "where challenge_id='%s'",challengeId);
+       int matchId = -1;
+       try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+
+            while (rs.next()) {
+                matchId= rs.getInt("max(match_id)");
+            }
+
+        } catch(SQLException sqlException) {
+            System.out.println(sqlException);
+        }
+        return matchId;
     }
 
     @Override

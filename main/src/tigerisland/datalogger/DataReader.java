@@ -14,6 +14,8 @@ public interface DataReader {
 
     int getTeamScoreForChallenge(String teamName, int challengeId);
 
+    int getCurrentMatchForChallenge(int challengeId);
+
     List<MatchRow> getAllMatches();
 
     Map<Integer, Map<Integer,Integer>> getPlayersScoresPerChallenge();

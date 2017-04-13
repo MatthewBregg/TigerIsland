@@ -153,4 +153,27 @@ public class SQLiteReaderTest {
         Assert.assertEquals(expectedScore , teamTournamentScore);
     }
 
+    @Test
+    public void test_ShouldReturnTheCurrentMatchForAChallenge() {
+
+        // Arrange
+        String teamName = "TEAM_C";
+        PlayerID player1Id = new PlayerID(); playersIdToUsername.put(player1Id.getId(), teamName);
+        PlayerID player2Id = new PlayerID(); playersIdToUsername.put(player1Id.getId(), "TEAM_H");
+
+        int expectedMatch = 1;
+        char gameId = 'x';
+        int challengeId = 5;
+
+        logger.newGame(gameId, challengeId);
+        logger.writeGameStarted(player1Id, player2Id);
+
+        // Act
+        int match = reader.getCurrentMatchForChallenge(challengeId);
+
+        // Assert
+        Assert.assertEquals(expectedMatch, match);
+    }
+
+
 }
