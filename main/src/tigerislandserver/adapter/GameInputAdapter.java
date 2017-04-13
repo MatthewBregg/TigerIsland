@@ -25,7 +25,7 @@ public class GameInputAdapter
             if(isValidTilePlacementCommand(inputTokens)
                     && isCorrectTile(inputTokens, tile))
             {
-                if(!placeTile(game, tournamentPlayer, inputTokens))
+                if(!placeTile(game, inputTokens))
                 {
                     OutputAdapter.sendIllegalTilePlacementMessage(game.getPlayersInGame(), tournamentPlayer, inputTokens);
                     game.invalidTilePlacement(tournamentPlayer);
@@ -84,7 +84,7 @@ public class GameInputAdapter
             return checkInputTokensForValidNumberAtIndexes(inputTokens,7,8,9);
     }
 
-    private static boolean placeTile(GameThread game, TournamentPlayer tournamentPlayer, String[] inputTokens)
+    private static boolean placeTile(GameThread game, String[] inputTokens)
     {
         Location loc = parseTileLocationFromInputToken(inputTokens);
         if(loc == null)

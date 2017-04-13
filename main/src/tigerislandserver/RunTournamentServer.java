@@ -22,6 +22,10 @@ public class RunTournamentServer
 
         TournamentServer ts = new TournamentServer(Integer.parseInt(args[4]));
         ts.acceptConnections(Integer.parseInt(args[3]));
-        ts.startTournament(Integer.parseInt(args[0]));
+        if(ts.getPlayerCount() > 1) {
+            ts.startTournament(Integer.parseInt(args[0]));
+        } else {
+            System.out.println("Not enough players!");
+        }
     }
 }

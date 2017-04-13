@@ -23,11 +23,9 @@ public class TournamentServer {
         currentlyAcceptingConnections = false;
         tournamentScoreManager = new TournamentScoreManager(clientConnections);
 
-        try
-        {
+        try {
             serverSocket = new ServerSocket(port);
-        } catch (IOException e)
-        {
+        } catch (IOException e) {
             System.out.println("Exception while listening for a connection on port " + getPort());
             System.out.println(e.getMessage());
         }
@@ -42,17 +40,38 @@ public class TournamentServer {
 
     public void acceptConnections(int connectionTimeout_s) {
         // Running accept() on separate thread should allow socket.close() to be called from this thread
-        // timeout argument is in milliseconds, converted to milliseconds
+        // timeout argument is in seconds, converted to milliseconds
         if (currentlyAcceptingConnections)
             return;
 
         currentlyAcceptingConnections = true;
 
         int connectionTimeout_ms = connectionTimeout_s * 1000;
+        long socketCloseTime = System.currentTimeMillis() + connectionTimeout_ms;
 
-        new ConnectionAcceptor(connectionTimeout_ms).getClients();
+        Thread connectionThread = new Thread(new ConnectionAcceptor());
+        connectionThread.start();
+
+        System.out.println("Server socket will close in: " + connectionTimeout_s + " seconds");
+        long currentCounter = connectionTimeout_s;
+        while (System.currentTimeMillis() < socketCloseTime) {
+            long timeLeft = (socketCloseTime - System.currentTimeMillis())/1000;
+            if((timeLeft % 5) == 0 && timeLeft != currentCounter){
+                currentCounter = timeLeft;
+                System.out.println(timeLeft + " seconds remaining");
+            }
+        }
+
+        try {
+            serverSocket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
+//    public void startTournament(int numberOfChallenges) {
+//        for (int i = 0; i < numberOfChallenges; i++) {
+//            if (i != 0) {
     public void startTournament(int numberOfChallenges)
     {
         tournamentScoreManager.initializeOverallTournamentScores();
@@ -62,8 +81,7 @@ public class TournamentServer {
                 OutputAdapter.sendWaitForChallengeMessage(clientConnections);
             }
 
-            Challenge challenge=new Challenge(clientConnections, i);
-
+            Challenge challenge = new Challenge(clientConnections, i);
             OutputAdapter.sendNewChallengeMessage(clientConnections, i, challenge.getTotalChallengeRounds());
             challenge.play();
 
@@ -80,48 +98,34 @@ public class TournamentServer {
         // TODO: close all connections
     }
 
-    class ConnectionAcceptor {
-        int connectionAcceptanceTimeout;
+    public int getPlayerCount() {
+        return clientConnections.size();
+    }
 
-        ConnectionAcceptor(int connectionTimeout) {
-            connectionAcceptanceTimeout = connectionTimeout;
+    class ConnectionAcceptor implements Runnable {
+        ConnectionAcceptor() {
         }
 
-        public void getClients() {
-            try
-            {
-                serverSocket.setSoTimeout(connectionAcceptanceTimeout);
-            } catch (SocketException e)
-            {
-                System.out.println("Connection protocol error on port " + getPort());
-            }
-
+        @Override
+        public void run() {
             boolean listening = true;
-            while (listening)
-            {
-                try
-                {
+            while (listening) {
+                try {
                     Socket newClient = serverSocket.accept();
                     TournamentPlayer client =
                             new TournamentPlayer(newClient);
 
-                    if (client.canEnterTournament())
-                    {
-                        synchronized (clientConnections)
-                        {
+                    if (client.canEnterTournament()) {
+                        synchronized (clientConnections) {
                             clientConnections.add(client);
                         }
                     }
                     Thread configureClient = new Thread(client);
                     configureClient.start();
-                }
-                catch (SocketTimeoutException e)
-                {
-                    System.out.println("END LISTENING");
-                    listening=false;
-                }
-                catch (IOException e)
-                {
+                } catch (SocketException e) {
+                    System.out.println("Server socket closed!");
+                    listening = false;
+                } catch (IOException e) {
                     System.err.println("Exception caught or problem listening on port " + getPort());
                     System.exit(-1);
                 }
@@ -129,17 +133,15 @@ public class TournamentServer {
 
             currentlyAcceptingConnections = false;
 
-            synchronized (clientConnections)
-            {
-                for (int i = 0; i < clientConnections.size(); i++)
-                {
-                    if (!clientConnections.get(i).isAuthenticated())
-                    {
+            synchronized (clientConnections) {
+                for (int i = 0; i < clientConnections.size(); i++) {
+                    if (!clientConnections.get(i).isAuthenticated()) {
                         clientConnections.remove(i--);
                     }
                 }
             }
         }
+
     }
 }
 
