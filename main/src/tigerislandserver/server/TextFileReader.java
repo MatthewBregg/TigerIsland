@@ -8,9 +8,11 @@ import java.util.Scanner;
 
 public class TextFileReader
 {
-    HashMap<String, String> usernameAndPasswords = null;
-    String usernameAndPasswordFileName;
+    private HashMap<String, String> usernameAndPasswords = null;
+    private String usernameAndPasswordFileName;
+    private int invalidLinesFound = 0;
 
+    public int getInvalidLinesFound() { return invalidLinesFound; }
     public TextFileReader(String fileName)
     {
         this.usernameAndPasswordFileName = fileName;
@@ -36,10 +38,15 @@ public class TextFileReader
                     while (scan.hasNextLine())
                     {
                         String userInfo = scan.nextLine();
-                        String username = getUsername(userInfo);
-                        String password = getPassword(userInfo);
+                        String[] wordsPerLine = splitOnSpace(userInfo);
+                        if ( lineContainsOnlyUserNameAndPass(wordsPerLine) ) {
+                            String username = getUsername(wordsPerLine);
+                            String password = getPassword(wordsPerLine);
+                            usernameAndPasswords.put(username, password);
+                        } else {
+                            ++invalidLinesFound;
+                        }
 
-                        usernameAndPasswords.put(username, password);
                     }
 
                 } catch (IOException ioexception)
@@ -52,17 +59,23 @@ public class TextFileReader
         return usernameAndPasswords;
     }
 
-    private String getUsername(String userInfo)
-    {
+    private boolean lineContainsOnlyUserNameAndPass(String[] wordsPerLine) {
+        return wordsPerLine.length == 2;
+    }
+
+    private String[] splitOnSpace(String userInfo) {
         String[] wordsPerLine;
         wordsPerLine = userInfo.split("\\s+");
+        return wordsPerLine;
+    }
+
+    private String getUsername(String[] wordsPerLine)
+    {
         return wordsPerLine[0];
     }
 
-    private String getPassword(String userInfo)
+    private String getPassword(String[] wordsPerLine)
     {
-        String[] wordsPerLine;
-        wordsPerLine = userInfo.split("\\s+");
         return wordsPerLine[1];
     }
 }
