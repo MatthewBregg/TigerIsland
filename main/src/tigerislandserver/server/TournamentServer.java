@@ -1,5 +1,10 @@
 package tigerislandserver.server;
 
+import cucumber.api.java8.Pl;
+import tigerisland.datalogger.DataLogger;
+import tigerisland.datalogger.LoggerFactory;
+import tigerisland.datalogger.SQLiteLogger;
+import tigerisland.player.Player;
 import tigerisland.player.PlayerID;
 import tigerislandserver.adapter.OutputAdapter;
 import tigerislandserver.gameplay.Challenge;
@@ -8,9 +13,7 @@ import tigerislandserver.gameplay.TournamentScoreboard;
 
 import java.io.*;
 import java.net.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 
 public class TournamentServer {
@@ -18,6 +21,7 @@ public class TournamentServer {
     private ArrayList<TournamentPlayer> clientConnections = new ArrayList<>();
     private boolean currentlyAcceptingConnections;
     private TournamentScoreManager tournamentScoreManager;
+
 
     public TournamentServer(int port) {
         currentlyAcceptingConnections = false;
@@ -67,10 +71,29 @@ public class TournamentServer {
             OutputAdapter.sendNewChallengeMessage(clientConnections, i, challenge.getTotalChallengeRounds());
             challenge.play();
 
-            // at this point that specific challenge object should be
+            // at this point that specific challenge object should be over
             TournamentScoreboard scoreboard = challenge.getScoreboard();
             tournamentScoreManager.setEndedChallengeScores(scoreboard.getPlayerMap());
             tournamentScoreManager.addToAllPlayersScore();
+
+
+            Map<Integer, String> playersIdToUserName = new HashMap<>();
+
+
+            TournamentPlayer tPlayer = clientConnections.get(0);
+            int defaultPID = tPlayer.getID().getId();
+            playersIdToUserName.put(defaultPID, tPlayer.getUsername());
+
+            SQLiteLogger sqLiteLogger = LoggerFactory.getSQLLogger('0',0,0, playersIdToUserName);
+
+            Map<PlayerID, Integer> scores = tournamentScoreManager.getOverallScores();
+            for(int j = 0; j < clientConnections.size(); j++) {
+                TournamentPlayer tp = clientConnections.get(j);
+                PlayerID pID = tp.getID();
+                int score = scores.get(pID);
+                sqLiteLogger.writeToTournamentScore(pID, score);
+            }
+
         }
 
         OutputAdapter.sendEndOfChallengesMessage(clientConnections);
