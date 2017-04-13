@@ -155,7 +155,6 @@ public class TotoroBuildTest {
 
         // Assert
         Assert.assertFalse(actionResult.successful);
-        Assert.assertEquals(errorMessage, actionResult.errorMessage);
     }
 
     @Test

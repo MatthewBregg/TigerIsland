@@ -4,19 +4,21 @@ import tigerisland.board.Location;
 import tigerisland.player.PlayerID;
 import tigerisland.tile.Orientation;
 
-import java.util.Set;
+import java.util.Map;
 
 public class ConsoleLogger implements DataLogger {
 
+    private final Map<Integer, String> playersIdToUsername;
     private int challengeId;
     private char gameId;
     private int turnNumber = 0;
     private int matchId = 0;
 
-    public ConsoleLogger(int challengeId, char gameId, int matchId) {
+    public ConsoleLogger(int challengeId, char gameId, int matchId, Map<Integer, String> playersIdToUsername) {
         this.challengeId = challengeId;
         this.matchId = matchId;
         this.gameId = gameId;
+        this.playersIdToUsername = playersIdToUsername;
     }
 
     private String getMessageHeader() {
@@ -31,23 +33,33 @@ public class ConsoleLogger implements DataLogger {
     }
 
     @Override
+    public void writeToTournamentScore(PlayerID pid, int score) {
+
+    }
+
+    @Override
+    public void writeToGameTurnScore(PlayerID pId, int moveId, int score) {
+
+    }
+
+    @Override
     synchronized public void writePlacedTotoroMove(PlayerID pid, Location loc) {
-        System.out.println(getMessageHeader() + "Player " + pid + "placed a totoro in location " + loc);
+        System.out.println(getMessageHeader() + "Player " + getUserName(pid) + "placed a totoro in location " + loc);
     }
 
     @Override
     synchronized public void writeFoundedSettlementMove(PlayerID pid, Location loc) {
-        System.out.println(getMessageHeader() + "Player " + pid + "founded a settlement in location " + loc);
+        System.out.println(getMessageHeader() + "Player " + getUserName(pid) + "founded a settlement in location " + loc);
     }
 
     @Override
     synchronized public void writeExpandedSettlementMove(PlayerID pid, Location loc, String terrain) {
-        System.out.println(getMessageHeader() + "Player " + pid + " expanded settlement at " + loc + " to cover terrain of " + terrain);
+        System.out.println(getMessageHeader() + "Player " + getUserName(pid) + " expanded settlement at " + loc + " to cover terrain of " + terrain);
     }
 
     @Override
     synchronized public void writePlacedTigerMove(PlayerID pid, Location loc) {
-        System.out.println(getMessageHeader() + "Player " + pid + "placed a tiger in location " + loc);
+        System.out.println(getMessageHeader() + "Player " + getUserName(pid) + "placed a tiger in location " + loc);
     }
 
     @Override
@@ -93,4 +105,15 @@ public class ConsoleLogger implements DataLogger {
         this.challengeId = challengeID;
         turnNumber = 0;
     }
+
+    private String getUserName(PlayerID p1) {
+        String userName = this.playersIdToUsername.get(p1.getId());
+        return  userName == null ? String.valueOf(p1.getId()) : userName;
+    }
+
+    private String getUserName(int p1) {
+        String userName = this.playersIdToUsername.get(p1);
+        return  userName == null ? String.valueOf(p1) : userName;
+    }
+
 }

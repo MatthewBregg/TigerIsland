@@ -1,27 +1,44 @@
 package ui;
 
+import tigerisland.datalogger.DataReader;
+import tigerisland.datalogger.MatchRow;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class GenerateScoreBoard {
-    private final String url;
-    private final String queryMatchString = "SELECT * FROM MATCHES";
-    private Connection connection;
-    private final String queryScoreString = "SELECT * FROM OVERALL_SCORE";
 
-    public GenerateScoreBoard(String url) {
-        this.url = url;
+public class GenerateScoreBoard {
+
+    Connection connection = null;
+    private final String queryMatchString = "SELECT * FROM MATCHES";
+    private final String queryScoreString = "SELECT * FROM OVERALL_SCORE";
+    private final String queryHighestChallenge = "SELECT MAX(challenge_id) FROM OVERALL_SCORE";
+
+    private DataReader dataReader;
+
+    final String lineSeparator = System.getProperty("line.separator");
+
+    public GenerateScoreBoard(DataReader dataReader) {
+        this.dataReader = dataReader;
     }
 
     public String getScoreBoard() {
         StringBuilder builder = new StringBuilder();
         builder.append(this.getHTMLHeader());
-        builder.append(getRoundNumberSection());
-        //builder.append(getScoreTable());
-        builder.append(getMatchTable());
+        builder.append(getScoreTable());
+       // builder.append(getIDBoxContainerStart());
+        //builder.append(getChallengeIDBox());
+        //builder.append(getMatchIDBox());
+        //builder.append(getTurnIDBox());
+        //builder.append(getIDBoxContainerEnd());
+        builder.append(getDivider());
+         builder.append(getMatchTable());
+        //builder.append(getTournamentScoreTableHeader());
+        //builder.append(getTeamNameRows());
+        //builder.append(getTournamentScoreTableFooter());
         builder.append(getHTMLFooter());
         return builder.toString();
     }
@@ -52,22 +69,8 @@ public class GenerateScoreBoard {
         return "</table>" + lineSeparator;
     }
 
-
     private Map<Integer, Map<Integer,Integer>> getScore() {
-        Map<Integer, Map<Integer,Integer>> scores = new HashMap<>();
-        try {
-            connection = DriverManager.getConnection(url);
-        } catch (SQLException e) {
-            System.err.println(e.getMessage());
-        }
-        try {
-            Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery(queryScoreString);
-            putResultSetToScoreRows(rs,scores);
-        } catch(SQLException sqlException) {
-            System.out.println(sqlException);
-        }
-        return scores;
+        return  dataReader.getPlayersScoresPerChallenge();
     }
 
     private void putResultSetToScoreRows(ResultSet rs, Map<Integer, Map<Integer,Integer>> scores) throws SQLException {
@@ -88,50 +91,6 @@ public class GenerateScoreBoard {
             }
         }
     }
-
-    class MatchRow {
-        private int match_id;
-        private int p1_id;
-        private int p2_id;
-        private char game_id;
-        private int challenge_id;
-        private String status;
-
-        public MatchRow(int p1_id, int p2_id, char game_id, int challenge_id, int match_id, String status) {
-            this.p1_id = p1_id;
-            this.p2_id = p2_id;
-            this.game_id = game_id;
-            this.match_id = match_id;
-
-            this.challenge_id = challenge_id;
-            this.status = status;
-        }
-
-        public int getChallenge_id() {
-            return challenge_id;
-        }
-
-        public String getStatus() {
-            return status;
-        }
-
-        public char getGame_id() {
-            return game_id;
-        }
-
-        public int getP2_id() {
-            return p2_id;
-        }
-
-        public int getP1_id() {
-            return p1_id;
-        }
-
-        public int getMatch_id() {
-            return match_id;
-        }
-    }
-    final String lineSeparator = System.getProperty("line.separator");
 
     public String getMatchTable() {
         StringBuilder builder = new StringBuilder();
@@ -188,19 +147,89 @@ public class GenerateScoreBoard {
                     "</head>" + lineSeparator;
     }
 
-    private String getRoundNumberSection(){
-        return
-                "<body>" + lineSeparator +
-                "<h3 class= 'header-font'><center> Round 5 out of 20 </center></h3>" + lineSeparator +
-                "<hr>" + lineSeparator;
-    }
-
     private List<String> getMatchTableBody() {
         List<String> table = new ArrayList<>();
-        for ( MatchRow row : this.getMatches() ) {
+        for ( MatchRow row : dataReader.getAllMatches() ) {
             table.add(this.getMatchTableRowFromMatchRow(row));
         }
         return table;
+    }
+
+    private String getMatchTableEntry(char val) {
+        return "<td>" + val + "</td>";
+    }
+
+    private String getMatchTableEntry(String val) {
+        return "<td>" + val + "</td>";
+    }
+
+    private String getTurnIDBox(){
+        return
+                "<div class = 'col-md-3 col-md-offset-1 panel' style = 'background-color: #f7931e; padding-bottom: 10px; padding-top: 10px' height = '30px'>" + lineSeparator +
+                        "<div class = 'panel-font row' >" + lineSeparator +
+                            "<center>" +
+                                "TURN " +
+                            "</center>" + lineSeparator +
+                        "</div>" + lineSeparator +
+                        "<div class = 'panel-font row' >" + lineSeparator +
+                            "<div class = 'col-lg-4'>" +
+                                "TURN " +
+                            "</div>" + lineSeparator +
+                        "</div>" + lineSeparator +
+                    "</div>" + lineSeparator;
+    }
+
+    private String getChallengeIDBox(){
+        return
+                "<div class = 'col-md-3 col-md-offset-1 panel' style = 'background-color: #f7931e; padding-bottom: 10px; padding-top: 10px' height = '30px'>" + lineSeparator +
+                        "<div class = 'panel-font row' >" + lineSeparator +
+                            "<center>" +
+                                    "CHALLENGE " +
+                            "</center>" + lineSeparator +
+                        "</div>" + lineSeparator +
+                        "<div class = 'panel-font row' >" + lineSeparator +
+                            "<div class = 'col-lg-4'>" +
+                                "CHALLENGE " +
+                            "</div>" + lineSeparator +
+                        "</div>" + lineSeparator +
+                "</div>" + lineSeparator;
+    }
+
+    private String getMatchIDBox(){
+        return
+                "<div class = 'col-md-3 panel col-md-offset-1' style = 'background-color: #f7931e; padding-bottom: 10px; padding-top: 10px' height = '30px'>" + lineSeparator +
+                        "<div class = 'panel-font row' >" + lineSeparator +
+                            "<center>" +
+                                "MATCH " +
+                            "</center>" + lineSeparator +
+                        "</div>" + lineSeparator +
+                        "<div class = 'panel-font row' >" + lineSeparator +
+                            "<div class = 'col-lg-4'>" +
+                                "CHALLENGE " +
+                            "</div>" + lineSeparator +
+                        "</div>" + lineSeparator +
+                    "</div>" + lineSeparator;
+    }
+
+    private String getIDBoxContainerStart(){
+        return
+                "<div class = 'container'>" + lineSeparator;
+    }
+
+    private String getIDBoxContainerEnd(){
+        return
+                "</div>" +lineSeparator;
+    }
+
+    private String getDivider() {
+        return "<hr>" + lineSeparator;
+    }
+
+    private String getRoundNumberSection(){
+        return
+                "<body>" + lineSeparator +
+                "<h3 class= 'header-font'><center> Challenge 5 out of 20 </center></h3>" + lineSeparator +
+                "<hr>" + lineSeparator;
     }
 
     private String getMatchTableRowFromMatchRow(MatchRow matchRow) {
@@ -212,45 +241,67 @@ public class GenerateScoreBoard {
         + "</tr>";
     }
 
+    private String getTeamNameRows(){
+        String nameRows = "";
+        List<String> names = dataReader.getTeamNames();
+        for (String name: names){
+            nameRows += "<tr> <td>" + name + " </td>";
+        }
+        nameRows += "</tr>";
+        return nameRows;
+    }
+
+    private String makeDataRow(String name, int tournamentScore, int challengeScore, String opponent, int gameAScore, int gameBScore) {
+
+        String nameRows = "";
+        List<String> names = dataReader.getTeamNames();
+        Map<String, Integer> tournamentScores =  dataReader.getTournamentScores();
+        Map<Integer, Map<Integer, Integer>> playerScoresPerChallenge = dataReader.getPlayersScoresPerChallenge();
+        //  MatchRow match = dataReader.getOpponents(challengeId, gameId, matchId);
+        //  dataReader.getScoreForPlayerTurn()
+
+        for (String currentName: names){
+            Integer playerScore = tournamentScores.get(currentName);
+
+
+            nameRows += "<tr> <td>" + currentName+ " </td>";
+        }
+        nameRows += "</tr>";
+        return nameRows;
+    }
+
     private String getMatchTableEntry(int val) {
         return "<td>" + val + "</td>";
     }
 
-    private String getMatchTableEntry(char val) {
-        return "<td>" + val + "</td>";
+
+    private String getTournamentScoreTableFooter() {
+        return "</table>" + lineSeparator + "</div>" + lineSeparator;
     }
 
-    private String getMatchTableEntry(String val) {
-        return "<td>" + val + "</td>";
-    }
+    private String getTournamentScoreTableHeader() {
+        return   "<div class = 'container'>" + lineSeparator +
+                "<table border = '1'>" + lineSeparator +
+                "<tr>" + lineSeparator +
+                    "<th></th>" + lineSeparator +
+                    "<th colspan='2'><center>Tournament Points </center></th>" + lineSeparator +
+                    "<th colspan='3'> <center>Current Match</center> </th>" + lineSeparator +
+                "</tr>" + lineSeparator +
+                "<tr>" + lineSeparator +
+                    "<th></th>" + lineSeparator +
+                    "<th><center>Overall In</center></th>" + lineSeparator +
+                    "<th><center>In Current</center></th>" + lineSeparator +
+                    "<th colspan='3'> <center>For This Turn</center></th>" + lineSeparator +
+                "</tr>" + lineSeparator +
+                "<tr>" + lineSeparator +
+                    "<th><center>Team Name</center></th>" + lineSeparator +
+                    "<th><center>Tourney</center></th>" + lineSeparator +
+                    "<th><center>Challenge</center></th>" + lineSeparator +
+                    "<th> <center>Opponent</center></th>" + lineSeparator +
+                    "<th> <center>Game A</center></th>" + lineSeparator +
+                    "<th> <center>Game B</center></th>" + lineSeparator +
+                "</tr>" + lineSeparator;
 
-    private List<MatchRow> getMatches() {
-        List<MatchRow> matches = new ArrayList<MatchRow>();
-        try {
-            connection = DriverManager.getConnection(url);
-        } catch (SQLException e) {
-            System.err.println(e.getMessage());
-        }
-        try {
-            Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery(queryMatchString);
-            putResultSetToMatchRows(rs,matches);
-        } catch(SQLException sqlException) {
-            System.out.println(sqlException);
-        }
-        return matches;
-    }
-
-    private void putResultSetToMatchRows(ResultSet rs, List<MatchRow> matches) throws SQLException {
-       while(rs.next()) {
-           int p1_id = rs.getInt("p1_id");
-           int p2_id = rs.getInt("p2_id");
-           char game_id = rs.getString("game_id").charAt(0);
-           int challenge_id = rs.getInt("challenge_id");
-           int match_id = rs.getInt("match_id");
-           String status = rs.getString("status");
-           matches.add(new MatchRow(p1_id,p2_id,game_id,challenge_id, match_id, status));
-       }
     }
 
 }
