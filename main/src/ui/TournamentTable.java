@@ -1,28 +1,31 @@
 package ui;
 
+import tigerisland.datalogger.DataReader;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import java.awt.*;
+import java.util.*;
+import java.util.List;
 
-public class TournamentTable extends JTable{
+public class TournamentTable {
 
+    private DataReader dataReader;
     private JTable mainTable;
     private JTable overallScoreTable;
     private JTable gameAScoreTable;
     private JTable gameBScoreTable;
     private Object[][] tableList;
 
-    private String[] columnNames = {
+    private String[] mainTableColumns = {"Tournament", "GameA", "GameB"};
+
+    private String[] tournamentTableColumns = {
             "Team Names",
             "Tourney",
             "Challenge",
             "Opponent",};
-
-    private Object[][] data = {
-            {"Team_A", "200", "5", "Team_B"}
-    };
 
     private String[] individualGamesColumns = {
             "Score",
@@ -30,21 +33,24 @@ public class TournamentTable extends JTable{
             "To",
             "Ti",};
 
-    private Object[][] data2 = {
-            {"20", "1", "2", 3}
+    private Object[][] tournamentTableData = {
+            {"Team_A", "200", "5", "Team_B"}
     };
 
-    private Object[][] data3 = {
-            {45, 20, 12, 4}
+    private Object[][] gameATableData = {
+            { -1, -1, -1}
     };
 
-    private String[] names = {"Tournament", "GameA", "GameB"};
+    private Object[][] gameBTableData = {
+            {-2, -2, -2, -2}
+    };
 
-    public TournamentTable() {
+    public TournamentTable(DataReader dataReader) {
 
-        overallScoreTable = new JTable(data, columnNames);
-        gameAScoreTable = new JTable(data2, individualGamesColumns);
-        gameBScoreTable = new JTable(data3, individualGamesColumns);
+        this.dataReader = dataReader;
+        overallScoreTable = new JTable(tournamentTableData, tournamentTableColumns);
+        gameAScoreTable = new JTable(gameATableData, individualGamesColumns);
+        gameBScoreTable = new JTable(gameBTableData, individualGamesColumns);
         overallScoreTable.getTableHeader().setVisible(true);
         gameAScoreTable.getTableHeader().setVisible(true);
         gameBScoreTable.getTableHeader().setVisible(true);
@@ -55,7 +61,7 @@ public class TournamentTable extends JTable{
         tableList[0][1] = gameAScoreTable;
         tableList[0][2] = gameBScoreTable;
 
-        mainTable = new JTable(new DefaultTableModel(tableList, names));
+        mainTable = new JTable(new DefaultTableModel(tableList, mainTableColumns));
 
         TableColumn tc = mainTable.getColumnModel().getColumn(0);
         tc.setCellRenderer(new CustomTableCellRenderer(overallScoreTable));
@@ -74,6 +80,18 @@ public class TournamentTable extends JTable{
     }
 
     public void updateTournamentScores(int currentChallenge, int currentMatchInChallenge) {
+
+        List<String> teamNames = dataReader.getTeamNames();
+
+        for(String teamName : teamNames) {
+
+        }
+
+        Map<String, Integer> tournamentScores = dataReader.getTournamentScores();
+
+
+        gameBTableData[0][1] = 10000;
+        mainTable.updateUI();
     }
 
     private class CustomTableCellRenderer extends DefaultTableCellRenderer {
