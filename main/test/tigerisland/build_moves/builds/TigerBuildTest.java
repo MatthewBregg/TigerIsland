@@ -36,26 +36,6 @@ public class TigerBuildTest {
         tigerBuild = new TigerBuild(board, pieceBoard, settlementBoard, scoreManager);
     }
 
-//    @Override
-//    protected List<BuildActionRule> createBuildActionRules() {
-//        List<BuildActionRule> rules = new ArrayList<>();
-//        //Todo add BuildLocationOnBoard
-//        rules.add( new PlayerMustHaveATigerToBuildRule());
-//        rules.add( new EmptyHexRule(pieceBoard));
-//        rules.add( new CannotBuildOnVolcanoRule(board));
-//        rules.add(new TigerBuildHexMustBeLevelThreeRule(board));
-//        rules.add(new SettlementAlreadyContainsTigerRule(settlementBoard));
-//        return rules;
-//    }
-//
-//    @Override
-//    protected List<MakeBuildAction> createBuildActions() {
-//        List<MakeBuildAction> actions = new ArrayList<>();
-//        actions.add( new PlaceTigerOnHexAction(pieceBoard));
-//        actions.add( new ScoreTigerOnHex(scoreManager));
-//        return actions;
-//    }
-
     @Test
     public void test_ShouldNotBuildWhenPlayerMustHaveTigerRuleIsApplied() {
 
