@@ -192,8 +192,7 @@ public class BuildControllerTest {
                 .build();
 
         BuildActionResult resultTL = buildController.foundSettlement(badTL);
-        System.out.println(resultTL.errorMessage);
-        Assert.assertTrue(resultTL.successful);
+        Assert.assertTrue(resultTL.errorMessage, resultTL.successful);
     }
 
     @Test
@@ -208,8 +207,7 @@ public class BuildControllerTest {
                 .build();
 
         BuildActionResult resultTL = buildController.foundSettlement(badTL);
-        System.out.println(resultTL.errorMessage);
-        Assert.assertTrue(resultTL.successful);
+        Assert.assertTrue(resultTL.errorMessage, resultTL.successful);
     }
 
     @Test
@@ -224,8 +222,7 @@ public class BuildControllerTest {
                 .build();
 
         BuildActionResult resultTL = buildController.foundSettlement(badTL);
-        System.out.println(resultTL.errorMessage);
-        Assert.assertTrue(resultTL.successful);
+        Assert.assertTrue(resultTL.errorMessage,resultTL.successful);
     }
 
     @Test
@@ -240,8 +237,7 @@ public class BuildControllerTest {
                 .build();
 
         BuildActionResult resultTL = buildController.foundSettlement(badTL);
-        System.out.println(resultTL.errorMessage);
-        Assert.assertTrue(resultTL.successful);
+        Assert.assertTrue(resultTL.errorMessage,resultTL.successful);
     }
 
     @Test

@@ -126,8 +126,7 @@ public class TournamentScoreboardTest {
 
         boolean success = tournamentScoreboard.updateTournamentScoresForValidWin(playerData);
 
-        System.out.println(success);
-
+        Assert.assertTrue(success);
         boolean result = false;
         if (success){
             if((tournamentScoreboard.getPlayerScore(pID) == 50) && (tournamentScoreboard.getPlayerScore(pIDPlayer2) == -5)){
@@ -164,9 +163,8 @@ public class TournamentScoreboardTest {
         playerData.add(player2Data);
 
         boolean success = tournamentScoreboard.updateTournamentScoresForValidWin(playerData);
-
-        System.out.println(success);
-
+        
+        Assert.assertTrue(success);
         boolean result = false;
         if (success){
             if((tournamentScoreboard.getPlayerScore(pID) == 10) && (tournamentScoreboard.getPlayerScore(pIDPlayer2) == 10)){
