@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.function.Consumer;
+import java.util.function.Function;
 
 public class GameThread extends Thread{
 
@@ -193,20 +195,22 @@ public class GameThread extends Thread{
         logger.writeGameEnded(playersInGame.get(0).getID(), playersInGame.get(1).getID(), endGameMessage);
     }
 
+
     public boolean playerUsedTwoTypesPieces(PlayerID pID){
         Player player = getPlayerFromPID(pID);
 
-        if((player.getTigerCount() == 0) && (player.getTotoroCount() == 0)){
-            return true;
-        }
-        else if((player.getTigerCount() == 0) && (player.getVillagerCount() == 0)){
-            return true;
-        }
-        else if((player.getTotoroCount() == 0) && (player.getVillagerCount() == 0)){
-            return true;
-        }
+        int typesOfRemainingPieces = 0;
 
-        return false;
+        Function<Integer,Integer> returnOneIfNotZero = new Function<Integer, Integer>() {
+            @Override
+            public Integer apply(Integer integer) {
+                return (integer == 0 ) ? 0 : 1;
+            }
+        };
+        typesOfRemainingPieces += returnOneIfNotZero.apply(player.getTigerCount());
+        typesOfRemainingPieces += returnOneIfNotZero.apply(player.getTotoroCount());
+        typesOfRemainingPieces += returnOneIfNotZero.apply(player.getVillagerCount());
+        return (typesOfRemainingPieces == 1);
     }
 
     public boolean gameEndedWithValidWin(){
