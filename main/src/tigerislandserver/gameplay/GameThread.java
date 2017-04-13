@@ -189,7 +189,7 @@ public class GameThread extends Thread{
         logger.writeGameEnded(playersInGame.get(0).getID(), playersInGame.get(1).getID(), endGameMessage);
     }
 
-    public boolean playerUsedAllOfTwoTiles(PlayerID pID){
+    public boolean playerUsedTwoTypesPieces(PlayerID pID){
         ArrayList<Player> players = gameManager.getPlayers();
         Player player1 = players.get(0);
         Player player2 = players.get(1);
@@ -223,7 +223,7 @@ public class GameThread extends Thread{
         TournamentPlayer player = playersInGame.get(activePlayerIndex);
         PlayerID pID = player.getID();
 
-        boolean usedAllOfTwo = playerUsedAllOfTwoTiles(pID);
+        boolean usedAllOfTwo = playerUsedTwoTypesPieces(pID);
         boolean allTilesDrawn = noMoreTilesAreLeftToPlace();
 
         return usedAllOfTwo || allTilesDrawn;
