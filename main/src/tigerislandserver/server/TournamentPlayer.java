@@ -63,7 +63,10 @@ public class TournamentPlayer implements Runnable
 
     private void pushMessageToGameQueues(String input){
         String[] tokens = input.split("\\s+");
-
+        if ( tokens.length < 2 ) {
+            System.out.println("Invalid GAME ID from this.readline()");
+            return;
+        }
         if (tokens[1].contentEquals("A")) {
             gameA.add(input);
         } else if (tokens[1].contentEquals("B")) {
