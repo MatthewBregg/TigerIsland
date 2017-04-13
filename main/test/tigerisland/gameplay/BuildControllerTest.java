@@ -147,38 +147,11 @@ public class BuildControllerTest {
         TotoroBuild totoroAction = buildController.getTotoroBuild();
         TigerBuild tigerAction = buildController.getTigerBuild();
 
-        boolean seuCheck = false;
-        boolean fnsbCheck = false;
-        boolean esohaCheck = false;
-        boolean totoroActionCheck = false;
-        boolean tigerActionCheck = false;
-
-        if (settlementExpansionUtility != null){
-            seuCheck = true;
-            System.out.println("seu" + seuCheck);
-        }
-
-        if (foundSettlementAction != null) {
-            fnsbCheck = true;
-            System.out.println("fnsb"+fnsbCheck);
-        }
-
-        if (expandAction != null) {
-            esohaCheck = true;
-            System.out.println("esoha"+esohaCheck);
-        }
-
-        if (totoroAction != null) {
-            totoroActionCheck = true;
-            System.out.println("tororo"+totoroActionCheck);
-        }
-
-        if (tigerAction != null) {
-            tigerActionCheck = true;
-            System.out.println("tiger"+tigerActionCheck);
-        }
-
-        Assert.assertTrue(seuCheck && fnsbCheck && esohaCheck && totoroActionCheck && tigerActionCheck);
+        Assert.assertNotNull(settlementExpansionUtility);
+        Assert.assertNotNull(foundSettlementAction);
+        Assert.assertNotNull(expandAction);
+        Assert.assertNotNull(totoroAction);
+        Assert.assertNotNull(tigerAction);
     }
 
     @Test
