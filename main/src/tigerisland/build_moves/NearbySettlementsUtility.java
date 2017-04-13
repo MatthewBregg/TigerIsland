@@ -31,10 +31,15 @@ public class NearbySettlementsUtility {
         List<Location> locations = location.getSurroundingLocations();
         Set<Settlement> settlements = new HashSet<>();
 
+        Set<Location> contained_locations = new HashSet<>();
         for ( Location loc : locations ) {
+            if ( contained_locations.contains(loc)) {
+                continue;
+            }
             Settlement settlement = board.getSettlement(loc, player.getId());
             if ( settlement.settlementSize() > 0 ) {
                 settlements.add(settlement);
+                contained_locations.addAll(settlement.getConnectedLocations());
             }
         }
         return new ArrayList<Settlement>(settlements);
