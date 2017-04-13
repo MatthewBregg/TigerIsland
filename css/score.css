@@ -19,11 +19,18 @@ th {
 .special-font{
 	font-family: 'Macondo', cursive;
 	font-size: 60px;
+    color: white;
 }
 
 .header-font{
     font-family: 'Macondo', cursive;
     font-size: 40px;
+    color: white;
+}
+
+.panel-font{
+    font-family: 'Macondo', cursive;
+    font-size: 30px;
     color: white;
 }
 

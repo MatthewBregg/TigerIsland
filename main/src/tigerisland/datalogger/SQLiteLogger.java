@@ -112,6 +112,19 @@ public class SQLiteLogger implements DataLogger {
         }
     }
 
+    private void writeToChallengeScore(int cid, int pid, int score){
+        String query = "INSERT OR REPLACE INTO challenge_score(challenge_id, player_id, score) VALUES(?,?,?)";
+        try{
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, cid);
+            preparedStatement.setInt(2, pid);
+            preparedStatement.setInt(3, score);
+        }catch(SQLException sqlException){
+            System.err.println(sqlException);
+            hasError = true;
+        }
+    }
+
     private void writeToRawRequest(long timestamp, String message) {
         String query = "INSERT INTO raw_requests (time_stamp, request) VALUES(?,?)";
         try {
@@ -153,6 +166,41 @@ public class SQLiteLogger implements DataLogger {
     @Override
     public void writeRawRequest(long timeStamp, String message) {
         writeToRawRequest(timeStamp, message);
+    }
+
+    @Override
+    public void writeToTournamentScore(PlayerID pid, int score) {
+        String query = "INSERT OR REPLACE INTO tournament_score(player_id, score) VALUES(?,?)";
+        try {
+            PreparedStatement prstmnt = connection.prepareStatement(query);
+            prstmnt.setString(1, getUserName(pid));
+            prstmnt.setInt(2, score);
+            synchronized ( connection ) {
+                prstmnt.executeUpdate();
+            }
+        } catch (SQLException sqlException) {
+            System.err.println(sqlException);
+            hasError = true;
+        }
+    }
+
+    @Override
+    public void writeToGameTurnScore(PlayerID pId, int moveId, int score) {
+        String query = "INSERT OR REPLACE INTO game_turn_score(challenge_id, player_id, game_id, move_id, score) VALUES(?,?,?,?,?)";
+        try {
+            PreparedStatement prstmnt = connection.prepareStatement(query);
+            prstmnt.setInt(1, challengeId);
+            prstmnt.setString(2, getUserName(pId));
+            prstmnt.setString(3, String.valueOf(gameId));
+            prstmnt.setInt(4, moveId);
+            prstmnt.setInt(5, score);
+            synchronized ( connection ) {
+                prstmnt.executeUpdate();
+            }
+        } catch (SQLException sqlException) {
+            System.err.println(sqlException);
+            hasError = true;
+        }
     }
 
     @Override

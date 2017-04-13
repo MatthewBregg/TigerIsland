@@ -28,5 +28,9 @@ public interface DataLogger {
 
     void writeRawRequest(long timeStamp, String message);
 
+    void writeToTournamentScore(PlayerID pid, int score);
+
+    void writeToGameTurnScore(PlayerID pId, int moveId, int score);
+
     void nextTurn();
 }
