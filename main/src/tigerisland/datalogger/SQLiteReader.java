@@ -151,8 +151,24 @@ public class SQLiteReader implements DataReader{
     }
 
     @Override
-    public int getScoreForPlayerTurn(String userName, int turnId) {
-        return 0;
+    public int getScoreForPlayerTurn(int challengeId, String userName, char gameId, int moveId) {
+        String query = String.format("select max(score) from game_turn_score where " +
+                "challenge_id='%s' and player_id='%s' and game_id='%s' and move_id='%s'",
+                challengeId, userName, gameId, moveId);
+
+       int score = -1;
+       try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+
+            while (rs.next()) {
+                score = rs.getInt("max(score)");
+            }
+
+        } catch(SQLException sqlException) {
+            System.out.println(sqlException);
+        }
+        return score;
     }
 
     @Override
