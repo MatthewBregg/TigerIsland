@@ -45,12 +45,13 @@ public class TournamentServer {
         Thread connectionThread = new Thread(new ConnectionAcceptor());
         connectionThread.start();
 
-        while(System.currentTimeMillis() < socketCloseTime){
-            try {
-                wait(100);
-            } catch (InterruptedException e) {
-                System.err.println("Server connection error");
-                e.printStackTrace();
+        System.out.println("Server socket will close in: " + connectionTimeout_s + " seconds");
+        long currentCounter = connectionTimeout_s;
+        while (System.currentTimeMillis() < socketCloseTime) {
+            long timeLeft = (socketCloseTime - System.currentTimeMillis())/1000;
+            if((timeLeft % 5) == 0 && timeLeft != currentCounter){
+                currentCounter = timeLeft;
+                System.out.println(timeLeft + " seconds remaining");
             }
         }
 
@@ -79,8 +80,13 @@ public class TournamentServer {
         // TODO: close all connections
     }
 
+    public int getPlayerCount() {
+        return clientConnections.size();
+    }
+
     class ConnectionAcceptor implements Runnable {
-        ConnectionAcceptor() {}
+        ConnectionAcceptor() {
+        }
 
         @Override
         public void run() {
@@ -98,8 +104,9 @@ public class TournamentServer {
                     }
                     Thread configureClient = new Thread(client);
                     configureClient.start();
-                } catch (SocketException e){
+                } catch (SocketException e) {
                     System.out.println("Server socket closed!");
+                    listening = false;
                 } catch (IOException e) {
                     System.err.println("Exception caught or problem listening on port " + getPort());
                     System.exit(-1);
