@@ -103,7 +103,7 @@ public class SQLiteReaderTest {
         logger.writeGameEnded(player1.getId(), player2.getId(), "");
 
         char game_id = 'B';
-        int challenge2 = 2;
+        int challenge2 = Integer.MAX_VALUE;
         logger.newGame(game_id, challenge2);
         logger.writeGameEnded(player1.getId(), player2.getId(), "");
 
