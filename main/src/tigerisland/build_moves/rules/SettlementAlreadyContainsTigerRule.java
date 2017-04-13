@@ -38,15 +38,17 @@ public class SettlementAlreadyContainsTigerRule implements BuildActionRule {
         List<Settlement> buildSettlements = new ArrayList<>();
 
 
-        for (Settlement settlement : possibleBuildSettlements){
+        for (Settlement settlement : possibleBuildSettlements) {
            TigerCounter tc = new TigerCounter();
            settlement.acceptVisitor(tc);
-           if (tc.getCount()<1)
+           if (tc.getCount()<1) {
                buildSettlements.add(settlement);
+           }
         }
 
-        if (buildSettlements.size()==0)
+        if (buildSettlements.size()==0) {
             return false;
+        }
 
         return true;
 
