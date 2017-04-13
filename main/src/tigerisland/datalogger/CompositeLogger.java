@@ -84,6 +84,16 @@ public class CompositeLogger implements DataLogger {
     }
 
     @Override
+    public void writeToTournamentScore(PlayerID pid, int score) {
+
+    }
+
+    @Override
+    public void writeToGameTurnScore(PlayerID pId, int moveId, int score) {
+
+    }
+
+    @Override
     public void nextTurn() {
         for ( DataLogger logger : dataLoggerList ) {
             logger.nextTurn();

@@ -1,20 +1,27 @@
 package tigerislandserver.server;
 
+import tigerisland.player.PlayerID;
 import tigerislandserver.adapter.OutputAdapter;
 import tigerislandserver.gameplay.Challenge;
+import tigerislandserver.gameplay.TournamentScoreManager;
+import tigerislandserver.gameplay.TournamentScoreboard;
 
 import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class TournamentServer {
     private ServerSocket serverSocket;
     private ArrayList<TournamentPlayer> clientConnections = new ArrayList<>();
     private boolean currentlyAcceptingConnections;
+    private TournamentScoreManager tournamentScoreManager;
 
     public TournamentServer(int port) {
         currentlyAcceptingConnections = false;
+        tournamentScoreManager = new TournamentScoreManager(clientConnections);
 
         try {
             serverSocket = new ServerSocket(port);
@@ -62,15 +69,26 @@ public class TournamentServer {
         }
     }
 
-    public void startTournament(int numberOfChallenges) {
-        for (int i = 0; i < numberOfChallenges; i++) {
-            if (i != 0) {
+//    public void startTournament(int numberOfChallenges) {
+//        for (int i = 0; i < numberOfChallenges; i++) {
+//            if (i != 0) {
+    public void startTournament(int numberOfChallenges)
+    {
+        tournamentScoreManager.initializeOverallTournamentScores();
+        for(int i=0; i<numberOfChallenges; i++)
+        {
+            if(i != 0){
                 OutputAdapter.sendWaitForChallengeMessage(clientConnections);
             }
 
             Challenge challenge = new Challenge(clientConnections, i);
             OutputAdapter.sendNewChallengeMessage(clientConnections, i, challenge.getTotalChallengeRounds());
             challenge.play();
+
+            // at this point that specific challenge object should be
+            TournamentScoreboard scoreboard = challenge.getScoreboard();
+            tournamentScoreManager.setEndedChallengeScores(scoreboard.getPlayerMap());
+            tournamentScoreManager.addToAllPlayersScore();
         }
 
         OutputAdapter.sendEndOfChallengesMessage(clientConnections);

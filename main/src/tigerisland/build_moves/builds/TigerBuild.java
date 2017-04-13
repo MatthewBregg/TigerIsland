@@ -28,12 +28,12 @@ public class TigerBuild extends BuildAction {
     @Override
     protected List<BuildActionRule> createBuildActionRules() {
         List<BuildActionRule> rules = new ArrayList<>();
-        //Todo add BuildLocationOnBoard
         rules.add( new PlayerMustHaveATigerToBuildRule());
         rules.add( new EmptyHexRule(pieceBoard));
         rules.add( new CannotBuildOnVolcanoRule(board));
         rules.add(new TigerBuildHexMustBeLevelThreeRule(board));
         rules.add(new SettlementAlreadyContainsTigerRule(settlementBoard));
+        rules.add(new BuildLocationMustBeOnBoardRule(board));
         return rules;
     }
 

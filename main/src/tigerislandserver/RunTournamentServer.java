@@ -1,11 +1,13 @@
 package tigerislandserver;
 
+import tigerisland.datalogger.LoggerFactory;
 import tigerislandserver.server.TournamentServer;
 
 public class RunTournamentServer
 {
     public static void main(String[] args)
     {
+        LoggerFactory.clearTables();
         if(args.length != 6 || !args[0].matches("^\\d+$") || !args[3].matches("^\\d+$") || !args[4].matches("^\\d+$") || !args[5].matches("^\\d+$"))
         {
             System.err.println("Invalid arguments: Please adjust your input to match the following:");

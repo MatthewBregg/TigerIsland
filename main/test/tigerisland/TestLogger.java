@@ -13,6 +13,16 @@ public class TestLogger implements DataLogger {
     }
 
     @Override
+    public void writeToTournamentScore(PlayerID pid, int score) {
+
+    }
+
+    @Override
+    public void writeToGameTurnScore(PlayerID pId, int moveId, int score) {
+
+    }
+
+    @Override
     public void writePlacedTotoroMove(PlayerID pid, Location loc) {
 
     }

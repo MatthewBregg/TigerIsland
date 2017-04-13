@@ -1,8 +1,8 @@
 package ui;
 
+import tigerisland.datalogger.DataReader;
 import tigerisland.datalogger.LoggerFactory;
-import ui.GenerateOverallScoreboard;
-import ui.GenerateScoreBoard;
+import tigerisland.datalogger.SQLiteReader;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -12,14 +12,13 @@ import static java.lang.Thread.sleep;
 
 public class ScoreBoardMain {
     private final static String FILENAME = "./ScoreBoard.html";
-    private final static String FILENAMEOVERALLSCORE = "./OverallScoreBoard.html";
     public static void main(String[] args) {
         LoggerFactory.createTables();
         while(true) {
-            GenerateScoreBoard scoreBoardGenerator = new GenerateScoreBoard(LoggerFactory.getDataBaseUrl());
-            GenerateOverallScoreboard overallScoreboardGenerator = new GenerateOverallScoreboard(LoggerFactory.getDataBaseUrl());
 
-            String overallScoreboard = (overallScoreboardGenerator.getScoreBoard());
+            DataReader sqliteDataReader = new SQLiteReader(LoggerFactory.getDbConnection());
+            GenerateScoreBoard scoreBoardGenerator = new GenerateScoreBoard(sqliteDataReader);
+
             String scoreboard = (scoreBoardGenerator.getScoreBoard());
 
             BufferedWriter bufferedWriter = null;
@@ -28,12 +27,9 @@ public class ScoreBoardMain {
             FileWriter fileWriter = null;
             FileWriter fileWriterOverall = null;
             try {
-                fileWriterOverall = new FileWriter(FILENAMEOVERALLSCORE);
                 fileWriter = new FileWriter(FILENAME);
-                bufferedWriterOverall = new BufferedWriter(fileWriterOverall);
                 bufferedWriter = new BufferedWriter(fileWriter);
                 bufferedWriter.write(scoreboard);
-                bufferedWriterOverall.write(overallScoreboard);
             } catch (IOException e) {
 
                 e.printStackTrace();
@@ -42,16 +38,10 @@ public class ScoreBoardMain {
                     if (bufferedWriter != null) {
                         bufferedWriter.close();
                     }
-                    if (bufferedWriterOverall != null){
-                        bufferedWriterOverall.close();
-                    }
-                    if (fileWriter != null) {
+                   if (fileWriter != null) {
                         fileWriter.close();
                     }
-                    if (fileWriterOverall != null){
-                        fileWriterOverall.close();
-                    }
-                } catch (IOException ex) {
+               } catch (IOException ex) {
                     ex.printStackTrace();
                 }
             }

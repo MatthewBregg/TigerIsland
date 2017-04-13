@@ -42,8 +42,16 @@ public class TournamentScoreboard {
         return 0;
     }
 
+    public Map<PlayerID, Integer> getPlayerMap(){
+        return tournamentPlayerScores;
+    }
+
     public void addNewPlayer(PlayerID pID){
         tournamentPlayerScores.put(pID, 0);
+    }
+
+    public int getNumberOfPlayers(){
+        return tournamentPlayerScores.size();
     }
 
     public void resetPlayerScore(PlayerID pID){
@@ -260,7 +268,6 @@ public class TournamentScoreboard {
             }
         }
         return winningPlayerIndex;
-        //ArrayList<ArrayList<TournamentPlayer>> playerMatchupsPerRound = tourneyRepresentation.getPlayerMatchups(roundNumber);
     }
 
     public boolean didPlayerPlayAtLeastOneTotoroOrTiger(Player player){
