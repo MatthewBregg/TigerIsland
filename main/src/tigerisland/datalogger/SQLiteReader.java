@@ -190,6 +190,31 @@ public class SQLiteReader implements DataReader{
     }
 
     @Override
+    public String getOpponent(String s, int currentChallenge, int currentMatchInChallenge) {
+        return "";
+    }
+
+    @Override
+    public int getVillagersForGame(int currentChallenge, String s, int currentMatchInChallenge, char a) {
+        return -1;
+    }
+
+    @Override
+    public int getTotoroForGame(int currentChallenge, String s, int currentMatchInChallenge, char a) {
+        return -1;
+    }
+
+    @Override
+    public int getTigerForGame(int currentChallenge, String s, int currentMatchInChallenge, char a) {
+        return -1;
+    }
+
+    @Override
+    public int getTotoroGame(int currentChallenge, String s, int currentMatchInChallenge, char b) {
+        return -1;
+    }
+
+    @Override
     public int getCurrentChallengeBeenPlayed() {
        String query = "select  max(challenge_id) from matches";
        int currentChallenge = -1;

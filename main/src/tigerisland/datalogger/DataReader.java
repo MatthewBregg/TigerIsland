@@ -28,4 +28,13 @@ public interface DataReader {
 
     int getCurrentTurnNumber();
 
+    String getOpponent(String s, int currentChallenge, int currentMatchInChallenge);
+
+    int getVillagersForGame(int currentChallenge, String s, int currentMatchInChallenge, char a);
+
+    int getTotoroForGame(int currentChallenge, String s, int currentMatchInChallenge, char a);
+
+    int getTigerForGame(int currentChallenge, String s, int currentMatchInChallenge, char a);
+
+    int getTotoroGame(int currentChallenge, String s, int currentMatchInChallenge, char b);
 }

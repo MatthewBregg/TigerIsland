@@ -79,18 +79,29 @@ public class TournamentTable {
         return mainTable;
     }
 
-    public void updateTournamentScores(int currentChallenge, int currentMatchInChallenge) {
+    public void updateTournamentScores(int currentChallenge, int currentMatchInChallenge, int turnId) {
 
         List<String> teamNames = dataReader.getTeamNames();
 
-        for(String teamName : teamNames) {
+        for(int i = 0; i < teamNames.size(); i++) {
 
+            int tourney = dataReader.getTeamTournamentScore(teamNames.get(i));
+            int currentChallengeScore = dataReader.getTeamScoreForChallenge(teamNames.get(i), currentChallenge);
+            String opponent = dataReader.getOpponent(teamNames.get(i), currentChallenge, currentMatchInChallenge);
+
+            int scoreForGameA = dataReader.getScoreForPlayerTurn(currentChallenge, teamNames.get(i), 'A', turnId);
+            int villagerForGameA = dataReader.getVillagersForGame(currentChallenge, teamNames.get(i), currentMatchInChallenge, 'A');
+            int totoroForGameA = dataReader.getTotoroForGame(currentChallenge, teamNames.get(i), currentMatchInChallenge, 'A');
+            int tigersForGameA = dataReader.getTigerForGame(currentChallenge, teamNames.get(i), currentMatchInChallenge, 'A');
+
+            int scoreForGameB = dataReader.getScoreForPlayerTurn(currentChallenge, teamNames.get(i), 'B', turnId);
+            int villagerForGameB = dataReader.getVillagersForGame(currentChallenge, teamNames.get(i), currentMatchInChallenge, 'B');
+            int totoroForGameB = dataReader.getTotoroGame(currentChallenge, teamNames.get(i), currentMatchInChallenge, 'B');
+            int tigersForGameB = dataReader.getTigerForGame(currentChallenge, teamNames.get(i), currentMatchInChallenge, 'B');
+
+            // TODO add to 2d arrays
         }
 
-        Map<String, Integer> tournamentScores = dataReader.getTournamentScores();
-
-
-        gameBTableData[0][1] = 10000;
         mainTable.updateUI();
     }
 
