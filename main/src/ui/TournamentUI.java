@@ -1,13 +1,19 @@
 package ui;
 
+import tigerisland.datalogger.DataReader;
+import tigerisland.datalogger.LoggerFactory;
+import tigerisland.datalogger.SQLiteReader;
+
 import javax.swing.*;
 import java.awt.*;
+import java.sql.Connection;
 
 import static java.lang.Thread.sleep;
 
 public class TournamentUI extends JFrame {
 
-    private JTable mainTable;
+    private static DataReader dataReader;
+    private static TournamentTable tournamentTable;
     private static JLabel challengeLabel;
     private static JLabel matchInChallengeLabel;
     private static JLabel turnForMatchLabel;
@@ -17,6 +23,10 @@ public class TournamentUI extends JFrame {
     private static int turnForCurrentMatch = -1;
 
     public TournamentUI() {
+
+        LoggerFactory.createTables();
+        Connection connection = LoggerFactory.getDbConnection();
+        dataReader = new SQLiteReader(connection);
 
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
@@ -36,8 +46,8 @@ public class TournamentUI extends JFrame {
         turnForMatchLabel.setText("Turn");
         labelPanel.add(turnForMatchLabel);
 
-        TournamentTable tournamentTable = new TournamentTable();
-        mainTable = tournamentTable.getTournamentTable();
+        tournamentTable = new TournamentTable();
+        JTable mainTable = tournamentTable.getTournamentTable();
 
         Container container = this.getContentPane();
         mainPanel.add(labelPanel);
@@ -52,6 +62,7 @@ public class TournamentUI extends JFrame {
 
     public static void main(String[] args) {
         new TournamentUI();
+
         while (true) {
             try {
                 sleep(1000);
@@ -66,19 +77,27 @@ public class TournamentUI extends JFrame {
         updateCurrentChallenge();
         updateCurrentMatch();
         updateTurnForCurrentMatch();
+        updateTournamentScores();
+    }
+
+    private static void updateTournamentScores() {
+        tournamentTable.updateTournamentScores(currentChallenge, currentMatchInChallenge);
     }
 
     private static void updateTurnForCurrentMatch() {
+        turnForCurrentMatch = dataReader.getCurrentTurnNumber();
         String challengeStr = String.format("Turn %s", turnForCurrentMatch);
         turnForMatchLabel.setText(challengeStr);
     }
 
     private static void updateCurrentMatch() {
+        currentMatchInChallenge = dataReader.getCurrentMatchForChallenge(currentChallenge);
         String challengeStr = String.format("Match %s of %s", currentMatchInChallenge, 3);
         matchInChallengeLabel.setText(challengeStr);
     }
 
     private static void updateCurrentChallenge() {
+        currentChallenge = dataReader.getCurrentChallengeBeenPlayed();
         String challengeStr = String.format("Challenge %s of %s", currentChallenge, 3);
         challengeLabel.setText(challengeStr);
     }

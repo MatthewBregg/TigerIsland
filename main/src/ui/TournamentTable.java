@@ -6,7 +6,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import java.awt.*;
 
-public class TournamentTable {
+public class TournamentTable extends JTable{
 
     private JTable mainTable;
     private JTable overallScoreTable;
@@ -41,6 +41,7 @@ public class TournamentTable {
     private String[] names = {"Tournament", "GameA", "GameB"};
 
     public TournamentTable() {
+
         overallScoreTable = new JTable(data, columnNames);
         gameAScoreTable = new JTable(data2, individualGamesColumns);
         gameBScoreTable = new JTable(data3, individualGamesColumns);
@@ -56,7 +57,6 @@ public class TournamentTable {
 
         mainTable = new JTable(new DefaultTableModel(tableList, names));
 
-
         TableColumn tc = mainTable.getColumnModel().getColumn(0);
         tc.setCellRenderer(new CustomTableCellRenderer(overallScoreTable));
 
@@ -71,6 +71,9 @@ public class TournamentTable {
 
     public JTable getTournamentTable() {
         return mainTable;
+    }
+
+    public void updateTournamentScores(int currentChallenge, int currentMatchInChallenge) {
     }
 
     private class CustomTableCellRenderer extends DefaultTableCellRenderer {
