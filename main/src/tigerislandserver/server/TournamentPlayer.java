@@ -27,6 +27,7 @@ public class TournamentPlayer implements Runnable
     private boolean authenticated;
     private PlayerID pID;
     private String username;
+    private final int authenticateTime = 1800;
 
     private boolean gameAReady() {
         processInputFromClientIntoGameQueues();
@@ -94,7 +95,7 @@ public class TournamentPlayer implements Runnable
         OutputAdapter.sendWelcomeMessage(this);
 
         try {
-            Thread.sleep(1800); //1.8s allowed to authenticate
+            Thread.sleep(authenticateTime); //1.8s allowed to authenticate
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -119,7 +120,7 @@ public class TournamentPlayer implements Runnable
         OutputAdapter.requestAuthentication(this);
 
         try {
-            Thread.sleep(1800); //1.8s allowed to authenticate
+            Thread.sleep(authenticateTime); //1.8s allowed to authenticate
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
