@@ -190,8 +190,24 @@ public class SQLiteReader implements DataReader{
     }
 
     @Override
-    public String getOpponent(String s, int currentChallenge, int currentMatchInChallenge) {
-        return "";
+    public String getOpponent(String teamName, int currentChallenge, int currentMatchInChallenge) {
+        String query = String.format("select p2_id from matches where " +
+                "p1_id='%s' and chalenge_id='%s' and match_id='%s'", teamName, currentChallenge, currentMatchInChallenge);
+
+        String opponent = "NO_OPPONENT";
+        try {
+
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+
+            if (rs.next()) {
+                opponent = rs.getString("p2_id");
+            }
+
+        } catch(SQLException sqlException) {
+            System.out.println(sqlException);
+        }
+        return opponent;
     }
 
     @Override
