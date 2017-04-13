@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.function.Consumer;
 import java.util.function.Function;
 
 public class GameThread extends Thread{
@@ -196,7 +195,7 @@ public class GameThread extends Thread{
     }
 
 
-    public boolean playerUsedTwoTypesPieces(PlayerID pID){
+    public boolean playerHasOnlyOnePieceTypeRemaining(PlayerID pID){
         Player player = getPlayerFromPID(pID);
 
         int typesOfRemainingPieces = 0;
@@ -220,7 +219,7 @@ public class GameThread extends Thread{
         TournamentPlayer player = playersInGame.get(activePlayerIndex);
         PlayerID pID = player.getID();
 
-        boolean usedAllOfTwo = playerUsedTwoTypesPieces(pID);
+        boolean usedAllOfTwo = playerHasOnlyOnePieceTypeRemaining(pID);
         boolean allTilesDrawn = noMoreTilesAreLeftToPlace();
 
         return usedAllOfTwo || allTilesDrawn;
