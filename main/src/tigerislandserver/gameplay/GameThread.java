@@ -183,6 +183,7 @@ public class GameThread extends Thread{
 
             moveNumber++;
 
+
             // CHRISTINE this is where we would get the score of the game at the end of the turn
             // and the move number
 

@@ -166,23 +166,48 @@ public class TournamentTable {
             int tourney = dataReader.getTeamTournamentScore(teamNames.get(i));
             int currentChallengeScore = dataReader.getTeamScoreForChallenge(teamNames.get(i), currentChallenge);
             String opponent = dataReader.getOpponent(teamNames.get(i), currentChallenge, currentMatchInChallenge);
+            ArrayList<Object> tournamentData = new ArrayList<>();
+            tournamentData.add(teamNames.get(i));
+            tournamentData.add(tourney);
+            tournamentData.add(currentChallengeScore);
+            tournamentData.add(opponent);
 
             int scoreForGameA = dataReader.getScoreForPlayerTurn(currentChallenge, teamNames.get(i), 'A', turnId);
             int villagerForGameA = dataReader.getVillagersForGame(currentChallenge, teamNames.get(i), currentMatchInChallenge, 'A');
             int totoroForGameA = dataReader.getTotoroForGame(currentChallenge, teamNames.get(i), currentMatchInChallenge, 'A');
             int tigersForGameA = dataReader.getTigerForGame(currentChallenge, teamNames.get(i), currentMatchInChallenge, 'A');
+            ArrayList<Integer> gameAScores = new ArrayList<>();
+            gameAScores.add(scoreForGameA);
+            gameAScores.add(villagerForGameA);
+            gameAScores.add(totoroForGameA);
+            gameAScores.add(tigersForGameA);
 
             int scoreForGameB = dataReader.getScoreForPlayerTurn(currentChallenge, teamNames.get(i), 'B', turnId);
             int villagerForGameB = dataReader.getVillagersForGame(currentChallenge, teamNames.get(i), currentMatchInChallenge, 'B');
             int totoroForGameB = dataReader.getTotoroGame(currentChallenge, teamNames.get(i), currentMatchInChallenge, 'B');
             int tigersForGameB = dataReader.getTigerForGame(currentChallenge, teamNames.get(i), currentMatchInChallenge, 'B');
+            ArrayList<Integer> gameBScores = new ArrayList<>();
+            gameBScores.add(scoreForGameB);
+            gameBScores.add(villagerForGameB);
+            gameBScores.add(totoroForGameB);
+            gameBScores.add(tigersForGameB);
 
             // TODO add to 2d arrays
+            // j = 4 because we aren't seeing all 12 values, we are setting 4 values for 3 different tables
+            // and we arent setting the values of mainTable, we are setting the values
+            for(int j = 0; j < 4; j++){
+                // for setting overall score, i know the conditional looks like shit, but
+                // we add types of String and int so it gets messy sorry
+                overallScoreTable.setValueAt(tournamentData.get(j), i, j);
+                gameAScoreTable.setValueAt(gameAScores.get(j), i, j);
+                gameBScoreTable.setValueAt(gameBScores.get(j), i , j);
+
+            }
         }
 
         mainTable.updateUI();
     }
-
+    
     private class CustomTableCellRenderer extends DefaultTableCellRenderer {
         JTable table;
         CustomTableCellRenderer(JTable table){
