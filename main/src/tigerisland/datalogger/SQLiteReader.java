@@ -77,11 +77,47 @@ public class SQLiteReader implements DataReader{
     }
 
     @Override
+    public int getTeamTournamentScore(String teamName) {
+       String query = String.format("select max(score) from tournament_score where player_id='%s'", teamName);
+       int score = -1;
+       try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+
+            while (rs.next()) {
+                score = rs.getInt("max(score)");
+            }
+
+        } catch(SQLException sqlException) {
+            System.out.println(sqlException);
+        }
+        return score;
+    }
+
+    @Override
+    public int getTeamScoreForChallenge(String teamName, int challengeId) {
+       String query = String.format("select max(score) from overall_score " +
+               "where player_id='%s' and challenge_id='%s'", teamName, challengeId);
+       int score = -1;
+       try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+
+            while (rs.next()) {
+                score = rs.getInt("max(score)");
+            }
+        } catch(SQLException sqlException) {
+            System.out.println(sqlException);
+        }
+        return score;
+    }
+
+    @Override
     public int getMostRecentChallengeScore(String userName) {
         String query =
                 String.format("SELECT SCORE, MAX(CHALLENGE_ID) FROM OVERALL_SCORE WHERE PLAYER_ID = %s)", userName);
 
-        int score = -1;
+       int score = -1;
        try {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(query);
@@ -117,6 +153,24 @@ public class SQLiteReader implements DataReader{
             System.out.println(sqlException);
         }
         return move_id;
+    }
+
+    @Override
+    public int getCurrentChallengeBeenPlayed() {
+       String query = "select  max(challenge_id) from matches";
+       int currentChallenge = -1;
+       try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+
+            while (rs.next()) {
+                currentChallenge = rs.getInt("max(challenge_id)");
+            }
+        } catch(SQLException sqlException) {
+            System.out.println(sqlException);
+        }
+
+        return currentChallenge;
     }
 
     private void addResultSetToMatchRows(ResultSet rs, List<MatchRow> matches) throws SQLException {
