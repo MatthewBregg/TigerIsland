@@ -6,7 +6,8 @@ import javax.xml.soap.Text;
 import java.util.HashMap;
 
 public class TextFileReaderTest {
-    public String fileLocation = "src/testUsernamesPasswords.txt";
+    public String fileLocation;
+    private final String directory = "test_text_files/";
     public TextFileReader tfr;
     public HashMap<String, String> usernamesAndPasswords;
 
@@ -16,19 +17,19 @@ public class TextFileReaderTest {
     }
 
     public void setUrlToStandardUserPassFile() {
-        fileLocation = "src/testUsernamesPasswords.txt";
+        fileLocation = directory+ "testUsernamesPasswords.txt";
     }
 
     public void setUrlToFileWithTrailingLineEnd() {
-        fileLocation = "src/testUsernamesPasswordsTrailingLineEnd.txt";
+        fileLocation = directory+"testUsernamesPasswordsTrailingLineEnd.txt";
     }
 
     public void setUrlToFileWithBlankLine() {
-        fileLocation = "src/testUsernamesPasswordsBlankLine.txt";
+        fileLocation = directory+"testUsernamesPasswordsBlankLine.txt";
     }
 
     public void setUrlToFileWithInvalidLine() {
-        fileLocation = "src/testUsernamesPasswordsInvalidLine.txt";
+        fileLocation = directory+"testUsernamesPasswordsInvalidLine.txt";
     }
 
     public void setUpStandardUserPassFile() {
