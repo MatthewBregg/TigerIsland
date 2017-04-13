@@ -63,14 +63,14 @@ public class TournamentUI extends JFrame {
     public static void main(String[] args) {
         new TournamentUI();
 
-//        while (true) {
-//            try {
-//                sleep(1000);
-//            } catch(InterruptedException e) {
-//                // print out
-//            }
-//            updateUI();
-//        }
+        while (true) {
+            try {
+                sleep(1000);
+            } catch(InterruptedException e) {
+                // print out
+            }
+            updateUI();
+        }
     }
 
     private static void updateUI() {
