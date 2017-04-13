@@ -19,15 +19,20 @@ public class TournamentTable {
     private JTable gameBScoreTable;
     private Object[][] tableList;
 
-    private String[] mainTableColumns = {"Tournament", "GameA", "GameB"};
 
-    private String[] tournamentTableColumns = {
+    private String[] tournamentColumnHeaders = {
             "Team Names",
             "Tourney",
             "Challenge",
             "Opponent",};
 
-    private String[] individualGamesColumns = {
+    private String[] gameAColumnHeaders = {
+            "Score",
+            "V",
+            "To",
+            "Ti",};
+
+    private String[] gameBColumnHeaders = {
             "Score",
             "V",
             "To",
@@ -45,12 +50,85 @@ public class TournamentTable {
             {-2, -2, -2, -2}
     };
 
+    private Object[][] tournamentColumnsValues = {
+            {"Team A", "0", "0", "0"},
+            {"Team B", "0", "0", "0"},
+            {"Team C", "0", "0", "0"},
+            {"Team D", "0", "0", "0"},
+            {"Team E", "0", "0", "0"},
+            {"Team F", "0", "0", "0"},
+            {"Team G", "0", "0", "0"},
+            {"Team H", "0", "0", "0"},
+            {"Team I", "0", "0", "0"},
+            {"Team J", "0", "0", "0"},
+            {"Team K", "0", "0", "0"},
+            {"Team L", "0", "0", "0"},
+            {"Team M", "0", "0", "0"},
+            {"Team N", "0", "0", "0"},
+            {"Team O", "0", "0", "0"},
+            {"Team P", "0", "0", "0"},
+            {"Team Q", "0", "0", "0"},
+            {"Team R", "0", "0", "0"},
+            {"Team S", "0", "0", "0"},
+            {"Team T", "0", "0", "0"},
+    };
+
+    private String[][] gameAColumnsValue = {
+            {"0", "0", "0", "0"},
+            {"0", "0", "0", "0"},
+            {"0", "0", "0", "0"},
+            {"0", "0", "0", "0"},
+            {"0", "0", "0", "0"},
+            {"0", "0", "0", "0"},
+            {"0", "0", "0", "0"},
+            {"0", "0", "0", "0"},
+            {"0", "0", "0", "0"},
+            {"0", "0", "0", "0"},
+            {"0", "0", "0", "0"},
+            {"0", "0", "0", "0"},
+            {"0", "0", "0", "0"},
+            {"0", "0", "0", "0"},
+            {"0", "0", "0", "0"},
+            {"0", "0", "0", "0"},
+            {"0", "0", "0", "0"},
+            {"0", "0", "0", "0"},
+            {"0", "0", "0", "0"},
+            {"0", "0", "0", "0"},
+    };
+
+    private String[][] gameBColumnsValue = {
+            {"0", "0", "0", "0"},
+            {"0", "0", "0", "0"},
+            {"0", "0", "0", "0"},
+            {"0", "0", "0", "0"},
+            {"0", "0", "0", "0"},
+            {"0", "0", "0", "0"},
+            {"0", "0", "0", "0"},
+            {"0", "0", "0", "0"},
+            {"0", "0", "0", "0"},
+            {"0", "0", "0", "0"},
+            {"0", "0", "0", "0"},
+            {"0", "0", "0", "0"},
+            {"0", "0", "0", "0"},
+            {"0", "0", "0", "0"},
+            {"0", "0", "0", "0"},
+            {"0", "0", "0", "0"},
+            {"0", "0", "0", "0"},
+            {"0", "0", "0", "0"},
+            {"0", "0", "0", "0"},
+            {"0", "0", "0", "0"},
+    };
+
+
+    private String[] names = {"Tournament", "GameA", "GameB"};
+
     public TournamentTable(DataReader dataReader) {
 
         this.dataReader = dataReader;
-        overallScoreTable = new JTable(tournamentTableData, tournamentTableColumns);
-        gameAScoreTable = new JTable(gameATableData, individualGamesColumns);
-        gameBScoreTable = new JTable(gameBTableData, individualGamesColumns);
+        overallScoreTable = new JTable(tournamentColumnsValues, tournamentColumnHeaders);
+        gameAScoreTable = new JTable(gameAColumnsValue, gameAColumnHeaders);
+        gameBScoreTable = new JTable(gameBColumnsValue, gameBColumnHeaders);
+
         overallScoreTable.getTableHeader().setVisible(true);
         gameAScoreTable.getTableHeader().setVisible(true);
         gameBScoreTable.getTableHeader().setVisible(true);
@@ -61,7 +139,7 @@ public class TournamentTable {
         tableList[0][1] = gameAScoreTable;
         tableList[0][2] = gameBScoreTable;
 
-        mainTable = new JTable(new DefaultTableModel(tableList, mainTableColumns));
+        mainTable = new JTable(new DefaultTableModel(tableList, names));
 
         TableColumn tc = mainTable.getColumnModel().getColumn(0);
         tc.setCellRenderer(new CustomTableCellRenderer(overallScoreTable));

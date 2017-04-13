@@ -46,7 +46,7 @@ public class TournamentUI extends JFrame {
         turnForMatchLabel.setText("Turn");
         labelPanel.add(turnForMatchLabel);
 
-        tournamentTable = new TournamentTable();
+        tournamentTable = new TournamentTable(dataReader);
         JTable mainTable = tournamentTable.getTournamentTable();
 
         Container container = this.getContentPane();
@@ -63,14 +63,14 @@ public class TournamentUI extends JFrame {
     public static void main(String[] args) {
         new TournamentUI();
 
-        while (true) {
-            try {
-                sleep(1000);
-            } catch(InterruptedException e) {
-                // print out
-            }
-            updateUI();
-        }
+//        while (true) {
+//            try {
+//                sleep(1000);
+//            } catch(InterruptedException e) {
+//                // print out
+//            }
+//            updateUI();
+//        }
     }
 
     private static void updateUI() {
@@ -81,7 +81,7 @@ public class TournamentUI extends JFrame {
     }
 
     private static void updateTournamentScores() {
-        tournamentTable.updateTournamentScores(currentChallenge, currentMatchInChallenge);
+        tournamentTable.updateTournamentScores(currentChallenge, currentMatchInChallenge, turnForCurrentMatch);
     }
 
     private static void updateTurnForCurrentMatch() {
