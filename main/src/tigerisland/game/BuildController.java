@@ -88,13 +88,11 @@ public class BuildController {
     public BuildActionResult foundSettlement(BuildActionData buildActionData){
         BuildActionResult result = foundSettlementAction.build(buildActionData);
         return result;
-        //TODO change to FoundNewSettlement Build
     }
 
     public BuildActionResult expandSettlement(BuildActionData buildActionData){
 
         BuildActionResult result = expandSettlementBuild.build(buildActionData);
-        //TODO check scoring for expansion vs founding
         return result;
     }
 
@@ -107,9 +105,4 @@ public class BuildController {
         BuildActionResult result = totoroAction.build(buildActionData);
         return result;
     }
-
-
-
-
-    //TODO
 }
