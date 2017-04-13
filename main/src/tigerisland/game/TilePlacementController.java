@@ -51,7 +51,6 @@ public class TilePlacementController {
         try {
             tilePlacerChain.placeTile(tile, boardLocation);
         } catch (TilePlacementException e) {
-            System.out.println("Error placing tile " + e);
             validPlacement = false;
         }
         return validPlacement;
