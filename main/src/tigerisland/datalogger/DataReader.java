@@ -6,17 +6,26 @@ import java.util.Map;
 
 public interface DataReader {
 
+    int getCurrentChallengeBeenPlayed();
+
+    List<String> getTeamNames();
+
+    int getTeamTournamentScore(String teamName);
+
+    int getTeamScoreForChallenge(String teamName, int challengeId);
+
+    int getCurrentMatchForChallenge(int challengeId);
+
     List<MatchRow> getAllMatches();
 
     Map<Integer, Map<Integer,Integer>> getPlayersScoresPerChallenge();
 
     Map<String, Integer> getTournamentScores();
 
-    List<String> getTeamNames();
-
     int getMostRecentChallengeScore(String userName);
 
-    int getScoreForPlayerTurn(String userName, int turnId);
+    int getScoreForPlayerTurn(int challengeId, String userName, char gameId, int moveId);
 
     int getCurrentTurnNumber();
+
 }
