@@ -192,7 +192,7 @@ public class SQLiteReader implements DataReader{
     @Override
     public String getOpponent(String teamName, int currentChallenge, int currentMatchInChallenge) {
         String query = String.format("select p2_id from matches where " +
-                "p1_id='%s' and chalenge_id='%s' and match_id='%s'", teamName, currentChallenge, currentMatchInChallenge);
+                "p1_id='%s' and challenge_id='%s' and match_id='%s'", teamName, currentChallenge, currentMatchInChallenge);
 
         String opponent = "NO_OPPONENT";
         try {
@@ -229,9 +229,13 @@ public class SQLiteReader implements DataReader{
     }
 
     @Override
-    public int getTotoroForGame(int currentChallenge, String teamName, int currentMatchInChallenge, char a) {
+    public int getTotoroForGame(int currentChallenge, String teamName, int currentMatchInChallenge, char gameId) {
+
         String query = String.format("select count(*) from build_action " +
-                "where challenge_id='%s' and p_id='%s' and match_id='%s' move_description='Placed totoro'", currentChallenge, teamName, currentMatchInChallenge);
+                "where challenge_id='%s' and p_id='%s' and match_id='%s' and game_id='%s'",
+               currentChallenge, teamName, currentMatchInChallenge, gameId);
+        query += " and move_description like '%otoro%'";
+
         int totoro = 0;
         try {
 
@@ -248,10 +252,11 @@ public class SQLiteReader implements DataReader{
     }
 
     @Override
-    public int getTigerForGame(int currentChallenge, String teamName, int currentMatchInChallenge, char a) {
-        String query = String.format("select count(*) from build_action " +
-                "where challenge_id='%s' and p_id='%s' and match_id='%s' move_description='Placed Tiger'",
-                currentChallenge, teamName, currentMatchInChallenge);
+    public int getTigerForGame(int currentChallenge, String teamName, int currentMatchInChallenge, char gameId) {
+       String query = String.format("select count(*) from build_action " +
+                "where challenge_id='%s' and p_id='%s' and match_id='%s' and game_id='%s'",
+               currentChallenge, teamName, currentMatchInChallenge, gameId);
+       query += " and move_description like '%iger%'";
 
         int tiger = 0;
         try {
@@ -268,11 +273,6 @@ public class SQLiteReader implements DataReader{
         }
 
         return  tiger;
-    }
-
-    @Override
-    public int getTotoroGame(int currentChallenge, String s, int currentMatchInChallenge, char b) {
-        return -1;
     }
 
     @Override
