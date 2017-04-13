@@ -9,6 +9,7 @@ import tigerisland.settlement.SettlementBoard;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class NearbySettlementsUtility {
 
@@ -27,33 +28,15 @@ public class NearbySettlementsUtility {
 
     public List<Settlement> getPossibleSettlementsForBuild(){
         List<Location> locations = location.getSurroundingLocations();
-        List<Settlement> settlements = new ArrayList<>();
+        Set<Settlement> settlements = new ArrayList<>();
 
-        boolean hasSettlement;
-        Settlement playerNearbySettlement;
-
-        List<Location> previousLocations = new ArrayList<>();
-        for (Location location : locations){
-            if (previousLocations.contains(location))
-                continue;
-            hasSettlement = board.isLocationOccupied(location, id);
-//            try {
-//
-//            }
-//            catch(Exception e){
-//                continue;
-//            }
-            if (hasSettlement){
-                playerNearbySettlement = board.getSettlement(location);
-                settlements.add(board.getSettlement(location));
-                previousLocations.addAll(playerNearbySettlement.getConnectedLocations());
-
+        for ( Location loc : locations ) {
+            Settlement settlement = board.getSettlement(loc, player.getId());
+            if ( settlement.settlementSize() > 0 ) {
+                settlements.add(settlement);
             }
-//            else
-//                locations.remove(location);
         }
-
-        return settlements;
+        return new ArrayList<Settlement>(settlements);
     }
 
 
