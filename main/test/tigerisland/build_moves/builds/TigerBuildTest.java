@@ -262,4 +262,34 @@ public class TigerBuildTest {
         Assert.assertTrue(actionResult.successful);
         Assert.assertEquals(expectedScore, scoreManager.getPlayerScore(player.getId()) );
     }
+    @Test
+    public void test_ShouldFailForNonBoardHex() {
+        // Arrange
+
+        final String errorMessage = "Hex does not exist on board.";
+
+        Player player = new Player();
+        Hex hex = new Hex(0); hex.setLevel(3);
+        Location hexLocation = new Location(0, 0, 0);
+        BuildActionData buildActionData = new BuildActionData.Builder()
+                .withPlayer(player)
+                .withHexLocation(hexLocation)
+                .build();
+
+// Notice unplaced hex       board.placeHex(hexLocation, hex);
+
+        Piece villager = new Villager();
+        ArrayList<Location> surroundingLocations = hexLocation.getSurroundingLocations();
+        for(Location location : surroundingLocations)
+            pieceBoard.addPiece(villager, location, player.getId());
+
+        // Act
+        BuildActionResult actionResult =  tigerBuild.build(buildActionData);
+
+        // Assert
+
+        Assert.assertFalse(actionResult.successful);
+        Assert.assertEquals(errorMessage, actionResult.errorMessage);
+    }
+
 }

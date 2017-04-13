@@ -31,10 +31,10 @@ public class TotoroBuild extends BuildAction {
     protected List<BuildActionRule> createBuildActionRules() {
         List<BuildActionRule> rules = new ArrayList<>();
         rules.add( new PlayerMustHaveATotoroToBuildRule());
+        rules.add( new BuildLocationMustBeOnBoardRule(board));
         rules.add( new EmptyHexRule(pieceBoard));
         rules.add( new CannotBuildOnVolcanoRule(board));
         rules.add( new TotoroBuildHexAdjacentToSettlementSizeFiveRuleAndDoesNotHaveTotoro(settlementBoard));
-        rules.add( new BuildLocationMustBeOnBoardRule(board));
         return rules;
     }
 
