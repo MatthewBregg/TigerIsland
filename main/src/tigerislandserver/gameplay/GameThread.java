@@ -102,6 +102,9 @@ public class GameThread extends Thread{
 
     public Player getPlayerFromPID(PlayerID pID){
         Player player = gameManager.getPlayer(pID);
+        if (player == null ) {
+            System.err.println("Player not found! GameManager");
+        }
         return player;
     }
 
@@ -191,18 +194,7 @@ public class GameThread extends Thread{
     }
 
     public boolean playerUsedTwoTypesPieces(PlayerID pID){
-        ArrayList<Player> players = gameManager.getPlayers();
-        Player player1 = players.get(0);
-        Player player2 = players.get(1);
-
-        Player player = new Player();
-
-        if(player1.getId() == pID){
-            player = player1;
-        }
-        else if(player2.getId() == pID){
-            player = player2;
-        }
+        Player player = getPlayerFromPID(pID);
 
         if((player.getTigerCount() == 0) && (player.getTotoroCount() == 0)){
             return true;
