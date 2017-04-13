@@ -2,6 +2,7 @@ package tigerislandserver.gameplay;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import tigerisland.tile.Tile;
 import tigerislandserver.server.TournamentPlayer;
@@ -11,9 +12,7 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
-/**
- * Created by Philip on 4/1/2017.
- */
+@Ignore
 public class ChallengeTest {
     public static ArrayList<TournamentPlayer> players;
     Challenge tourneyChallenge;

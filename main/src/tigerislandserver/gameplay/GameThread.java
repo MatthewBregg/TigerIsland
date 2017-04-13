@@ -15,8 +15,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.function.Function;
 
 public class GameThread extends Thread{
+
 
 
     Map<Integer, String> playersIdToUserName;
@@ -101,6 +103,9 @@ public class GameThread extends Thread{
 
     public Player getPlayerFromPID(PlayerID pID){
         Player player = gameManager.getPlayer(pID);
+        if (player == null ) {
+            System.err.println("Player not found! GameManager");
+        }
         return player;
     }
 
@@ -167,6 +172,11 @@ public class GameThread extends Thread{
                 sqlLogger.setPlayerScore(cid, player1ID, scoreboard.getPlayerScore(player1ID));
                 sqlLogger.setPlayerScore(cid, player2ID, scoreboard.getPlayerScore(player2ID));
 
+                // get game scoreboard
+                ScoreManager scoreManager = gameManager.getScoreManager();
+                sqlLogger.writeToGameTurnScore(player1ID, moveNumber, scoreManager.getPlayerScore(player1ID));
+                sqlLogger.writeToGameTurnScore(player2ID, moveNumber, scoreManager.getPlayerScore(player2ID));
+
                 endGame();
                 generateEndGameMessage();
             }
@@ -183,37 +193,35 @@ public class GameThread extends Thread{
         // if this is triggered its because the game did not end with a valid win
         PlayerID player1ID = playersInGame.get(0).getID();
         PlayerID player2ID = playersInGame.get(1).getID();
+
         SQLiteLogger sqlLogger = LoggerFactory.getSQLLogger('Z',-1,-1, playersIdToUserName);
         sqlLogger.setPlayerScore(cid, player1ID, scoreboard.getPlayerScore(player1ID));
         sqlLogger.setPlayerScore(cid, player2ID, scoreboard.getPlayerScore(player2ID));
+
+        // get game scoreboard
+        ScoreManager scoreManager = gameManager.getScoreManager();
+        sqlLogger.writeToGameTurnScore(player1ID, moveNumber, scoreManager.getPlayerScore(player1ID));
+        sqlLogger.writeToGameTurnScore(player2ID, moveNumber, scoreManager.getPlayerScore(player2ID));
+
         logger.writeGameEnded(playersInGame.get(0).getID(), playersInGame.get(1).getID(), endGameMessage);
     }
 
-    public boolean playerUsedAllOfTwoTiles(PlayerID pID){
-        ArrayList<Player> players = gameManager.getPlayers();
-        Player player1 = players.get(0);
-        Player player2 = players.get(1);
 
-        Player player = new Player();
+    public boolean playerHasOnlyOnePieceTypeRemaining(PlayerID pID){
+        Player player = getPlayerFromPID(pID);
 
-        if(player1.getId() == pID){
-            player = player1;
-        }
-        else if(player2.getId() == pID){
-            player = player2;
-        }
+        int typesOfRemainingPieces = 0;
 
-        if((player.getTigerCount() == 0) && (player.getTotoroCount() == 0)){
-            return true;
-        }
-        else if((player.getTigerCount() == 0) && (player.getVillagerCount() == 0)){
-            return true;
-        }
-        else if((player.getTotoroCount() == 0) && (player.getVillagerCount() == 0)){
-            return true;
-        }
-
-        return false;
+        Function<Integer,Integer> returnOneIfNotZero = new Function<Integer, Integer>() {
+            @Override
+            public Integer apply(Integer integer) {
+                return (integer == 0 ) ? 0 : 1;
+            }
+        };
+        typesOfRemainingPieces += returnOneIfNotZero.apply(player.getTigerCount());
+        typesOfRemainingPieces += returnOneIfNotZero.apply(player.getTotoroCount());
+        typesOfRemainingPieces += returnOneIfNotZero.apply(player.getVillagerCount());
+        return (typesOfRemainingPieces == 1);
     }
 
     public boolean gameEndedWithValidWin(){
@@ -223,14 +231,14 @@ public class GameThread extends Thread{
         TournamentPlayer player = playersInGame.get(activePlayerIndex);
         PlayerID pID = player.getID();
 
-        boolean usedAllOfTwo = playerUsedAllOfTwoTiles(pID);
+        boolean usedAllOfTwo = playerHasOnlyOnePieceTypeRemaining(pID);
         boolean allTilesDrawn = noMoreTilesAreLeftToPlace();
 
         return usedAllOfTwo || allTilesDrawn;
     }
 
     public boolean noMoreTilesAreLeftToPlace(){
-        if(gameManager.getTilesDrawn() == 48){
+        if(gameManager.getTilesDrawn() == gameManager.NUMTILESINGAME()){
             return true;
         }
 
