@@ -1,7 +1,8 @@
 package tigerisland.tile;
 
-import tigerisland.terrains.Terrain;
+import tigerisland.terrains.*;
 
+import java.util.List;
 import java.util.Vector;
 import java.util.Random;
 
@@ -17,6 +18,41 @@ public class TileDeck {
 
         Vector<Integer> tileIntegerList = getRandomIntOrder(getMaxDeckSize(), seed);
         initialize(tileIntegerList);
+    }
+
+    public TileDeck(List<String> tileStrings) {
+        // Only call this from testing, the purpose of this is to generate a specific tiledeck config for the purposes of testing!!
+        System.err.println("!!!!!!!THIS SHOULD NOT APPEAR IN YOUR CONSOLE, IF IT DOES, FIND OUT WHY AND REMOVE THE CALL TO THIS CONSTRUCTOR");
+        this.tiles = new Vector<>();
+        int i = 0;
+        for ( String string : tileStrings ) {
+            ++i;
+            String[] terrainTypes = string.split("[+]");
+            Terrain t1 = getTerrainFromString(terrainTypes[0]);
+            Terrain t2 = getTerrainFromString(terrainTypes[1]);
+            this.tiles.add(new Tile(i,t1,t2));
+        }
+    }
+
+    private Terrain getTerrainFromString(String terrainType) {
+        if ( "GRASS".equals(terrainType)) {
+            return Grassland.getInstance();
+        }
+
+        if ( "ROCK".equals(terrainType)) {
+            return Rocky.getInstance();
+        }
+
+        if ( "JUNGLE".equals(terrainType)) {
+            return Jungle.getInstance();
+        }
+
+        if ( "LAKE".equals(terrainType)) {
+            return Lake.getInstance();
+        }
+
+        System.err.println("You mispelled in your tile deck override!");
+        return null;
     }
 
     private Vector<Integer> getRandomIntOrder(int size, long seed){

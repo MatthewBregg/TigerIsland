@@ -8,7 +8,9 @@ import tigerisland.settlement.Settlement;
 import tigerisland.settlement.SettlementBoard;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class NearbySettlementsUtility {
 
@@ -27,33 +29,20 @@ public class NearbySettlementsUtility {
 
     public List<Settlement> getPossibleSettlementsForBuild(){
         List<Location> locations = location.getSurroundingLocations();
-        List<Settlement> settlements = new ArrayList<>();
+        Set<Settlement> settlements = new HashSet<>();
 
-        boolean hasSettlement;
-        Settlement playerNearbySettlement;
-
-        List<Location> previousLocations = new ArrayList<>();
-        for (Location location : locations){
-            if (previousLocations.contains(location))
+        Set<Location> contained_locations = new HashSet<>();
+        for ( Location loc : locations ) {
+            if ( contained_locations.contains(loc)) {
                 continue;
-            hasSettlement = board.isLocationOccupied(location, id);
-//            try {
-//
-//            }
-//            catch(Exception e){
-//                continue;
-//            }
-            if (hasSettlement){
-                playerNearbySettlement = board.getSettlement(location);
-                settlements.add(board.getSettlement(location));
-                previousLocations.addAll(playerNearbySettlement.getConnectedLocations());
-
             }
-//            else
-//                locations.remove(location);
+            Settlement settlement = board.getSettlement(loc, player.getId());
+            if ( settlement.settlementSize() > 0 ) {
+                settlements.add(settlement);
+                contained_locations.addAll(settlement.getConnectedLocations());
+            }
         }
-
-        return settlements;
+        return new ArrayList<Settlement>(settlements);
     }
 
 

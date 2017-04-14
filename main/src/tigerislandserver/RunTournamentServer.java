@@ -20,6 +20,8 @@ public class RunTournamentServer
         tv.setUnsernamePasswordFile(args[2]);
         tv.setRandomSeed(Integer.parseInt(args[5]));
 
+        System.out.println("Input Arguments were : Seed: " + tv.getRandomSeed() + " Challege Num: " + tv.getNumberOfChallenges());
+
         TournamentServer ts = new TournamentServer(Integer.parseInt(args[4]));
         ts.acceptConnections(Integer.parseInt(args[3]));
         if(ts.getPlayerCount() > 1) {

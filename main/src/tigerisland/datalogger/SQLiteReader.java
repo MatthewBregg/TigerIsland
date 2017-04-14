@@ -118,7 +118,7 @@ public class SQLiteReader implements DataReader{
 
     @Override
     public int getCurrentMatchForChallenge(int challengeId) {
-        String query = String.format("select max(match_id) - min(match_id) from matches " +
+        String query = String.format("select max(match_id) from matches " +
                "where challenge_id='%s'",challengeId);
        int matchId = -1;
        try {
@@ -126,7 +126,7 @@ public class SQLiteReader implements DataReader{
             ResultSet rs = stmt.executeQuery(query);
 
             while (rs.next()) {
-                matchId= rs.getInt("max(match_id) - min(match_id)");
+                matchId= rs.getInt("max(match_id)");
             }
 
         } catch(SQLException sqlException) {

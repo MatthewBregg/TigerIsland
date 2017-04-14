@@ -56,16 +56,19 @@ public class GameInputAdapter
                 else
                 {
                     OutputAdapter.sendIllegalFormatedMessageMessage(game.getPlayersInGame(), tournamentPlayer, inputTokens);
+                    System.err.println("Failed to find a valid move token inside move.");
                 }
             }
             else
             {
                 OutputAdapter.sendIllegalFormatedMessageMessage(game.getPlayersInGame(), tournamentPlayer, inputTokens);
+                System.err.println("Failed to find a valid tile token inside move.");
             }
         }
         else
         {
             OutputAdapter.sendIllegalFormatedMessageMessage(game.getPlayersInGame(), tournamentPlayer, inputTokens);
+            System.err.println("Valid game move not found!!");
         }
     }
 
