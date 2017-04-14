@@ -28,9 +28,12 @@ public class TileDeck {
         for ( String string : tileStrings ) {
             ++i;
             String[] terrainTypes = string.split("[+]");
-            Terrain t1 = getTerrainFromString(terrainTypes[0]);
-            Terrain t2 = getTerrainFromString(terrainTypes[1]);
+            Terrain t2 = getTerrainFromString(terrainTypes[0]);
+            Terrain t1 = getTerrainFromString(terrainTypes[1]);
             this.tiles.add(new Tile(i,t1,t2));
+        }
+        for (; i != 48; ++i){
+            this.tiles.add(new Tile(i,Grassland.getInstance(), Grassland.getInstance()));
         }
     }
 

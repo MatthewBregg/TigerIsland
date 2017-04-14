@@ -299,7 +299,7 @@ public class TournamentScoreboard {
         return true ;
     }
 
-    public boolean playerTimedOut(ArrayList<TournamentPlayer> players){
+    public boolean playerTimedOutOrSentInvalidMove(ArrayList<TournamentPlayer> players){
         PlayerID pIDOfPersonWhoPlacedInvalidTile = players.get(0).getID();
         PlayerID pIDOFPersonWhoWins = players.get(1).getID();
 
