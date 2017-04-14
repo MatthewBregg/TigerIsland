@@ -156,10 +156,10 @@ public class SQLiteReader implements DataReader{
     }
 
     @Override
-    public int getScoreForPlayerTurn(int challengeId, String userName, char gameId, int moveId) {
-        String query = String.format("select max(score) from game_turn_score where " +
-                "challenge_id='%s' and player_id='%s' and game_id='%s' and move_id='%s'",
-                challengeId, userName, gameId, moveId);
+    public int getScoreForPlayerGame(int challengeId, String userName, int matchId, char gameId) {
+        String query = String.format("select sum(score) from game_turn_score where " +
+                "challenge_id='%s' and player_id='%s' and match_id='%s' and game_id='%s'",
+                challengeId, userName, matchId, gameId);
 
        int score = -1;
        try {
@@ -167,10 +167,11 @@ public class SQLiteReader implements DataReader{
             ResultSet rs = stmt.executeQuery(query);
 
             while (rs.next()) {
-                score = rs.getInt("max(score)");
+                score = rs.getInt("sum(score)");
             }
 
         } catch(SQLException sqlException) {
+            System.out.println("From: getScoreForPlayerGame");
             System.out.println(sqlException);
         }
         return score;
@@ -324,15 +325,6 @@ public class SQLiteReader implements DataReader{
            scores.put(playerUserName, score);
        }
        return scores;
-    }
-
-    private List<String> getTournamentPlayers(ResultSet rs) throws SQLException {
-        List<String> userNames = new ArrayList<>();
-        while(rs.next()) {
-           String playerUserName = rs.getString("player_id");
-           userNames.add(playerUserName);
-       }
-       return userNames;
     }
 
 }

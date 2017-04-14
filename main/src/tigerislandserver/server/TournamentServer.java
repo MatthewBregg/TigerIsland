@@ -74,7 +74,7 @@ public class TournamentServer {
     public void startTournament(int numberOfChallenges) {
         tournamentScoreManager.initializeOverallTournamentScores();
 
-        registerPlayerIdsToUerNames(numberOfChallenges);
+        registerPlayerIdsToUerNames();
 
         for(int i=0; i < numberOfChallenges; i++)
         {
@@ -97,7 +97,7 @@ public class TournamentServer {
         OutputAdapter.sendEndOfChallengesMessage(clientConnections);
     }
 
-    private void registerPlayerIdsToUerNames(int numberOfChallenges) {
+    private void registerPlayerIdsToUerNames() {
         playersIdToUserName = new HashMap<>();
         for(int i = 0; i < clientConnections.size(); i++) {
             TournamentPlayer tPlayer = clientConnections.get(i);

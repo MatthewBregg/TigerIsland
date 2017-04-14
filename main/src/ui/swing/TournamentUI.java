@@ -101,13 +101,13 @@ public class TournamentUI extends JFrame {
 
     private static void updateCurrentMatch() {
         currentMatchInChallenge = dataReader.getCurrentMatchForChallenge(currentChallenge);
-        String challengeStr = String.format("Match %s of %s", currentMatchInChallenge, 3);
+        String challengeStr = String.format("Match %s of %s", currentMatchInChallenge+1, 3 );
         matchInChallengeLabel.setText(challengeStr);
     }
 
     private static void updateCurrentChallenge() {
         currentChallenge = dataReader.getCurrentChallengeBeenPlayed();
-        String challengeStr = String.format("Challenge %s of %s", currentChallenge, totalChallenges);
+        String challengeStr = String.format("Challenge %s of %s", currentChallenge+1, totalChallenges);
         challengeLabel.setText(challengeStr);
     }
 

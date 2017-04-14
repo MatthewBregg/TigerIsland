@@ -258,7 +258,7 @@ public class GenerateScoreBoard {
         Map<String, Integer> tournamentScores =  dataReader.getTournamentScores();
         Map<Integer, Map<Integer, Integer>> playerScoresPerChallenge = dataReader.getPlayersScoresPerChallenge();
         //  MatchRow match = dataReader.getOpponents(challengeId, gameId, matchId);
-        //  dataReader.getScoreForPlayerTurn()
+        //  dataReader.getScoreForPlayerGame()
 
         for (String currentName: names){
             Integer playerScore = tournamentScores.get(currentName);

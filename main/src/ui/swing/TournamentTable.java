@@ -161,7 +161,7 @@ public class TournamentTable {
                     tournamentData.add(currentChallengeScore);
                     tournamentData.add(opponent);
 
-                    int scoreForGameA = dataReader.getScoreForPlayerTurn(currentChallenge, teamNames.get(i), 'A', turnId);
+                    int scoreForGameA = dataReader.getScoreForPlayerGame(currentChallenge, teamNames.get(i), currentMatchInChallenge, 'A');
                     int villagerForGameA = dataReader.getVillagersForGame(currentChallenge, teamNames.get(i), currentMatchInChallenge, 'A');
                     int totoroForGameA = dataReader.getTotoroForGame(currentChallenge, teamNames.get(i), currentMatchInChallenge, 'A');
                     int tigersForGameA = dataReader.getTigerForGame(currentChallenge, teamNames.get(i), currentMatchInChallenge, 'A');
@@ -171,7 +171,7 @@ public class TournamentTable {
                     gameAScores.add(totoroForGameA);
                     gameAScores.add(tigersForGameA);
 
-                    int scoreForGameB = dataReader.getScoreForPlayerTurn(currentChallenge, teamNames.get(i), 'B', turnId);
+                    int scoreForGameB = dataReader.getScoreForPlayerGame(currentChallenge, teamNames.get(i), currentMatchInChallenge, 'B');
                     int villagerForGameB = dataReader.getVillagersForGame(currentChallenge, teamNames.get(i), currentMatchInChallenge, 'B');
                     int totoroForGameB = dataReader.getTotoroForGame(currentChallenge, teamNames.get(i), currentMatchInChallenge, 'B');
                     int tigersForGameB = dataReader.getTigerForGame(currentChallenge, teamNames.get(i), currentMatchInChallenge, 'B');
