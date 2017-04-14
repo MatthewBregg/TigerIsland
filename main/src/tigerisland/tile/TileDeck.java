@@ -20,12 +20,12 @@ public class TileDeck {
         initialize(tileIntegerList);
     }
 
-    public TileDeck(List<String> tiles) {
+    public TileDeck(List<String> tileStrings) {
         // Only call this from testing, the purpose of this is to generate a specific tiledeck config for the purposes of testing!!
         System.err.println("!!!!!!!THIS SHOULD NOT APPEAR IN YOUR CONSOLE, IF IT DOES, FIND OUT WHY AND REMOVE THE CALL TO THIS CONSTRUCTOR");
-        tiles = new Vector<>();
+        this.tiles = new Vector<>();
         int i = 0;
-        for ( String string : tiles ) {
+        for ( String string : tileStrings ) {
             ++i;
             String[] terrainTypes = string.split("[+]");
             Terrain t1 = getTerrainFromString(terrainTypes[0]);
