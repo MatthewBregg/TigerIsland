@@ -178,9 +178,10 @@ public class GameThread extends Thread{
                 sqlLogger.writeToGameTurnScore(player2ID, moveNumber, scoreManager.getPlayerScore(player2ID));
 
                 endGame();
-                if(endGameMessage == null) {
-                    generateEndGameMessage();
-                }            }
+//                if(endGameMessage == null) {
+//                    generateEndGameMessage();
+//                }
+            }
 
             moveNumber++;
 
@@ -204,7 +205,17 @@ public class GameThread extends Thread{
         sqlLogger.writeToGameTurnScore(player1ID, moveNumber, scoreManager.getPlayerScore(player1ID));
         sqlLogger.writeToGameTurnScore(player2ID, moveNumber, scoreManager.getPlayerScore(player2ID));
 
-        logger.writeGameEnded(playersInGame.get(0).getID(), playersInGame.get(1).getID(), endGameMessage);
+        PlayerID winner = gameManager.getScoreManager().getLeader();
+        PlayerID loser;
+        if(player1ID == winner){
+            loser = player2ID;
+        } else if (player2ID == winner){
+            loser = player1ID;
+        } else {
+            winner = player1ID;
+            loser = player2ID;
+        }
+        logger.writeGameEnded(winner, loser, endGameMessage);
     }
 
 

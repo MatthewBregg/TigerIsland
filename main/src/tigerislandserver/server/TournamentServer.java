@@ -171,9 +171,10 @@ public class TournamentServer {
             currentlyAcceptingConnections = false;
 
             synchronized (clientConnections) {
-                for (int i = 0; i < clientConnections.size(); i++) {
-                    if (!clientConnections.get(i).isAuthenticated()) {
-                        clientConnections.remove(i--);
+                for (TournamentPlayer player : clientConnections) {
+                    if (!player.isAuthenticated()) {
+                        System.out.println("Player" + player.getID() + " is not authorized");
+                        clientConnections.remove(player);
                     }
                 }
             }
