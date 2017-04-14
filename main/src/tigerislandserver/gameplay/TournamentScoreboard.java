@@ -139,7 +139,7 @@ public class TournamentScoreboard {
                 }
                 else if (indexOfPlayerWhoWonTiebreaker == 1){
                     addScore(player2.getId(), WONTIEBREAKER);
-                    addScore(player2.getId(), OPPONENTWONTIEBREAKER);
+                    addScore(player1.getId(), OPPONENTWONTIEBREAKER);
                     return true;
                 }
             }
