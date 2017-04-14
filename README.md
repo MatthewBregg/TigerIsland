@@ -3,6 +3,15 @@
 ## Team Google Drive
 https://drive.google.com/drive/folders/0B2V_ssWNgrvHQ1BDUzUtNTUxZlU
 
+Known Bugs:
+1) https://github.com/MatthewBregg/TigerIsland/issues/53
+
+2) Bug in GUI for who is shown as current opponent
+
+
+Features:
+
+All game features are implemented except for an AI (since it's the server.)
 
 To run the server:
 
