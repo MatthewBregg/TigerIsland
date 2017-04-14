@@ -178,7 +178,6 @@ public class TournamentPlayer implements Runnable
         long sleepDuration = 100;
         long timeoutInMs = 1501;
         // Max timeout = sleepDuration * timeoutMaxIncrements in ms.
-        // If we want to be super strict on timeout, then set a bool timeout reached here, but I don't think we should.
         long startedWaiting = System.currentTimeMillis();
         while(!inputFromClientReady(gid) && (System.currentTimeMillis() - startedWaiting) < timeoutInMs) {
             try {
@@ -201,7 +200,7 @@ public class TournamentPlayer implements Runnable
 
         if (!inputFromClientReady(gid)) {
             OutputAdapter.sendTimeoutMessage(game.getPlayersInGame(), this, new String[]{"GAME", "" + gid, "MOVE", "" + moveNumber});
-            game.timeout(this);
+            game.timeoutOrInvalidMoveSent(this);
             return;
         }
 
