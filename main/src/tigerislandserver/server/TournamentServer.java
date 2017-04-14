@@ -77,6 +77,14 @@ public class TournamentServer {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        while(connectionThread.isAlive()){
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 //    public void startTournament(int numberOfChallenges) {
