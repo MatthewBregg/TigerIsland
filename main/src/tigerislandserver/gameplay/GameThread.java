@@ -178,8 +178,9 @@ public class GameThread extends Thread{
                 sqlLogger.writeToGameTurnScore(player2ID, moveNumber, scoreManager.getPlayerScore(player2ID));
 
                 endGame();
-                generateEndGameMessage();
-            }
+                if(endGameMessage == null) {
+                    generateEndGameMessage();
+                }            }
 
             moveNumber++;
 
@@ -234,7 +235,49 @@ public class GameThread extends Thread{
         boolean usedAllOfTwo = playerHasOnlyOnePieceTypeRemaining(pID);
         boolean allTilesDrawn = noMoreTilesAreLeftToPlace();
 
+        if(usedAllOfTwo && activePlayerIndex == 0){
+            player1Win();
+        } else if (usedAllOfTwo && activePlayerIndex == 1){
+            player2Win();
+        } else{
+            compareScores();
+        }
+
         return usedAllOfTwo || allTilesDrawn;
+    }
+
+    private void player1Win(){
+        TournamentPlayer p1 = playersInGame.get(0);
+        TournamentPlayer p2 = playersInGame.get(1);
+        ScoreManager sm =gameManager.getScoreManager();
+        endGameMessage = OutputAdapter.returnEndGameMessage(p1, p2, gameID, "WIN", ""+sm.getPlayerScore(p2.getID()));
+        gameNotEnded=false;
+    }
+
+    private void player2Win(){
+        TournamentPlayer p1 = playersInGame.get(0);
+        TournamentPlayer p2 = playersInGame.get(1);
+        ScoreManager sm =gameManager.getScoreManager();
+        endGameMessage = OutputAdapter.returnEndGameMessage(p1, p2, gameID, ""+sm.getPlayerScore(p1.getID()), "WIN");
+        gameNotEnded=false;
+    }
+
+    private void compareScores(){
+        PlayerID highScorer = gameManager.getScoreManager().getLeader();
+
+        int winnerIdx = Integer.MIN_VALUE;
+        for(TournamentPlayer p : playersInGame){
+            winnerIdx = playersInGame.indexOf(p);
+            if(p.getID() == highScorer){
+                break;
+            }
+        }
+
+        if(winnerIdx == 0){
+            player1Win();
+        } else if(winnerIdx == 1){
+            player2Win();
+        }
     }
 
     public boolean noMoreTilesAreLeftToPlace(){

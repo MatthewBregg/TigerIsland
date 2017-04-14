@@ -59,6 +59,12 @@ public class TournamentServer {
         System.out.println("Server socket will close in: " + connectionTimeout_s + " seconds");
         long currentCounter = connectionTimeout_s;
         while (System.currentTimeMillis() < socketCloseTime) {
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
             long timeLeft = (socketCloseTime - System.currentTimeMillis())/1000;
             if((timeLeft % 5) == 0 && timeLeft != currentCounter){
                 currentCounter = timeLeft;
