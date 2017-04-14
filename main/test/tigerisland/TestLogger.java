@@ -23,6 +23,11 @@ public class TestLogger implements DataLogger {
     }
 
     @Override
+    public void writeToPlayerPieceCount(PlayerID pID, int totoroCount) {
+
+    }
+
+    @Override
     public void writePlacedTotoroMove(PlayerID pid, Location loc) {
 
     }

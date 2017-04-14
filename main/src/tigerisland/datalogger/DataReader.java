@@ -24,7 +24,7 @@ public interface DataReader {
 
     int getMostRecentChallengeScore(String userName);
 
-    int getScoreForPlayerTurn(int challengeId, String userName, char gameId, int moveId);
+    int getScoreForPlayerGame(int challengeId, String userName, int matchId, char gameId);
 
     int getCurrentTurnNumber();
 

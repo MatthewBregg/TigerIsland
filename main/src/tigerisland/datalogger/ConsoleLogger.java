@@ -40,6 +40,11 @@ public class ConsoleLogger implements DataLogger {
     public void writeToGameTurnScore(PlayerID pId, int moveId, int score) {}
 
     @Override
+    public void writeToPlayerPieceCount(PlayerID pID, int totoroCount) {
+        System.out.println(getMessageHeader() + "Player " + getUserName(pID) + " placed  " + totoroCount);
+    }
+
+    @Override
     synchronized public void writePlacedTotoroMove(PlayerID pid, Location loc) {
         System.out.println(getMessageHeader() + "Player " + getUserName(pid) + "placed a totoro in location " + loc);
     }

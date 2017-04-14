@@ -21,7 +21,7 @@ public class GameThread extends Thread{
 
 
 
-    Map<Integer, String> playersIdToUserName;
+    private Map<Integer, String> playersIdToUserName;
     private int cid;
     private DataLogger logger;
     private ArrayList<Tile> gameTiles;
@@ -34,6 +34,7 @@ public class GameThread extends Thread{
     private boolean gameNotEnded;
     private GameManager gameManager;
     private String endGameMessage;
+    private int matchId;
     private AtomicBoolean hasturnWaitingp = new AtomicBoolean(false);
 
     public GameThread(TournamentPlayer player1, TournamentPlayer player2, ArrayList<Tile> tiles, char gameLetter, int cid, TournamentScoreboard scoreboard, long matchID){
@@ -55,7 +56,7 @@ public class GameThread extends Thread{
         {
             gamePlayers.add(new Player(tp.getID()));
         }
-        int matchId = (int)matchID;
+        matchId = (int)matchID;
 
         playersIdToUserName = new HashMap<>();
         playersIdToUserName.put(player1.getID().getId(), player1.getUsername());
@@ -154,51 +155,51 @@ public class GameThread extends Thread{
         //Total Moves between both players that have happened
         // not turn number relative to a single player.
         int moveNumber = 0;
+        ScoreManager scoreManager = gameManager.getScoreManager();
+
+        SQLiteLogger dbLogger = LoggerFactory.getSQLLogger(this.gameID, this.cid, this.matchId, this.playersIdToUserName);
+
+        SQLiteLogger sqlLogger = LoggerFactory.getSQLLogger('Z',-1,-1, playersIdToUserName);
 
         while(gameNotEnded)
         {
             int playerTurnNumber = moveNumber/2;
             Tile tile = gameTiles.get(moveNumber);
 
-            playersInGame.get(activePlayerIndex).requestMove(this, gameID, playerTurnNumber, tile);
+            playersInGame.get(activePlayerIndex).requestMove(this, this.gameID, playerTurnNumber, tile);
 
-            // if this is triggered its because the game did not end with a valid win
             PlayerID player1ID = playersInGame.get(0).getID();
             PlayerID player2ID = playersInGame.get(1).getID();
 
-            SQLiteLogger sqlLogger = LoggerFactory.getSQLLogger('Z',-1,-1, playersIdToUserName);
             sqlLogger.setPlayerScore(cid, player1ID, scoreboard.getPlayerScore(player1ID));
             sqlLogger.setPlayerScore(cid, player2ID, scoreboard.getPlayerScore(player2ID));
 
-            // get game scoreboard
-            ScoreManager scoreManager = gameManager.getScoreManager();
-            sqlLogger.writeToGameTurnScore(player1ID, moveNumber, scoreManager.getPlayerScore(player1ID));
-            sqlLogger.writeToGameTurnScore(player2ID, moveNumber, scoreManager.getPlayerScore(player2ID));
+            dbLogger.writeToGameTurnScore(player1ID, moveNumber, scoreManager.getPlayerScore(player1ID));
+            dbLogger.writeToGameTurnScore(player2ID, moveNumber, scoreManager.getPlayerScore(player2ID));
 
             // write the number of villagers
-            sqlLogger.writeToPlayerPieceCount(player1ID, gameManager.getPlayer(player1ID).getVillagerCount());
-            sqlLogger.writeToPlayerPieceCount(player2ID, gameManager.getPlayer(player2ID).getVillagerCount());
-
+            dbLogger.writeToPlayerPieceCount(player1ID, gameManager.getPlayer(player1ID).getVillagerCount());
+            dbLogger.writeToPlayerPieceCount(player2ID, gameManager.getPlayer(player2ID).getVillagerCount());
 
             if (gameEndedWithValidWin()){
+
                 ArrayList<TournamentScoreboardData> playerData = makeTournamentScoreboardDataList();
                 scoreboard.updateTournamentScoresForValidWin(playerData);
 
                 sqlLogger.setPlayerScore(cid, player1ID, scoreboard.getPlayerScore(player1ID));
                 sqlLogger.setPlayerScore(cid, player2ID, scoreboard.getPlayerScore(player2ID));
 
-                sqlLogger.writeToGameTurnScore(player1ID, moveNumber, scoreManager.getPlayerScore(player1ID));
-                sqlLogger.writeToGameTurnScore(player2ID, moveNumber, scoreManager.getPlayerScore(player2ID));
+                dbLogger.writeToGameTurnScore(player1ID, moveNumber, scoreManager.getPlayerScore(player1ID));
+                dbLogger.writeToGameTurnScore(player2ID, moveNumber, scoreManager.getPlayerScore(player2ID));
 
-                sqlLogger.writeToPlayerPieceCount(player1ID, gameManager.getPlayer(player1ID).getVillagerCount());
-                sqlLogger.writeToPlayerPieceCount(player2ID, gameManager.getPlayer(player2ID).getVillagerCount());
+                dbLogger.writeToPlayerPieceCount(player1ID, gameManager.getPlayer(player1ID).getVillagerCount());
+                dbLogger.writeToPlayerPieceCount(player2ID, gameManager.getPlayer(player2ID).getVillagerCount());
 
                 endGame();
                 generateEndGameMessage();
             }
 
             moveNumber++;
-
 
             // CHRISTINE this is where we would get the score of the game at the end of the turn
             // and the move number

@@ -4,7 +4,6 @@ import org.junit.*;
 import tigerisland.board.Location;
 import tigerisland.player.Player;
 import tigerisland.player.PlayerID;
-import tigerisland.tile.Orientation;
 
 import java.sql.Connection;
 import java.util.HashMap;
@@ -178,7 +177,7 @@ public class SQLiteReaderTest {
     }
 
     @Test
-    public void test_ShouldScoreForMatchTurn() {
+    public void test_ShouldScoreForMatch() {
 
 
         // Arrange
@@ -193,7 +192,7 @@ public class SQLiteReaderTest {
         logger.writeToGameTurnScore(player1Id, moveId, 5);
 
         // Act
-        int score = reader.getScoreForPlayerTurn(challengeId, teamName, gameId, moveId);
+        int score = reader.getScoreForPlayerGame(challengeId, teamName, match_id, gameId);
 
         // Assert
         Assert.assertEquals(5, score);

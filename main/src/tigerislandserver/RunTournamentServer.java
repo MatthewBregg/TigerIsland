@@ -13,6 +13,7 @@ public class RunTournamentServer
     public static void main(String[] args)
     {
         LoggerFactory.clearTables();
+        LoggerFactory.createTables();
         Connection connection = LoggerFactory.getDbConnection();
 
         if(args.length != 6 || !args[0].matches("^\\d+$") || !args[3].matches("^\\d+$") || !args[4].matches("^\\d+$") || !args[5].matches("^\\d+$"))

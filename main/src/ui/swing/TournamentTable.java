@@ -160,7 +160,7 @@ public class TournamentTable {
             tournamentData.add(currentChallengeScore);
             tournamentData.add(opponent);
 
-            int scoreForGameA = dataReader.getScoreForPlayerTurn(currentChallenge, teamNames.get(i), 'A', turnId);
+            int scoreForGameA = dataReader.getScoreForPlayerGame(currentChallenge, teamNames.get(i), currentMatchInChallenge, 'A');
             int villagerForGameA = dataReader.getVillagersForGame(currentChallenge, teamNames.get(i), currentMatchInChallenge, 'A');
             int totoroForGameA = dataReader.getTotoroForGame(currentChallenge, teamNames.get(i), currentMatchInChallenge, 'A');
             int tigersForGameA = dataReader.getTigerForGame(currentChallenge, teamNames.get(i), currentMatchInChallenge, 'A');
@@ -170,7 +170,7 @@ public class TournamentTable {
             gameAScores.add(totoroForGameA);
             gameAScores.add(tigersForGameA);
 
-            int scoreForGameB = dataReader.getScoreForPlayerTurn(currentChallenge, teamNames.get(i), 'B', turnId);
+            int scoreForGameB = dataReader.getScoreForPlayerGame(currentChallenge, teamNames.get(i), currentMatchInChallenge, 'B');
             int villagerForGameB = dataReader.getVillagersForGame(currentChallenge, teamNames.get(i), currentMatchInChallenge, 'B');
             int totoroForGameB = dataReader.getTotoroForGame(currentChallenge, teamNames.get(i), currentMatchInChallenge, 'B');
             int tigersForGameB = dataReader.getTigerForGame(currentChallenge, teamNames.get(i), currentMatchInChallenge, 'B');
@@ -180,18 +180,11 @@ public class TournamentTable {
             gameBScores.add(totoroForGameB);
             gameBScores.add(tigersForGameB);
 
-            // TODO add to 2d arrays
-            // j = 4 because we aren't seeing all 12 values, we are setting 4 values for 3 different tables
-            // and we arent setting the values of mainTable, we are setting the values
             for(int j = 0; j < 4; j++){
-                // for setting overall score, i know the conditional looks like shit, but
-                // we add types of String and int so it gets messy sorry
-                overallScoreTable.setValueAt(tournamentData.get(j), i, j);
-                gameAScoreTable.setValueAt(gameAScores.get(j), i, j);
-                gameBScoreTable.setValueAt(gameBScores.get(j), i , j);
-
+                overallScoreTable.setValueAt(String.valueOf(tournamentData.get(j)), i, j);
+                gameAScoreTable.setValueAt(String.valueOf(gameAScores.get(j)), i, j);
+                gameBScoreTable.setValueAt(String.valueOf(gameBScores.get(j)), i , j);
             }
-
         }
         mainTable.updateUI();
     }

@@ -53,6 +53,7 @@ public class SQLiteLogger implements DataLogger {
                 prstmnt.executeUpdate();
             }
         } catch (SQLException sqlException) {
+            System.err.println("Happening at writeToBuildActions");
             System.err.println(sqlException);
             hasError = true;
         }
@@ -81,6 +82,7 @@ public class SQLiteLogger implements DataLogger {
                 prstmnt.executeUpdate();
             }
         } catch (SQLException sqlException) {
+            System.err.println("Happening at writeToMatches");
             System.err.println(sqlException);
             hasError = true;
         }
@@ -107,20 +109,21 @@ public class SQLiteLogger implements DataLogger {
                 prstmnt.executeUpdate();
             }
         } catch (SQLException sqlException) {
+            System.err.println("Happening at writeToOverallScore");
             System.err.println(sqlException);
             hasError = true;
         }
     }
 
-    public void writeToPlayerPieceCount(PlayerID pID, int totoroCount){
-        String query = "INSERT OR REPLACE INTO player_piece_count(challenge_id, player_id, match_id, game_id, totoro_count) VALUES (?,?,?,?,?)";
+    public void writeToPlayerPieceCount(PlayerID pID, int villagerCount){
+        String query = "INSERT OR REPLACE INTO player_piece_count(challenge_id, player_id, match_id, game_id, villager_count) VALUES (?,?,?,?,?)";
         try {
             PreparedStatement prstmnt = connection.prepareStatement(query);
             prstmnt.setInt(1, challengeId);
             prstmnt.setString(2, getUserName(pID));
             prstmnt.setInt(3, matchId);
             prstmnt.setString(4, String.valueOf(gameId));
-            prstmnt.setInt(5, totoroCount);
+            prstmnt.setInt(5, villagerCount);
             synchronized ( connection ) {
                 prstmnt.executeUpdate();
             }
@@ -153,6 +156,7 @@ public class SQLiteLogger implements DataLogger {
                 prstmnt.executeUpdate();
             }
         } catch (SQLException sqlException) {
+            System.err.println("Happening at writeToRawRequest");
             System.err.println(sqlException);
             hasError = true;
         }
@@ -176,6 +180,7 @@ public class SQLiteLogger implements DataLogger {
                 prstmnt.executeUpdate();
             }
         } catch (SQLException sqlException) {
+            System.err.println("Happening at writeToTilesPlaced");
             System.err.println(sqlException);
             hasError = true;
         }
@@ -197,6 +202,7 @@ public class SQLiteLogger implements DataLogger {
                 prstmnt.executeUpdate();
             }
         } catch (SQLException sqlException) {
+            System.err.println("Happening at writeToTournamentScore ");
             System.err.println(sqlException);
             hasError = true;
         }
@@ -204,18 +210,20 @@ public class SQLiteLogger implements DataLogger {
 
     @Override
     public void writeToGameTurnScore(PlayerID pId, int moveId, int score) {
-        String query = "INSERT OR REPLACE INTO game_turn_score(challenge_id, player_id, game_id, move_id, score) VALUES(?,?,?,?,?)";
+        String query = "INSERT OR REPLACE INTO game_turn_score(challenge_id, player_id, match_id, game_id, move_id, score) VALUES(?,?,?,?,?,?)";
         try {
             PreparedStatement prstmnt = connection.prepareStatement(query);
             prstmnt.setInt(1, challengeId);
             prstmnt.setString(2, getUserName(pId));
-            prstmnt.setString(3, String.valueOf(gameId));
-            prstmnt.setInt(4, moveId);
-            prstmnt.setInt(5, score);
+            prstmnt.setInt(3, matchId);
+            prstmnt.setString(4, String.valueOf(gameId));
+            prstmnt.setInt(5,moveId);
+            prstmnt.setInt(6, score);
             synchronized ( connection ) {
                 prstmnt.executeUpdate();
             }
         } catch (SQLException sqlException) {
+            System.err.println("Happening at writeToGameTurnScore");
             System.err.println(sqlException);
             hasError = true;
         }
@@ -270,6 +278,7 @@ public class SQLiteLogger implements DataLogger {
                 prstmnt.executeUpdate();
             }
         } catch (SQLException sqlException) {
+                System.err.println("Happening at writeToInvalidMoves");
             System.err.println(sqlException);
             hasError = true;
         }
