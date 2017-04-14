@@ -99,7 +99,7 @@ public class SQLiteLogger implements DataLogger {
     }
 
     private void writeToOverallScore(int cid, int p_id, int score) {
-        String query = "INSERT OR REPLACE INTO overall_score(challenge_id,player_id,score) VALUES(?,?,?)";
+        String query = "INSERT INTO overall_score(challenge_id,player_id,score) VALUES(?,?,?)";
         try {
             PreparedStatement prstmnt = connection.prepareStatement(query);
             prstmnt.setInt(1, cid);
