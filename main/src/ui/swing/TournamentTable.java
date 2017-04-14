@@ -22,8 +22,8 @@ public class TournamentTable {
 
     private String[] tournamentColumnHeaders = {
             "Team Names",
-            "Tourney",
-            "Challenge",
+            "Tourney Score",
+            "Challenge Score",
             "Opponent"};
 
     private String[] gameAColumnHeaders = {
