@@ -21,7 +21,7 @@ public class RunTournamentServer
             System.err.println("java runTournamentServer <Number of challenges> <Tournament Password> <File path to file of usernames and passwords> <Seconds permitted to connect to server> <port number> <random seed>");
         }
 
-        int numberOfTournamentToPlay = Integer.parseInt(args[1]);
+        int numberOfTournamentToPlay = Integer.parseInt(args[0]);
 
         new Thread(new Runnable() {
             @Override
@@ -30,7 +30,7 @@ public class RunTournamentServer
             }
         }).start();
 
-                TournamentVariables tv = TournamentVariables.getInstance();
+        TournamentVariables tv = TournamentVariables.getInstance();
         tv.setNumberOfChallenges(Integer.parseInt(args[0]));
         tv.setTournamentPassword(args[1]);
         tv.setUnsernamePasswordFile(args[2]);
@@ -47,7 +47,4 @@ public class RunTournamentServer
         }
     }
 
-    private static void waitForAllClientToConnect(int delay) throws InterruptedException {
-        sleep(delay * 1000);
-    }
 }

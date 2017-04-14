@@ -18,6 +18,7 @@ public class TournamentServer {
     private ArrayList<TournamentPlayer> clientConnections = new ArrayList<>();
     private boolean currentlyAcceptingConnections;
     private TournamentScoreManager tournamentScoreManager;
+    Map<Integer, String> playersIdToUserName;
 
 
     public TournamentServer(int port) {
@@ -70,9 +71,11 @@ public class TournamentServer {
         }
     }
 
-    public void startTournament(int numberOfChallenges)
-    {
+    public void startTournament(int numberOfChallenges) {
         tournamentScoreManager.initializeOverallTournamentScores();
+
+        registerPlayerIdsToUerNames(numberOfChallenges);
+
         for(int i=0; i<numberOfChallenges; i++)
         {
             if(i != 0){
@@ -88,29 +91,34 @@ public class TournamentServer {
             tournamentScoreManager.setEndedChallengeScores(scoreboard.getPlayerMap());
             tournamentScoreManager.addToAllPlayersScore();
 
-
-            Map<Integer, String> playersIdToUserName = new HashMap<>();
-
-
-            TournamentPlayer tPlayer = clientConnections.get(0);
-            int defaultPID = tPlayer.getID().getId();
-            playersIdToUserName.put(defaultPID, tPlayer.getUsername());
-
-            SQLiteLogger sqLiteLogger = LoggerFactory.getSQLLogger('0',0,0, playersIdToUserName);
-            ConsoleLogger consoleLogger = new ConsoleLogger(0,'0',0, playersIdToUserName);
-            CompositeLogger compositeLogger = new CompositeLogger(sqLiteLogger, consoleLogger);
-
-            Map<PlayerID, Integer> scores = tournamentScoreManager.getOverallScores();
-            for(int j = 0; j < clientConnections.size(); j++) {
-                TournamentPlayer tp = clientConnections.get(j);
-                PlayerID pID = tp.getID();
-                int score = scores.get(pID);
-                compositeLogger.writeToTournamentScore(pID, score);
-            }
-
+            storeTournamentScores();
         }
 
         OutputAdapter.sendEndOfChallengesMessage(clientConnections);
+    }
+
+    private void registerPlayerIdsToUerNames(int numberOfChallenges) {
+        playersIdToUserName = new HashMap<>();
+        for(int i = 0; i < clientConnections.size(); i++) {
+            TournamentPlayer tPlayer = clientConnections.get(i);
+            int defaultPID = tPlayer.getID().getId();
+            playersIdToUserName.put(defaultPID, tPlayer.getUsername());
+        }
+    }
+
+    private void storeTournamentScores() {
+
+        SQLiteLogger sqLiteLogger = LoggerFactory.getSQLLogger('0',0,0, playersIdToUserName);
+        ConsoleLogger consoleLogger = new ConsoleLogger(0,'0',0, playersIdToUserName);
+        CompositeLogger compositeLogger = new CompositeLogger(sqLiteLogger, consoleLogger);
+
+        Map<PlayerID, Integer> scores = tournamentScoreManager.getOverallScores();
+        for(int j = 0; j < clientConnections.size(); j++) {
+            TournamentPlayer tp = clientConnections.get(j);
+            PlayerID pID = tp.getID();
+            int score = scores.get(pID);
+            compositeLogger.writeToTournamentScore(pID, score);
+        }
     }
 
     public void finalize() {
