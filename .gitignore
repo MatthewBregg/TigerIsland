@@ -17,6 +17,12 @@ main/bin/
 # git file
 *.orig
 
+# data base
+*.db
+
+# executables
+*.exe
+
 moves/
 tigersssss.db
 ScoreBoard.html

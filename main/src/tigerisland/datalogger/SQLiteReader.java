@@ -64,11 +64,16 @@ public class SQLiteReader implements DataReader{
 
     @Override
     public List<String> getTeamNames() {
+
+        String query = "select distinct player_id from overall_score order by player_id ASC";
         List<String> userNames = new ArrayList<>();
         try {
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery(getTournamentPlayersQuery);
-            userNames = getTournamentPlayers(rs);
+            ResultSet rs = stmt.executeQuery(query);
+
+            while (rs.next()) {
+                userNames.add( rs.getString("player_id"));
+            }
         } catch(SQLException sqlException) {
             System.out.println(sqlException);
         }
@@ -113,7 +118,7 @@ public class SQLiteReader implements DataReader{
 
     @Override
     public int getCurrentMatchForChallenge(int challengeId) {
-        String query = String.format("select max(match_id) from matches " +
+        String query = String.format("select max(match_id) - min(match_id) from matches " +
                "where challenge_id='%s'",challengeId);
        int matchId = -1;
        try {
@@ -121,7 +126,7 @@ public class SQLiteReader implements DataReader{
             ResultSet rs = stmt.executeQuery(query);
 
             while (rs.next()) {
-                matchId= rs.getInt("max(match_id)");
+                matchId= rs.getInt("max(match_id) - min(match_id)");
             }
 
         } catch(SQLException sqlException) {
@@ -173,14 +178,14 @@ public class SQLiteReader implements DataReader{
 
     @Override
     public int getCurrentTurnNumber() {
-       String query = "SELECT MAX(move_id) FROM GAME_TURN_SCORE";
+       String query = "select max(move_id) from game_turn_score";
         int move_id = -1;
         try {
 
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             if (rs.next()) {
-                move_id = rs.getInt("move_id");
+                move_id = rs.getInt("max(move_id)");
             }
 
         } catch(SQLException sqlException) {
@@ -211,21 +216,8 @@ public class SQLiteReader implements DataReader{
     }
 
     @Override
-    public int getVillagersForGame(int currentChallenge, String teamName, int currentMatchInChallenge, char a) {
-        String query = "SELECT MAX(move_id) FROM GAME_TURN_SCORE";
-        int totoro = 0;
-        try {
-
-            Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery(query);
-            if (rs.next()) {
-                totoro = rs.getInt("count(*)");
-            }
-
-        } catch(SQLException sqlException) {
-            System.out.println(sqlException);
-        }
-        return  totoro;
+    public int getVillagersForGame(int currentChallenge, String teamName, int currentMatchInChallenge, char gameId) {
+        return  -1;
     }
 
     @Override

@@ -81,7 +81,7 @@ public class TournamentUI extends JFrame {
     }
 
     private static void updateTournamentScores() {
-        tournamentTable.updateTournamentScores(currentChallenge, currentMatchInChallenge, turnForCurrentMatch);
+        tournamentTable.updateTournamentScores(currentChallenge, currentMatchInChallenge, 4);
     }
 
     private static void updateTurnForCurrentMatch() {

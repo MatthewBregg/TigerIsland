@@ -24,31 +24,19 @@ public class TournamentTable {
             "Team Names",
             "Tourney",
             "Challenge",
-            "Opponent",};
+            "Opponent"};
 
     private String[] gameAColumnHeaders = {
             "Score",
             "V",
             "To",
-            "Ti",};
+            "Ti"};
 
     private String[] gameBColumnHeaders = {
             "Score",
             "V",
             "To",
-            "Ti",};
-
-    private Object[][] tournamentTableData = {
-            {"Team_A", "200", "5", "Team_B"}
-    };
-
-    private Object[][] gameATableData = {
-            { -1, -1, -1}
-    };
-
-    private Object[][] gameBTableData = {
-            {-2, -2, -2, -2}
-    };
+            "Ti"};
 
     private Object[][] tournamentColumnsValues = {
             {"Team A", "0", "0", "0"},
@@ -161,6 +149,7 @@ public class TournamentTable {
 
                 List<String> teamNames = dataReader.getTeamNames();
 
+
                 for(int i = 0; i < teamNames.size(); i++) {
 
                     int tourney = dataReader.getTeamTournamentScore(teamNames.get(i));
@@ -192,19 +181,12 @@ public class TournamentTable {
                     gameBScores.add(totoroForGameB);
                     gameBScores.add(tigersForGameB);
 
-                    // TODO add to 2d arrays
-                    // j = 4 because we aren't seeing all 12 values, we are setting 4 values for 3 different tables
-                    // and we arent setting the values of mainTable, we are setting the values
                     for(int j = 0; j < 4; j++){
-                        // for setting overall score, i know the conditional looks like shit, but
-                        // we add types of String and int so it gets messy sorry
-                        overallScoreTable.setValueAt(tournamentData.get(j), i, j);
-                gameAScoreTable.setValueAt(gameAScores.get(j), i, j);
-                gameBScoreTable.setValueAt(gameBScores.get(j), i , j);
-
-            }
+                        overallScoreTable.setValueAt(String.valueOf(tournamentData.get(j)), i, j);
+                        gameAScoreTable.setValueAt(String.valueOf(gameAScores.get(j)), i, j);
+                        gameBScoreTable.setValueAt(String.valueOf(gameBScores.get(j)), i , j);
+                    }
         }
-
         mainTable.updateUI();
     }
 
