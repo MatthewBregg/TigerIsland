@@ -85,7 +85,7 @@ public class RoundRobinSchedule extends ScheduleType {
 
     @Override
     public int getTotalRounds() {
-        if(numOfParticipants == 0)
+        if(numOfParticipants < 2)
             return 0;
         return (getTotalMatches() / getMatchesPerRound());
     }
