@@ -1,8 +1,10 @@
 package tigerisland.datalogger;
 
 import org.junit.*;
+import tigerisland.board.Location;
 import tigerisland.player.Player;
 import tigerisland.player.PlayerID;
+import tigerisland.tile.Orientation;
 
 import java.sql.Connection;
 import java.util.HashMap;
@@ -198,5 +200,72 @@ public class SQLiteReaderTest {
 
     }
 
+    @Test
+    public void test_ShouldReturnPlayerOpponent() {
+
+        // Arrange
+        String teamName = "TEAM_C";
+        PlayerID player1Id = new PlayerID(); playersIdToUsername.put(player1Id.getId(), teamName);
+
+        String expectedOpponent = "TEAM_Z";
+        PlayerID player2Id = new PlayerID(); playersIdToUsername.put(player2Id.getId(), expectedOpponent);
+
+        char gameId = 'X';
+        int challengeId = 5;
+        logger.newGame(gameId, challengeId);
+        logger.writeGameStarted(player1Id , player2Id);
+
+        // Act
+        String opponent = reader.getOpponent(teamName, challengeId, match_id);
+
+        // Assert
+        Assert.assertEquals(expectedOpponent, opponent);
+    }
+
+    @Test
+    public void test_ShouldReturnTotorosPlayedForAMatch() {
+
+        // Arrange
+        String teamName = "TEAM_C";
+        PlayerID player1Id = new PlayerID(); playersIdToUsername.put(player1Id.getId(), teamName);
+        int moveId = 5;
+
+        char gameId = 'X';
+        int challengeId = 5;
+
+        logger.newGame(gameId, challengeId);
+        logger.writePlacedTotoroMove(player1Id, new Location(0,0,0));
+        logger.nextTurn();
+        logger.writePlacedTotoroMove(player1Id, new Location(0,0,0));
+
+        // Act
+        int totoro = reader.getTotoroForGame(challengeId, teamName, match_id, gameId);
+
+        // Assert
+        Assert.assertEquals(2, totoro);
+    }
+
+    @Test
+    public void test_ShouldReturnTigersForMatch() {
+
+        // Arrange
+        String teamName = "TEAM_C";
+        PlayerID player1Id = new PlayerID(); playersIdToUsername.put(player1Id.getId(), teamName);
+        int moveId = 5;
+
+        char gameId = 'X';
+        int challengeId = 5;
+
+        logger.newGame(gameId, challengeId);
+        logger.writePlacedTigerMove(player1Id, new Location(0,0,0));
+        logger.nextTurn();
+        logger.writePlacedTigerMove(player1Id, new Location(0,0,0));
+
+        // Act
+        int totoro = reader.getTigerForGame(challengeId, teamName, match_id, gameId);
+
+        // Assert
+        Assert.assertEquals(2, totoro);
+    }
 
 }

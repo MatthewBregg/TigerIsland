@@ -64,11 +64,16 @@ public class SQLiteReader implements DataReader{
 
     @Override
     public List<String> getTeamNames() {
+
+        String query = "select distinct player_id from overall_score order by player_id ASC";
         List<String> userNames = new ArrayList<>();
         try {
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery(getTournamentPlayersQuery);
-            userNames = getTournamentPlayers(rs);
+            ResultSet rs = stmt.executeQuery(query);
+
+            while (rs.next()) {
+                userNames.add( rs.getString("player_id"));
+            }
         } catch(SQLException sqlException) {
             System.out.println(sqlException);
         }
@@ -173,14 +178,14 @@ public class SQLiteReader implements DataReader{
 
     @Override
     public int getCurrentTurnNumber() {
-       String query = "SELECT MAX(move_id) FROM GAME_TURN_SCORE";
+       String query = "select max(move_id) from game_turn_score";
         int move_id = -1;
         try {
 
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             if (rs.next()) {
-                move_id = rs.getInt("move_id");
+                move_id = rs.getInt("max(move_id)");
             }
 
         } catch(SQLException sqlException) {
@@ -192,7 +197,7 @@ public class SQLiteReader implements DataReader{
     @Override
     public String getOpponent(String teamName, int currentChallenge, int currentMatchInChallenge) {
         String query = String.format("select p2_id from matches where " +
-                "p1_id='%s' and chalenge_id='%s' and match_id='%s'", teamName, currentChallenge, currentMatchInChallenge);
+                "p1_id='%s' and challenge_id='%s' and match_id='%s'", teamName, currentChallenge, currentMatchInChallenge);
 
         String opponent = "NO_OPPONENT";
         try {
@@ -211,23 +216,55 @@ public class SQLiteReader implements DataReader{
     }
 
     @Override
-    public int getVillagersForGame(int currentChallenge, String s, int currentMatchInChallenge, char a) {
-        return -1;
+    public int getVillagersForGame(int currentChallenge, String teamName, int currentMatchInChallenge, char gameId) {
+        return  -1;
     }
 
     @Override
-    public int getTotoroForGame(int currentChallenge, String s, int currentMatchInChallenge, char a) {
-        return -1;
+    public int getTotoroForGame(int currentChallenge, String teamName, int currentMatchInChallenge, char gameId) {
+
+        String query = String.format("select count(*) from build_action " +
+                "where challenge_id='%s' and p_id='%s' and match_id='%s' and game_id='%s'",
+               currentChallenge, teamName, currentMatchInChallenge, gameId);
+        query += " and move_description like '%otoro%'";
+
+        int totoro = 0;
+        try {
+
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            if (rs.next()) {
+                totoro = rs.getInt("count(*)");
+            }
+
+        } catch(SQLException sqlException) {
+            System.out.println(sqlException);
+        }
+        return  totoro;
     }
 
     @Override
-    public int getTigerForGame(int currentChallenge, String s, int currentMatchInChallenge, char a) {
-        return -1;
-    }
+    public int getTigerForGame(int currentChallenge, String teamName, int currentMatchInChallenge, char gameId) {
+       String query = String.format("select count(*) from build_action " +
+                "where challenge_id='%s' and p_id='%s' and match_id='%s' and game_id='%s'",
+               currentChallenge, teamName, currentMatchInChallenge, gameId);
+       query += " and move_description like '%iger%'";
 
-    @Override
-    public int getTotoroGame(int currentChallenge, String s, int currentMatchInChallenge, char b) {
-        return -1;
+        int tiger = 0;
+        try {
+
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+
+            if (rs.next()) {
+                tiger = rs.getInt("count(*)");
+            }
+
+        } catch(SQLException sqlException) {
+            System.out.println(sqlException);
+        }
+
+        return  tiger;
     }
 
     @Override

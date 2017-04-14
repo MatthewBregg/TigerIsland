@@ -275,17 +275,17 @@ public class GameThread extends Thread{
         gameNotEnded = false;
     }
 
-    // pass botht the players so you can immediately add in the score
+    // pass both the players so you can immediately add in the score
 
-    public void timeout(TournamentPlayer tournamentPlayer)
+    public void timeoutOrInvalidMoveSent(TournamentPlayer tournamentPlayer)
     {
         endGameMessage = OutputAdapter.returnEndGameMessage(tournamentPlayer, otherPlayer(tournamentPlayer), gameID, "FORFEITED", "WIN");
    //     OutputAdapter.returnEndGameMessage(otherPlayer(tournamentPlayer), tournamentPlayer, gameID, "WIN", "FORFEITED");
 
         gameNotEnded=false;
         ArrayList<TournamentPlayer> players = generatePlayerToReturnToScoreboard(tournamentPlayer);
-
-        scoreboard.playerTimedOut(players);
+        
+        scoreboard.playerTimedOutOrSentInvalidMove(players);
     }
 
     public void unableToBuild(TournamentPlayer tournamentPlayer)

@@ -33,6 +33,32 @@ public class SettlementAlreadyContainsTigerRuleTest {
     }
 
     @Test
+    public void test_ShouldPlaceTigerIfTwoAdjacentSettlementsOneHasTigerOneDoesNot() {
+        //arrange
+        pieces = new PieceBoardImpl();
+        board = new LazySettlementBoard(pieces);
+        Location buildLocation = new Location(0,0,0);
+
+        // Add east piece
+        pieces.addPiece(new Villager(),buildLocation.getAdjacent(Orientation.getEast()),player1.getId());
+        // Add west settlement contiaining a tiger.
+        pieces.addPiece(new Tiger(),buildLocation.getAdjacent(Orientation.getWest()),player1.getId());
+        pieces.addPiece(new Villager(),buildLocation.getAdjacent(Orientation.getWest()).getAdjacent(Orientation.getWest()),player1.getId());
+
+        rule = new SettlementAlreadyContainsTigerRule(board);
+
+        BuildActionData.Builder builder = new BuildActionData.Builder();
+        builder.withHexLocation(buildLocation);
+        builder.withPlayer(player1);
+
+        //act
+        result = rule.applyRule(builder.build());
+
+        //assert
+        Assert.assertTrue(result.errorMessage,result.successful);
+    }
+
+    @Test
     public void test_ShouldThrowErrorWithSettlementAlreadyContainingTiger(){
 
         //arrange

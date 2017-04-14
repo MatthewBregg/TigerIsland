@@ -83,8 +83,8 @@ public class NearbySettlementsUtilityTest {
 
         //assert
         Assert.assertTrue(settlementLocations.containsAll(settlements.get(0).getConnectedLocations()));
-
         Assert.assertTrue(settlements.size()==1);
+        Assert.assertEquals(6,settlements.get(0).settlementSize());
 
 
 

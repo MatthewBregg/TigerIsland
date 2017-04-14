@@ -27,6 +27,7 @@ public class TournamentPlayer implements Runnable
     private boolean authenticated;
     private PlayerID pID;
     private String username;
+    private final int authenticateTime = 1800;
 
     private boolean gameAReady() {
         processInputFromClientIntoGameQueues();
@@ -62,7 +63,10 @@ public class TournamentPlayer implements Runnable
 
     private void pushMessageToGameQueues(String input){
         String[] tokens = input.split("\\s+");
-
+        if ( tokens.length < 2 ) {
+            System.out.println("Invalid GAME ID from this.readline()");
+            return;
+        }
         if (tokens[1].contentEquals("A")) {
             gameA.add(input);
         } else if (tokens[1].contentEquals("B")) {
@@ -94,7 +98,7 @@ public class TournamentPlayer implements Runnable
         OutputAdapter.sendWelcomeMessage(this);
 
         try {
-            Thread.sleep(1800); //1.8s allowed to authenticate
+            Thread.sleep(authenticateTime); //1.8s allowed to authenticate
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -119,7 +123,7 @@ public class TournamentPlayer implements Runnable
         OutputAdapter.requestAuthentication(this);
 
         try {
-            Thread.sleep(1800); //1.8s allowed to authenticate
+            Thread.sleep(authenticateTime); //1.8s allowed to authenticate
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -174,7 +178,6 @@ public class TournamentPlayer implements Runnable
         long sleepDuration = 100;
         long timeoutInMs = 1501;
         // Max timeout = sleepDuration * timeoutMaxIncrements in ms.
-        // If we want to be super strict on timeout, then set a bool timeout reached here, but I don't think we should.
         long startedWaiting = System.currentTimeMillis();
         while(!inputFromClientReady(gid) && (System.currentTimeMillis() - startedWaiting) < timeoutInMs) {
             try {
@@ -197,7 +200,7 @@ public class TournamentPlayer implements Runnable
 
         if (!inputFromClientReady(gid)) {
             OutputAdapter.sendTimeoutMessage(game.getPlayersInGame(), this, new String[]{"GAME", "" + gid, "MOVE", "" + moveNumber});
-            game.timeout(this);
+            game.timeoutOrInvalidMoveSent(this);
             return;
         }
 

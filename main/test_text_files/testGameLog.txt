@@ -1,0 +1,274 @@
+CLIENT 2: GAME B MOVE 11 PLACE GRASS+ROCK AT 1 -4 3 4 FOUND SETTLEMENT AT 1 -5 4
+CLIENT 1: GAME A MOVE 11 PLACE GRASS+ROCK AT 1 -4 3 4 FOUND SETTLEMENT AT 1 -5 4
+Logger: Game Id: B Challenge Id: 2 Match ID : 2 Turn Number 22 :: placed a tile in location (1, -4, 3) with the follow terrain tigerisland.tile.Tile@537387ae at orientation East
+Logger: Game Id: B Challenge Id: 2 Match ID : 2 Turn Number 22 ::Tile placement (1, -4, 3) true , tigerisland.tile.Tile@537387ae SIZE OF BOARD IS 71
+Logger: Game Id: A Challenge Id: 2 Match ID : 2 Turn Number 22 :: placed a tile in location (1, -4, 3) with the follow terrain tigerisland.tile.Tile@19e6d174 at orientation East
+Logger: Game Id: A Challenge Id: 2 Match ID : 2 Turn Number 22 ::Tile placement (1, -4, 3) true , tigerisland.tile.Tile@19e6d174 SIZE OF BOARD IS 71
+Logger: Game Id: B Challenge Id: 3 Match ID : 2 Turn Number 22 ::Player TEAM_Afounded a settlement in location (1, -5, 4)
+Logger: Game Id: B Challenge Id: 2 Match ID : 2 Turn Number 22 ::FoundSettlement (1, -5, 4) true
+SENDING MESSAGE TO 2: "GAME B MOVE 11 PLAYER 2 PLACED GRASS+ROCK AT 1 -4 3 4 FOUNDED SETTLEMENT AT 1 -5 4"
+SENDING MESSAGE TO 1: "GAME B MOVE 11 PLAYER 2 PLACED GRASS+ROCK AT 1 -4 3 4 FOUNDED SETTLEMENT AT 1 -5 4"
+Logger: Game Id: B Challenge Id: 2 Match ID : 2 Turn Number 22 :: Turn has ended
+Logger: Game Id: A Challenge Id: 2 Match ID : 2 Turn Number 22 ::Player TEAM_Bfounded a settlement in location (1, -5, 4)
+Logger: Game Id: A Challenge Id: 2 Match ID : 2 Turn Number 22 ::FoundSettlement (1, -5, 4) true
+SENDING MESSAGE TO 1: "GAME A MOVE 11 PLAYER 1 PLACED GRASS+ROCK AT 1 -4 3 4 FOUNDED SETTLEMENT AT 1 -5 4"
+SENDING MESSAGE TO 2: "GAME A MOVE 11 PLAYER 1 PLACED GRASS+ROCK AT 1 -4 3 4 FOUNDED SETTLEMENT AT 1 -5 4"
+SENDING MESSAGE TO 1: "MAKE YOUR MOVE IN GAME B WITHIN 1.5 SECONDS: MOVE 11 PLACE ROCK+JUNGLE"
+Logger: Game Id: A Challenge Id: 2 Match ID : 2 Turn Number 22 :: Turn has ended
+SENDING MESSAGE TO 2: "MAKE YOUR MOVE IN GAME A WITHIN 1.5 SECONDS: MOVE 11 PLACE ROCK+JUNGLE"
+CLIENT 1: GAME B MOVE 11 PLACE ROCK+JUNGLE AT -2 5 -3 6 FOUND SETTLEMENT AT -3 6 -3
+CLIENT 2: GAME A MOVE 11 PLACE ROCK+JUNGLE AT -2 5 -3 6 FOUND SETTLEMENT AT -3 6 -3
+Logger: Game Id: B Challenge Id: 2 Match ID : 2 Turn Number 23 :: placed a tile in location (-2, 5, -3) with the follow terrain tigerisland.tile.Tile@635102b7 at orientation Southwest
+Logger: Game Id: B Challenge Id: 2 Match ID : 2 Turn Number 23 ::Tile placement (-2, 5, -3) true , tigerisland.tile.Tile@635102b7 SIZE OF BOARD IS 74
+Logger: Game Id: A Challenge Id: 2 Match ID : 2 Turn Number 23 :: placed a tile in location (-2, 5, -3) with the follow terrain tigerisland.tile.Tile@6f6b4ece at orientation Southwest
+Logger: Game Id: A Challenge Id: 2 Match ID : 2 Turn Number 23 ::Tile placement (-2, 5, -3) true , tigerisland.tile.Tile@6f6b4ece SIZE OF BOARD IS 74
+Logger: Game Id: B Challenge Id: 2 Match ID : 2 Turn Number 23 ::Player TEAM_Bfounded a settlement in location (-3, 6, -3)
+Logger: Game Id: B Challenge Id: 2 Match ID : 2 Turn Number 23 ::FoundSettlement (-3, 6, -3) true
+SENDING MESSAGE TO 2: "GAME B MOVE 11 PLAYER 1 PLACED ROCK+JUNGLE AT -2 5 -3 6 FOUNDED SETTLEMENT AT -3 6 -3"
+SENDING MESSAGE TO 1: "GAME B MOVE 11 PLAYER 1 PLACED ROCK+JUNGLE AT -2 5 -3 6 FOUNDED SETTLEMENT AT -3 6 -3"
+Logger: Game Id: B Challenge Id: 2 Match ID : 2 Turn Number 23 :: Turn has ended
+Logger: Game Id: A Challenge Id: 2 Match ID : 2 Turn Number 23 ::Player TEAM_Afounded a settlement in location (-3, 6, -3)
+Logger: Game Id: A Challenge Id: 2 Match ID : 2 Turn Number 23 ::FoundSettlement (-3, 6, -3) true
+SENDING MESSAGE TO 1: "GAME A MOVE 11 PLAYER 2 PLACED ROCK+JUNGLE AT -2 5 -3 6 FOUNDED SETTLEMENT AT -3 6 -3"
+SENDING MESSAGE TO 2: "GAME A MOVE 11 PLAYER 2 PLACED ROCK+JUNGLE AT -2 5 -3 6 FOUNDED SETTLEMENT AT -3 6 -3"
+Logger: Game Id: A Challenge Id: 2 Match ID : 2 Turn Number 23 :: Turn has ended
+SENDING MESSAGE TO 2: "MAKE YOUR MOVE IN GAME B WITHIN 1.5 SECONDS: MOVE 12 PLACE GRASS+GRASS"
+SENDING MESSAGE TO 1: "MAKE YOUR MOVE IN GAME A WITHIN 1.5 SECONDS: MOVE 12 PLACE GRASS+GRASS"
+CLIENT 2: GAME B MOVE 12 PLACE GRASS+GRASS AT -3 5 -2 5 FOUND SETTLEMENT AT -4 5 -1
+CLIENT 1: GAME A MOVE 12 PLACE GRASS+GRASS AT -3 5 -2 5 FOUND SETTLEMENT AT -4 5 -1
+Logger: Game Id: B Challenge Id: 2 Match ID : 2 Turn Number 24 :: placed a tile in location (-3, 5, -2) with the follow terrain tigerisland.tile.Tile@3376a4ca at orientation Southeast
+Logger: Game Id: B Challenge Id: 2 Match ID : 2 Turn Number 24 ::Tile placement (-3, 5, -2) true , tigerisland.tile.Tile@3376a4ca SIZE OF BOARD IS 77
+Logger: Game Id: A Challenge Id: 2 Match ID : 2 Turn Number 24 :: placed a tile in location (-3, 5, -2) with the follow terrain tigerisland.tile.Tile@6d5f6d38 at orientation Southeast
+Logger: Game Id: A Challenge Id: 2 Match ID : 2 Turn Number 24 ::Tile placement (-3, 5, -2) true , tigerisland.tile.Tile@6d5f6d38 SIZE OF BOARD IS 77
+Logger: Game Id: B Challenge Id: 2 Match ID : 2 Turn Number 24 ::Player TEAM_Afounded a settlement in location (-4, 5, -1)
+Logger: Game Id: B Challenge Id: 2 Match ID : 2 Turn Number 24 ::FoundSettlement (-4, 5, -1) true
+SENDING MESSAGE TO 2: "GAME B MOVE 12 PLAYER 2 PLACED GRASS+GRASS AT -3 5 -2 5 FOUNDED SETTLEMENT AT -4 5 -1"
+SENDING MESSAGE TO 1: "GAME B MOVE 12 PLAYER 2 PLACED GRASS+GRASS AT -3 5 -2 5 FOUNDED SETTLEMENT AT -4 5 -1"
+Logger: Game Id: B Challenge Id: 2 Match ID : 2 Turn Number 24 :: Turn has ended
+Logger: Game Id: A Challenge Id: 2 Match ID : 2 Turn Number 24 ::Player TEAM_Bfounded a settlement in location (-4, 5, -1)
+Logger: Game Id: A Challenge Id: 2 Match ID : 2 Turn Number 24 ::FoundSettlement (-4, 5, -1) true
+SENDING MESSAGE TO 1: "GAME A MOVE 12 PLAYER 1 PLACED GRASS+GRASS AT -3 5 -2 5 FOUNDED SETTLEMENT AT -4 5 -1"
+SENDING MESSAGE TO 2: "GAME A MOVE 12 PLAYER 1 PLACED GRASS+GRASS AT -3 5 -2 5 FOUNDED SETTLEMENT AT -4 5 -1"
+SENDING MESSAGE TO 1: "MAKE YOUR MOVE IN GAME B WITHIN 1.5 SECONDS: MOVE 12 PLACE GRASS+LAKE"
+Logger: Game Id: A Challenge Id: 2 Match ID : 2 Turn Number 24 :: Turn has ended
+SENDING MESSAGE TO 2: "MAKE YOUR MOVE IN GAME A WITHIN 1.5 SECONDS: MOVE 12 PLACE GRASS+LAKE"
+CLIENT 1: GAME B MOVE 12 PLACE GRASS+LAKE AT -4 4 0 5 EXPAND SETTLEMENT AT -3 6 -3 JUNGLE
+CLIENT 2: GAME A MOVE 12 PLACE GRASS+LAKE AT -4 4 0 5 EXPAND SETTLEMENT AT -3 6 -3 JUNGLE
+Logger: Game Id: B Challenge Id: 2 Match ID : 2 Turn Number 25 :: placed a tile in location (-4, 4, 0) with the follow terrain tigerisland.tile.Tile@14470ed1 at orientation Southeast
+Logger: Game Id: B Challenge Id: 2 Match ID : 2 Turn Number 25 ::Tile placement (-4, 4, 0) true , tigerisland.tile.Tile@14470ed1 SIZE OF BOARD IS 80
+Logger: Game Id: A Challenge Id: 2 Match ID : 2 Turn Number 25 :: placed a tile in location (-4, 4, 0) with the follow terrain tigerisland.tile.Tile@29df98e4 at orientation Southeast
+Logger: Game Id: A Challenge Id: 2 Match ID : 2 Turn Number 25 ::Tile placement (-4, 4, 0) true , tigerisland.tile.Tile@29df98e4 SIZE OF BOARD IS 80
+Logger: Game Id: B Challenge Id: 2 Match ID : 2 Turn Number 25 ::Player TEAM_B expanded settlement at (-3, 6, -3) to cover terrain of JUNGLE
+Logger: Game Id: B Challenge Id: 2 Match ID : 2 Turn Number 25 ::Expand Settlement true
+SENDING MESSAGE TO 2: "GAME B MOVE 12 PLAYER 1 PLACED GRASS+LAKE AT -4 4 0 5 EXPANDED SETTLEMENT AT -3 6 -3 JUNGLE"
+SENDING MESSAGE TO 1: "GAME B MOVE 12 PLAYER 1 PLACED GRASS+LAKE AT -4 4 0 5 EXPANDED SETTLEMENT AT -3 6 -3 JUNGLE"
+Logger: Game Id: B Challenge Id: 2 Match ID : 2 Turn Number 25 :: Turn has ended
+Logger: Game Id: A Challenge Id: 2 Match ID : 2 Turn Number 25 ::Player TEAM_A expanded settlement at (-3, 6, -3) to cover terrain of JUNGLE
+Logger: Game Id: A Challenge Id: 2 Match ID : 2 Turn Number 25 ::Expand Settlement true
+SENDING MESSAGE TO 1: "GAME A MOVE 12 PLAYER 2 PLACED GRASS+LAKE AT -4 4 0 5 EXPANDED SETTLEMENT AT -3 6 -3 JUNGLE"
+SENDING MESSAGE TO 2: "GAME A MOVE 12 PLAYER 2 PLACED GRASS+LAKE AT -4 4 0 5 EXPANDED SETTLEMENT AT -3 6 -3 JUNGLE"
+SENDING MESSAGE TO 2: "MAKE YOUR MOVE IN GAME B WITHIN 1.5 SECONDS: MOVE 13 PLACE GRASS+GRASS"
+Logger: Game Id: A Challenge Id: 2 Match ID : 2 Turn Number 25 :: Turn has ended
+SENDING MESSAGE TO 1: "MAKE YOUR MOVE IN GAME A WITHIN 1.5 SECONDS: MOVE 13 PLACE GRASS+GRASS"
+CLIENT 2: GAME B MOVE 13 PLACE GRASS+GRASS AT -4 2 2 4 FOUND SETTLEMENT AT -4 1 3
+CLIENT 1: GAME A MOVE 13 PLACE GRASS+GRASS AT -4 2 2 4 FOUND SETTLEMENT AT -4 1 3
+Logger: Game Id: B Challenge Id: 2 Match ID : 2 Turn Number 26 :: placed a tile in location (-4, 2, 2) with the follow terrain tigerisland.tile.Tile@5bc6a500 at orientation East
+Logger: Game Id: B Challenge Id: 2 Match ID : 2 Turn Number 26 ::Tile placement (-4, 2, 2) true , tigerisland.tile.Tile@5bc6a500 SIZE OF BOARD IS 83
+Logger: Game Id: A Challenge Id: 2 Match ID : 2 Turn Number 26 :: placed a tile in location (-4, 2, 2) with the follow terrain tigerisland.tile.Tile@61d91da at orientation East
+Logger: Game Id: A Challenge Id: 2 Match ID : 2 Turn Number 26 ::Tile placement (-4, 2, 2) true , tigerisland.tile.Tile@61d91da SIZE OF BOARD IS 83
+Logger: Game Id: B Challenge Id: 2 Match ID : 2 Turn Number 26 ::Player TEAM_Afounded a settlement in location (-4, 1, 3)
+Logger: Game Id: B Challenge Id: 2 Match ID : 2 Turn Number 26 ::FoundSettlement (-4, 1, 3) true
+SENDING MESSAGE TO 2: "GAME B MOVE 13 PLAYER 2 PLACED GRASS+GRASS AT -4 2 2 4 FOUNDED SETTLEMENT AT -4 1 3"
+SENDING MESSAGE TO 1: "GAME B MOVE 13 PLAYER 2 PLACED GRASS+GRASS AT -4 2 2 4 FOUNDED SETTLEMENT AT -4 1 3"
+Logger: Game Id: B Challenge Id: 2 Match ID : 2 Turn Number 26 :: Turn has ended
+Logger: Game Id: A Challenge Id: 2 Match ID : 2 Turn Number 26 ::Player TEAM_Bfounded a settlement in location (-4, 1, 3)
+Logger: Game Id: A Challenge Id: 2 Match ID : 2 Turn Number 26 ::FoundSettlement (-4, 1, 3) true
+SENDING MESSAGE TO 1: "GAME A MOVE 13 PLAYER 1 PLACED GRASS+GRASS AT -4 2 2 4 FOUNDED SETTLEMENT AT -4 1 3"
+SENDING MESSAGE TO 2: "GAME A MOVE 13 PLAYER 1 PLACED GRASS+GRASS AT -4 2 2 4 FOUNDED SETTLEMENT AT -4 1 3"
+SENDING MESSAGE TO 1: "MAKE YOUR MOVE IN GAME B WITHIN 1.5 SECONDS: MOVE 13 PLACE JUNGLE+ROCK"
+Logger: Game Id: A Challenge Id: 2 Match ID : 2 Turn Number 26 :: Turn has ended
+SENDING MESSAGE TO 2: "MAKE YOUR MOVE IN GAME A WITHIN 1.5 SECONDS: MOVE 13 PLACE JUNGLE+ROCK"
+CLIENT 1: GAME B MOVE 13 PLACE JUNGLE+ROCK AT -2 -2 4 4 FOUND SETTLEMENT AT -2 -3 5
+CLIENT 2: GAME A MOVE 13 PLACE JUNGLE+ROCK AT -2 -2 4 4 FOUND SETTLEMENT AT -2 -3 5
+Logger: Game Id: B Challenge Id: 2 Match ID : 2 Turn Number 27 :: placed a tile in location (-2, -2, 4) with the follow terrain tigerisland.tile.Tile@30e95075 at orientation East
+Logger: Game Id: B Challenge Id: 2 Match ID : 2 Turn Number 27 ::Tile placement (-2, -2, 4) true , tigerisland.tile.Tile@30e95075 SIZE OF BOARD IS 86
+Logger: Game Id: A Challenge Id: 2 Match ID : 2 Turn Number 27 :: placed a tile in location (-2, -2, 4) with the follow terrain tigerisland.tile.Tile@3335b2e9 at orientation East
+Logger: Game Id: A Challenge Id: 2 Match ID : 2 Turn Number 27 ::Tile placement (-2, -2, 4) true , tigerisland.tile.Tile@3335b2e9 SIZE OF BOARD IS 86
+Logger: Game Id: B Challenge Id: 2 Match ID : 2 Turn Number 27 ::Player TEAM_Bfounded a settlement in location (-2, -3, 5)
+Logger: Game Id: B Challenge Id: 2 Match ID : 2 Turn Number 27 ::FoundSettlement (-2, -3, 5) true
+SENDING MESSAGE TO 2: "GAME B MOVE 13 PLAYER 1 PLACED JUNGLE+ROCK AT -2 -2 4 4 FOUNDED SETTLEMENT AT -2 -3 5"
+SENDING MESSAGE TO 1: "GAME B MOVE 13 PLAYER 1 PLACED JUNGLE+ROCK AT -2 -2 4 4 FOUNDED SETTLEMENT AT -2 -3 5"
+Logger: Game Id: B Challenge Id: 2 Match ID : 2 Turn Number 27 :: Turn has ended
+Logger: Game Id: A Challenge Id: 2 Match ID : 2 Turn Number 27 ::Player TEAM_Afounded a settlement in location (-2, -3, 5)
+Logger: Game Id: A Challenge Id: 2 Match ID : 2 Turn Number 27 ::FoundSettlement (-2, -3, 5) true
+SENDING MESSAGE TO 1: "GAME A MOVE 13 PLAYER 2 PLACED JUNGLE+ROCK AT -2 -2 4 4 FOUNDED SETTLEMENT AT -2 -3 5"
+SENDING MESSAGE TO 2: "GAME A MOVE 13 PLAYER 2 PLACED JUNGLE+ROCK AT -2 -2 4 4 FOUNDED SETTLEMENT AT -2 -3 5"
+Logger: Game Id: A Challenge Id: 2 Match ID : 2 Turn Number 27 :: Turn has ended
+SENDING MESSAGE TO 2: "MAKE YOUR MOVE IN GAME B WITHIN 1.5 SECONDS: MOVE 14 PLACE ROCK+ROCK"
+SENDING MESSAGE TO 1: "MAKE YOUR MOVE IN GAME A WITHIN 1.5 SECONDS: MOVE 14 PLACE ROCK+ROCK"
+CLIENT 1: GAME A MOVE 14 PLACE ROCK+ROCK AT -5 3 2 5 FOUND SETTLEMENT AT -6 3 3
+CLIENT 2: GAME B MOVE 14 PLACE ROCK+ROCK AT -5 3 2 5 FOUND SETTLEMENT AT -6 3 3
+Logger: Game Id: A Challenge Id: 2 Match ID : 2 Turn Number 28 :: placed a tile in location (-5, 3, 2) with the follow terrain tigerisland.tile.Tile@25952f1a at orientation Southeast
+Logger: Game Id: A Challenge Id: 2 Match ID : 2 Turn Number 28 ::Tile placement (-5, 3, 2) true , tigerisland.tile.Tile@25952f1a SIZE OF BOARD IS 89
+Logger: Game Id: B Challenge Id: 2 Match ID : 2 Turn Number 28 :: placed a tile in location (-5, 3, 2) with the follow terrain tigerisland.tile.Tile@363ff256 at orientation Southeast
+Logger: Game Id: B Challenge Id: 2 Match ID : 2 Turn Number 28 ::Tile placement (-5, 3, 2) true , tigerisland.tile.Tile@363ff256 SIZE OF BOARD IS 89
+Logger: Game Id: A Challenge Id: 2 Match ID : 2 Turn Number 28 ::Player TEAM_Bfounded a settlement in location (-6, 3, 3)
+Logger: Game Id: A Challenge Id: 2 Match ID : 2 Turn Number 28 ::FoundSettlement (-6, 3, 3) true
+SENDING MESSAGE TO 1: "GAME A MOVE 14 PLAYER 1 PLACED ROCK+ROCK AT -5 3 2 5 FOUNDED SETTLEMENT AT -6 3 3"
+SENDING MESSAGE TO 2: "GAME A MOVE 14 PLAYER 1 PLACED ROCK+ROCK AT -5 3 2 5 FOUNDED SETTLEMENT AT -6 3 3"
+Logger: Game Id: A Challenge Id: 2 Match ID : 2 Turn Number 28 :: Turn has ended
+Logger: Game Id: B Challenge Id: 2 Match ID : 2 Turn Number 28 ::Player TEAM_Afounded a settlement in location (-6, 3, 3)
+Logger: Game Id: B Challenge Id: 2 Match ID : 2 Turn Number 28 ::FoundSettlement (-6, 3, 3) true
+SENDING MESSAGE TO 2: "GAME B MOVE 14 PLAYER 2 PLACED ROCK+ROCK AT -5 3 2 5 FOUNDED SETTLEMENT AT -6 3 3"
+SENDING MESSAGE TO 1: "GAME B MOVE 14 PLAYER 2 PLACED ROCK+ROCK AT -5 3 2 5 FOUNDED SETTLEMENT AT -6 3 3"
+SENDING MESSAGE TO 2: "MAKE YOUR MOVE IN GAME A WITHIN 1.5 SECONDS: MOVE 14 PLACE JUNGLE+LAKE"
+Logger: Game Id: B Challenge Id: 2 Match ID : 2 Turn Number 28 :: Turn has ended
+SENDING MESSAGE TO 1: "MAKE YOUR MOVE IN GAME B WITHIN 1.5 SECONDS: MOVE 14 PLACE JUNGLE+LAKE"
+CLIENT 2: GAME A MOVE 14 PLACE JUNGLE+LAKE AT -5 1 4 4 EXPAND SETTLEMENT AT -2 -3 5 ROCK
+CLIENT 1: GAME B MOVE 14 PLACE JUNGLE+LAKE AT -5 1 4 4 EXPAND SETTLEMENT AT -2 -3 5 ROCK
+Logger: Game Id: A Challenge Id: 2 Match ID : 2 Turn Number 29 :: placed a tile in location (-5, 1, 4) with the follow terrain tigerisland.tile.Tile@70d89bf4 at orientation East
+Logger: Game Id: A Challenge Id: 2 Match ID : 2 Turn Number 29 ::Tile placement (-5, 1, 4) true , tigerisland.tile.Tile@70d89bf4 SIZE OF BOARD IS 92
+Logger: Game Id: B Challenge Id: 2 Match ID : 2 Turn Number 29 :: placed a tile in location (-5, 1, 4) with the follow terrain tigerisland.tile.Tile@1aa253c6 at orientation East
+Logger: Game Id: B Challenge Id: 2 Match ID : 2 Turn Number 29 ::Tile placement (-5, 1, 4) true , tigerisland.tile.Tile@1aa253c6 SIZE OF BOARD IS 92
+Logger: Game Id: A Challenge Id: 2 Match ID : 2 Turn Number 29 ::Player TEAM_A expanded settlement at (-2, -3, 5) to cover terrain of ROCK
+Logger: Game Id: A Challenge Id: 2 Match ID : 2 Turn Number 29 ::Expand Settlement true
+SENDING MESSAGE TO 1: "GAME A MOVE 14 PLAYER 2 PLACED JUNGLE+LAKE AT -5 1 4 4 EXPANDED SETTLEMENT AT -2 -3 5 ROCK"
+SENDING MESSAGE TO 2: "GAME A MOVE 14 PLAYER 2 PLACED JUNGLE+LAKE AT -5 1 4 4 EXPANDED SETTLEMENT AT -2 -3 5 ROCK"
+Logger: Game Id: A Challenge Id: 2 Match ID : 2 Turn Number 29 :: Turn has ended
+Logger: Game Id: B Challenge Id: 2 Match ID : 2 Turn Number 29 ::Player TEAM_B expanded settlement at (-2, -3, 5) to cover terrain of ROCK
+Logger: Game Id: B Challenge Id: 2 Match ID : 2 Turn Number 29 ::Expand Settlement true
+SENDING MESSAGE TO 2: "GAME B MOVE 14 PLAYER 1 PLACED JUNGLE+LAKE AT -5 1 4 4 EXPANDED SETTLEMENT AT -2 -3 5 ROCK"
+SENDING MESSAGE TO 1: "GAME B MOVE 14 PLAYER 1 PLACED JUNGLE+LAKE AT -5 1 4 4 EXPANDED SETTLEMENT AT -2 -3 5 ROCK"
+Logger: Game Id: B Challenge Id: 2 Match ID : 2 Turn Number 29 :: Turn has ended
+SENDING MESSAGE TO 1: "MAKE YOUR MOVE IN GAME A WITHIN 1.5 SECONDS: MOVE 15 PLACE LAKE+JUNGLE"
+SENDING MESSAGE TO 2: "MAKE YOUR MOVE IN GAME B WITHIN 1.5 SECONDS: MOVE 15 PLACE LAKE+JUNGLE"
+CLIENT 1: GAME A MOVE 15 PLACE LAKE+JUNGLE AT -1 -4 5 4 FOUND SETTLEMENT AT -1 -5 6
+CLIENT 2: GAME B MOVE 15 PLACE LAKE+JUNGLE AT -1 -4 5 4 FOUND SETTLEMENT AT -1 -5 6
+Logger: Game Id: B Challenge Id: 2 Match ID : 2 Turn Number 30 :: placed a tile in location (-1, -4, 5) with the follow terrain tigerisland.tile.Tile@74221b37 at orientation East
+Logger: Game Id: B Challenge Id: 2 Match ID : 2 Turn Number 30 ::Tile placement (-1, -4, 5) true , tigerisland.tile.Tile@74221b37 SIZE OF BOARD IS 95
+Logger: Game Id: A Challenge Id: 2 Match ID : 2 Turn Number 30 :: placed a tile in location (-1, -4, 5) with the follow terrain tigerisland.tile.Tile@1aa15774 at orientation East
+Logger: Game Id: A Challenge Id: 2 Match ID : 2 Turn Number 30 ::Tile placement (-1, -4, 5) true , tigerisland.tile.Tile@1aa15774 SIZE OF BOARD IS 95
+Logger: Game Id: B Challenge Id: 2 Match ID : 2 Turn Number 30 ::Player TEAM_Afounded a settlement in location (-1, -5, 6)
+Logger: Game Id: B Challenge Id: 2 Match ID : 2 Turn Number 30 ::FoundSettlement (-1, -5, 6) true
+SENDING MESSAGE TO 2: "GAME B MOVE 15 PLAYER 2 PLACED LAKE+JUNGLE AT -1 -4 5 4 FOUNDED SETTLEMENT AT -1 -5 6"
+SENDING MESSAGE TO 1: "GAME B MOVE 15 PLAYER 2 PLACED LAKE+JUNGLE AT -1 -4 5 4 FOUNDED SETTLEMENT AT -1 -5 6"
+Logger: Game Id: B Challenge Id: 2 Match ID : 2 Turn Number 30 :: Turn has ended
+Logger: Game Id: A Challenge Id: 2 Match ID : 2 Turn Number 30 ::Player TEAM_Bfounded a settlement in location (-1, -5, 6)
+Logger: Game Id: A Challenge Id: 2 Match ID : 2 Turn Number 30 ::FoundSettlement (-1, -5, 6) true
+SENDING MESSAGE TO 1: "GAME A MOVE 15 PLAYER 1 PLACED LAKE+JUNGLE AT -1 -4 5 4 FOUNDED SETTLEMENT AT -1 -5 6"
+SENDING MESSAGE TO 2: "GAME A MOVE 15 PLAYER 1 PLACED LAKE+JUNGLE AT -1 -4 5 4 FOUNDED SETTLEMENT AT -1 -5 6"
+SENDING MESSAGE TO 1: "MAKE YOUR MOVE IN GAME B WITHIN 1.5 SECONDS: MOVE 15 PLACE ROCK+GRASS"
+Logger: Game Id: A Challenge Id: 2 Match ID : 2 Turn Number 30 :: Turn has ended
+SENDING MESSAGE TO 2: "MAKE YOUR MOVE IN GAME A WITHIN 1.5 SECONDS: MOVE 15 PLACE ROCK+GRASS"
+CLIENT 2: GAME A MOVE 15 PLACE ROCK+GRASS AT -4 -1 5 4 EXPAND SETTLEMENT AT -3 -2 5 LAKE
+CLIENT 1: GAME B MOVE 15 PLACE ROCK+GRASS AT -4 -1 5 4 EXPAND SETTLEMENT AT -3 -2 5 LAKE
+Logger: Game Id: A Challenge Id: 2 Match ID : 2 Turn Number 31 :: placed a tile in location (-4, -1, 5) with the follow terrain tigerisland.tile.Tile@49d0c33 at orientation East
+Logger: Game Id: A Challenge Id: 2 Match ID : 2 Turn Number 31 ::Tile placement (-4, -1, 5) true , tigerisland.tile.Tile@49d0c33 SIZE OF BOARD IS 98
+Logger: Game Id: B Challenge Id: 2 Match ID : 2 Turn Number 31 :: placed a tile in location (-4, -1, 5) with the follow terrain tigerisland.tile.Tile@e32873e at orientation East
+Logger: Game Id: B Challenge Id: 2 Match ID : 2 Turn Number 31 ::Tile placement (-4, -1, 5) true , tigerisland.tile.Tile@e32873e SIZE OF BOARD IS 98
+Logger: Game Id: A Challenge Id: 2 Match ID : 2 Turn Number 31 ::Player TEAM_A expanded settlement at (-3, -2, 5) to cover terrain of LAKE
+Logger: Game Id: A Challenge Id: 2 Match ID : 2 Turn Number 31 ::Expand Settlement true
+SENDING MESSAGE TO 1: "GAME A MOVE 15 PLAYER 2 PLACED ROCK+GRASS AT -4 -1 5 4 EXPANDED SETTLEMENT AT -3 -2 5 LAKE"
+SENDING MESSAGE TO 2: "GAME A MOVE 15 PLAYER 2 PLACED ROCK+GRASS AT -4 -1 5 4 EXPANDED SETTLEMENT AT -3 -2 5 LAKE"
+Logger: Game Id: A Challenge Id: 2 Match ID : 2 Turn Number 31 :: Turn has ended
+Logger: Game Id: B Challenge Id: 2 Match ID : 2 Turn Number 31 ::Player TEAM_B expanded settlement at (-3, -2, 5) to cover terrain of LAKE
+Logger: Game Id: B Challenge Id: 2 Match ID : 2 Turn Number 31 ::Expand Settlement true
+SENDING MESSAGE TO 2: "GAME B MOVE 15 PLAYER 1 PLACED ROCK+GRASS AT -4 -1 5 4 EXPANDED SETTLEMENT AT -3 -2 5 LAKE"
+SENDING MESSAGE TO 1: "GAME B MOVE 15 PLAYER 1 PLACED ROCK+GRASS AT -4 -1 5 4 EXPANDED SETTLEMENT AT -3 -2 5 LAKE"
+Logger: Game Id: B Challenge Id: 2 Match ID : 2 Turn Number 31 :: Turn has ended
+SENDING MESSAGE TO 1: "MAKE YOUR MOVE IN GAME A WITHIN 1.5 SECONDS: MOVE 16 PLACE ROCK+LAKE"
+SENDING MESSAGE TO 2: "MAKE YOUR MOVE IN GAME B WITHIN 1.5 SECONDS: MOVE 16 PLACE ROCK+LAKE"
+CLIENT 2: GAME B MOVE 16 PLACE ROCK+LAKE AT 2 -5 3 3 FOUND SETTLEMENT AT 3 -6 3
+CLIENT 1: GAME A MOVE 16 PLACE ROCK+LAKE AT 2 -5 3 3 FOUND SETTLEMENT AT 3 -6 3
+Logger: Game Id: B Challenge Id: 2 Match ID : 2 Turn Number 32 :: placed a tile in location (2, -5, 3) with the follow terrain tigerisland.tile.Tile@47d669ec at orientation Northeast
+Logger: Game Id: B Challenge Id: 2 Match ID : 2 Turn Number 32 ::Tile placement (2, -5, 3) true , tigerisland.tile.Tile@47d669ec SIZE OF BOARD IS 101
+Logger: Game Id: A Challenge Id: 2 Match ID : 2 Turn Number 32 :: placed a tile in location (2, -5, 3) with the follow terrain tigerisland.tile.Tile@87c0e45 at orientation Northeast
+Logger: Game Id: A Challenge Id: 2 Match ID : 2 Turn Number 32 ::Tile placement (2, -5, 3) true , tigerisland.tile.Tile@87c0e45 SIZE OF BOARD IS 101
+Logger: Game Id: B Challenge Id: 2 Match ID : 2 Turn Number 32 ::Player TEAM_Afounded a settlement in location (3, -6, 3)
+Logger: Game Id: B Challenge Id: 2 Match ID : 2 Turn Number 32 ::FoundSettlement (3, -6, 3) true
+SENDING MESSAGE TO 2: "GAME B MOVE 16 PLAYER 2 PLACED ROCK+LAKE AT 2 -5 3 3 FOUNDED SETTLEMENT AT 3 -6 3"
+SENDING MESSAGE TO 1: "GAME B MOVE 16 PLAYER 2 PLACED ROCK+LAKE AT 2 -5 3 3 FOUNDED SETTLEMENT AT 3 -6 3"
+Logger: Game Id: B Challenge Id: 2 Match ID : 2 Turn Number 32 :: Turn has ended
+Logger: Game Id: A Challenge Id: 2 Match ID : 2 Turn Number 32 ::Player TEAM_Bfounded a settlement in location (3, -6, 3)
+Logger: Game Id: A Challenge Id: 2 Match ID : 2 Turn Number 32 ::FoundSettlement (3, -6, 3) true
+SENDING MESSAGE TO 1: "GAME A MOVE 16 PLAYER 1 PLACED ROCK+LAKE AT 2 -5 3 3 FOUNDED SETTLEMENT AT 3 -6 3"
+SENDING MESSAGE TO 2: "GAME A MOVE 16 PLAYER 1 PLACED ROCK+LAKE AT 2 -5 3 3 FOUNDED SETTLEMENT AT 3 -6 3"
+SENDING MESSAGE TO 1: "MAKE YOUR MOVE IN GAME B WITHIN 1.5 SECONDS: MOVE 16 PLACE GRASS+LAKE"
+Logger: Game Id: A Challenge Id: 2 Match ID : 2 Turn Number 32 :: Turn has ended
+SENDING MESSAGE TO 2: "MAKE YOUR MOVE IN GAME A WITHIN 1.5 SECONDS: MOVE 16 PLACE GRASS+LAKE"
+CLIENT 2: GAME A MOVE 16 PLACE GRASS+LAKE AT 0 -5 5 3 BUILD TOTORO SANCTUARY AT -5 0 5
+CLIENT 1: GAME B MOVE 16 PLACE GRASS+LAKE AT 0 -5 5 3 BUILD TOTORO SANCTUARY AT -5 0 5
+Logger: Game Id: A Challenge Id: 2 Match ID : 2 Turn Number 33 :: placed a tile in location (0, -5, 5) with the follow terrain tigerisland.tile.Tile@3c4f2385 at orientation Northeast
+Logger: Game Id: A Challenge Id: 2 Match ID : 2 Turn Number 33 ::Tile placement (0, -5, 5) true , tigerisland.tile.Tile@3c4f2385 SIZE OF BOARD IS 104
+Logger: Game Id: B Challenge Id: 2 Match ID : 2 Turn Number 33 :: placed a tile in location (0, -5, 5) with the follow terrain tigerisland.tile.Tile@4fe23eb3 at orientation Northeast
+Logger: Game Id: B Challenge Id: 2 Match ID : 2 Turn Number 33 ::Tile placement (0, -5, 5) true , tigerisland.tile.Tile@4fe23eb3 SIZE OF BOARD IS 104
+Logger: Game Id: A Challenge Id: 2 Match ID : 2 Turn Number 33 ::Player TEAM_Aplaced a totoro in location (-5, 0, 5)
+Logger: Game Id: A Challenge Id: 2 Match ID : 2 Turn Number 33 ::Totoroplacement (-5, 0, 5) true
+SENDING MESSAGE TO 1: "GAME A MOVE 16 PLAYER 2 PLACED GRASS+LAKE AT 0 -5 5 3 BUILT TOTORO SANCTUARY AT -5 0 5"
+SENDING MESSAGE TO 2: "GAME A MOVE 16 PLAYER 2 PLACED GRASS+LAKE AT 0 -5 5 3 BUILT TOTORO SANCTUARY AT -5 0 5"
+Logger: Game Id: A Challenge Id: 2 Match ID : 2 Turn Number 33 :: Turn has ended
+Logger: Game Id: B Challenge Id: 2 Match ID : 2 Turn Number 33 ::Player TEAM_Bplaced a totoro in location (-5, 0, 5)
+Logger: Game Id: B Challenge Id: 2 Match ID : 2 Turn Number 33 ::Totoroplacement (-5, 0, 5) true
+SENDING MESSAGE TO 2: "GAME B MOVE 16 PLAYER 1 PLACED GRASS+LAKE AT 0 -5 5 3 BUILT TOTORO SANCTUARY AT -5 0 5"
+SENDING MESSAGE TO 1: "GAME B MOVE 16 PLAYER 1 PLACED GRASS+LAKE AT 0 -5 5 3 BUILT TOTORO SANCTUARY AT -5 0 5"
+SENDING MESSAGE TO 1: "MAKE YOUR MOVE IN GAME A WITHIN 1.5 SECONDS: MOVE 17 PLACE ROCK+ROCK"
+Logger: Game Id: B Challenge Id: 2 Match ID : 2 Turn Number 33 :: Turn has ended
+SENDING MESSAGE TO 2: "MAKE YOUR MOVE IN GAME B WITHIN 1.5 SECONDS: MOVE 17 PLACE ROCK+ROCK"
+CLIENT 1: GAME A MOVE 17 PLACE ROCK+ROCK AT -5 6 -1 6 FOUND SETTLEMENT AT -6 7 -1
+CLIENT 2: GAME B MOVE 17 PLACE ROCK+ROCK AT -5 6 -1 6 FOUND SETTLEMENT AT -6 7 -1
+Logger: Game Id: A Challenge Id: 2 Match ID : 2 Turn Number 34 :: placed a tile in location (-5, 6, -1) with the follow terrain tigerisland.tile.Tile@40d5a4a0 at orientation Southwest
+Logger: Game Id: A Challenge Id: 2 Match ID : 2 Turn Number 34 ::Tile placement (-5, 6, -1) true , tigerisland.tile.Tile@40d5a4a0 SIZE OF BOARD IS 107
+Logger: Game Id: B Challenge Id: 2 Match ID : 2 Turn Number 34 :: placed a tile in location (-5, 6, -1) with the follow terrain tigerisland.tile.Tile@31ec16fd at orientation Southwest
+Logger: Game Id: B Challenge Id: 2 Match ID : 2 Turn Number 34 ::Tile placement (-5, 6, -1) true , tigerisland.tile.Tile@31ec16fd SIZE OF BOARD IS 107
+Logger: Game Id: A Challenge Id: 2 Match ID : 2 Turn Number 34 ::Player TEAM_Bfounded a settlement in location (-6, 7, -1)
+Logger: Game Id: A Challenge Id: 2 Match ID : 2 Turn Number 34 ::FoundSettlement (-6, 7, -1) true
+SENDING MESSAGE TO 1: "GAME A MOVE 17 PLAYER 1 PLACED ROCK+ROCK AT -5 6 -1 6 FOUNDED SETTLEMENT AT -6 7 -1"
+SENDING MESSAGE TO 2: "GAME A MOVE 17 PLAYER 1 PLACED ROCK+ROCK AT -5 6 -1 6 FOUNDED SETTLEMENT AT -6 7 -1"
+Logger: Game Id: A Challenge Id: 2 Match ID : 2 Turn Number 34 :: Turn has ended
+Logger: Game Id: B Challenge Id: 2 Match ID : 2 Turn Number 34 ::Player TEAM_Afounded a settlement in location (-6, 7, -1)
+Logger: Game Id: B Challenge Id: 2 Match ID : 2 Turn Number 34 ::FoundSettlement (-6, 7, -1) true
+SENDING MESSAGE TO 2: "GAME B MOVE 17 PLAYER 2 PLACED ROCK+ROCK AT -5 6 -1 6 FOUNDED SETTLEMENT AT -6 7 -1"
+SENDING MESSAGE TO 1: "GAME B MOVE 17 PLAYER 2 PLACED ROCK+ROCK AT -5 6 -1 6 FOUNDED SETTLEMENT AT -6 7 -1"
+SENDING MESSAGE TO 2: "MAKE YOUR MOVE IN GAME A WITHIN 1.5 SECONDS: MOVE 17 PLACE ROCK+LAKE"
+Logger: Game Id: B Challenge Id: 2 Match ID : 2 Turn Number 34 :: Turn has ended
+SENDING MESSAGE TO 1: "MAKE YOUR MOVE IN GAME B WITHIN 1.5 SECONDS: MOVE 17 PLACE ROCK+LAKE"
+CLIENT 2: GAME A MOVE 17 PLACE ROCK+LAKE AT -4 -1 5 1 EXPAND SETTLEMENT AT -5 0 5 LAKE
+CLIENT 1: GAME B MOVE 17 PLACE ROCK+LAKE AT -4 -1 5 1 EXPAND SETTLEMENT AT -5 0 5 LAKE
+Logger: Game Id: B Challenge Id: 2 Match ID : 2 Turn Number 35 :: placed a tile in location (-4, -1, 5) with the follow terrain tigerisland.tile.Tile@45819025 at orientation West
+Logger: Game Id: B Challenge Id: 2 Match ID : 2 Turn Number 35 ::Tile placement (-4, -1, 5) true , tigerisland.tile.Tile@45819025 SIZE OF BOARD IS 107
+Logger: Game Id: A Challenge Id: 2 Match ID : 2 Turn Number 35 :: placed a tile in location (-4, -1, 5) with the follow terrain tigerisland.tile.Tile@28b394d9 at orientation West
+Logger: Game Id: A Challenge Id: 2 Match ID : 2 Turn Number 35 ::Tile placement (-4, -1, 5) true , tigerisland.tile.Tile@28b394d9 SIZE OF BOARD IS 107
+Logger: Game Id: B Challenge Id: 2 Match ID : 2 Turn Number 35 ::Player TEAM_B expanded settlement at (-5, 0, 5) to cover terrain of LAKE
+Logger: Game Id: B Challenge Id: 2 Match ID : 2 Turn Number 35 ::Expand Settlement true
+SENDING MESSAGE TO 2: "GAME B MOVE 17 PLAYER 1 PLACED ROCK+LAKE AT -4 -1 5 1 EXPANDED SETTLEMENT AT -5 0 5 LAKE"
+SENDING MESSAGE TO 1: "GAME B MOVE 17 PLAYER 1 PLACED ROCK+LAKE AT -4 -1 5 1 EXPANDED SETTLEMENT AT -5 0 5 LAKE"
+Logger: Game Id: B Challenge Id: 2 Match ID : 2 Turn Number 35 :: Turn has ended
+Logger: Game Id: A Challenge Id: 2 Match ID : 2 Turn Number 35 ::Player TEAM_A expanded settlement at (-5, 0, 5) to cover terrain of LAKE
+Logger: Game Id: A Challenge Id: 2 Match ID : 2 Turn Number 35 ::Expand Settlement true
+SENDING MESSAGE TO 1: "GAME A MOVE 17 PLAYER 2 PLACED ROCK+LAKE AT -4 -1 5 1 EXPANDED SETTLEMENT AT -5 0 5 LAKE"
+SENDING MESSAGE TO 2: "GAME A MOVE 17 PLAYER 2 PLACED ROCK+LAKE AT -4 -1 5 1 EXPANDED SETTLEMENT AT -5 0 5 LAKE"
+Logger: Game Id: A Challenge Id: 2 Match ID : 2 Turn Number 35 :: Turn has ended
+SENDING MESSAGE TO 2: "MAKE YOUR MOVE IN GAME B WITHIN 1.5 SECONDS: MOVE 18 PLACE LAKE+JUNGLE"
+SENDING MESSAGE TO 1: "MAKE YOUR MOVE IN GAME A WITHIN 1.5 SECONDS: MOVE 18 PLACE LAKE+JUNGLE"
+CLIENT 1: GAME A MOVE 18 PLACE LAKE+JUNGLE AT 5 0 -5 1 UNABLE TO BUILD
+CLIENT 2: GAME B MOVE 18 PLACE LAKE+JUNGLE AT 5 0 -5 1 UNABLE TO BUILD
+Logger: Game Id: A Challenge Id: 2 Match ID : 2 Turn Number 36 :: placed a tile in location (5, 0, -5) with the follow terrain tigerisland.tile.Tile@6d25d941 at orientation West
+Logger: Game Id: A Challenge Id: 2 Match ID : 2 Turn Number 36 ::Tile placement (5, 0, -5) true , tigerisland.tile.Tile@6d25d941 SIZE OF BOARD IS 110
+SENDING MESSAGE TO 1: "GAME A MOVE 18 PLAYER 1 LOST: UNABLE TO BUILD"
+SENDING MESSAGE TO 2: "GAME A MOVE 18 PLAYER 1 LOST: UNABLE TO BUILD"
+Logger: Game Id: A Challenge Id: 2 Match ID : 2 Turn Number 36 :: Turn has ended
+Logger: Game Id: B Challenge Id: 2 Match ID : 2 Turn Number 36 :: placed a tile in location (5, 0, -5) with the follow terrain tigerisland.tile.Tile@1bc82980 at orientation West
+Logger: Game Id: B Challenge Id: 2 Match ID : 2 Turn Number 36 ::Tile placement (5, 0, -5) true , tigerisland.tile.Tile@1bc82980 SIZE OF BOARD IS 110
+SENDING MESSAGE TO 2: "GAME B MOVE 18 PLAYER 2 LOST: UNABLE TO BUILD"
+SENDING MESSAGE TO 1: "GAME B MOVE 18 PLAYER 2 LOST: UNABLE TO BUILD"
+Logger: Game Id: B Challenge Id: 2 Match ID : 2 Turn Number 36 :: Turn has ended
+Logger: Game Id: A Challenge Id: 2 Match ID : 2 Turn Number 37 ::GAME A OVER PLAYER 1 FORFEITED PLAYER 2 WIN Winner 1 Loser 2
+Logger: Game Id: B Challenge Id: 2 Match ID : 2 Turn Number 37 ::GAME B OVER PLAYER 2 FORFEITED PLAYER 1 WIN Winner 2 Loser 1
+SENDING MESSAGE TO 1: "GAME A OVER PLAYER 1 FORFEITED PLAYER 2 WIN"
+SENDING MESSAGE TO 2: "GAME A OVER PLAYER 1 FORFEITED PLAYER 2 WIN"
+SENDING MESSAGE TO 2: "GAME B OVER PLAYER 2 FORFEITED PLAYER 1 WIN"
+SENDING MESSAGE TO 1: "GAME B OVER PLAYER 2 FORFEITED PLAYER 1 WIN"
+SENDING MESSAGE TO 1: "END OF ROUND 1 OF 1"
+SENDING MESSAGE TO 2: "END OF ROUND 1 OF 1"
+SENDING MESSAGE TO 1: "END OF CHALLENGES"
+SENDING MESSAGE TO 2: "END OF CHALLENGES"

@@ -30,11 +30,10 @@ public interface DataReader {
 
     String getOpponent(String s, int currentChallenge, int currentMatchInChallenge);
 
-    int getVillagersForGame(int currentChallenge, String s, int currentMatchInChallenge, char a);
+    int getVillagersForGame(int currentChallenge, String teamName, int currentMatchInChallenge, char gameId);
 
-    int getTotoroForGame(int currentChallenge, String s, int currentMatchInChallenge, char a);
+    int getTotoroForGame(int currentChallenge, String teamName, int currentMatchInChallenge, char gameId);
 
-    int getTigerForGame(int currentChallenge, String s, int currentMatchInChallenge, char a);
+    int getTigerForGame(int currentChallenge, String teamName, int currentMatchInChallenge, char gameId);
 
-    int getTotoroGame(int currentChallenge, String s, int currentMatchInChallenge, char b);
 }
