@@ -217,7 +217,22 @@ public class SQLiteReader implements DataReader{
 
     @Override
     public int getVillagersForGame(int currentChallenge, String teamName, int currentMatchInChallenge, char gameId) {
-        return  -1;
+        String query = String.format("select totoro_count from player_piece_count"
+                +"where challenge_id='%s' and p_id='%s' and match_id='%s' and game_id='%s'",
+                currentChallenge, teamName, currentMatchInChallenge, gameId);
+        int totoro_count = 0;
+        try {
+
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            if (rs.next()) {
+                totoro_count = rs.getInt("totoro_count");
+            }
+
+        } catch(SQLException sqlException) {
+            System.out.println(sqlException);
+        }
+        return totoro_count;
     }
 
     @Override

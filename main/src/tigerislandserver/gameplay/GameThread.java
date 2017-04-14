@@ -162,20 +162,36 @@ public class GameThread extends Thread{
 
             playersInGame.get(activePlayerIndex).requestMove(this, gameID, playerTurnNumber, tile);
 
+            // if this is triggered its because the game did not end with a valid win
+            PlayerID player1ID = playersInGame.get(0).getID();
+            PlayerID player2ID = playersInGame.get(1).getID();
+
+            SQLiteLogger sqlLogger = LoggerFactory.getSQLLogger('Z',-1,-1, playersIdToUserName);
+            sqlLogger.setPlayerScore(cid, player1ID, scoreboard.getPlayerScore(player1ID));
+            sqlLogger.setPlayerScore(cid, player2ID, scoreboard.getPlayerScore(player2ID));
+
+            // get game scoreboard
+            ScoreManager scoreManager = gameManager.getScoreManager();
+            sqlLogger.writeToGameTurnScore(player1ID, moveNumber, scoreManager.getPlayerScore(player1ID));
+            sqlLogger.writeToGameTurnScore(player2ID, moveNumber, scoreManager.getPlayerScore(player2ID));
+
+            // write the number of villagers
+            sqlLogger.writeToPlayerPieceCount(player1ID, gameManager.getPlayer(player1ID).getVillagerCount());
+            sqlLogger.writeToPlayerPieceCount(player2ID, gameManager.getPlayer(player2ID).getVillagerCount());
+
+
             if (gameEndedWithValidWin()){
                 ArrayList<TournamentScoreboardData> playerData = makeTournamentScoreboardDataList();
                 scoreboard.updateTournamentScoresForValidWin(playerData);
-                PlayerID player1ID = playersInGame.get(0).getID();
-                PlayerID player2ID = playersInGame.get(1).getID();
 
-                SQLiteLogger sqlLogger = LoggerFactory.getSQLLogger('Z',-1,-1, playersIdToUserName);
                 sqlLogger.setPlayerScore(cid, player1ID, scoreboard.getPlayerScore(player1ID));
                 sqlLogger.setPlayerScore(cid, player2ID, scoreboard.getPlayerScore(player2ID));
 
-                // get game scoreboard
-                ScoreManager scoreManager = gameManager.getScoreManager();
                 sqlLogger.writeToGameTurnScore(player1ID, moveNumber, scoreManager.getPlayerScore(player1ID));
                 sqlLogger.writeToGameTurnScore(player2ID, moveNumber, scoreManager.getPlayerScore(player2ID));
+
+                sqlLogger.writeToPlayerPieceCount(player1ID, gameManager.getPlayer(player1ID).getVillagerCount());
+                sqlLogger.writeToPlayerPieceCount(player2ID, gameManager.getPlayer(player2ID).getVillagerCount());
 
                 endGame();
                 generateEndGameMessage();
@@ -190,19 +206,6 @@ public class GameThread extends Thread{
             logger.nextTurn();
             activePlayerIndex = (activePlayerIndex + 1) % playersInGame.size();
         }
-
-        // if this is triggered its because the game did not end with a valid win
-        PlayerID player1ID = playersInGame.get(0).getID();
-        PlayerID player2ID = playersInGame.get(1).getID();
-
-        SQLiteLogger sqlLogger = LoggerFactory.getSQLLogger('Z',-1,-1, playersIdToUserName);
-        sqlLogger.setPlayerScore(cid, player1ID, scoreboard.getPlayerScore(player1ID));
-        sqlLogger.setPlayerScore(cid, player2ID, scoreboard.getPlayerScore(player2ID));
-
-        // get game scoreboard
-        ScoreManager scoreManager = gameManager.getScoreManager();
-        sqlLogger.writeToGameTurnScore(player1ID, moveNumber, scoreManager.getPlayerScore(player1ID));
-        sqlLogger.writeToGameTurnScore(player2ID, moveNumber, scoreManager.getPlayerScore(player2ID));
 
         logger.writeGameEnded(playersInGame.get(0).getID(), playersInGame.get(1).getID(), endGameMessage);
     }

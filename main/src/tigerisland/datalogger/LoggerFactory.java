@@ -52,6 +52,7 @@ public class LoggerFactory {
                 "create table if not exists overall_score (challenge_id integer, player_id string not null, score integer not null, PRIMARY KEY(challenge_id, player_id) );",
                 "create table if not exists tournament_score (player_id string not null, score integer not null, PRIMARY KEY(player_id));",
                 "create table if not exists game_turn_score (challenge_id integer, player_id string not null, game_id char not null, move_id integer not null, score integer not null, PRIMARY KEY(challenge_id, player_id, game_id, move_id) );",
+                "create table if not exists player_piece_count (challenge_id integer, player_id string not null, match_id integer not null, game_id char not null, totoro_count integer not null, PRIMARY KEY(challenge_id, player_id, match_id, game_id) );",
         };
 
         try {
@@ -79,6 +80,7 @@ public class LoggerFactory {
                 "DELETE FROM overall_score;",
                 "DELETE FROM tournament_score;",
                 "DELETE FROM game_turn_score;",
+                "DELETE FROM player_piece_count;"
         };
 
         try {

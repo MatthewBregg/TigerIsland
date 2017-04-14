@@ -112,6 +112,24 @@ public class SQLiteLogger implements DataLogger {
         }
     }
 
+    public void writeToPlayerPieceCount(PlayerID pID, int totoroCount){
+        String query = "INSERT OR REPLACE INTO player_piece_count(challenge_id, player_id, match_id, game_id, totoro_count) VALUES (?,?,?,?,?)";
+        try {
+            PreparedStatement prstmnt = connection.prepareStatement(query);
+            prstmnt.setInt(1, challengeId);
+            prstmnt.setString(2, getUserName(pID));
+            prstmnt.setInt(3, matchId);
+            prstmnt.setString(4, String.valueOf(gameId));
+            prstmnt.setInt(5, totoroCount);
+            synchronized ( connection ) {
+                prstmnt.executeUpdate();
+            }
+        } catch (SQLException sqlException) {
+            System.err.println(sqlException);
+            hasError = true;
+        }
+    }
+
     private void writeToChallengeScore(int cid, int pid, int score){
         String query = "INSERT OR REPLACE INTO challenge_score(challenge_id, player_id, score) VALUES(?,?,?)";
         try{

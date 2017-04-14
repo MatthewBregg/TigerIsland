@@ -32,5 +32,7 @@ public interface DataLogger {
 
     void writeToGameTurnScore(PlayerID pId, int moveId, int score);
 
+    void writeToPlayerPieceCount(PlayerID pID, int totoroCount);
+
     void nextTurn();
 }
