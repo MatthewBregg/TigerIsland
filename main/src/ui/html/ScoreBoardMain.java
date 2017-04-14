@@ -1,8 +1,9 @@
-package ui;
+package ui.html;
 
 import tigerisland.datalogger.DataReader;
 import tigerisland.datalogger.LoggerFactory;
 import tigerisland.datalogger.SQLiteReader;
+import ui.html.GenerateScoreBoard;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;

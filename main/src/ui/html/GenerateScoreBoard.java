@@ -1,4 +1,4 @@
-package ui;
+package ui.html;
 
 import tigerisland.datalogger.DataReader;
 import tigerisland.datalogger.MatchRow;

@@ -10,7 +10,7 @@ import java.util.List;
 
 public class CompositeLogger implements DataLogger {
     List<DataLogger> dataLoggerList;
-    CompositeLogger(DataLogger ...loggers) {
+    public CompositeLogger(DataLogger ...loggers) {
         dataLoggerList = Arrays.asList(loggers);
     }
     @Override
@@ -85,7 +85,9 @@ public class CompositeLogger implements DataLogger {
 
     @Override
     public void writeToTournamentScore(PlayerID pid, int score) {
-
+        for ( DataLogger logger : dataLoggerList ) {
+            logger.writeToTournamentScore(pid, score);
+        }
     }
 
     @Override

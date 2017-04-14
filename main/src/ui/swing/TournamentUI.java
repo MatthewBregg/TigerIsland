@@ -1,4 +1,4 @@
-package ui;
+package ui.swing;
 
 import tigerisland.datalogger.DataReader;
 import tigerisland.datalogger.LoggerFactory;
@@ -22,10 +22,10 @@ public class TournamentUI extends JFrame {
     private static int currentMatchInChallenge= -1;
     private static int turnForCurrentMatch = -1;
 
-    public TournamentUI() {
+    private static int totalChallenges = -1;
 
-        LoggerFactory.createTables();
-        Connection connection = LoggerFactory.getDbConnection();
+    public TournamentUI(Connection connection) {
+
         dataReader = new SQLiteReader(connection);
 
         JPanel mainPanel = new JPanel();
@@ -60,8 +60,17 @@ public class TournamentUI extends JFrame {
         setVisible(true);
     }
 
-    public static void main(String[] args) {
-        new TournamentUI();
+    public static void main(String args[]){
+
+        totalChallenges = args.length >= 1 ? Integer.parseInt(args[0]) : 0;
+        LoggerFactory.createTables();
+        Connection connection = LoggerFactory.getDbConnection();
+        startScoreBoard(connection, totalChallenges);
+    }
+
+    public static void startScoreBoard(Connection connection, int numberOfChallengesToPlay) {
+        totalChallenges  = numberOfChallengesToPlay;
+        new TournamentUI(connection);
 
         while (true) {
             try {
@@ -98,7 +107,7 @@ public class TournamentUI extends JFrame {
 
     private static void updateCurrentChallenge() {
         currentChallenge = dataReader.getCurrentChallengeBeenPlayed();
-        String challengeStr = String.format("Challenge %s of %s", currentChallenge, 3);
+        String challengeStr = String.format("Challenge %s of %s", currentChallenge, totalChallenges);
         challengeLabel.setText(challengeStr);
     }
 

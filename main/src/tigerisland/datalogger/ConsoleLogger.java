@@ -28,19 +28,16 @@ public class ConsoleLogger implements DataLogger {
 
     @Override
     synchronized public void writeRawRequest(long timeStamp, String message) {
-
         System.out.println(getMessageHeader() + message);
     }
 
     @Override
     public void writeToTournamentScore(PlayerID pid, int score) {
-
+        System.out.println(getMessageHeader() + "Player " + getUserName(pid) + " tournament score: " + score);
     }
 
     @Override
-    public void writeToGameTurnScore(PlayerID pId, int moveId, int score) {
-
-    }
+    public void writeToGameTurnScore(PlayerID pId, int moveId, int score) {}
 
     @Override
     synchronized public void writePlacedTotoroMove(PlayerID pid, Location loc) {
@@ -78,7 +75,6 @@ public class ConsoleLogger implements DataLogger {
         System.out.println(getMessageHeader() + message);
     }
 
-
     private void writeMovedWasInvalid(String message) {
         System.out.println(getMessageHeader() + "Error, move was invalid!! " + message);
     }
@@ -109,11 +105,6 @@ public class ConsoleLogger implements DataLogger {
     private String getUserName(PlayerID p1) {
         String userName = this.playersIdToUsername.get(p1.getId());
         return  userName == null ? String.valueOf(p1.getId()) : userName;
-    }
-
-    private String getUserName(int p1) {
-        String userName = this.playersIdToUsername.get(p1);
-        return  userName == null ? String.valueOf(p1) : userName;
     }
 
 }

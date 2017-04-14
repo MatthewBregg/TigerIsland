@@ -1,8 +1,6 @@
 package tigerislandserver.server;
 
-import tigerisland.datalogger.DataLogger;
-import tigerisland.datalogger.LoggerFactory;
-import tigerisland.datalogger.SQLiteLogger;
+import tigerisland.datalogger.*;
 import tigerisland.player.Player;
 import tigerisland.player.PlayerID;
 import tigerislandserver.adapter.OutputAdapter;
@@ -72,9 +70,6 @@ public class TournamentServer {
         }
     }
 
-//    public void startTournament(int numberOfChallenges) {
-//        for (int i = 0; i < numberOfChallenges; i++) {
-//            if (i != 0) {
     public void startTournament(int numberOfChallenges)
     {
         tournamentScoreManager.initializeOverallTournamentScores();
@@ -102,13 +97,15 @@ public class TournamentServer {
             playersIdToUserName.put(defaultPID, tPlayer.getUsername());
 
             SQLiteLogger sqLiteLogger = LoggerFactory.getSQLLogger('0',0,0, playersIdToUserName);
+            ConsoleLogger consoleLogger = new ConsoleLogger(0,'0',0, playersIdToUserName);
+            CompositeLogger compositeLogger = new CompositeLogger(sqLiteLogger, consoleLogger);
 
             Map<PlayerID, Integer> scores = tournamentScoreManager.getOverallScores();
             for(int j = 0; j < clientConnections.size(); j++) {
                 TournamentPlayer tp = clientConnections.get(j);
                 PlayerID pID = tp.getID();
                 int score = scores.get(pID);
-                sqLiteLogger.writeToTournamentScore(pID, score);
+                compositeLogger.writeToTournamentScore(pID, score);
             }
 
         }
