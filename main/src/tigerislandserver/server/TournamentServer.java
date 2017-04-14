@@ -76,7 +76,7 @@ public class TournamentServer {
 
         registerPlayerIdsToUerNames(numberOfChallenges);
 
-        for(int i=0; i<numberOfChallenges; i++)
+        for(int i=0; i < numberOfChallenges; i++)
         {
             if(i != 0){
                 OutputAdapter.sendWaitForChallengeMessage(clientConnections);
@@ -90,9 +90,9 @@ public class TournamentServer {
             TournamentScoreboard scoreboard = challenge.getScoreboard();
             tournamentScoreManager.setEndedChallengeScores(scoreboard.getPlayerMap());
             tournamentScoreManager.addToAllPlayersScore();
-
-            storeTournamentScores();
         }
+
+        storeTournamentScores();
 
         OutputAdapter.sendEndOfChallengesMessage(clientConnections);
     }
