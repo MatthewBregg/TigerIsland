@@ -193,6 +193,11 @@ public class GameThread extends Thread{
             PlayerID player1ID = playersInGame.get(0).getID();
             PlayerID player2ID = playersInGame.get(1).getID();
 
+            setScore(playersInGame.get(0), scoreManager.getPlayerScore(player1ID));
+            setScore(playersInGame.get(1), scoreManager.getPlayerScore(player2ID));
+            setPieces(playersInGame.get(0), gameManager.getPlayer(player1ID));
+            setPieces(playersInGame.get(1), gameManager.getPlayer(player2ID));
+
             sqlLogger.setPlayerScore(cid, player1ID, scoreboard.getPlayerScore(player1ID));
             sqlLogger.setPlayerScore(cid, player2ID, scoreboard.getPlayerScore(player2ID));
 
@@ -236,13 +241,52 @@ public class GameThread extends Thread{
         PlayerID loser;
         if(player1ID == winner){
             loser = player2ID;
+            setWinnerStatus(playersInGame.get(0), playersInGame.get(1));
         } else if (player2ID == winner){
             loser = player1ID;
+            setWinnerStatus(playersInGame.get(1), playersInGame.get(0));
         } else {
             winner = player1ID;
             loser = player2ID;
+            setWinnerStatus(playersInGame.get(0), playersInGame.get(1));
         }
         logger.writeGameEnded(playersInGame.get(0).getID(), playersInGame.get(1).getID(), endGameMessage);
+    }
+
+    private void setPieces(TournamentPlayer tournamentPlayer, Player player) {
+        switch(gameID){
+            case 'A': tournamentPlayer.getTournamentScore().setVillagerGameA(player.getVillagerCount());
+                tournamentPlayer.getTournamentScore().setTotoroGameA(player.getTotoroCount());
+                tournamentPlayer.getTournamentScore().setTigerGameA(player.getTigerCount());
+                break;
+            case 'B': tournamentPlayer.getTournamentScore().setVillagerGameB(player.getVillagerCount());
+                tournamentPlayer.getTournamentScore().setTotoroGameB(player.getTotoroCount());
+                tournamentPlayer.getTournamentScore().setTigerGameB(player.getTigerCount());
+                break;
+            default: System.out.println("Bad game character");
+        }
+    }
+
+    private void setScore(TournamentPlayer tournamentPlayer, int playerScore) {
+        switch(gameID){
+            case 'A': tournamentPlayer.getTournamentScore().setScoreGameA(playerScore);
+                break;
+            case 'B': tournamentPlayer.getTournamentScore().setScoreGameB(playerScore);
+                break;
+            default: System.out.println("Bad game character");
+        }
+    }
+
+    private void setWinnerStatus(TournamentPlayer player1, TournamentPlayer player2) {
+        switch(gameID){
+            case 'A': player1.getTournamentScore().wonGameA();
+                player2.getTournamentScore().lostGameA();
+                break;
+            case 'B': player1.getTournamentScore().wonGameB();
+                player2.getTournamentScore().lostGameB();
+                break;
+            default: System.out.println("Bad game character");
+        }
     }
 
 
