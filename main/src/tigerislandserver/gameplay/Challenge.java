@@ -1,5 +1,6 @@
 package tigerislandserver.gameplay;
 
+import tigerisland.player.PlayerID;
 import tigerisland.tile.Tile;
 import tigerisland.tile.TileDeck;
 import tigerislandserver.JavaFXScoreboardPOC.TournamentScore;
@@ -7,7 +8,6 @@ import tigerislandserver.TournamentVariables;
 import tigerislandserver.adapter.OutputAdapter;
 import tigerislandserver.gameplay.identifiers.ChallengeID;
 import tigerislandserver.server.TournamentPlayer;
-import tigerislandserver.server.TournamentServer;
 
 import java.util.ArrayList;
 
@@ -99,7 +99,7 @@ public class Challenge {
                 OutputAdapter.sendEndRoundMessage(playerList, roundNumber, getTotalChallengeRounds());
             }
         }
-        updatePlayerTournamentScores();
+        updatePlayerTournamentScoreObject();
     }
 
     private void setupRound(){
@@ -161,7 +161,7 @@ public class Challenge {
         return playerMatchups;
     }
 
-    private void updatePlayerTournamentScores(){
+    private void updatePlayerTournamentScoreObject(){
         for(TournamentPlayer player : playerList){
             TournamentScore playerScore = player.getTournamentScore();
             playerScore.addChallengeScoreToTournament();
@@ -169,6 +169,17 @@ public class Challenge {
             playerScore.resetGameA();
             playerScore.resetGameB();
         }
+    }
+
+    public TournamentScore getPlayerScoreObject(PlayerID playerID){
+        TournamentScore scoreObject = null;
+        for(TournamentPlayer player : playerList){
+            if(player.getID() == playerID){
+                scoreObject = player.getTournamentScore();
+                break;
+            }
+        }
+        return scoreObject;
     }
 
     public int getCurrentRound(){

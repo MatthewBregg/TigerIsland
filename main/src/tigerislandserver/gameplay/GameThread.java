@@ -8,6 +8,7 @@ import tigerisland.player.PlayerID;
 import tigerisland.player.Player;
 import tigerisland.tile.*;
 import tigerisland.score.*;
+import tigerislandserver.JavaFXScoreboardPOC.TournamentScore;
 import tigerislandserver.adapter.OutputAdapter;
 import tigerislandserver.server.TournamentPlayer;
 
@@ -364,6 +365,8 @@ public class GameThread extends Thread{
         endGameMessage = OutputAdapter.returnEndGameMessage(tournamentPlayer, otherPlayer(tournamentPlayer), gameID, "FORFEITED", "WIN");
    //     OutputAdapter.returnEndGameMessage(otherPlayer(tournamentPlayer), tournamentPlayer, gameID, "WIN", "FORFEITED");
 
+        playerForfeitUpdate(tournamentPlayer);
+
         gameNotEnded=false;
         ArrayList<TournamentPlayer> players = generatePlayerToReturnToScoreboard(tournamentPlayer);
         
@@ -374,6 +377,8 @@ public class GameThread extends Thread{
     {
         endGameMessage = OutputAdapter.returnEndGameMessage(tournamentPlayer, otherPlayer(tournamentPlayer), gameID, "FORFEITED", "WIN");
  //       OutputAdapter.returnEndGameMessage(otherPlayer(tournamentPlayer), tournamentPlayer, gameID, "WIN", "FORFEITED");
+
+        playerForfeitUpdate(tournamentPlayer);
 
         gameNotEnded=false;
         ArrayList<TournamentPlayer> players = generatePlayerToReturnToScoreboard(tournamentPlayer);
@@ -392,6 +397,9 @@ public class GameThread extends Thread{
     {
         endGameMessage = OutputAdapter.returnEndGameMessage(tournamentPlayer, otherPlayer(tournamentPlayer), gameID, "FORFEITED", "WIN");
    //     OutputAdapter.returnEndGameMessage(otherPlayer(tournamentPlayer), tournamentPlayer, gameID, "WIN", "FORFEITED");
+
+        playerForfeitUpdate(tournamentPlayer);
+
         gameNotEnded=false;
         ArrayList<TournamentPlayer> players = generatePlayerToReturnToScoreboard(tournamentPlayer);
 
@@ -402,6 +410,7 @@ public class GameThread extends Thread{
     {
         endGameMessage = OutputAdapter.returnEndGameMessage(tournamentPlayer, otherPlayer(tournamentPlayer), gameID, "FORFEITED", "WIN");
  //       OutputAdapter.returnEndGameMessage(otherPlayer(tournamentPlayer), tournamentPlayer, gameID, "WIN", "FORFEITED");
+        playerForfeitUpdate(tournamentPlayer);
         gameNotEnded=false;
         ArrayList<TournamentPlayer> players = generatePlayerToReturnToScoreboard(tournamentPlayer);
         scoreboard.playerMadeInvalidBuild(players);
@@ -439,5 +448,17 @@ public class GameThread extends Thread{
     public void enableTurnWaiting() {
         // This should only be called by requestMove in tourny player, bad bad interface atm!!
         hasturnWaitingp.set(true);
+    }
+
+    public void playerForfeitUpdate(TournamentPlayer tournamentPlayer){
+        switch(gameID){
+            case 'A': tournamentPlayer.getTournamentScore().forfeitGameA();
+                otherPlayer(tournamentPlayer).getTournamentScore().wonGameA();
+                break;
+            case 'B': tournamentPlayer.getTournamentScore().forfeitGameB();
+                otherPlayer(tournamentPlayer).getTournamentScore().wonGameB();
+                break;
+            default: System.out.println("Bad game character");
+        }
     }
 }

@@ -270,6 +270,12 @@ public class TournamentScore {
         setTigerGameB(0);
     }
 
+    public void addToChallengeScore(int points){
+        int challengeScore = getChallengeScore();
+        challengeScore += points;
+        setChallengeScore(challengeScore);
+    }
+
     public void addChallengeScoreToTournament(){
         int challengeScore = getChallengeScore();
         int tournamentScore = getTourneyScore();

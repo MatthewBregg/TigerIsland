@@ -140,8 +140,7 @@ public class TournamentPlayer implements Runnable
             e.printStackTrace();
         }
 
-        playerScores = new TournamentScore(username)
-                // May not be correct yet
+        playerScores = new TournamentScore(username);
     }
 
     private boolean inputFromClientReady(char gameid) {

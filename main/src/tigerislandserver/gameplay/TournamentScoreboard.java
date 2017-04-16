@@ -2,6 +2,7 @@ package tigerislandserver.gameplay;
 
 import tigerisland.player.Player;
 import tigerisland.player.PlayerID;
+import tigerislandserver.JavaFXScoreboardPOC.TournamentScore;
 import tigerislandserver.server.TournamentPlayer;
 
 import java.util.ArrayList;
@@ -88,6 +89,8 @@ public class TournamentScoreboard {
     public void addScore(PlayerID id, int numToAdd) {
 
         int score = this.getPlayerScore(id);
+        TournamentScore playerScoreObject = tourneyRepresentation.getPlayerScoreObject(id);
+        playerScoreObject.addToChallengeScore(numToAdd);
 
         if (score != 0) {
             score += numToAdd;
