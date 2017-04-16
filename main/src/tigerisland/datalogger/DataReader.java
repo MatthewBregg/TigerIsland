@@ -36,4 +36,6 @@ public interface DataReader {
 
     int getTigerForGame(int currentChallenge, String teamName, int currentMatchInChallenge, char gameId);
 
+    int getPlayerLatestMatch(String player);
+
 }

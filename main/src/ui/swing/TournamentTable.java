@@ -7,7 +7,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import java.awt.*;
-import java.util.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class TournamentTable {
@@ -24,7 +24,7 @@ public class TournamentTable {
             "Team Names",
             "Tourney Score",
             "Challenge Score",
-            "Opponent"};
+            "Opponent", "MatchID"};
 
     private String[] gameAColumnHeaders = {
             "Score",
@@ -39,28 +39,27 @@ public class TournamentTable {
             "Ti"};
 
     private Object[][] tournamentColumnsValues = {
-            {"Team A", "0", "0", "0"},
-            {"Team B", "0", "0", "0"},
-            {"Team C", "0", "0", "0"},
-            {"Team D", "0", "0", "0"},
-            {"Team E", "0", "0", "0"},
-            {"Team F", "0", "0", "0"},
-            {"Team G", "0", "0", "0"},
-            {"Team H", "0", "0", "0"},
-            {"Team I", "0", "0", "0"},
-            {"Team J", "0", "0", "0"},
-            {"Team K", "0", "0", "0"},
-            {"Team L", "0", "0", "0"},
-            {"Team M", "0", "0", "0"},
-            {"Team N", "0", "0", "0"},
-            {"Team O", "0", "0", "0"},
-            {"Team P", "0", "0", "0"},
-            {"Team Q", "0", "0", "0"},
-            {"Team R", "0", "0", "0"},
-            {"Team S", "0", "0", "0"},
-            {"Team T", "0", "0", "0"},
+            {"Team A", "0", "0", "0","0"},
+            {"Team B", "0", "0", "0","0"},
+            {"Team C", "0", "0", "0","0"},
+            {"Team D", "0", "0", "0","0"},
+            {"Team E", "0", "0", "0","0"},
+            {"Team F", "0", "0", "0","0"},
+            {"Team G", "0", "0", "0","0"},
+            {"Team H", "0", "0", "0","0"},
+            {"Team I", "0", "0", "0","0"},
+            {"Team J", "0", "0", "0","0"},
+            {"Team K", "0", "0", "0","0"},
+            {"Team L", "0", "0", "0","0"},
+            {"Team M", "0", "0", "0","0"},
+            {"Team N", "0", "0", "0","0"},
+            {"Team O", "0", "0", "0","0"},
+            {"Team P", "0", "0", "0","0"},
+            {"Team Q", "0", "0", "0","0"},
+            {"Team R", "0", "0", "0","0"},
+            {"Team S", "0", "0", "0","0"},
+            {"Team T", "0", "0", "0","0"},
     };
-
     private String[][] gameAColumnsValue = {
             {"0", "0", "0", "0"},
             {"0", "0", "0", "0"},
@@ -151,14 +150,17 @@ public class TournamentTable {
 
         for(int i = 0; i < teamNames.size(); i++) {
 
+            currentMatchInChallenge = dataReader.getPlayerLatestMatch(teamNames.get(i));
             int tourney = dataReader.getTeamTournamentScore(teamNames.get(i));
             int currentChallengeScore = dataReader.getTeamScoreForChallenge(teamNames.get(i), currentChallenge);
+
             String opponent = dataReader.getOpponent(teamNames.get(i), currentChallenge, currentMatchInChallenge);
             ArrayList<Object> tournamentData = new ArrayList<>();
             tournamentData.add(teamNames.get(i));
             tournamentData.add(tourney);
             tournamentData.add(currentChallengeScore);
             tournamentData.add(opponent);
+            tournamentData.add(currentMatchInChallenge);
 
             int scoreForGameA = dataReader.getScoreForPlayerGame(currentChallenge, teamNames.get(i), currentMatchInChallenge, 'A');
             int villagerForGameA = dataReader.getVillagersForGame(currentChallenge, teamNames.get(i), currentMatchInChallenge, 'A');
@@ -182,6 +184,7 @@ public class TournamentTable {
 
             for(int j = 0; j < 4; j++){
                 overallScoreTable.setValueAt(String.valueOf(tournamentData.get(j)), i, j);
+                overallScoreTable.setValueAt(String.valueOf(tournamentData.get(j+1)), i, j+1);
                 gameAScoreTable.setValueAt(String.valueOf(gameAScores.get(j)), i, j);
                 gameBScoreTable.setValueAt(String.valueOf(gameBScores.get(j)), i , j);
             }

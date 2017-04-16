@@ -223,11 +223,11 @@ public class SQLiteReader implements DataReader{
 
     @Override
     public String getOpponent(String teamName, int currentChallenge, int currentMatchInChallenge) {
-        int playerMatch = getPlayerLatestMatch(teamName);
+//        int playerMatch = getPlayerLatestMatch(teamName);
         //uncomment this if you always want an opponent to be displayed, although it will only be most recent-- not th ecurrent opponent
 //        if (playerMatch!=currentMatchInChallenge)
 //            return "Has By";
-        currentMatchInChallenge = getPlayerLatestMatch(teamName);
+//        currentMatchInChallenge = getPlayerLatestMatch(teamName);
         String queryp1 = String.format("select p2_id from matches where " +
                 "p1_id='%s' and challenge_id='%s' and match_id='%s'", teamName, currentChallenge, currentMatchInChallenge);
 
