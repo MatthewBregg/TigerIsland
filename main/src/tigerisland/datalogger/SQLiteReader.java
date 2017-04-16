@@ -195,24 +195,75 @@ public class SQLiteReader implements DataReader{
         return move_id;
     }
 
-    @Override
-    public String getOpponent(String teamName, int currentChallenge, int currentMatchInChallenge) {
-        String query = String.format("select p2_id from matches where " +
-                "p1_id='%s' and challenge_id='%s' and match_id='%s'", teamName, currentChallenge, currentMatchInChallenge);
 
-        String opponent = "NO_OPPONENT";
+
+    public int getPlayerLatestMatch(String teamName){
+        String queryp1 = String.format("select max(match_id) from matches where " +
+                "p1_id='%s'", teamName);
+        int matchid = -1;
         try {
 
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery(query);
+            ResultSet rs = stmt.executeQuery(queryp1);
+
+            if (rs.next()) {
+                matchid = rs.getInt("max(match_id)");
+            }
+
+
+        } catch(SQLException sqlException) {
+            System.out.println(sqlException);
+        }
+
+        return matchid;
+
+    }
+
+
+
+    @Override
+    public String getOpponent(String teamName, int currentChallenge, int currentMatchInChallenge) {
+        int playerMatch = getPlayerLatestMatch(teamName);
+        //uncomment this if you always want an opponent to be displayed, although it will only be most recent-- not th ecurrent opponent
+//        if (playerMatch!=currentMatchInChallenge)
+//            return "Has By";
+        currentMatchInChallenge = getPlayerLatestMatch(teamName);
+        String queryp1 = String.format("select p2_id from matches where " +
+                "p1_id='%s' and challenge_id='%s' and match_id='%s'", teamName, currentChallenge, currentMatchInChallenge);
+
+        String queryp2 = String.format("select p1_id from matches where " +
+                "p2_id='%s' and challenge_id='%s' and match_id='%s'", teamName, currentChallenge, currentMatchInChallenge);
+        String opponent = "No opponent";
+        try {
+
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(queryp1);
 
             if (rs.next()) {
                 opponent = rs.getString("p2_id");
             }
 
+
         } catch(SQLException sqlException) {
             System.out.println(sqlException);
         }
+        try {
+
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(queryp2);
+
+            if (rs.next()) {
+                opponent = rs.getString("p1_id");
+            }
+
+
+        } catch(SQLException sqlException) {
+            System.out.println(sqlException);
+        }
+
+
+
+
         return opponent;
     }
 
