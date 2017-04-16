@@ -15,8 +15,8 @@ public class TournamentScore {
     public TournamentScore(String teamName){
         this.teamName = new SimpleStringProperty(teamName);
         opponentName = new SimpleStringProperty("");
-        statusGameA = new SimpleStringProperty("Not Playing");
-        statusGameB = new SimpleStringProperty("Not Playing");
+        statusGameA = new SimpleStringProperty("Not Yet Playing");
+        statusGameB = new SimpleStringProperty("Not Yet Playing");
 
         tourneyScore = new SimpleIntegerProperty(0);
         challengeScore = new SimpleIntegerProperty(0);

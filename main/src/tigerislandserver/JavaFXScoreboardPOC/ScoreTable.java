@@ -59,41 +59,41 @@ public class ScoreTable extends Application implements Runnable {
 
         TableColumn scoreGameA = new TableColumn("Score");
         scoreGameA.setCellValueFactory(new PropertyValueFactory<TournamentScore, String>("scoreGameA"));
-        scoreGameA.setCellFactory(cellFactory);
+//        scoreGameA.setCellFactory(cellFactory);
         TableColumn villagersGameA = new TableColumn("Villagers");
         villagersGameA.setCellValueFactory(new PropertyValueFactory<TournamentScore, String>("villagerGameA"));
-        villagersGameA.setCellFactory(cellFactory);
+//        villagersGameA.setCellFactory(cellFactory);
         TableColumn totorosGameA = new TableColumn("Totoros");
         totorosGameA.setCellValueFactory(new PropertyValueFactory<TournamentScore, String>("totoroGameA"));
-        totorosGameA.setCellFactory(cellFactory);
+//        totorosGameA.setCellFactory(cellFactory);
         TableColumn tigersGameA = new TableColumn("Tigers");
         tigersGameA.setCellValueFactory(new PropertyValueFactory<TournamentScore, String>("tigerGameA"));
-        tigersGameA.setCellFactory(cellFactory);
+//        tigersGameA.setCellFactory(cellFactory);
         TableColumn statusGameA = new TableColumn("Status");
         statusGameA.setCellValueFactory(new PropertyValueFactory<TournamentScore, String>("statusGameA"));
-        statusGameA.setCellFactory(cellFactory);
+//        statusGameA.setCellFactory(cellFactory);
 
         TableColumn gameA = new TableColumn("Game A");
         gameA.getColumns().addAll(scoreGameA, villagersGameA, totorosGameA, tigersGameA, statusGameA);
 
         TableColumn scoreGameB = new TableColumn("Score");
         scoreGameB.setCellValueFactory(new PropertyValueFactory<TournamentScore, String>("scoreGameB"));
-        scoreGameB.setCellFactory(cellFactory);
+//        scoreGameB.setCellFactory(cellFactory);
         TableColumn villagersGameB = new TableColumn("Villagers");
         villagersGameB.setCellValueFactory(new PropertyValueFactory<TournamentScore, String>("villagerGameB"));
-        villagersGameB.setCellFactory(cellFactory);
+//        villagersGameB.setCellFactory(cellFactory);
         TableColumn totorosGameB = new TableColumn("Totoros");
         totorosGameB.setCellValueFactory(new PropertyValueFactory<TournamentScore, String>("totoroGameB"));
-        totorosGameB.setCellFactory(cellFactory);
+//        totorosGameB.setCellFactory(cellFactory);
         TableColumn tigersGameB = new TableColumn("Tigers");
         tigersGameB.setCellValueFactory(new PropertyValueFactory<TournamentScore, String>("tigerGameB"));
-        tigersGameB.setCellFactory(cellFactory);
+//        tigersGameB.setCellFactory(cellFactory);
         TableColumn statusGameB = new TableColumn("Status");
         statusGameB.setCellValueFactory(new PropertyValueFactory<TournamentScore, String>("statusGameB"));
-        statusGameB.setCellFactory(cellFactory);
+//        statusGameB.setCellFactory(cellFactory);
 
         TableColumn gameB = new TableColumn("Game B");
-        gameB.getColumns().addAll(scoreGameB, villagersGameB, totorosGameB, tigersGameB);
+        gameB.getColumns().addAll(scoreGameB, villagersGameB, totorosGameB, tigersGameB, statusGameB);
 
 
         scoreTable.setItems(scores);
@@ -118,7 +118,11 @@ public class ScoreTable extends Application implements Runnable {
                 while (true) {
                     System.out.println("Add a team:");
                     String newTeam = input.nextLine();
-                    scores.add(new TournamentScore(newTeam));
+                    TournamentScore newScore = new TournamentScore(newTeam);
+                    scores.add(newScore);
+                    System.out.println("What's their score?");
+                    int gameScore = input.nextInt();
+                    newScore.setScoreGameA(gameScore);
                 }
             }
         });
