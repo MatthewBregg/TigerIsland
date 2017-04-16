@@ -3,9 +3,11 @@ package tigerislandserver.JavaFXScoreboardPOC;
 import javafx.collections.ObservableList;
 import tigerisland.datalogger.LoggerFactory;
 import tigerislandserver.TournamentVariables;
+import tigerislandserver.server.TournamentPlayer;
 import tigerislandserver.server.TournamentServer;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
 public class TourneySvrMgr implements Runnable {
     private TournamentVariables tourneyVar;
@@ -79,17 +81,20 @@ public class TourneySvrMgr implements Runnable {
 
     @Override
     public void run() {
-        LoggerFactory.clearTables();
-        LoggerFactory.createTables();
-        Connection connection = LoggerFactory.getDbConnection();
-
         tourneySvr = new TournamentServer(tourneyPort);
         tourneySvr.acceptConnections(accessTime);
         if(tourneySvr.getPlayerCount() > 1) {
-
+            collectTournamentScoreObjects(tourneySvr.getTourneyPlayers());
             tourneySvr.startTournament(nbrOfChallenges);
         } else {
             System.out.println("Not enough players!");
+        }
+    }
+
+    private void collectTournamentScoreObjects(ArrayList<TournamentPlayer> players){
+        for(TournamentPlayer player : players){
+            TournamentScore playerScoreTracker = player.getTournamentScore();
+            scores.add(playerScoreTracker);
         }
     }
 }

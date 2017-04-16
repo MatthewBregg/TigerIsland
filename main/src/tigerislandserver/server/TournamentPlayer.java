@@ -2,6 +2,7 @@ package tigerislandserver.server;
 
 import tigerisland.player.PlayerID;
 import tigerisland.tile.Tile;
+import tigerislandserver.JavaFXScoreboardPOC.TournamentScore;
 import tigerislandserver.adapter.GameInputAdapter;
 import tigerislandserver.adapter.InputAdapter;
 import tigerislandserver.adapter.OutputAdapter;
@@ -28,6 +29,7 @@ public class TournamentPlayer implements Runnable
     private PlayerID pID;
     private String username;
     private final int authenticateTime = 1800;
+    private TournamentScore playerScoreObject;
 
     private boolean gameAReady() {
         processInputFromClientIntoGameQueues();
@@ -137,6 +139,8 @@ public class TournamentPlayer implements Runnable
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        playerScoreObject = new TournamentScore(username);
     }
 
     private boolean inputFromClientReady(char gameid) {
@@ -242,5 +246,9 @@ public class TournamentPlayer implements Runnable
     public boolean canEnterTournament()
     {
         return canEnterTournament;
+    }
+
+    public TournamentScore getTournamentScore() {
+        return playerScoreObject;
     }
 }
