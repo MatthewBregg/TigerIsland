@@ -69,4 +69,17 @@ public class ScoreManager{
         else
             playerScores.put(id, valueToAdd);
     }
+
+    public PlayerID getLeader() {
+        PlayerID leader = null;
+        Integer highScore = Integer.MIN_VALUE;
+
+        for(HashMap.Entry<PlayerID, Integer> score : playerScores.entrySet()){
+            if(score.getValue() > highScore){
+                leader = score.getKey();
+            }
+        }
+
+        return leader;
+    }
 }
