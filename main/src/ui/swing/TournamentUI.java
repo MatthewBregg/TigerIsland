@@ -5,7 +5,10 @@ import tigerisland.datalogger.LoggerFactory;
 import tigerisland.datalogger.SQLiteReader;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.Connection;
 
 import static java.lang.Thread.sleep;
@@ -17,6 +20,11 @@ public class TournamentUI extends JFrame {
     private static JLabel challengeLabel;
     private static JLabel matchInChallengeLabel;
     private static JLabel turnForMatchLabel;
+    private static JTextField challengeField;
+    private static JTextField roundField;
+    private static JTextField gameField;
+    private static JTextField matchField;
+
 
     private static int currentChallenge = -1;
     private static int currentMatchInChallenge= -1;
@@ -24,21 +32,65 @@ public class TournamentUI extends JFrame {
 
     private static int totalChallenges = -1;
 
+    private static boolean mode = false;
+
     public TournamentUI(Connection connection) {
+
+        UIDefaults defaults = UIManager.getLookAndFeelDefaults();
+        if (defaults.get("Table.alternateRowColor") == null)
+            defaults.put("Table.alternateRowColor", new Color(255, 212, 130));
 
         dataReader = new SQLiteReader(connection);
 
-        JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+        JToggleButton modeButton = new JToggleButton("Manual Mode");
+        ActionListener actionListener = new ActionListener() {
+            public void actionPerformed(ActionEvent actionEvent) {
+                AbstractButton abstractButton = (AbstractButton) actionEvent.getSource();
+                mode = abstractButton.getModel().isSelected();
+                System.out.println("Action - selected=" + mode + "\n");
+            }
+        };
 
+        modeButton.addActionListener(actionListener);
+
+        JToggleButton searchButton = new JToggleButton("Find Results");
+        ActionListener actionListener2 = new ActionListener() {
+            public void actionPerformed(ActionEvent actionEvent) {
+                AbstractButton abstractButton = (AbstractButton) actionEvent.getSource();
+                boolean selected = abstractButton.getModel().isSelected();
+                System.out.println("Pulling Requested" + selected + "\n");
+            }
+        };
+        searchButton.addActionListener(actionListener2);
+
+
+        challengeField = new JTextField("Enter Challenge ID", 20);
+        roundField = new JTextField("Enter round ID", 20);
+        matchField = new JTextField("Enter match ID", 20);
+        gameField = new JTextField("Enter game ID", 20);
+
+        // creates the box at the top of the page
         JPanel labelPanel = new JPanel();
         labelPanel.setBackground(new Color(31, 64, 106));
 
-        challengeLabel = new JLabel();
+        JLabel titleLabel = new JLabel();
+        titleLabel.setText("Welcome to the Tiger Island Tournament!");
+        titleLabel.setForeground(Color.white);
+        titleLabel.setFont(new Font(titleLabel.getName(), Font.PLAIN, 50));
 
+        labelPanel.add(titleLabel);
+
+        labelPanel.add(searchButton, BoxLayout.Y_AXIS);
+        labelPanel.add(modeButton, BoxLayout.Y_AXIS);
+        labelPanel.add(challengeField, BoxLayout.Y_AXIS);
+        labelPanel.add(roundField, BoxLayout.Y_AXIS);
+        labelPanel.add(matchField, BoxLayout.Y_AXIS);
+        labelPanel.add(gameField, BoxLayout.Y_AXIS);
+
+        challengeLabel = new JLabel();
         challengeLabel.setText("Challenge");
         challengeLabel.setForeground(Color.white);
-        labelPanel.add(challengeLabel);
+        labelPanel.add(challengeLabel, BorderLayout.SOUTH);
 
         matchInChallengeLabel = new JLabel();
         matchInChallengeLabel.setForeground(Color.white);
@@ -52,6 +104,9 @@ public class TournamentUI extends JFrame {
 
         tournamentTable = new TournamentTable(dataReader);
         JTable mainTable = tournamentTable.getTournamentTable();
+
+        JPanel mainPanel = new JPanel();
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 
         Container container = this.getContentPane();
         mainPanel.add(labelPanel);
@@ -77,20 +132,44 @@ public class TournamentUI extends JFrame {
         new TournamentUI(connection);
 
         while (true) {
-            try {
-                sleep(1000);
-            } catch(InterruptedException e) {
-                // print out
+            while(mode == false) {
+                try {
+                    sleep(1000);
+                } catch (InterruptedException e) {
+                    // print out
+                }
+                updateUI();
             }
-            updateUI();
         }
     }
 
     private static void updateUI() {
-        updateCurrentChallenge();
-        updateCurrentMatch();
-        updateTurnForCurrentMatch();
-        updateTournamentScores();
+        if (mode == false){
+            updateCurrentChallenge();
+            updateCurrentMatch();
+            updateTurnForCurrentMatch();
+            updateTournamentScores();
+        }
+        else if (mode == true){
+            /* this is where we need to add code in order to update the information
+            based on entered values
+             */
+            String challengeNumber = challengeField.getText();
+            String roundNumber = roundField.getText();
+            String matchNumber = matchField.getText();
+            String gameNumber = gameField.getText();
+
+            System.out.println(challengeNumber);
+            System.out.println(roundNumber);
+            System.out.println(matchNumber);
+            System.out.println(gameNumber);
+        }
+        else{
+            updateCurrentChallenge();
+            updateCurrentMatch();
+            updateTurnForCurrentMatch();
+            updateTournamentScores();
+        }
     }
 
     private static void updateTournamentScores() {

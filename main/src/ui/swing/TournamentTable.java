@@ -124,6 +124,7 @@ public class TournamentTable {
             gameBScoreTable.setRowHeight(i, 30);
         }
 
+
         // make grid lines
         overallScoreTable.setGridColor(Color.BLACK);
         gameAScoreTable.setGridColor(Color.BLACK);
