@@ -24,6 +24,7 @@ public class ScoreTable extends Application implements Runnable {
     private ObservableList<TournamentScore> scores = FXCollections.observableArrayList(
             new TournamentScore("TEAM_A_TEST"), new TournamentScore("TEAM_B_TEST"));
     private TourneySvrMgr tourneyMgr = new TourneySvrMgr(scores);
+    private Thread tournament;
 
     final HBox hbox1 = new HBox();
     final HBox hbox2 = new HBox();
@@ -157,8 +158,10 @@ public class ScoreTable extends Application implements Runnable {
         startButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                Thread tournament = new Thread(tourneyMgr);
-                tournament.start();
+                if(!tournament.isAlive()) {
+                    tournament = new Thread(tourneyMgr);
+                    tournament.start();
+                }
             }
         });
 
