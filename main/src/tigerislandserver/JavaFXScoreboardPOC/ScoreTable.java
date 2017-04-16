@@ -19,7 +19,8 @@ public class ScoreTable extends Application implements Runnable {
     private ObservableList<TournamentScore> scores = FXCollections.observableArrayList(
             new TournamentScore("Team_A"), new TournamentScore("Team_B"));
 
-    final HBox hbox = new HBox();
+    final HBox hbox1 = new HBox();
+    final HBox hbox2 = new HBox();
 
     @Override
     public void run(){
@@ -97,6 +98,8 @@ public class ScoreTable extends Application implements Runnable {
 
         scoreTable.setItems(scores);
         scoreTable.getColumns().addAll(teamColumn, tourneyScore, challengeScore, gameA, gameB);
+
+//        final TextField
 
         final VBox vbox = new VBox();
         vbox.setSpacing(5);

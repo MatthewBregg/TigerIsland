@@ -33,6 +33,10 @@ public class TournamentServer {
         }
     }
 
+    public ArrayList<TournamentPlayer> getTourneyPlayers(){
+        return clientConnections;
+    }
+
     public int getPort() {
         int portNumber = -1;
         if (serverSocket != null)
