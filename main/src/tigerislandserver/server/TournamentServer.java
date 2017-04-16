@@ -3,6 +3,7 @@ package tigerislandserver.server;
 import tigerisland.datalogger.*;
 import tigerisland.player.Player;
 import tigerisland.player.PlayerID;
+import tigerislandserver.JavaFXScoreboardPOC.TournamentScore;
 import tigerislandserver.adapter.OutputAdapter;
 import tigerislandserver.gameplay.Challenge;
 import tigerislandserver.gameplay.TournamentScoreManager;
@@ -121,6 +122,13 @@ public class TournamentServer {
             TournamentPlayer tPlayer = clientConnections.get(i);
             int defaultPID = tPlayer.getID().getId();
             playersIdToUserName.put(defaultPID, tPlayer.getUsername());
+        }
+    }
+
+    private void updatePlayerTournamentScores(){
+        for(TournamentPlayer player : clientConnections){
+            TournamentScore playerScore = player.getTournamentScore();
+            playerScore.addChallengeScoreToTournament();
         }
     }
 

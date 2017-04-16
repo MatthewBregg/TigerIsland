@@ -81,6 +81,7 @@ public class TourneySvrMgr implements Runnable {
 
     @Override
     public void run() {
+        scores.removeAll();
         tourneySvr = new TournamentServer(tourneyPort);
         tourneySvr.acceptConnections(accessTime);
         if(tourneySvr.getPlayerCount() > 1) {

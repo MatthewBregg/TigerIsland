@@ -150,11 +150,22 @@ public class GameThread extends Thread{
     // CHRISTINE this is where we log the individual game scores as well, gross but its gonna be here
     // grab the game scoremanager from the game manager and grab those scores
     public void run(){
+        for(TournamentPlayer player : playersInGame){
+            switch(gameID){
+                case 'A': player.getTournamentScore().setStatusGameA("NOW PLAYING");
+                break;
+                case 'B': player.getTournamentScore().setStatusGameB("NOW PLAYING");
+                break;
+                default: System.out.println("Bad game character");
+            }
+        }
+
         sendStartGameMessage();
 
         //Total Moves between both players that have happened
         // not turn number relative to a single player.
         int moveNumber = 0;
+
         ScoreManager scoreManager = gameManager.getScoreManager();
 
         SQLiteLogger dbLogger = LoggerFactory.getSQLLogger(this.gameID, this.cid, this.matchId, this.playersIdToUserName);
@@ -164,6 +175,17 @@ public class GameThread extends Thread{
         while(gameNotEnded)
         {
             int playerTurnNumber = moveNumber/2;
+
+            for(TournamentPlayer player : playersInGame){
+                switch(gameID){
+                    case 'A': player.getTournamentScore().setStatusGameA("MOVE " + playerTurnNumber);
+                        break;
+                    case 'B': player.getTournamentScore().setStatusGameB("MOVE " + playerTurnNumber);
+                        break;
+                    default: System.out.println("Bad game character");
+                }
+            }
+
             Tile tile = gameTiles.get(moveNumber);
 
             playersInGame.get(activePlayerIndex).requestMove(this, this.gameID, playerTurnNumber, tile);

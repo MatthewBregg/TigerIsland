@@ -17,7 +17,7 @@ public class ScoreTable extends Application implements Runnable {
     private TableView scoreTable = new TableView();
 
     private ObservableList<TournamentScore> scores = FXCollections.observableArrayList(
-            new TournamentScore("Team_A"), new TournamentScore("Team_B"));
+            new TournamentScore("TEAM_A_TEST"), new TournamentScore("TEAM_B_TEST"));
 
     final HBox hbox1 = new HBox();
     final HBox hbox2 = new HBox();
@@ -111,7 +111,7 @@ public class ScoreTable extends Application implements Runnable {
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        Thread scoreAdder = new Thread(new Runnable() {
+        Thread scoreAdder = new Thread(new Runnable(){
             public void run() {
                 Scanner input = new Scanner(System.in);
 
@@ -119,10 +119,10 @@ public class ScoreTable extends Application implements Runnable {
                     System.out.println("Add a team:");
                     String newTeam = input.nextLine();
                     TournamentScore newScore = new TournamentScore(newTeam);
-                    scores.add(newScore);
                     System.out.println("What's their score?");
                     int gameScore = input.nextInt();
                     newScore.setScoreGameA(gameScore);
+                    scores.add(newScore);
                 }
             }
         });

@@ -29,7 +29,7 @@ public class TournamentPlayer implements Runnable
     private PlayerID pID;
     private String username;
     private final int authenticateTime = 1800;
-    private TournamentScore playerScoreObject;
+    private TournamentScore playerScores;
 
     private boolean gameAReady() {
         processInputFromClientIntoGameQueues();
@@ -140,7 +140,8 @@ public class TournamentPlayer implements Runnable
             e.printStackTrace();
         }
 
-        playerScoreObject = new TournamentScore(username);
+        playerScores = new TournamentScore(username)
+                // May not be correct yet
     }
 
     private boolean inputFromClientReady(char gameid) {
@@ -249,6 +250,6 @@ public class TournamentPlayer implements Runnable
     }
 
     public TournamentScore getTournamentScore() {
-        return playerScoreObject;
+        return playerScores;
     }
 }

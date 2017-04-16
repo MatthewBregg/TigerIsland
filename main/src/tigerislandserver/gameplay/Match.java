@@ -1,7 +1,9 @@
 package tigerislandserver.gameplay;
 
+import tigerisland.player.PlayerID;
 import tigerisland.score.ScoreManager;
 import tigerisland.tile.Tile;
+import tigerislandserver.JavaFXScoreboardPOC.TournamentScore;
 import tigerislandserver.adapter.OutputAdapter;
 import tigerislandserver.gameplay.identifiers.MatchID;
 import tigerislandserver.server.TournamentPlayer;
@@ -27,6 +29,7 @@ public class Match extends Thread {
     }
 
     public void startGames(){
+        setupPlayerScoreObjects();
         synchronizer.addGame(game1);
         synchronizer.addGame(game2);
         game1.start();
@@ -55,6 +58,20 @@ public class Match extends Thread {
         game2.sendEndGameMessage();
         clearPlayerMsgQueues();
     }
+
+    private void setupPlayerScoreObjects(){
+        TournamentPlayer player1 = players.get(0);
+        TournamentPlayer player2 = players.get(1);
+
+        setOpponents(player1, player2);
+        setOpponents(player2, player1);
+    }
+
+    private void setOpponents(TournamentPlayer player1, TournamentPlayer player2) {
+        TournamentScore playerScore = player1.getTournamentScore();
+        playerScore.setOpponentName(player2.getUsername());
+    }
+
 
     private void clearPlayerMsgQueues(){
         for(TournamentPlayer player: players){

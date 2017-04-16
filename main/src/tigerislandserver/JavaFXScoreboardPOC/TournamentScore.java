@@ -28,6 +28,16 @@ public class TournamentScore {
         totoroGameB = new SimpleIntegerProperty(0);
         tigerGameA = new SimpleIntegerProperty(0);
         tigerGameB = new SimpleIntegerProperty(0);
+
+        initialize();
+    }
+
+    private void initialize(){
+        resetTourneyScore();
+        resetChallengeScore();
+        resetOpponent();
+        resetGameA();
+        resetGameB();
     }
 
     public String getTeamName() {
@@ -196,5 +206,74 @@ public class TournamentScore {
 
     public void setTigerGameB(int tigerGameB) {
         this.tigerGameB.set(tigerGameB);
+    }
+
+    public void resetTourneyScore(){
+        setTourneyScore(0);
+    }
+
+    public void resetChallengeScore(){
+        setChallengeScore(0);
+    }
+
+    public void addPointsGameA(int points){
+        int oldScore = getScoreGameA();
+        setScoreGameA(oldScore + points);
+    }
+
+    public void wonGameA(){
+        setStatusGameA("WIN");
+    }
+
+    public void forfeitGameA(){
+        setStatusGameA("FORFEIT");
+    }
+
+    public void lostGameA(){
+        setStatusGameA("LOSS");
+    }
+
+    public void addPointsGameB(int points){
+        int oldScore = getScoreGameB();
+        setScoreGameB(oldScore + points);
+    }
+
+    public void wonGameB(){
+        setStatusGameB("WIN");
+    }
+
+    public void forfeitGameB(){
+        setStatusGameB("FORFEIT");
+    }
+
+    public void lostGameB(){
+        setStatusGameB("LOSS");
+    }
+
+    public void resetOpponent(){
+        setOpponentName("N/A");
+    }
+
+    public void resetGameA(){
+        setStatusGameA("NOT PLAYING");
+        setScoreGameA(0);
+        setVillagerGameA(0);
+        setTotoroGameA(0);
+        setTigerGameA(0);
+    }
+
+    public void resetGameB(){
+        setStatusGameB("NOT PLAYING");
+        setScoreGameB(0);
+        setVillagerGameB(0);
+        setTotoroGameB(0);
+        setTigerGameB(0);
+    }
+
+    public void addChallengeScoreToTournament(){
+        int challengeScore = getChallengeScore();
+        int tournamentScore = getTourneyScore();
+        resetChallengeScore();
+        setTourneyScore(challengeScore + tournamentScore);
     }
 }
