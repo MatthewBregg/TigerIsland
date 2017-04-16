@@ -2,15 +2,20 @@ package tigerislandserver.JavaFXScoreboardPOC;
 
 import javafx.application.Application;
 import javafx.collections.*;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.Scanner;
 
 public class ScoreTable extends Application implements Runnable {
@@ -18,12 +23,13 @@ public class ScoreTable extends Application implements Runnable {
 
     private ObservableList<TournamentScore> scores = FXCollections.observableArrayList(
             new TournamentScore("TEAM_A_TEST"), new TournamentScore("TEAM_B_TEST"));
+    private TourneySvrMgr tourneyMgr = new TourneySvrMgr(scores);
 
     final HBox hbox1 = new HBox();
     final HBox hbox2 = new HBox();
 
     @Override
-    public void run(){
+    public void run() {
         launch();
     }
 
@@ -47,6 +53,22 @@ public class ScoreTable extends Application implements Runnable {
             }
         };
 
+        scoreTable.setItems(scores);
+        setupTable(scoreTable);
+        setupTourneyInfoRow(hbox1);
+
+        final VBox vbox = new VBox();
+        vbox.setSpacing(5);
+        vbox.setPadding(new Insets(10, 0, 0, 10));
+        vbox.getChildren().addAll(label, scoreTable, hbox1);
+
+        ((Group) scene.getRoot()).getChildren().addAll(vbox);
+
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    private void setupTable(TableView tableView) {
         TableColumn teamColumn = new TableColumn("Team Name");
         teamColumn.setCellValueFactory(new PropertyValueFactory<TournamentScore, String>("teamName"));
 
@@ -59,74 +81,90 @@ public class ScoreTable extends Application implements Runnable {
 
         TableColumn scoreGameA = new TableColumn("Score");
         scoreGameA.setCellValueFactory(new PropertyValueFactory<TournamentScore, String>("scoreGameA"));
-//        scoreGameA.setCellFactory(cellFactory);
+
         TableColumn villagersGameA = new TableColumn("Villagers");
         villagersGameA.setCellValueFactory(new PropertyValueFactory<TournamentScore, String>("villagerGameA"));
-//        villagersGameA.setCellFactory(cellFactory);
+
         TableColumn totorosGameA = new TableColumn("Totoros");
         totorosGameA.setCellValueFactory(new PropertyValueFactory<TournamentScore, String>("totoroGameA"));
-//        totorosGameA.setCellFactory(cellFactory);
+
         TableColumn tigersGameA = new TableColumn("Tigers");
         tigersGameA.setCellValueFactory(new PropertyValueFactory<TournamentScore, String>("tigerGameA"));
-//        tigersGameA.setCellFactory(cellFactory);
+
         TableColumn statusGameA = new TableColumn("Status");
         statusGameA.setCellValueFactory(new PropertyValueFactory<TournamentScore, String>("statusGameA"));
-//        statusGameA.setCellFactory(cellFactory);
 
         TableColumn gameA = new TableColumn("Game A");
         gameA.getColumns().addAll(scoreGameA, villagersGameA, totorosGameA, tigersGameA, statusGameA);
 
         TableColumn scoreGameB = new TableColumn("Score");
         scoreGameB.setCellValueFactory(new PropertyValueFactory<TournamentScore, String>("scoreGameB"));
-//        scoreGameB.setCellFactory(cellFactory);
+
         TableColumn villagersGameB = new TableColumn("Villagers");
         villagersGameB.setCellValueFactory(new PropertyValueFactory<TournamentScore, String>("villagerGameB"));
-//        villagersGameB.setCellFactory(cellFactory);
+
         TableColumn totorosGameB = new TableColumn("Totoros");
         totorosGameB.setCellValueFactory(new PropertyValueFactory<TournamentScore, String>("totoroGameB"));
-//        totorosGameB.setCellFactory(cellFactory);
+
         TableColumn tigersGameB = new TableColumn("Tigers");
         tigersGameB.setCellValueFactory(new PropertyValueFactory<TournamentScore, String>("tigerGameB"));
-//        tigersGameB.setCellFactory(cellFactory);
+
         TableColumn statusGameB = new TableColumn("Status");
         statusGameB.setCellValueFactory(new PropertyValueFactory<TournamentScore, String>("statusGameB"));
-//        statusGameB.setCellFactory(cellFactory);
+
 
         TableColumn gameB = new TableColumn("Game B");
         gameB.getColumns().addAll(scoreGameB, villagersGameB, totorosGameB, tigersGameB, statusGameB);
 
+        tableView.getColumns().addAll(teamColumn, tourneyScore, challengeScore, gameA, gameB);
+    }
 
-        scoreTable.setItems(scores);
-        scoreTable.getColumns().addAll(teamColumn, tourneyScore, challengeScore, gameA, gameB);
+    private void setupTourneyInfoRow(HBox hbox) {
+        final TextField ipAddr = new TextField();
+        ipAddr.setEditable(false);
+        ipAddr.setPromptText("IP Addr:");
+        String actualIP = null;
+        try {
+            actualIP = InetAddress.getLocalHost().getHostAddress();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+        ipAddr.setText(actualIP);
 
-//        final TextField
+        final TextField portNbr = new TextField();
+        portNbr.setEditable(true);
+        portNbr.setPromptText("Port:");
+        portNbr.setText("" + tourneyMgr.getTourneyPort());
+        // will need to convert back to int for passing to tourny mgr
 
-        final VBox vbox = new VBox();
-        vbox.setSpacing(5);
-        vbox.setPadding(new Insets(10, 0, 0, 10));
-        vbox.getChildren().addAll(label, scoreTable);
+        final TextField password = new TextField();
+        password.setEditable(true);
+        password.setPromptText("Password:");
+        String actualPass = tourneyMgr.getTourneyPassword();
+        password.setText(actualPass);
 
-        ((Group) scene.getRoot()).getChildren().addAll(vbox);
+        final TextField accessTime = new TextField();
+        accessTime.setEditable(true);
+        accessTime.setPromptText("Access Time:");
+        accessTime.setText("" + tourneyMgr.getAccessTime());
 
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        final TextField tourneySeed = new TextField();
+        tourneySeed.setEditable(true);
+        tourneySeed.setPromptText("Seed Value:");
+        tourneySeed.setText("" + tourneyMgr.getTourneySeed());
 
-        Thread scoreAdder = new Thread(new Runnable(){
-            public void run() {
-                Scanner input = new Scanner(System.in);
-
-                while (true) {
-                    System.out.println("Add a team:");
-                    String newTeam = input.nextLine();
-                    TournamentScore newScore = new TournamentScore(newTeam);
-                    System.out.println("What's their score?");
-                    int gameScore = input.nextInt();
-                    newScore.setScoreGameA(gameScore);
-                    scores.add(newScore);
-                }
+        final Button startButton = new Button("Start Tournament");
+        startButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                Thread tournament = new Thread(tourneyMgr);
+                tournament.start();
             }
         });
-        scoreAdder.start();
+
+        hbox.getChildren().addAll(ipAddr, portNbr, password, accessTime, tourneySeed, startButton);
+        hbox.setSpacing(3);
+
     }
 
     public static void main(String[] args) {
