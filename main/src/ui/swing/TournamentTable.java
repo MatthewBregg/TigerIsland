@@ -117,6 +117,19 @@ public class TournamentTable {
         gameAScoreTable = new JTable(gameAColumnsValue, gameAColumnHeaders);
         gameBScoreTable = new JTable(gameBColumnsValue, gameBColumnHeaders);
 
+        //make the row height taller for each table
+        for (int i = 0; i < 20; i++){
+            overallScoreTable.setRowHeight(i, 30);
+            gameAScoreTable.setRowHeight(i, 30);
+            gameBScoreTable.setRowHeight(i, 30);
+        }
+
+        // make grid lines
+        overallScoreTable.setGridColor(Color.BLACK);
+        gameAScoreTable.setGridColor(Color.BLACK);
+        gameBScoreTable.setGridColor(Color.BLACK);
+
+
         overallScoreTable.getTableHeader().setVisible(true);
         gameAScoreTable.getTableHeader().setVisible(true);
         gameBScoreTable.getTableHeader().setVisible(true);

@@ -32,17 +32,21 @@ public class TournamentUI extends JFrame {
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 
         JPanel labelPanel = new JPanel();
-        labelPanel.setBackground(Color.BLUE);
+        labelPanel.setBackground(new Color(31, 64, 106));
 
         challengeLabel = new JLabel();
+
         challengeLabel.setText("Challenge");
+        challengeLabel.setForeground(Color.white);
         labelPanel.add(challengeLabel);
 
         matchInChallengeLabel = new JLabel();
+        matchInChallengeLabel.setForeground(Color.white);
         matchInChallengeLabel.setText("Match");
         labelPanel.add(matchInChallengeLabel);
 
         turnForMatchLabel = new JLabel();
+        turnForMatchLabel.setForeground(Color.white);
         turnForMatchLabel.setText("Turn");
         labelPanel.add(turnForMatchLabel);
 
