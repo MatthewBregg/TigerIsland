@@ -23,11 +23,11 @@ public class TourneySvrMgr implements Runnable {
         roundInfo = roundInfos;
         scores = scoreTable;
         tourneyVar = TournamentVariables.getInstance();
-        nbrOfChallenges = 3;
-        tourneyPassword = "heygang";
-        accessFilePath = "pass.txt";
-        accessTime = 30;
-        tourneyPort = 6969;
+        nbrOfChallenges = 2;
+        tourneyPassword = "FunFunFun";
+        accessFilePath = "/Users/josh/Documents/gitRepos/tigerIslandUnbroken/TigerIsland/pass.txt";
+        accessTime = 60;
+        tourneyPort = 5276;
         tourneySeed = 123456987;
     }
 

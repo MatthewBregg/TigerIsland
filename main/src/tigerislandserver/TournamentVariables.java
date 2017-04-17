@@ -10,7 +10,7 @@ public class TournamentVariables
 
     private TournamentVariables()
     {
-        password="heygang";
+        password="FunFunFun";
         fileName="pass.txt";
     }
 
