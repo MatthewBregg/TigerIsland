@@ -26,7 +26,7 @@ public class Challenge {
     public Challenge(ArrayList<TournamentPlayer> participants, int cid){
         playerList = participants;
         challengeID = ChallengeID.getID();
-        scoreboard = new TournamentScoreboard();
+        scoreboard = new TournamentScoreboard(this);
         schedule = new Scheduler(playerList.size());
         currentRoundMatches = new ArrayList<>();
         roundNumber = 0;

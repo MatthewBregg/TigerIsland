@@ -52,7 +52,7 @@ public class TournamentScoreboardTest {
         // instantiate the challenge object
         tourneyRepresentation = new Challenge(tourneyPlayers,0);
 
-        tournamentScoreboard = new TournamentScoreboard();
+        tournamentScoreboard = new TournamentScoreboard(tourneyRepresentation);
         tourneyRepresentation = new Challenge(tourneyPlayers,0);
         tournamentPlayerScores = new HashMap<>();
         gameManager = new GameManager(playerList, new TestLogger());

@@ -38,7 +38,7 @@ public class ScoreTable extends Application implements Runnable {
     public void start(Stage primaryStage) throws Exception {
         Scene scene = new Scene(new Group());
         primaryStage.setTitle("SWE Tournament Challenge");
-        primaryStage.setWidth(1000);
+        primaryStage.setWidth(1500);
         primaryStage.setHeight(500);
         primaryStage.setResizable(true);
 
@@ -47,6 +47,7 @@ public class ScoreTable extends Application implements Runnable {
 
         scoreTable.setEditable(true);
         scoreTable.setScaleShape(true);
+        scoreTable.setMinWidth(1500);
         Callback<TableColumn, TableCell> cellFactory = new Callback<TableColumn, TableCell>() {
             @Override
             public TableCell call(TableColumn param) {
@@ -79,6 +80,9 @@ public class ScoreTable extends Application implements Runnable {
         TableColumn challengeScore = new TableColumn("Challenge Score");
         challengeScore.setCellValueFactory(new PropertyValueFactory<TournamentScore, String>("challengeScore"));
 
+        TableColumn opponentName = new TableColumn("Opponent");
+        opponentName.setCellValueFactory(new PropertyValueFactory<TournamentScore, String>("opponentName"));
+
 
         TableColumn scoreGameA = new TableColumn("Score");
         scoreGameA.setCellValueFactory(new PropertyValueFactory<TournamentScore, String>("scoreGameA"));
@@ -98,6 +102,7 @@ public class ScoreTable extends Application implements Runnable {
         TableColumn gameA = new TableColumn("Game A");
         gameA.getColumns().addAll(scoreGameA, villagersGameA, totorosGameA, tigersGameA, statusGameA);
 
+
         TableColumn scoreGameB = new TableColumn("Score");
         scoreGameB.setCellValueFactory(new PropertyValueFactory<TournamentScore, String>("scoreGameB"));
 
@@ -113,11 +118,10 @@ public class ScoreTable extends Application implements Runnable {
         TableColumn statusGameB = new TableColumn("Status");
         statusGameB.setCellValueFactory(new PropertyValueFactory<TournamentScore, String>("statusGameB"));
 
-
         TableColumn gameB = new TableColumn("Game B");
         gameB.getColumns().addAll(scoreGameB, villagersGameB, totorosGameB, tigersGameB, statusGameB);
 
-        tableView.getColumns().addAll(teamColumn, tourneyScore, challengeScore, gameA, gameB);
+        tableView.getColumns().addAll(teamColumn, tourneyScore, challengeScore, opponentName, gameA, gameB);
     }
 
     private void setupTourneyInfoRow(HBox hbox) {

@@ -25,14 +25,14 @@ public class TournamentScoreboard {
     public static final int COULDNTBUILDANDPLAYEDNOSPECIALS = -200;
     public static final int YOUFORFEITED = -500;
 
-    public static Challenge tourneyRepresentation;
+    public Challenge tourneyRepresentation;
     public static Map<PlayerID, Integer> tournamentPlayerScores;
     public static ArrayList<TournamentScoreboardData> playersInformation;
 
 
-    public TournamentScoreboard(){
+    public TournamentScoreboard(Challenge challenge){
         tournamentPlayerScores = new HashMap<>();
-
+        tourneyRepresentation = challenge;
     }
 
     public int getPlayerScore(PlayerID pID){
