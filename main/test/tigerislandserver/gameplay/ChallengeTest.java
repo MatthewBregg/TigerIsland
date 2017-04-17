@@ -4,15 +4,13 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
-import tigerisland.tile.Tile;
+import tigerislandserver.JavaFXScoreboardPOC.RoundInfo;
 import tigerislandserver.server.TournamentPlayer;
 
 import java.net.Socket;
 import java.util.ArrayList;
 
-import static org.junit.Assert.*;
-
-@Ignore
+@Ignore("Challenge test ignored-- incomplete anyway")
 public class ChallengeTest {
     public static ArrayList<TournamentPlayer> players;
     Challenge tourneyChallenge;
@@ -27,7 +25,8 @@ public class ChallengeTest {
 
     @Before
     public void testSetup() throws Exception {
-        tourneyChallenge = new Challenge(players, 0);
+
+        tourneyChallenge = new Challenge(players, 0, new RoundInfo());
     }
 
     @Test

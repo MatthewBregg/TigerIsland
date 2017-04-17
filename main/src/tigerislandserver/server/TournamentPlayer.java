@@ -204,6 +204,8 @@ public class TournamentPlayer implements Runnable
 
         if (!inputFromClientReady(gid)) {
             OutputAdapter.sendTimeoutMessage(game.getPlayersInGame(), this, new String[]{"GAME", "" + gid, "MOVE", "" + moveNumber});
+            if (moveNumber == 0 || moveNumber==1)
+                playerScores.addToChallengeScore(-2000);
             game.timeoutOrInvalidMoveSent(this);
             return;
         }
