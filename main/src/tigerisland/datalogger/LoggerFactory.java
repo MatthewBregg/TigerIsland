@@ -16,9 +16,9 @@ public class LoggerFactory {
     synchronized public static DataLogger getLogger(char gameid, int challengeid,
                                                     int matchid, Map<Integer, String> playersIdToUserName) {
 
-            DataLogger consoleLogger = new ConsoleLogger(challengeid,gameid,matchid, playersIdToUserName);
+//            DataLogger consoleLogger = new ConsoleLogger(challengeid,gameid,matchid, playersIdToUserName);
             SQLiteLogger sqlLogger = LoggerFactory.getSQLLogger(gameid, challengeid, matchid, playersIdToUserName);
-            return new CompositeLogger(sqlLogger,consoleLogger);
+            return new CompositeLogger(sqlLogger);
     }
 
     synchronized public static SQLiteLogger getSQLLogger(char gameid, int challengeid,

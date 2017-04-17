@@ -1,28 +1,31 @@
 package tigerislandserver.JavaFXScoreboardPOC;
 
 import javafx.application.Application;
-import javafx.collections.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.scene.*;
+import javafx.scene.Group;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.*;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.Scanner;
 
 public class ScoreTable extends Application implements Runnable {
     private TableView scoreTable = new TableView();
+    private TableView roundTable = new TableView();
 
     private ObservableList<TournamentScore> scores = FXCollections.observableArrayList(
             new TournamentScore("TEAM_A_TEST"), new TournamentScore("TEAM_B_TEST"));
+
+    private ObservableList<TournamentScore> roundInfo = FXCollections.observableArrayList(new TournamentScore())
     private TourneySvrMgr tourneyMgr = new TourneySvrMgr(scores);
     private Thread tournament;
 
@@ -33,6 +36,14 @@ public class ScoreTable extends Application implements Runnable {
     public void run() {
         launch();
     }
+
+    private void initTableProperties(TableView tableView){
+        tableView.setEditable(true);
+        tableView.setScaleShape(true);
+        tableView.setMinWidth(1500);
+    }
+
+
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -45,15 +56,11 @@ public class ScoreTable extends Application implements Runnable {
         final Label label = new Label("Tournament Scores");
         label.setFont(new Font("Arial", 20));
 
-        scoreTable.setEditable(true);
-        scoreTable.setScaleShape(true);
-        scoreTable.setMinWidth(1500);
-        Callback<TableColumn, TableCell> cellFactory = new Callback<TableColumn, TableCell>() {
-            @Override
-            public TableCell call(TableColumn param) {
-                return new TableCell();
-            }
-        };
+
+        initTableProperties(roundTable);
+        initTableProperties(scoreTable);
+
+
 
         scoreTable.setItems(scores);
         setupTable(scoreTable);
