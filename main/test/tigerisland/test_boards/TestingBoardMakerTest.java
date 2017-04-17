@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-@Ignore
+@Ignore("Debug board test. Not reallly necesasary")
 public class TestingBoardMakerTest {
 
     private TestingBoardMaker debug = new TestingBoardMaker("/main/resources/DebugBoard.txt", new ArrayList<Player>());

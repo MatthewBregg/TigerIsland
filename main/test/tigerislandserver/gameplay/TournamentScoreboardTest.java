@@ -17,7 +17,7 @@ import java.util.Map;
 /**
  * Created by christinemoore on 4/9/17.
  */
-@Ignore("Can't properly ")
+@Ignore("Tournamend ScoreBoard test ignored: Can't properly add tourney stuff without connection")
 public class TournamentScoreboardTest {
     public static ArrayList<TournamentPlayer> tourneyPlayers;
     public static Challenge tourneyRepresentation;
