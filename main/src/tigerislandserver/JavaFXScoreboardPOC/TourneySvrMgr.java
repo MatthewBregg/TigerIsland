@@ -1,12 +1,10 @@
 package tigerislandserver.JavaFXScoreboardPOC;
 
 import javafx.collections.ObservableList;
-import tigerisland.datalogger.LoggerFactory;
 import tigerislandserver.TournamentVariables;
 import tigerislandserver.server.TournamentPlayer;
 import tigerislandserver.server.TournamentServer;
 
-import java.sql.Connection;
 import java.util.ArrayList;
 
 public class TourneySvrMgr implements Runnable {
@@ -19,13 +17,15 @@ public class TourneySvrMgr implements Runnable {
     private int tourneyPort;
     private int tourneySeed;
     private ObservableList<TournamentScore> scores;
+    private ObservableList<RoundInfo> roundInfo;
 
-    public TourneySvrMgr(ObservableList<TournamentScore> scoreTable){
+    public TourneySvrMgr(ObservableList<TournamentScore> scoreTable, ObservableList<RoundInfo> roundInfos ){
+        roundInfo = roundInfos;
         scores = scoreTable;
         tourneyVar = TournamentVariables.getInstance();
         nbrOfChallenges = 3;
         tourneyPassword = "heygang";
-        accessFilePath = "passwords.txt";
+        accessFilePath = "pass.txt";
         accessTime = 30;
         tourneyPort = 6969;
         tourneySeed = 123456987;
@@ -86,7 +86,9 @@ public class TourneySvrMgr implements Runnable {
         tourneySvr.acceptConnections(accessTime);
         if(tourneySvr.getPlayerCount() > 1) {
             collectTournamentScoreObjects(tourneySvr.getTourneyPlayers());
+            roundInfo.add(tourneySvr.getTrackRoundInfo());
             tourneySvr.startTournament(nbrOfChallenges);
+
         } else {
             System.out.println("Not enough players!");
         }
@@ -98,4 +100,5 @@ public class TourneySvrMgr implements Runnable {
             scores.add(playerScoreTracker);
         }
     }
+
 }

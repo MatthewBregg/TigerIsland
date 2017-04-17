@@ -25,8 +25,8 @@ public class ScoreTable extends Application implements Runnable {
     private ObservableList<TournamentScore> scores = FXCollections.observableArrayList(
             new TournamentScore("TEAM_A_TEST"), new TournamentScore("TEAM_B_TEST"));
 
-    private ObservableList<TournamentScore> roundInfo = FXCollections.observableArrayList(new TournamentScore())
-    private TourneySvrMgr tourneyMgr = new TourneySvrMgr(scores);
+    private ObservableList<RoundInfo> roundInfo = FXCollections.observableArrayList();
+    private TourneySvrMgr tourneyMgr = new TourneySvrMgr(scores, roundInfo);
     private Thread tournament;
 
     final HBox hbox1 = new HBox();
@@ -59,22 +59,46 @@ public class ScoreTable extends Application implements Runnable {
 
         initTableProperties(roundTable);
         initTableProperties(scoreTable);
+        roundTable.setMaxHeight(100);
 
 
 
         scoreTable.setItems(scores);
+        roundTable.setItems(roundInfo);
+
+
         setupTable(scoreTable);
+        setupRoundTable(roundTable);
+
         setupTourneyInfoRow(hbox1);
 
         final VBox vbox = new VBox();
         vbox.setSpacing(5);
         vbox.setPadding(new Insets(10, 0, 0, 10));
-        vbox.getChildren().addAll(label, scoreTable, hbox1);
+        vbox.getChildren().addAll(label,roundTable, scoreTable, hbox1);
 
         ((Group) scene.getRoot()).getChildren().addAll(vbox);
 
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
+
+    private void setupRoundTable(TableView tableView){
+        TableColumn currentRoundCol = new TableColumn("Current Round");
+        currentRoundCol.setCellValueFactory(new PropertyValueFactory<RoundInfo, String>("currentRound"));
+
+        TableColumn endRoundCol = new TableColumn("End Round");
+        endRoundCol.setCellValueFactory(new PropertyValueFactory<RoundInfo, String>("endRound"));
+
+        TableColumn currentChallenge = new TableColumn("Current Challenge");
+        currentChallenge.setCellValueFactory(new PropertyValueFactory<RoundInfo, String>("currentChallenge"));
+
+        TableColumn endChallenge = new TableColumn("End Challenge");
+        endChallenge.setCellValueFactory(new PropertyValueFactory<RoundInfo, String>("endChallenge"));
+
+
+        tableView.getColumns().addAll(currentRoundCol,endRoundCol,currentChallenge,endChallenge);
+
     }
 
     private void setupTable(TableView tableView) {

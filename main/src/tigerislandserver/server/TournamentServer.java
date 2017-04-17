@@ -1,17 +1,24 @@
 package tigerislandserver.server;
 
-import tigerisland.datalogger.*;
-import tigerisland.player.Player;
+import tigerisland.datalogger.CompositeLogger;
+import tigerisland.datalogger.ConsoleLogger;
+import tigerisland.datalogger.LoggerFactory;
+import tigerisland.datalogger.SQLiteLogger;
 import tigerisland.player.PlayerID;
+import tigerislandserver.JavaFXScoreboardPOC.RoundInfo;
 import tigerislandserver.JavaFXScoreboardPOC.TournamentScore;
 import tigerislandserver.adapter.OutputAdapter;
 import tigerislandserver.gameplay.Challenge;
 import tigerislandserver.gameplay.TournamentScoreManager;
 import tigerislandserver.gameplay.TournamentScoreboard;
 
-import java.io.*;
-import java.net.*;
-import java.util.*;
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.net.SocketException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class TournamentServer {
@@ -22,10 +29,16 @@ public class TournamentServer {
     Map<Integer, String> playersIdToUserName;
 
 
+    public RoundInfo getTrackRoundInfo() {
+        return trackRoundInfo;
+    }
+
+    private RoundInfo trackRoundInfo;
+
     public TournamentServer(int port) {
         currentlyAcceptingConnections = false;
         tournamentScoreManager = new TournamentScoreManager(clientConnections);
-
+        trackRoundInfo = new RoundInfo();
         try {
             serverSocket = new ServerSocket(port);
         } catch (IOException e) {
@@ -94,14 +107,17 @@ public class TournamentServer {
         tournamentScoreManager.initializeOverallTournamentScores();
 
         registerPlayerIdsToUerNames();
-
+        trackRoundInfo.setEndChallenge(numberOfChallenges-1);
         for(int i=0; i < numberOfChallenges; i++)
         {
             if(i != 0){
                 OutputAdapter.sendWaitForChallengeMessage(clientConnections);
             }
 
-            Challenge challenge = new Challenge(clientConnections, i);
+
+
+            Challenge challenge = new Challenge(clientConnections, i, trackRoundInfo);
+
             OutputAdapter.sendNewChallengeMessage(clientConnections, i, challenge.getTotalChallengeRounds());
             challenge.play();
 

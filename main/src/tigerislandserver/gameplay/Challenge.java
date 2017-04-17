@@ -3,6 +3,7 @@ package tigerislandserver.gameplay;
 import tigerisland.player.PlayerID;
 import tigerisland.tile.Tile;
 import tigerisland.tile.TileDeck;
+import tigerislandserver.JavaFXScoreboardPOC.RoundInfo;
 import tigerislandserver.JavaFXScoreboardPOC.TournamentScore;
 import tigerislandserver.TournamentVariables;
 import tigerislandserver.adapter.OutputAdapter;
@@ -17,19 +18,24 @@ public class Challenge {
     private ArrayList<TournamentPlayer> playerList;
     private long challengeID;
     private TournamentScoreboard scoreboard;
+    private RoundInfo roundInfo;
     private ArrayList<Match> currentRoundMatches;
     private int roundNumber;
     private long currentSeed;
     private static int challengeNumber = 0;
 
 
-    public Challenge(ArrayList<TournamentPlayer> participants, int cid){
+    public Challenge(ArrayList<TournamentPlayer> participants, int cid, RoundInfo roundTracker){
+
         playerList = participants;
         challengeID = ChallengeID.getID();
         scoreboard = new TournamentScoreboard(this);
         schedule = new Scheduler(playerList.size());
         currentRoundMatches = new ArrayList<>();
         roundNumber = 0;
+        roundInfo = roundTracker;
+        roundInfo.setEndRound(schedule.getTotalRounds());
+        roundInfo.setCurrentChallenge(cid);
         this.cid=cid;
     }
 
@@ -51,6 +57,10 @@ public class Challenge {
 
         ++roundNumber;
         setupRound();
+        roundInfo.setCurrentRound(roundNumber);
+//        RoundInfo.setEndRound(getTotalChallengeRounds());
+
+
 
         OutputAdapter.sendStartRoundMessage(playerList, roundNumber, getTotalChallengeRounds());
 
@@ -76,6 +86,7 @@ public class Challenge {
 
     public void play()
     {
+        roundInfo.setEndRound(schedule.getTotalRounds());
         while(getRoundsRemaining()>0)
         {
             playNextRound();
@@ -193,6 +204,7 @@ public class Challenge {
     public int getTotalChallengeRounds(){
         return schedule.getTotalRounds();
     }
+    public RoundInfo getRoundInfo() {return roundInfo;}
 
     public Scheduler getSchedule(){
         return schedule;

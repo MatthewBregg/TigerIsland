@@ -60,6 +60,9 @@ public class TournamentScore {
         return opponentName;
     }
 
+    public void setOpponentName(String opponentName) {
+        this.opponentName.set(opponentName);
+    }
 
     public String getStatusGameA() {
         return statusGameA.get();
