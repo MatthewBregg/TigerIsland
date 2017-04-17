@@ -152,7 +152,9 @@ public class TournamentServer {
     }
 
     public int getPlayerCount() {
-        return clientConnections.size();
+        synchronized (clientConnections){
+            return clientConnections.size();
+        }
     }
 
     class ConnectionAcceptor implements Runnable {
@@ -183,6 +185,7 @@ public class TournamentServer {
                     System.exit(-1);
                 }
             }
+            System.out.println("Before checking auth: " + clientConnections.size() + " players");
 
             currentlyAcceptingConnections = false;
 
@@ -193,6 +196,9 @@ public class TournamentServer {
                     }
                 }
             }
+
+            System.out.println("After checking auth: " + clientConnections.size() + " players");
+
         }
 
     }

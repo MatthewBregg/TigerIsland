@@ -32,6 +32,7 @@ public class TextFileReader
                 usernameAndPasswords = new HashMap<String, String>();
 
                 Path filePath = FileSystems.getDefault().getPath(usernameAndPasswordFileName);
+                System.out.println(filePath.toString());
                 try
                 {
                     Scanner scan = new Scanner(filePath);

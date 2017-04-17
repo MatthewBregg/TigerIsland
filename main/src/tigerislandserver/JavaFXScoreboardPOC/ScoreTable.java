@@ -158,8 +158,8 @@ public class ScoreTable extends Application implements Runnable {
         startButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
+                tournament = new Thread(tourneyMgr);
                 if(!tournament.isAlive()) {
-                    tournament = new Thread(tourneyMgr);
                     tournament.start();
                 }
             }

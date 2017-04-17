@@ -11,7 +11,7 @@ public class TournamentVariables
     private TournamentVariables()
     {
         password="password";
-        fileName="passwords.txt";
+        fileName="pass.txt";
     }
 
     public static TournamentVariables getInstance()
