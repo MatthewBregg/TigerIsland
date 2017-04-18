@@ -38,7 +38,7 @@ public class TournamentServer {
     public TournamentServer(int port) {
         currentlyAcceptingConnections = false;
         tournamentScoreManager = new TournamentScoreManager(clientConnections);
-        trackRoundInfo = new RoundInfo();
+        trackRoundInfo = RoundInfo.getInstance();
         try {
             serverSocket = new ServerSocket(port);
         } catch (IOException e) {

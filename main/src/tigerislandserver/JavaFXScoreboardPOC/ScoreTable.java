@@ -1,13 +1,17 @@
 package tigerislandserver.JavaFXScoreboardPOC;
 
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.beans.InvalidationListener;
 import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableStringValue;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -17,7 +21,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-import javax.swing.*;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
@@ -32,7 +35,9 @@ public class ScoreTable extends Application implements Runnable {
     private TourneySvrMgr tourneyMgr = new TourneySvrMgr(scores, roundInfo);
     private Thread tournament;
 
-    final HBox hbox1 = new HBox();
+    final HBox controlBox = new HBox();
+    final HBox roundBox = new HBox();
+    final HBox challengeBox = new HBox();
 
     @Override
     public void run() {
@@ -45,8 +50,6 @@ public class ScoreTable extends Application implements Runnable {
         tableView.setMinWidth(1500);
     }
 
-
-
     @Override
     public void start(Stage primaryStage) throws Exception {
         Scene scene = new Scene(new Group());
@@ -55,34 +58,53 @@ public class ScoreTable extends Application implements Runnable {
         primaryStage.setHeight(500);
         primaryStage.setResizable(true);
 
-        final Label label = new Label("Tournament Scores");
-        label.setFont(new Font("Arial", 20));
+        final Label scoresHeader = new Label("Tournament Scores");
+        scoresHeader.setFont(new Font("Arial", 20));
 
+        final Label roundsDisplay = setupRoundLabel();
+        roundsDisplay.setFont(new Font("Courier New", 15));
+        roundBox.getChildren().add(roundsDisplay);
+        roundBox.setAlignment(Pos.CENTER);
+
+        final Label challengeDisplay = setupChallengeLabel();
+        challengeDisplay.setFont(new Font("Courier New", 15));
+        challengeBox.getChildren().add(challengeDisplay);
+        challengeBox.setAlignment(Pos.CENTER);
 
         initTableProperties(roundTable);
         initTableProperties(scoreTable);
         roundTable.setMaxHeight(100);
 
-
-
         scoreTable.setItems(scores);
         roundTable.setItems(roundInfo);
-
 
         setupTable(scoreTable);
         setupRoundTable(roundTable);
 
-        setupTourneyInfoRow(hbox1);
+        setupTourneyInfoRow(controlBox);
 
         final VBox vbox = new VBox();
         vbox.setSpacing(5);
         vbox.setPadding(new Insets(10, 0, 0, 10));
-        vbox.getChildren().addAll(label,roundTable, scoreTable, hbox1);
+        vbox.getChildren().addAll(scoresHeader,challengeBox, roundBox, scoreTable, controlBox);
 
         ((Group) scene.getRoot()).getChildren().addAll(vbox);
 
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
+
+
+    private Label setupRoundLabel(){
+        Label label = new Label();
+        label.textProperty().bindBidirectional(RoundInfo.getInstance().roundStatementProperty());
+        return label;
+    }
+
+    private Label setupChallengeLabel(){
+        Label label = new Label();
+        label.textProperty().bindBidirectional(RoundInfo.getInstance().challengeStatementProperty());
+        return label;
     }
 
     private void setupRoundTable(TableView tableView){
