@@ -1,6 +1,8 @@
 package tigerislandserver.JavaFXScoreboardPOC;
 
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -15,6 +17,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+import javax.swing.*;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
@@ -30,7 +33,6 @@ public class ScoreTable extends Application implements Runnable {
     private Thread tournament;
 
     final HBox hbox1 = new HBox();
-    final HBox hbox2 = new HBox();
 
     @Override
     public void run() {
@@ -156,9 +158,10 @@ public class ScoreTable extends Application implements Runnable {
     }
 
     private void setupTourneyInfoRow(HBox hbox) {
+
         final TextField ipAddr = new TextField();
         ipAddr.setEditable(false);
-        ipAddr.setPromptText("IP Addr:");
+        ipAddr.setPromptText("IP Addr");
         String actualIP = null;
         try {
             actualIP = InetAddress.getLocalHost().getHostAddress();
@@ -167,40 +170,151 @@ public class ScoreTable extends Application implements Runnable {
         }
         ipAddr.setText(actualIP);
 
+        final Label ipLabel = new Label("IP:");
+        ipLabel.setFont(new Font("Arial", 10));
+
+        HBox ipBox = new HBox(3,ipLabel, ipAddr);
+
         final TextField portNbr = new TextField();
         portNbr.setEditable(true);
-        portNbr.setPromptText("Port:");
-        portNbr.setText("" + tourneyMgr.getTourneyPort());
-        // will need to convert back to int for passing to tourny mgr
-
-        final TextField password = new TextField();
-        password.setEditable(true);
-        password.setPromptText("Password:");
-        String actualPass = tourneyMgr.getTourneyPassword();
-        password.setText(actualPass);
-
-        final TextField accessTime = new TextField();
-        accessTime.setEditable(true);
-        accessTime.setPromptText("Access Time:");
-        accessTime.setText("" + tourneyMgr.getAccessTime());
-
-        final TextField tourneySeed = new TextField();
-        tourneySeed.setEditable(true);
-        tourneySeed.setPromptText("Seed Value:");
-        tourneySeed.setText("" + tourneyMgr.getTourneySeed());
-
-        final Button startButton = new Button("Start Tournament");
-        startButton.setOnAction(new EventHandler<ActionEvent>() {
+        portNbr.setPrefColumnCount(4);
+        portNbr.textProperty().addListener(new ChangeListener<String>() {
             @Override
-            public void handle(ActionEvent e) {
-                tournament = new Thread(tourneyMgr);
-                if(!tournament.isAlive()) {
-                    tournament.start();
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    portNbr.setText(newValue.replaceAll("[^\\d]", ""));
                 }
             }
         });
+        portNbr.setPromptText("Port");
+        portNbr.setText("" + tourneyMgr.getTourneyPort());
 
-        hbox.getChildren().addAll(ipAddr, portNbr, password, accessTime, tourneySeed, startButton);
+        final Label portLabel = new Label("Port:");
+        portLabel.setFont(new Font("Arial", 10));
+
+        HBox portBox = new HBox(3,portLabel, portNbr);
+
+        final TextField password = new TextField();
+        password.setEditable(true);
+        password.setPromptText("Password");
+        String actualPass = tourneyMgr.getTourneyPassword();
+        password.setText(actualPass);
+
+        final Label passLabel = new Label("Password:");
+        passLabel.setFont(new Font("Arial", 10));
+
+        HBox passBox = new HBox(3,passLabel, password);
+
+        final TextField accessTime = new TextField();
+        accessTime.setEditable(true);
+        accessTime.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    accessTime.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
+        accessTime.setPromptText("Access Time");
+        accessTime.setText("" + tourneyMgr.getAccessTime());
+
+        final Label accessLabel = new Label("Time to Login:");
+        accessLabel.setFont(new Font("Arial", 10));
+
+        HBox accessBox = new HBox(3, accessLabel, accessTime);
+
+        final TextField userPass = new TextField();
+        userPass.setEditable(true);
+        userPass.setPromptText("File Path");
+        userPass.setText("" + tourneyMgr.getAccessFilePath());
+
+        final Label userPassLabel = new Label("User & Pass File:");
+        userPassLabel.setFont(new Font("Arial", 10));
+
+        HBox userPassBox = new HBox(3, userPassLabel, userPass);
+
+        final TextField nbrChallenges = new TextField();
+        nbrChallenges.setEditable(true);
+        nbrChallenges.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    nbrChallenges.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
+        nbrChallenges.setPromptText("# Challenges");
+        nbrChallenges.setText("" + tourneyMgr.getNbrOfChallenges());
+
+        final Label chalCountLabel = new Label("Number of Challenges:");
+        chalCountLabel.setFont(new Font("Arial", 10));
+
+        HBox chalNbrBox = new HBox(3, chalCountLabel, nbrChallenges);
+
+        final TextField tourneySeed = new TextField();
+        tourneySeed.setEditable(true);
+        tourneySeed.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    tourneySeed.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
+        tourneySeed.setPromptText("Seed Value");
+        tourneySeed.setText("" + tourneyMgr.getTourneySeed());
+
+        final Label seedLabel = new Label("Challenge Seed:");
+        seedLabel.setFont(new Font("Arial", 10));
+
+        HBox seedBox = new HBox(3, seedLabel, tourneySeed);
+
+        EventHandler<ActionEvent> setup = new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                tourneyMgr.setTourneyPort(Integer.parseInt(portNbr.getText()));
+                tourneyMgr.setTourneyPassword(password.getText());
+                tourneyMgr.setAccessTime(Integer.parseInt(accessTime.getText()));
+                tourneyMgr.setTourneySeed(Integer.parseInt(tourneySeed.getText()));
+                tourneyMgr.setNbrOfChallenges(Integer.parseInt(nbrChallenges.getText()));
+                tourneyMgr.setAccessFilePath(userPass.getText());
+            }
+        };
+
+        EventHandler<ActionEvent> runTourny = new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if(tournament == null){
+                    tournament = new Thread(tourneyMgr);
+                } else if(tournament.getState() == Thread.State.TERMINATED) {
+                    tourneyMgr = new TourneySvrMgr(scores, roundInfo);
+                    tournament = new Thread(tourneyMgr);
+                }
+                if(tournament.getState() == Thread.State.NEW){
+                    setup.handle(event);
+                    tournament.start();
+                }
+            }
+        };
+
+        final Button tourneySetupButton = new Button("Set Values");
+        tourneySetupButton.setOnAction(setup);
+
+        final Button startButton = new Button("Start Tournament");
+        startButton.setOnAction(runTourny);
+
+        HBox serverSettings = new HBox(ipBox, portBox, passBox, accessBox);
+        serverSettings.setSpacing(10);
+        HBox tourneySettings = new HBox(userPassBox, chalNbrBox, seedBox);
+        tourneySettings.setSpacing(10);
+
+        VBox vbox = new VBox();
+        vbox.setSpacing(10);
+        vbox.setPadding(new Insets(10, 0, 0, 10));
+        vbox.getChildren().addAll(serverSettings, tourneySettings, startButton);
+
+
+        hbox.getChildren().addAll(vbox);
         hbox.setSpacing(3);
 
     }

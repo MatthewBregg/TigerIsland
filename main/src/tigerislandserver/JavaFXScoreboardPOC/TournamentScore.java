@@ -274,12 +274,18 @@ public class TournamentScore {
         int challengeScore = getChallengeScore();
         challengeScore += points;
         setChallengeScore(challengeScore);
+        addToTourneyScore(points);
     }
 
-    public void addChallengeScoreToTournament(){
+    private void addToTourneyScore(int points) {
+        int tourneyScore = getTourneyScore();
+        tourneyScore += points;
+        setTourneyScore(tourneyScore);
+    }
+
+    private void addChallengeScoreToTournament(){
         int challengeScore = getChallengeScore();
         int tournamentScore = getTourneyScore();
-        resetChallengeScore();
         setTourneyScore(challengeScore + tournamentScore);
     }
 }

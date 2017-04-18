@@ -10,49 +10,46 @@ import java.util.ArrayList;
 public class TourneySvrMgr implements Runnable {
     private TournamentVariables tourneyVar;
     private TournamentServer tourneySvr;
-    private int nbrOfChallenges;
-    private String tourneyPassword;
-    private String accessFilePath;
     private int accessTime;
     private int tourneyPort;
-    private int tourneySeed;
     private ObservableList<TournamentScore> scores;
     private ObservableList<RoundInfo> roundInfo;
 
     public TourneySvrMgr(ObservableList<TournamentScore> scoreTable, ObservableList<RoundInfo> roundInfos ){
+        tourneyVar = TournamentVariables.getInstance();
         roundInfo = roundInfos;
         scores = scoreTable;
         tourneyVar = TournamentVariables.getInstance();
-        nbrOfChallenges = 3;
-        tourneyPassword = "heygang";
-        accessFilePath = "pass.txt";
+        tourneyVar.setNumberOfChallenges(3);
+        tourneyVar.setTournamentPassword("heygang");
+        tourneyVar.setUsernamePasswordFile("pass.txt");
         accessTime = 30;
         tourneyPort = 6969;
-        tourneySeed = 123456987;
+        tourneyVar.setRandomSeed(123456987);
     }
 
     public int getNbrOfChallenges() {
-        return nbrOfChallenges;
+        return tourneyVar.getNumberOfChallenges();
     }
 
     public void setNbrOfChallenges(int nbrOfChallenges) {
-        this.nbrOfChallenges = nbrOfChallenges;
+       tourneyVar.setNumberOfChallenges(nbrOfChallenges);
     }
 
     public String getTourneyPassword() {
-        return tourneyPassword;
+        return tourneyVar.getTournamentPassword();
     }
 
     public void setTourneyPassword(String tourneyPassword) {
-        this.tourneyPassword = tourneyPassword;
+        tourneyVar.setTournamentPassword(tourneyPassword);
     }
 
     public String getAccessFilePath() {
-        return accessFilePath;
+        return tourneyVar.getUsernamePasswordFile();
     }
 
     public void setAccessFilePath(String accessFilePath) {
-        this.accessFilePath = accessFilePath;
+        tourneyVar.setUsernamePasswordFile(accessFilePath);
     }
 
     public int getAccessTime() {
@@ -72,11 +69,11 @@ public class TourneySvrMgr implements Runnable {
     }
 
     public int getTourneySeed() {
-        return tourneySeed;
+        return tourneyVar.getRandomSeed();
     }
 
     public void setTourneySeed(int tourneySeed) {
-        this.tourneySeed = tourneySeed;
+        tourneyVar.setRandomSeed(tourneySeed);
     }
 
     @Override
@@ -87,7 +84,7 @@ public class TourneySvrMgr implements Runnable {
         if(tourneySvr.getPlayerCount() > 1) {
             collectTournamentScoreObjects(tourneySvr.getTourneyPlayers());
             roundInfo.add(tourneySvr.getTrackRoundInfo());
-            tourneySvr.startTournament(nbrOfChallenges);
+            tourneySvr.startTournament(getNbrOfChallenges());
 
         } else {
             System.out.println("Not enough players!");

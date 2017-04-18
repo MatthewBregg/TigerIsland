@@ -141,6 +141,7 @@ public class TournamentServer {
         }
     }
 
+/*
     private void updatePlayerTournamentScores(){
         for(TournamentPlayer player : clientConnections){
             TournamentScore playerScore = player.getTournamentScore();
@@ -148,6 +149,7 @@ public class TournamentServer {
         }
     }
 
+*/
     private void storeTournamentScores() {
 
         SQLiteLogger sqLiteLogger = LoggerFactory.getSQLLogger('0',0,0, playersIdToUserName);

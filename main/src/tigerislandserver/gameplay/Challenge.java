@@ -110,7 +110,7 @@ public class Challenge {
                 OutputAdapter.sendEndRoundMessage(playerList, roundNumber, getTotalChallengeRounds());
             }
         }
-        updatePlayerTournamentScoreObject();
+        resetChallengeScore();
     }
 
     private void setupRound(){
@@ -172,10 +172,10 @@ public class Challenge {
         return playerMatchups;
     }
 
-    private void updatePlayerTournamentScoreObject(){
+    private void resetChallengeScore(){
         for(TournamentPlayer player : playerList){
             TournamentScore playerScore = player.getTournamentScore();
-            playerScore.addChallengeScoreToTournament();
+            playerScore.resetChallengeScore();
             playerScore.resetOpponent();
             playerScore.resetGameA();
             playerScore.resetGameB();
