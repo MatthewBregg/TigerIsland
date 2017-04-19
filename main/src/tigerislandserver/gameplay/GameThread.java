@@ -4,11 +4,10 @@ import tigerisland.datalogger.DataLogger;
 import tigerisland.datalogger.LoggerFactory;
 import tigerisland.datalogger.SQLiteLogger;
 import tigerisland.game.GameManager;
-import tigerisland.player.PlayerID;
 import tigerisland.player.Player;
-import tigerisland.tile.*;
-import tigerisland.score.*;
-import tigerislandserver.JavaFXScoreboardPOC.TournamentScore;
+import tigerisland.player.PlayerID;
+import tigerisland.score.ScoreManager;
+import tigerisland.tile.Tile;
 import tigerislandserver.adapter.OutputAdapter;
 import tigerislandserver.server.TournamentPlayer;
 
@@ -240,6 +239,8 @@ public class GameThread extends Thread{
 
         PlayerID winner = gameManager.getScoreManager().getLeader();
         PlayerID loser;
+        int p1_score = gameManager.getScoreManager().getPlayerScore(player1ID);
+        int p2_score = gameManager.getScoreManager().getPlayerScore(player2ID);
         if(player1ID == winner){
             loser = player2ID;
             setWinnerStatus(playersInGame.get(0), playersInGame.get(1));
@@ -252,6 +253,7 @@ public class GameThread extends Thread{
             setWinnerStatus(playersInGame.get(0), playersInGame.get(1));
         }
         logger.writeGameEnded(playersInGame.get(0).getID(), playersInGame.get(1).getID(), endGameMessage);
+        logger.writeToChallenges(player1ID, player2ID, p1_score, p2_score);
     }
 
     private void setPieces(TournamentPlayer tournamentPlayer, Player player) {

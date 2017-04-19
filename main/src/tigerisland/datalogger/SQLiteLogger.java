@@ -4,9 +4,10 @@ import tigerisland.board.Location;
 import tigerisland.player.PlayerID;
 import tigerisland.tile.Orientation;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.Map;
-import java.util.StringJoiner;
 
 public class SQLiteLogger implements DataLogger {
 
@@ -63,6 +64,33 @@ public class SQLiteLogger implements DataLogger {
     private int pidToInt(PlayerID pid) {
         return pid.getId();
     }
+
+    public void writeToChallenges(PlayerID p1, PlayerID p2, int p1_score, int p2_score) {
+        String query = "INSERT OR REPLACE INTO challenge_scores(challenge_id, game_id, match_id, p1_id, p2_id, p1_score, p2_score) VALUES(?,?,?,?,?,?)";
+        try {
+            PreparedStatement prstmnt = connection.prepareStatement(query);
+            prstmnt.setInt(1, challengeId);
+            prstmnt.setString(2,String.valueOf(gameId));
+            prstmnt.setInt(3,matchId);
+
+            String player1UserName = getUserName(p1);
+            String player2UserName = getUserName(p2);
+            prstmnt.setString(4, player1UserName);
+            prstmnt.setString(5, player2UserName);
+
+            prstmnt.setInt(6,p1_score);
+            prstmnt.setInt(7, p2_score);
+            synchronized (connection ) {
+                prstmnt.executeUpdate();
+            }
+        } catch (SQLException sqlException) {
+            System.err.println("Happening at writeToChallenges");
+            System.err.println(sqlException);
+            hasError = true;
+        }
+    }
+
+
 
     private void writeToMatches(PlayerID p1, PlayerID p2, String status) {
         String query = "INSERT OR REPLACE INTO matches(challenge_id, game_id, match_id, p1_id, p2_id, status) VALUES(?,?,?,?,?,?)";

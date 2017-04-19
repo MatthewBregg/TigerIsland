@@ -4,7 +4,6 @@ import tigerisland.board.Location;
 import tigerisland.player.PlayerID;
 import tigerisland.tile.Orientation;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -17,6 +16,11 @@ public class CompositeLogger implements DataLogger {
     public void writePlacedTotoroMove(PlayerID pid, Location loc) {
         for ( DataLogger logger : dataLoggerList ) {
             logger.writePlacedTotoroMove(pid,loc);
+        }
+    }
+    public void writeToChallenges(PlayerID p1, PlayerID p2, int p1score, int p2score) {
+        for ( DataLogger logger : dataLoggerList ) {
+            logger.writeToChallenges(p1,p2,p1score,p2score);
         }
     }
 

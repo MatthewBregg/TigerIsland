@@ -11,6 +11,10 @@ public class TestLogger implements DataLogger {
     public void writeRawRequest(long timeStamp, String message) {
 
     }
+    public void writeToChallenges(PlayerID p1, PlayerID p2, int p1score, int p2score) {
+//        System.out.println("");
+
+    }
 
     @Override
     public void writeToTournamentScore(PlayerID pid, int score) {

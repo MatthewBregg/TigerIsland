@@ -24,6 +24,11 @@ public class ConsoleLogger implements DataLogger {
     private String getMessageHeader() {
         return ("Logger: Game Id: " + gameId + " Challenge Id: " + challengeId + " Match ID : " + matchId + " Turn Number " + turnNumber + " ::");
     }
+    @Override
+    synchronized public void writeToChallenges(PlayerID p1, PlayerID p2, int p1score, int p2score) {
+//        System.out.println("");
+
+    }
 
 
     @Override

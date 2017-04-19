@@ -30,7 +30,7 @@ public class TourneySvrMgr implements Runnable {
 
         tourneyVar.setNumberOfChallenges(3);
         tourneyVar.setTournamentPassword("heygang");
-        tourneyVar.setUsernamePasswordFile("pass.txt");
+        tourneyVar.setUsernamePasswordFile("/Users/josh/Documents/gitRepos/tigerIslandUnbroken/TigerIsland");
         accessTime = 30;
         tourneyPort = 6969;
         tourneyVar.setRandomSeed(123456987);

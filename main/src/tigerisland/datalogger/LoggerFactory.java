@@ -44,6 +44,7 @@ public class LoggerFactory {
             openDatabaseConnection();
         }
         final String[] queries = new String[]{
+                "CREATE TABLE IF NOT EXISTS challenge_scores (challenge_id integer not null, game_id char not null, match_id integer not null, p1_id string not null, p2_id string not null, p1_score integer not null, p2_score integer not null  primary key(challenge_id, game_id, match_id) );",
                 "CREATE TABLE IF NOT EXISTS matches (challenge_id integer not null, game_id char not null, match_id integer not null, p1_id string not null, p2_id string not null, status string, primary key(challenge_id, game_id, match_id) );",
                 "CREATE TABLE IF NOT EXISTS tiles_placed (challenge_id integer not null, game_id char not null, match_id integer not null, turn_number integer not null, p_id string not null, loc_x integer not null, loc_y integer not null, loc_z integer not null, orientation integer not null, tile text not null, primary key(challenge_id, game_id, match_id, turn_number) );",
                 "CREATE TABLE IF NOT EXISTS build_action (challenge_id integer not null, game_id char not null, match_id integer not null, turn_number integer not null, p_id string not null, loc_x integer not null, loc_y integer not null, loc_z integer not null, move_description text not null, primary key(challenge_id, game_id, match_id, turn_number) );",
@@ -72,6 +73,7 @@ public class LoggerFactory {
             openDatabaseConnection();
         }
         final String[] queries = new String[]{
+                "DELETE FROM challenge_scores;",
                 "DELETE FROM matches;",
                 "DELETE FROM tiles_placed;",
                 "DELETE FROM build_action;",

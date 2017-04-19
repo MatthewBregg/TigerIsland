@@ -4,9 +4,8 @@ import tigerisland.board.Location;
 import tigerisland.player.PlayerID;
 import tigerisland.tile.Orientation;
 
-import java.util.Set;
-
 public interface DataLogger {
+    void writeToChallenges(PlayerID p1, PlayerID p2, int p1_score, int p2_score);
 
     void writePlacedTotoroMove(PlayerID pid, Location loc);
 
