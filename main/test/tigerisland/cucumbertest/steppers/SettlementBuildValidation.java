@@ -144,7 +144,7 @@ public class SettlementBuildValidation implements En {
 
     private void nonVolcanoSetUp(){
         //todo possibly run this with tile placement if necessary
-        player1 = new Player(20,3,2, new PlayerID());
+        player1 = new Player(20,3,2, 1,new PlayerID());
 
         initialVillagerCount = player1.getVillagerCount();
         location = new Location(3,-3,0);

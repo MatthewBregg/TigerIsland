@@ -4,6 +4,7 @@ import tigerisland.board.Location;
 import tigerisland.piece.NullPiece;
 import tigerisland.piece.Piece;
 import tigerisland.piece.PieceVisitor;
+import tigerisland.piece.Shaman;
 import tigerisland.player.PlayerID;
 
 import java.util.List;
@@ -21,6 +22,15 @@ public class Settlement {
 
     public int settlementSize() {
         return piecesInSettlement.size();
+    }
+
+    public boolean hasShamanInSettlement(){
+        for (Object value : piecesInSettlement.values()) {
+            if (value instanceof Shaman) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public Set<Location> getConnectedLocations() {

@@ -23,7 +23,7 @@ public class ScoreVillagersOnHexTest {
 
         this.board = new HexBoard();
         this.scoreManager = new ScoreManager();
-        this.villagersScoreAction = new ScoreVillagersOnHex(board, scoreManager);
+        this.villagersScoreAction = new ScoreVillagersOnHex(board, scoreManager, false);
     }
 
     @Test

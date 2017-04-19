@@ -41,7 +41,6 @@ public class NukeSettlementEradicationRule implements NukePlacementRule {
 
         return false;
     }
-
 }
 
 

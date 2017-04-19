@@ -43,7 +43,7 @@ public class TotoroBuildTest {
         final String errorMessage = "Player must have at least one totoro to do this build";
         PlayerID playeId = new PlayerID();
         int totoroCount = 0;
-        Player player = new Player(0, totoroCount, 0,  playeId);
+        Player player = new Player(0, totoroCount, 0,  1, playeId);
         Hex hex = new Hex(0);
         Location hexLocation = new Location(0, 0, 0);
         BuildActionData buildActionData = new BuildActionData.Builder()

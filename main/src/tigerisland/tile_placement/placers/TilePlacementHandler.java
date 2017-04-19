@@ -1,8 +1,13 @@
 package tigerisland.tile_placement.placers;
 
 import tigerisland.board.Location;
+import tigerisland.hex.Hex;
+import tigerisland.settlement.Settlement;
 import tigerisland.tile.Tile;
 import tigerisland.tile_placement.exceptions.TilePlacementException;
+
+import java.util.Map;
+import java.util.Set;
 
 public class TilePlacementHandler implements TilePlacement {
 
@@ -20,5 +25,6 @@ public class TilePlacementHandler implements TilePlacement {
             throwable.printStackTrace();
         }
     }
+
 
 }

@@ -19,9 +19,9 @@ import tigerisland.terrains.Volcano;
 
 import java.util.ArrayList;
 
-public class TigerBuildTest {
+public class ShamanBuildTest {
 
-    private BuildAction tigerBuild;
+    private BuildAction shamanBuild;
     private Board board;
     private PieceBoard pieceBoard;
     private SettlementBoard settlementBoard;
@@ -33,26 +33,26 @@ public class TigerBuildTest {
         this.pieceBoard = new PieceBoardImpl();
         this.settlementBoard = new LazySettlementBoard(pieceBoard);
         this.scoreManager = new ScoreManager();
-        tigerBuild = new TigerBuild(board, pieceBoard, settlementBoard, scoreManager);
+        shamanBuild = new ShamanBuild(board, pieceBoard, settlementBoard, scoreManager);
     }
 
     @Test
-    public void test_ShouldNotBuildWhenPlayerMustHaveTigerRuleIsApplied() {
+    public void test_ShouldNotBuildWhenPlayerMustHaveShamanRuleIsApplied() {
 
         // Arrange
-        final String errorMessage = "Player must have at least one tiger to do this build";
+        final String errorMessage = "Player must have at least one shaman to do this build";
         PlayerID playeId = new PlayerID();
-        int tigerCount = 0;
-        Player player = new Player(0, 0, tigerCount, 1, playeId);
+        int shamanCount = 0;
+        Player player = new Player(0, 0, shamanCount, 1, playeId);
         Hex hex = new Hex(0);
         Location hexLocation = new Location(0, 0, 0);
         BuildActionData buildActionData = new BuildActionData.Builder()
-                                        .withPlayer(player)
-                                        .withHexLocation(hexLocation)
-                                        .build();
+                .withPlayer(player)
+                .withHexLocation(hexLocation)
+                .build();
 
         // Act
-        BuildActionResult actionResult =  tigerBuild.build(buildActionData);
+        BuildActionResult actionResult =  shamanBuild.build(buildActionData);
 
         // Assert
         Assert.assertFalse(actionResult.successful);
@@ -63,20 +63,20 @@ public class TigerBuildTest {
     public void test_ShouldNotBuildWhenEmptyHexRuleIsApplied() {
 
         // Arrange
-        final String errorMessage = "Hex is NOT empty";
+        final String errorMessage = "Hex does not exist on board.";
         Player player = new Player();
         Hex hex = new Hex(0);
         Location hexLocation = new Location(0, 0, 0);
         BuildActionData buildActionData = new BuildActionData.Builder()
-                                        .withPlayer(player)
-                                        .withHexLocation(hexLocation)
-                                        .build();
+                .withPlayer(player)
+                .withHexLocation(hexLocation)
+                .build();
 
-        Piece piece = new Totoro();
+        Piece piece = new Shaman();
         pieceBoard.addPiece(piece, hexLocation, player.getId());
 
         // Act
-        BuildActionResult actionResult =  tigerBuild.build(buildActionData);
+        BuildActionResult actionResult =  shamanBuild.build(buildActionData);
 
         // Assert
         Assert.assertFalse(actionResult.successful);
@@ -92,83 +92,32 @@ public class TigerBuildTest {
         Hex hex = new Hex(volcano);
         Location hexLocation = new Location(0, 0, 0);
         BuildActionData buildActionData = new BuildActionData.Builder()
-                                        .withPlayer(player)
-                                        .withHexLocation(hexLocation)
-                                        .build();
+                .withPlayer(player)
+                .withHexLocation(hexLocation)
+                .build();
 
         board.placeHex(hexLocation, hex);
 
         // Act
-        BuildActionResult actionResult =  tigerBuild.build(buildActionData);
+        BuildActionResult actionResult =  shamanBuild.build(buildActionData);
 
         // Assert
         Assert.assertFalse(actionResult.successful);
         Assert.assertEquals(errorMessage, actionResult.errorMessage);
     }
 
-    @Test
-    public void test_ShouldNotBuildWhenTigerHexLevelRuleIsApplied() {
-        // Arrange
-        final String errorMessage = "The tiger build hex must be level 3 or greater";
-        Player player = new Player();
-        Hex hex = new Hex(0); hex.setLevel(1);
-        Location hexLocation = new Location(0, 0, 0);
-        BuildActionData buildActionData = new BuildActionData.Builder()
-                                        .withPlayer(player)
-                                        .withHexLocation(hexLocation)
-                                        .build();
-
-        board.placeHex(hexLocation, hex);
-
-        // Act
-        BuildActionResult actionResult =  tigerBuild.build(buildActionData);
-
-        // Assert
-        Assert.assertFalse(actionResult.successful);
-        Assert.assertEquals(errorMessage, actionResult.errorMessage);
-    }
 
     @Test
-    public void test_ShouldNotBuildWhenSettlementAlreadyContainsTigerRuleIsApplied() {
-        // Arrange
-        final String errorMessage = "Tiger build hex must be adjacent to a settlement that doesn't contain a tiger";
-        Player player = new Player();
-        Hex hex = new Hex(0); hex.setLevel(4);
-        Location hexLocation = new Location(0, 0, 0);
-        BuildActionData buildActionData = new BuildActionData.Builder()
-                                        .withPlayer(player)
-                                        .withHexLocation(hexLocation)
-                                        .build();
-
-        board.placeHex(hexLocation, hex);
-
-        Piece villager = new Villager();
-        ArrayList<Location> surroundingLocations = hexLocation.getSurroundingLocations();
-        for(Location location : surroundingLocations)
-            pieceBoard.addPiece(villager, location, player.getId());
-
-        Piece tiger = new Tiger();
-        pieceBoard.addPiece(tiger, surroundingLocations.get(0), player.getId());
-
-        // Act
-        BuildActionResult actionResult =  tigerBuild.build(buildActionData);
-
-        // Assert
-        Assert.assertFalse(actionResult.successful);
-        Assert.assertEquals(errorMessage, actionResult.errorMessage);
-    }
-
-    @Test
-    public void test_ShouldPlaceTigerOnHexWhenAllRulesApplied() {
+    public void test_ShouldPlaceShamanOnHexWhenAllRulesApplied() {
 
         // Arrange
         Player player = new Player();
         Hex hex = new Hex(0); hex.setLevel(4);
         Location hexLocation = new Location(0, 0, 0);
         BuildActionData buildActionData = new BuildActionData.Builder()
-                                        .withPlayer(player)
-                                        .withHexLocation(hexLocation)
-                                        .build();
+                .withPlayer(player)
+                .withHexLocation(hexLocation)
+                .build();
 
         board.placeHex(hexLocation, hex);
 
@@ -178,14 +127,14 @@ public class TigerBuildTest {
             pieceBoard.addPiece(villager, location, player.getId());
 
         // Act
-        BuildActionResult actionResult =  tigerBuild.build(buildActionData);
+        BuildActionResult actionResult =  shamanBuild.build(buildActionData);
 
         // Assert
         Settlement settlement = settlementBoard.getSettlement(hexLocation);
         Assert.assertTrue(actionResult.successful);
         Assert.assertTrue(settlement.isLocationOccupied(hexLocation));
         Assert.assertEquals(player.getId(), settlement.getPlayerID());
-        Assert.assertTrue( pieceBoard.getPiece(hexLocation) instanceof Tiger);
+        Assert.assertTrue( pieceBoard.getPiece(hexLocation) instanceof Shaman);
 
     }
 
@@ -193,13 +142,13 @@ public class TigerBuildTest {
     public void test_ShouldRemoveTigerFromPlayerWhenAllRulesApplied() {
         // Arrange
         Player player = new Player();
-        int tigerAmount = player.getTigerCount();
+        int shamanAmmount = player.getShamanCount();
         Hex hex = new Hex(0); hex.setLevel(4);
         Location hexLocation = new Location(0, 0, 0);
         BuildActionData buildActionData = new BuildActionData.Builder()
-                                        .withPlayer(player)
-                                        .withHexLocation(hexLocation)
-                                        .build();
+                .withPlayer(player)
+                .withHexLocation(hexLocation)
+                .build();
 
         board.placeHex(hexLocation, hex);
 
@@ -209,11 +158,11 @@ public class TigerBuildTest {
             pieceBoard.addPiece(villager, location, player.getId());
 
         // Act
-        BuildActionResult actionResult =  tigerBuild.build(buildActionData);
+        BuildActionResult actionResult =  shamanBuild.build(buildActionData);
 
         // Assert
         Assert.assertTrue(actionResult.successful);
-        Assert.assertEquals(tigerAmount - 1, player.getTigerCount());
+        Assert.assertEquals(shamanAmmount - 1, player.getShamanCount());
     }
 
     @Test
@@ -223,9 +172,9 @@ public class TigerBuildTest {
         Hex hex = new Hex(0); hex.setLevel(3);
         Location hexLocation = new Location(0, 0, 0);
         BuildActionData buildActionData = new BuildActionData.Builder()
-                                        .withPlayer(player)
-                                        .withHexLocation(hexLocation)
-                                        .build();
+                .withPlayer(player)
+                .withHexLocation(hexLocation)
+                .build();
 
         board.placeHex(hexLocation, hex);
 
@@ -235,10 +184,10 @@ public class TigerBuildTest {
             pieceBoard.addPiece(villager, location, player.getId());
 
         // Act
-        BuildActionResult actionResult =  tigerBuild.build(buildActionData);
+        BuildActionResult actionResult =  shamanBuild.build(buildActionData);
 
         // Assert
-        int expectedScore = 75;
+        int expectedScore = 1;
         Assert.assertTrue(actionResult.successful);
         Assert.assertEquals(expectedScore, scoreManager.getPlayerScore(player.getId()) );
     }
@@ -264,7 +213,7 @@ public class TigerBuildTest {
             pieceBoard.addPiece(villager, location, player.getId());
 
         // Act
-        BuildActionResult actionResult =  tigerBuild.build(buildActionData);
+        BuildActionResult actionResult =  shamanBuild.build(buildActionData);
 
         // Assert
 

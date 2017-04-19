@@ -1,5 +1,6 @@
 package tigerislandserver.adapter;
 
+import tigerisland.score.ScoreManager;
 import tigerislandserver.TournamentVariables;
 import tigerislandserver.server.TextFileReader;
 import tigerislandserver.server.TournamentPlayer;
@@ -74,5 +75,13 @@ public class InputAdapter
             //return true;
             return unusedUsernames.remove(username, password);
         }
+    }
+
+    public static void sendScoreCheckMessage(char gameId, TournamentPlayer p1, TournamentPlayer p2, ScoreManager scoreManager){
+        int p1score = scoreManager.getPlayerScore(p1.getID());
+        int p2score = scoreManager.getPlayerScore(p2.getID());
+
+        p1.sendMessage("GAME " + gameId + " OVER PLAYER " + p1.getID() +" "+ p1score + " PLAYER " + p2.getID() + " " + p2score);
+
     }
 }

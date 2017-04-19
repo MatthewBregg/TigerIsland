@@ -22,6 +22,7 @@ public class SettlementExpansionUtility {
         this.hexBoard = hexBoard;
         this.pieceBoard = pieceBoard;
         this.settlementBoard = settlementBoard;
+
     }
 
     /**

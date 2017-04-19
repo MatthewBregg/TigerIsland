@@ -27,7 +27,7 @@ public class PlayerMustHaveATigerToBuildRuleTest {
         // Arrange
         final String Error_Message = "Player must have at least one tiger to do this build";
 
-        player = new Player(0,0,0, new PlayerID());
+        player = new Player(0,0,0, 0,           new PlayerID());
 
         BuildActionData buildActionData = new BuildActionData.Builder()
                 .withPlayer(player)
@@ -47,7 +47,7 @@ public class PlayerMustHaveATigerToBuildRuleTest {
         // Arrange
         final String Error_Message = "Player must have at least one tiger to do this build";
 
-        player = new Player(0,0,1, new PlayerID());
+        player = new Player(0,0,1, 1, new PlayerID());
 
         BuildActionData buildActionData = new BuildActionData.Builder()
                 .withPlayer(player)

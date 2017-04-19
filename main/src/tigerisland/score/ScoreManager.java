@@ -45,6 +45,15 @@ public class ScoreManager{
         playerScores.put(pID, existingPoints);
     }
 
+    public void buildOnNextHexWithShaman(PlayerID pID, int hexLevel){
+        int pointsToAdd = hexLevel * hexLevel;
+        int existingPoints = playerScores.get(pID);
+
+        existingPoints += pointsToAdd * 2;
+
+        playerScores.put(pID, existingPoints);
+    }
+
     public void addTotoroScore(PlayerID pID){
         int existingPoints = playerScores.get(pID);
         existingPoints += 200;

@@ -54,6 +54,10 @@ public class TileDeck {
             return Lake.getInstance();
         }
 
+        if ("PADDY".equals(terrainType)) {
+            return Paddy.getInstance();
+        }
+
         System.err.println("You mispelled in your tile deck override!");
         return null;
     }
@@ -80,7 +84,7 @@ public class TileDeck {
     }
 
     public int getMaxDeckSize(){
-        return (tileTypes * countPerTileType);
+        return 48;
     }
 
 

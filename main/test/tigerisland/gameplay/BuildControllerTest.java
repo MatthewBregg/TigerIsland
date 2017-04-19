@@ -146,12 +146,14 @@ public class BuildControllerTest {
         ExpandSettlementBuild expandAction = buildController.getExpandSettlmentBuild();
         TotoroBuild totoroAction = buildController.getTotoroBuild();
         TigerBuild tigerAction = buildController.getTigerBuild();
+        ShamanBuild shamanAction = buildController.getShamanBuild();
 
         Assert.assertNotNull(settlementExpansionUtility);
         Assert.assertNotNull(foundSettlementAction);
         Assert.assertNotNull(expandAction);
         Assert.assertNotNull(totoroAction);
         Assert.assertNotNull(tigerAction);
+        Assert.assertNotNull(shamanAction);
     }
 
     @Test
@@ -159,10 +161,12 @@ public class BuildControllerTest {
         ScoreVillagersOnHex villageScorer = buildController.getVillageScorer();
         ScoreTotoroOnHex totoroScorer = buildController.getTotoroScorer();
         ScoreTigerOnHex tigerScorer = buildController.getTigerScorer();
+        ScoreShamanOnHex shamanScorer = buildController.getShamanScorer();
 
         Assert.assertNotNull(villageScorer);
         Assert.assertNotNull(totoroScorer);
         Assert.assertNotNull(tigerScorer);
+        Assert.assertNotNull(shamanScorer);
     }
 
     @Test

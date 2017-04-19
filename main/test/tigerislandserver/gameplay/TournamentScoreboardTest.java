@@ -36,10 +36,10 @@ public class TournamentScoreboardTest {
 
         Player player1 = new Player();
         Player player2 = new Player();
-        Player player3 = new Player(20, 2, 2, new PlayerID() );
+        Player player3 = new Player(20, 2, 2, 1,new PlayerID() );
         Player standardPlayer = new Player();
-        Player player4 = new Player(20, 3, 1, new PlayerID());
-        Player player5 = new Player(10, 3, 2, new PlayerID());
+        Player player4 = new Player(20, 3, 1, 1, new PlayerID());
+        Player player5 = new Player(10, 3, 2, 1, new PlayerID());
 
 
 
@@ -179,7 +179,7 @@ public class TournamentScoreboardTest {
     public void playerWonTieBreakerWithMoreTotoros(){
         // if they win with a valid score they get 50 points and opponent loses 10 points
 
-        Player player3 = new Player(20, 2, 2, new PlayerID() );
+        Player player3 = new Player(20, 2, 2,1, new PlayerID() );
         Player standardPlayer = new Player();
 
         playerList.set(0, player3);
@@ -217,7 +217,7 @@ public class TournamentScoreboardTest {
     public void playerWonTieBreakerWithMoreTigers(){
         // if they win with a valid score they get 50 points and opponent loses 10 points
 
-        Player player3 = new Player(20, 3, 1, new PlayerID() );
+        Player player3 = new Player(20, 3, 1, 1, new PlayerID() );
         Player standardPlayer = new Player();
 
         playerList.set(0, player3);
@@ -255,7 +255,7 @@ public class TournamentScoreboardTest {
     public void playerWonTieBreakerWithMoreVillagers(){
         // if they win with a valid score they get 50 points and opponent loses 10 points
 
-        Player player3 = new Player(10, 3, 2, new PlayerID() );
+        Player player3 = new Player(10, 3, 2, 1, new PlayerID() );
         Player standardPlayer = new Player();
 
         playerList.set(0, player3);
@@ -291,7 +291,7 @@ public class TournamentScoreboardTest {
 
     @Test
     public void scoresCanCompound(){
-        Player player3 = new Player(10, 3, 2, new PlayerID() );
+        Player player3 = new Player(10, 3, 2,1, new PlayerID() );
         Player standardPlayer = new Player();
 
         playerList.set(0, player3);

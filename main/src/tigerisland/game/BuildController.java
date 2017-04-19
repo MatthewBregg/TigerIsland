@@ -2,12 +2,12 @@ package tigerisland.game;
 
 import tigerisland.board.HexBoard;
 import tigerisland.build_moves.SettlementExpansionUtility;
+import tigerisland.build_moves.actions.ScoreShamanOnHex;
 import tigerisland.build_moves.actions.ScoreTigerOnHex;
 import tigerisland.build_moves.actions.ScoreTotoroOnHex;
 import tigerisland.build_moves.actions.ScoreVillagersOnHex;
 import tigerisland.build_moves.builds.*;
 import tigerisland.piece.PieceBoard;
-import tigerisland.piece.Tiger;
 import tigerisland.score.ScoreManager;
 import tigerisland.settlement.SettlementBoard;
 
@@ -22,10 +22,14 @@ public class BuildController {
     ExpandSettlementBuild expandSettlementBuild;
     TotoroBuild totoroAction;
     TigerBuild tigerAction;
+    ShamanBuild shamanAction;
 
     ScoreVillagersOnHex villageScorer;
     ScoreTotoroOnHex totoroScorer;
     ScoreTigerOnHex tigerScorer;
+    ScoreShamanOnHex shamanScorer;
+
+    boolean justNukedShaman;
 
     public BuildController(HexBoard hexBoard, PieceBoard pieceBoard, SettlementBoard settlementBoard, ScoreManager scoreManager){
         this.hexBoard = hexBoard;
@@ -58,15 +62,24 @@ public class BuildController {
         return tigerAction;
     }
 
+    public ShamanBuild getShamanBuild(){
+        return shamanAction;
+
+    }
     public ScoreVillagersOnHex getVillageScorer(){
         return villageScorer;
     }
+
     public ScoreTotoroOnHex getTotoroScorer(){
         return totoroScorer;
     }
 
     public ScoreTigerOnHex getTigerScorer(){
         return tigerScorer;
+    }
+
+    public ScoreShamanOnHex getShamanScorer(){
+        return shamanScorer;
     }
 
     private void initializeBuilders(){
@@ -77,12 +90,14 @@ public class BuildController {
 
         totoroAction = new TotoroBuild(hexBoard, pieceBoard, settlementBoard, scoreMgr);
         tigerAction = new TigerBuild(hexBoard, pieceBoard, settlementBoard, scoreMgr);
+        shamanAction = new ShamanBuild(hexBoard, pieceBoard, settlementBoard, scoreMgr);
     }
 
     private void initializeScoring(){
-        villageScorer = new ScoreVillagersOnHex(hexBoard, scoreMgr);
+        villageScorer = new ScoreVillagersOnHex(hexBoard, scoreMgr, justNukedShaman);
         totoroScorer = new ScoreTotoroOnHex(scoreMgr);
         tigerScorer = new ScoreTigerOnHex(scoreMgr);
+        shamanScorer = new ScoreShamanOnHex(scoreMgr);
     }
 
     public BuildActionResult foundSettlement(BuildActionData buildActionData){
@@ -103,6 +118,11 @@ public class BuildController {
 
     public BuildActionResult buildTotoro(BuildActionData buildActionData){
         BuildActionResult result = totoroAction.build(buildActionData);
+        return result;
+    }
+
+    public BuildActionResult buildShaman(BuildActionData buildActionData){
+        BuildActionResult result = shamanAction.build(buildActionData);
         return result;
     }
 }

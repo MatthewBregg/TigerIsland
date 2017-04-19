@@ -115,7 +115,7 @@ public class GameManager {
     public boolean placeTile(Tile tile, Location location) {
         tilesDrawn++;
         logger.writePlacedTileMove(new PlayerID(), location, tile.getOrientation(), tile.toString());
-        // TODO : mbregg
+
         boolean result = tilePlacer.placeTile(tile, location);
         logger.writeMoveResult("Tile placement " + location + " " + result + " , " + tile + " SIZE OF BOARD IS " + gameBoard.getSize());
         if ( !result ) {
@@ -132,6 +132,20 @@ public class GameManager {
         logger.writeFoundedSettlementMove(player.getId(),location);
         BuildActionResult result = buildController.foundSettlement(buildAction);
         logger.writeMoveResult("FoundSettlement " + location + " " + result.successful + " " + result.errorMessage);
+        if ( !result.successful ) {
+            logger.writeInvalidMoveAttempted(player.getId(),result.errorMessage);
+        }
+        return result.successful;
+    }
+
+    public boolean foundShangrilaSettlement(Location location, Player player){
+        BuildActionData buildAction = new BuildActionData.Builder()
+                .withHexLocation(location)
+                .withPlayer(player)
+                .build();
+        logger.writeFoundedSettlementMove(player.getId(),location);
+        BuildActionResult result = buildController.buildShaman(buildAction);
+        logger.writeMoveResult("FoundShangrilaSettlement " + location + " " + result.successful + " " + result.errorMessage);
         if ( !result.successful ) {
             logger.writeInvalidMoveAttempted(player.getId(),result.errorMessage);
         }

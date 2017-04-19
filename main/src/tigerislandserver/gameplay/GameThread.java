@@ -142,6 +142,12 @@ public class GameThread extends Thread{
         gameNotEnded=false;
     }
 
+    public void sendGetOutcomeMessage(){
+        TournamentPlayer p1 = playersInGame.get(0);
+        TournamentPlayer p2 = playersInGame.get(1);
+        OutputAdapter.sendGameOverOutcomeMessage(p1, p2, gameID);
+    }
+
     public long getGameID(){
         return gameID;
     }
@@ -197,6 +203,7 @@ public class GameThread extends Thread{
 
                 endGame();
                 generateEndGameMessage();
+                sendGetOutcomeMessage();
             }
 
             moveNumber++;

@@ -14,6 +14,7 @@ public class TilePlacementController {
     private PieceBoard pieces;
     private SettlementBoard settlements;
     private TilePlacement tilePlacerChain;
+    private NukeTilePlacer nukePlacer;
 
     public TilePlacementController(HexBoard hexBoard, SettlementBoard settlementBoard, PieceBoard pieceBoard){
         gameBoard = hexBoard;
@@ -36,13 +37,14 @@ public class TilePlacementController {
     }
 
     private NukeTilePlacer initializeNukePlacer(){
-        NukeTilePlacer nukePlacer = new NukeTilePlacer(gameBoard,
+        nukePlacer = new NukeTilePlacer(gameBoard,
                 pieces,
                 new NukeCoverHexesLevelRule(gameBoard),
                 new NukeHexesOfDifferentTilesRule(gameBoard),
                 new NukeNonNukeablePieceRule(pieces),
                 new NukeSettlementEradicationRule(settlements),
                 new NukeVolcanoOnVolcanoRule(gameBoard));
+        nukePlacer.setSettlementBoard(settlements);
         return nukePlacer;
     }
 
@@ -55,4 +57,5 @@ public class TilePlacementController {
         }
         return validPlacement;
     }
+
 }

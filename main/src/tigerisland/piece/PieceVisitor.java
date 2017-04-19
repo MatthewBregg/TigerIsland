@@ -17,4 +17,10 @@ public class PieceVisitor {
     public void visitNullPiece(NullPiece nullPiece) {
         // Do nothing by default
     }
+
+    public void visitShaman(Shaman shaman){
+
+    }
 }
+
+

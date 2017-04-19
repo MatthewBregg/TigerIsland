@@ -1,5 +1,6 @@
 package tigerislandserver.adapter;
 
+import tigerisland.score.ScoreManager;
 import tigerisland.tile.Tile;
 import tigerislandserver.server.TournamentPlayer;
 
@@ -16,6 +17,22 @@ public class OutputAdapter extends Thread
     }
 
     public static void sendFoundedSettlementMessage(ArrayList<TournamentPlayer> players, TournamentPlayer tournamentPlayer, String[] inputTokens)
+    {
+        for(TournamentPlayer tp: players)
+        {
+            String message = "";
+            message += appendBetween(inputTokens, 0, 3);
+            message += " PLAYER " + tournamentPlayer.getID().getId();
+            message += " PLACED ";
+            message += appendBetween(inputTokens, 5, 10);
+            message += " FOUNDED ";
+            message += appendBetween(inputTokens, 12, 16);
+
+            tp.sendMessage(message);
+        }
+    }
+
+    public static void sendFoundedShangrilaSettlementMessage(ArrayList<TournamentPlayer> players, TournamentPlayer tournamentPlayer, String[] inputTokens)
     {
         for(TournamentPlayer tp: players)
         {
@@ -240,9 +257,31 @@ public class OutputAdapter extends Thread
         return message;
     }
 
+    public static void sendForfeitMessage(char gameId, TournamentPlayer p1, TournamentPlayer p2, ScoreManager scoreManager){
+        int p1score = scoreManager.getPlayerScore(p1.getID());
+        int p2score = scoreManager.getPlayerScore(p2.getID());
+
+        p1.sendMessage("GAME " + gameId + " OVER PLAYER " + p1.getID() +" FORFEITED: DOES NOT KNOW OUTCOME");
+        p2.sendMessage("GAME " + gameId + " OVER PLAYER " + p2.getID() +" FORFEITED: DOES NOT KNOW OUTCOME");
+    }
+
+
+    public static void sendValidScoreCheckMessage(char gameId, TournamentPlayer p1, TournamentPlayer p2, ScoreManager scoreManager){
+        int p1score = scoreManager.getPlayerScore(p1.getID());
+        int p2score = scoreManager.getPlayerScore(p2.getID());
+
+        p1.sendMessage("GAME " + gameId + " OVER PLAYER " + p1.getID() +" "+ p1score + " PLAYER " + p2.getID() + " " + p2score);
+
+    }
+
     public static void sendWelcomeMessage(TournamentPlayer player)
     {
         player.sendMessage("WELCOME TO ANOTHER EDITION OF THUNDERDOME!");
+    }
+
+    public static void sendGameOverOutcomeMessage(TournamentPlayer player1, TournamentPlayer player2, char gid){
+        player1.sendMessage("GAME "+gid+ " OVER SEND OUTCOME");
+        player2.sendMessage("GAME "+gid+ " OVER SEND OUTCOME");
     }
 
     public static void sendMessage(ArrayList<TournamentPlayer> players, String endGameMessage)

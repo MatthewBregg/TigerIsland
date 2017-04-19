@@ -62,6 +62,14 @@ public class ScoreManagerTest {
     }
 
     @Test
+    public void addingPointsForNewShangrilaSettlement(){
+        playerScores.resetPlayerScore(player1.getId());
+        playerScores.buildOnNextHexWithShaman(player1.getId(), 5);
+        Assert.assertTrue(playerScores.getPlayerScore(player1.getId()) == 50);
+    }
+
+
+    @Test
     public void addingPointsForSingleHexLevel3DueToExpansion(){
         playerScores.resetPlayerScore(player1.getId());
         playerScores.buildOnNewHex(player1.getId(), 3);

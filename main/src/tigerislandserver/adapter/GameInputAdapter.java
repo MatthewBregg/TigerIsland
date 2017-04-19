@@ -32,7 +32,9 @@ public class GameInputAdapter
                     return;
                 }
 
-
+                if(isFoundShamanCommand(inputTokens)){
+                    foundShangrilaSettlement(game, tournamentPlayer, inputTokens);
+                }
                 if(isFoundSettlementCommand(inputTokens))
                 {
                     foundSettlement(game, tournamentPlayer, inputTokens);
@@ -124,8 +126,37 @@ public class GameInputAdapter
                 && containsNumbersForBuildActionLocation(inputTokens);
     }
 
+    private static boolean isFoundShamanCommand(String[] inputTokens){
+        return inputTokens[11].equals("FOUND")
+                && inputTokens[12].equals("SHANGRILA")
+                && inputTokens[13].equals("AT")
+                && containsNumbersForBuildActionLocation(inputTokens);
+    }
+
     private static boolean containsNumbersForBuildActionLocation(String[] inputTokens) {
         return checkInputTokensForValidNumberAtIndexes(inputTokens,14,15,16);
+    }
+
+    private static void foundShangrilaSettlement(GameThread game, TournamentPlayer tournamentPlayer, String[] inputTokens)
+    {
+        Location loc = parseBuildSettlementLocationFromInputTokens(inputTokens);
+        if ( loc == null ) {
+            game.invalidBuild(tournamentPlayer);
+            return;
+        }
+
+        GameManager gm = game.getGameManager();
+        Player p = gm.getPlayer(tournamentPlayer.getID());
+
+        if(gm.foundShangrilaSettlement(loc, p))
+        {
+            OutputAdapter.sendFoundedShangrilaSettlementMessage(game.getPlayersInGame(), tournamentPlayer, inputTokens);
+        }
+        else
+        {
+            OutputAdapter.sendIllegalBuildMessage(game.getPlayersInGame(), tournamentPlayer, inputTokens);
+            game.invalidBuild(tournamentPlayer);
+        }
     }
 
     private static void foundSettlement(GameThread game, TournamentPlayer tournamentPlayer, String[] inputTokens)

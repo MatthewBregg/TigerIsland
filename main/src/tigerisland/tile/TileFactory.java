@@ -4,7 +4,7 @@ import tigerisland.hex.Hex;
 import tigerisland.terrains.*;
 
 public class TileFactory {
-    final static Terrain[] terrainTypes = new Terrain[]{ Rocky.getInstance(), Grassland.getInstance(), Lake.getInstance(), Jungle.getInstance() };
+    final static Terrain[] terrainTypes = new Terrain[]{ Rocky.getInstance(), Grassland.getInstance(), Lake.getInstance(), Jungle.getInstance(), Paddy.getInstance() };
 
     private TileFactory() {}
 
