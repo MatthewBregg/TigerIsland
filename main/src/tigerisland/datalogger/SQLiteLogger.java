@@ -66,7 +66,7 @@ public class SQLiteLogger implements DataLogger {
     }
 
     public void writeToChallenges(PlayerID p1, PlayerID p2, int p1_score, int p2_score) {
-        String query = "INSERT OR REPLACE INTO challenge_scores(challenge_id, game_id, match_id, p1_id, p2_id, p1_score, p2_score) VALUES(?,?,?,?,?,?)";
+        String query = "INSERT OR REPLACE INTO challenge_scores(challenge_id, game_id, match_id, p1_id, p2_id, p1_score, p2_score) VALUES(?,?,?,?,?,?,?)";
         try {
             PreparedStatement prstmnt = connection.prepareStatement(query);
             prstmnt.setInt(1, challengeId);
