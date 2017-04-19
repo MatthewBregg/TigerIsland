@@ -34,7 +34,7 @@ public class RunTournamentServer
         TournamentVariables tv = TournamentVariables.getInstance();
         tv.setNumberOfChallenges(Integer.parseInt(args[0]));
         tv.setTournamentPassword(args[1]);
-        tv.setUnsernamePasswordFile(args[2]);
+        tv.setUsernamePasswordFile(args[2]);
         tv.setRandomSeed(Integer.parseInt(args[5]));
 
         System.out.println("Input Arguments were : Seed: " + tv.getRandomSeed() + " Challege Num: " + tv.getNumberOfChallenges());

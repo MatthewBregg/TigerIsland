@@ -49,7 +49,7 @@ public class TournamentScoreboardTest {
         //playerList.add(player5);
 
         // instantiate the challenge object
-        tourneyRepresentation = new Challenge(tourneyPlayers,0, new RoundInfo());
+        tourneyRepresentation = new Challenge(tourneyPlayers,0, RoundInfo.getInstance());
 
         tournamentScoreboard = new TournamentScoreboard(tourneyRepresentation);
 

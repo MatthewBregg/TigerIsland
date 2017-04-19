@@ -5,7 +5,7 @@ public class TournamentVariables
     private static TournamentVariables instance;
     private String password;
     private String fileName;
-    private int numberOfChalleges;
+    private int numberOfChallenges;
     private int randomSeed;
 
     private TournamentVariables()
@@ -37,14 +37,14 @@ public class TournamentVariables
         this.password=password;
     }
 
-    public synchronized void setUnsernamePasswordFile(String fileName)
+    public synchronized void setUsernamePasswordFile(String fileName)
     {
         this.fileName = fileName;
     }
 
     public void setNumberOfChallenges(int numberOfChallenges)
     {
-        this.numberOfChalleges = numberOfChallenges;
+        this.numberOfChallenges = numberOfChallenges;
     }
 
     public void setRandomSeed(int randomSeed) {
@@ -56,14 +56,14 @@ public class TournamentVariables
         return password;
     }
 
-    public synchronized String getUsernamePasswordFileName()
+    public synchronized String getUsernamePasswordFile()
     {
         return fileName;
     }
 
     public int getNumberOfChallenges()
     {
-        return numberOfChalleges;
+        return numberOfChallenges;
     }
 
     public int getRandomSeed() {

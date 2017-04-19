@@ -13,7 +13,7 @@ public class InputAdapter
     private static HashMap<String, String> getUserNamesAndPasswords()
     {
         //return new HashMap<>();
-        return new TextFileReader(TournamentVariables.getInstance().getUsernamePasswordFileName()).getUsernameAndPasswordCombos();
+        return new TextFileReader(TournamentVariables.getInstance().getUsernamePasswordFile()).getUsernameAndPasswordCombos();
     }
 
     public static boolean canEnterTournament(String input)

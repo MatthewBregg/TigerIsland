@@ -6,7 +6,6 @@ import tigerisland.datalogger.LoggerFactory;
 import tigerisland.datalogger.SQLiteLogger;
 import tigerisland.player.PlayerID;
 import tigerislandserver.JavaFXScoreboardPOC.RoundInfo;
-import tigerislandserver.JavaFXScoreboardPOC.TournamentScore;
 import tigerislandserver.adapter.OutputAdapter;
 import tigerislandserver.gameplay.Challenge;
 import tigerislandserver.gameplay.TournamentScoreManager;
@@ -38,7 +37,7 @@ public class TournamentServer {
     public TournamentServer(int port) {
         currentlyAcceptingConnections = false;
         tournamentScoreManager = new TournamentScoreManager(clientConnections);
-        trackRoundInfo = new RoundInfo();
+        trackRoundInfo = RoundInfo.getInstance();
         try {
             serverSocket = new ServerSocket(port);
         } catch (IOException e) {
@@ -141,6 +140,7 @@ public class TournamentServer {
         }
     }
 
+/*
     private void updatePlayerTournamentScores(){
         for(TournamentPlayer player : clientConnections){
             TournamentScore playerScore = player.getTournamentScore();
@@ -148,6 +148,7 @@ public class TournamentServer {
         }
     }
 
+*/
     private void storeTournamentScores() {
 
         SQLiteLogger sqLiteLogger = LoggerFactory.getSQLLogger('0',0,0, playersIdToUserName);

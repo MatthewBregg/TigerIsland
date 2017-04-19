@@ -26,7 +26,7 @@ public class ChallengeTest {
     @Before
     public void testSetup() throws Exception {
 
-        tourneyChallenge = new Challenge(players, 0, new RoundInfo());
+        tourneyChallenge = new Challenge(players, 0, RoundInfo.getInstance());
     }
 
     @Test
